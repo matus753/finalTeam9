@@ -20,8 +20,8 @@
   <body>
       <div class="container"> 
         <h1>Pracovníci</h1>
-        <p>Pre viac informácií o pracovníkoch, kliknite na jednotlivé riadky v tabuľke</p>    
-        
+        <p>Pre viac informácií o pracovníkoch, kliknite na jednotlivé riadky v tabuľke </p>
+
         
 
   	    <?php
