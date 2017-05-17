@@ -24,29 +24,27 @@
             $sql = "SELECT * FROM staff ORDER BY surname";
             $result = $conn->query($sql);  
             
-            echo '<table class="table table-striped table-hover table-bordered">
-  	    <thead>
+            echo '<table class="table table-striped table-hover table-bordered" id="SS-table-staff">
   	      <tr>
-  	        <th>Meno</th>
+  	        <th onclick="sortTable(0)" style="cursor:pointer"><i class="fa fa-sort"></i> Meno</th>
   	        <th>Miestnosť</th>
   	        <th>Klapka</th>
-                <th>Oddelenie</th>
-                <th>Zaradenie</th>
+                <th onclick="sortTable(3)" style="cursor:pointer"><i class="fa fa-sort"></i> Oddelenie</th>
+                <th onclick="sortTable(4)" style="cursor:pointer"><i class="fa fa-sort"></i> Zaradenie</th>
                 <th>Funkcia</th>
   	      </tr>
-  	    </thead>
   	    <tbody>';
             
             if ($result->num_rows > 0) {           
                 while($row = $result->fetch_assoc()) {
                     echo '<tr class="m" data-toggle="modal" data-id="'.$row['id'].'" data-target="#myModal">';
-                        echo "<th>";
+                        echo "<td>";
                             echo $row['surname'] . " " . $row['name'];
                             if (!empty($row['title1']))
                                 echo ", " . $row['title1'];
                             if (!empty($row['title2']))
                                 echo ", " . $row['title2'];
-                        echo "</th>";
+                        echo "</td>";
                         echo "<td>";
                             echo $row['room'];
                         echo "</td>";
@@ -62,7 +60,7 @@
                         echo "<td>";
                             echo $row['function'];
                         echo "</td>";
-                    echo "</tr>";                                    
+                    echo "</tr>";
                 }
             }
         }
@@ -86,24 +84,6 @@
             </div>
 
           </div>
-        </div>';
-//
-//            echo "<tr>
-//                                <td>6:00-14:00</td>
-//                                <td>".$time6."</td>
-//                        </tr>	
-//                        <tr>
-//                                <td>14:00-20:00</td>
-//                                <td>".$time14."</td>
-//                        </tr>	
-//                        <tr>
-//                                <td>20:00-24:00</td>
-//                                <td>".$time20."</td>
-//                        </tr>	
-//                        <tr>
-//                                <td>24:00-6:00</td>
-//                                <td>".$time24."</td>
-//                        </tr>";	  
-      
+        </div>';    
 
 ?>

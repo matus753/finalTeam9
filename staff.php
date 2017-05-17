@@ -21,8 +21,8 @@
       <div class="container"> 
         <h1>Pracovníci</h1>
         <p>Pre viac informácií o pracovníkoch, kliknite na jednotlivé riadky v tabuľke </p>
-
-        
+        <input type="text" id="SS-filterDep" onkeyup="filterDepartment()" placeholder="Filter oddelení.." title="Zadajte oddelenie">
+        <input type="text" id="SS-filterRole" onkeyup="filterRole()" placeholder="Filter zaradenia.." title="Zadajte zaradenie">
 
   	    <?php
   	    	zobraz_zoznam_pracovnikov();
