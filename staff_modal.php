@@ -19,11 +19,7 @@
         mysqli_set_charset($conn, "utf8");
         $sql = "SELECT * FROM staff WHERE id = '$id'";
         $result = $conn->query($sql);
-        
-       
-        echo "<table class='table table-striped table-hover'>";
-        echo "<thead><tr><th>Názov mesta</th><th>Počet návštevníkov</th></tr></thead>";
-        echo "<tbody>";
+
         $vys = "";
         while($row = $result->fetch_assoc()){
             if (!empty($row['photo']))
@@ -39,5 +35,5 @@
             $vys .= "<p><span class='bold'>Telefón: <i class='fa fa-phone'></i></span> +421 2 60291 " . $row['phone'] . "</p>";
             $vys .= "<p><span class='bold'>Miestnosť:</span> " . $row['room'] . "</p>";
         }
-        $vys = "<h3 class='center red'></h3>"  . $vys . "</tbody></table>";
+        
         echo $vys;
