@@ -1,0 +1,48 @@
+.navbar-default.nav-upper {
+    height: 50px;
+}
+.navbar-default.nav-upper ul {
+    float: right;
+    display: table;
+}
+.navbar-default.nav-upper .navbar-upper > li {
+    display: table-cell;
+    font-size: 14px;
+}
+.navbar-default.nav-upper .navbar-upper > li > a {
+    color: #777;
+}
+@media (min-width: 768px) {
+    .navbar.navbar-lower .navbar-nav {
+        margin-left: 100px;
+    }
+}
+.navbar-lower{
+    margin-top: 50px;
+    height: 60px;
+    box-shadow:  0 4px 10px -2px rgba(0, 0, 0, 0.19);
+}
+.navbar-logo {
+    background-image: url('../images/logo/logo_trojriadkove_biele.png');
+    width: 583px;
+    height: 73.8px;
+    max-width: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+/*    position: absolute;*/
+    top: 20px;
+    left: 15px;
+    z-index: 1051;
+    position: fixed;
+}
+.lang{
+    color: rgb(4,102,205) !important;
+    font-weight: bold;
+}
+.barItem{
+    font-weight: bold;
+}
+#emPAGEcontent{
+    margin-top: 130px;
+}
