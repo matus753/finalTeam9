@@ -26,9 +26,8 @@
         <input type="text" id="SS-filterRole" onkeyup="filterRole()" placeholder="Filter zaradenia.." title="Zadajte zaradenie">
 
   	    <?php
-  	    	zobraz_zoznam_pracovnikov();
-                
-  	      ?>
+  	    	zobraz_zoznam_pracovnikov();              
+  	    ?>
   	    
       </div>
   </body>

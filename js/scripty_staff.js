@@ -10,7 +10,6 @@ $(document).on('click', '.m', function(){
             $("#modalBody").html(msg);
         }
     });
-
 });
 
 $(document).ready(function(){
