@@ -19,6 +19,6 @@ $dbconfig = array(
     'username' => 'tim9',
     'password' => 'tim9',
     'dbname' => 'final',
-);
+); 
 
 ?>
