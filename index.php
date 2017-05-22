@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <body>
 
-
     <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -81,7 +80,6 @@
 
     <!-- Page Content -->
     <div id="emPAGEcontent">
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
