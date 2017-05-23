@@ -129,11 +129,14 @@ function getLanguage(){
 
 
 function loadNavbarSK($isIntranet = false){
+    session_start();
+    $last = $_SESSION['page'];
     if (!$isIntranet){
-        $last = $_SESSION['page'];
+
         $all = explode("/", $last);
         $lastPage = $all[3];
         $pathENfile = '../en/' . $lastPage;
+        $pathSK = $_SERVER['HTTP_HOST'] .$last;
         if (!file_exists($pathENfile)) {
             $pathEN = $_SERVER['HTTP_HOST'] . '/' . $all[1] . '/en/index.php';
             echo '<script>console.log("' . $pathEN . '")</script>';
@@ -141,6 +144,9 @@ function loadNavbarSK($isIntranet = false){
             $pathEN = $_SERVER['HTTP_HOST'] . '/' . $all[1] . '/en/' . $lastPage;
             echo '<script>console.log("' . $pathEN . '")</script>';
         }
+    } else{
+        $pathSK = $_SERVER['HTTP_HOST'] .$last;
+        $pathEN = $_SERVER['HTTP_HOST'] .$last;
     }
 
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
@@ -198,7 +204,7 @@ function loadNavbarSK($isIntranet = false){
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="'.'http://' . $_SERVER['HTTP_HOST'] .$last.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
+                            <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
                             <li><a href="'.'http://'.$pathEN.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
                         </ul>
                     </li>
@@ -257,15 +263,15 @@ function loadJScripts(){
 }
 
 function generatePageByDirectory($page){
-    $directories = scandir("intranet/$page");
+    $directories = scandir("../intranet/$page");
     foreach ($directories as $key => $value) {
         if($value !== '.' && $value !== '..') {
             echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
-            $files = scandir("intranet/$page/$value");
+            $files = scandir("../intranet/$page/$value");
             echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 50px"><div class="list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
-                    echo '<a class="list-group-item" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
+                    echo '<a class="list-group-item" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
                 }
             }
 
@@ -317,12 +323,17 @@ function updateSql($sql){
 }
 
 function loadNavbarEN($isIntranet = false){
+    $last = $_SESSION['page'];
     if (!$isIntranet){
-		$last = $_SESSION['page'];
+
 		$all = explode("/", $last);
 		$lastPage = $all[3];
 		$pathSK = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/sk/'.$lastPage;
-	}
+        $pathEN = $_SERVER['HTTP_HOST'] .$last;
+	}else{
+        $pathSK = $_SERVER['HTTP_HOST'] .$last;
+        $pathEN = $_SERVER['HTTP_HOST'] .$last;
+    }
 
 
     /*$pathENfile = '../en/'.$lastPage;
@@ -389,7 +400,7 @@ function loadNavbarEN($isIntranet = false){
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
-                            <li><a href="'.'http://' . $_SERVER['HTTP_HOST'] .$last.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
+                            <li><a href="'.'http://' . $pathEN.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
                         </ul>
                     </li>
                     <li><a href="login.php" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>

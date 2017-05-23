@@ -1,5 +1,7 @@
 <?php
 require_once '../general_functions.php';
+session_start();
+$_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 ?>
 <!DOCTYPE html>
@@ -55,7 +57,7 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
             <h1>Doktorandi</h1>
             <div id="accordion">
                 <ul class="panel benefitList list-group">
-                    <?php generatePageByDirectory("doktorandi");?>
+                    <?php generatePageByDirectory("doktorandi"); ?>
                 </ul>
             </div>
         </div>

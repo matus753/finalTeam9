@@ -1,5 +1,7 @@
 <?php
 require_once '../general_functions.php';
+session_start();
+$_SESSION['page'] = $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
 <html>
