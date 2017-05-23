@@ -11,22 +11,6 @@
     /*margin: .4em 0;*/
 }
 
-.benefits li.lock{
-    background: url(/img/lock.png) no-repeat left top;
-}
-
-.benefits li.folder{
-    background: url(/img/folder.png) no-repeat left top;
-}
-
-.benefits li.sharing{
-    background: url(/img/sharing.png) no-repeat left top;
-}
-
-.benefits li.key{
-    background: url(/img/key.png) no-repeat left top;
-}
-
 .action-list-group {
     position: relative;
 }

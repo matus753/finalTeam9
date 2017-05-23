@@ -84,16 +84,16 @@ function loginLDAP($login, $password){
     @ldap_close($connect);
     return(false);
 }
-function loadHead(){
+function loadHead($dir = ""){
     echo    '<meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="css/eb_general.css">
-                <link href="css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="' . $dir . 'css/eb_general.css">
+                <link href="' . $dir . 'css/bootstrap.min.css" rel="stylesheet">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">';
 }
 
-function loadNavbar(){
+function loadNavbar($dir = ""){
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -105,7 +105,7 @@ function loadNavbar(){
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="index.php">
                     <div class="logo">
-                        <img id="logoIMG" src="./images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
+                        <img id="logoIMG" src="' . $dir . './images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
                 </a>
             </div>
@@ -201,10 +201,10 @@ function loadFooter(){
 </footer>';
 }
 
-function loadJScripts(){
-    echo '<script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/ib-footer-resize.js"></script>';
+function loadJScripts($dir = ""){
+    echo '<script src="' . $dir . 'js/jquery.js"></script>
+        <script src="' . $dir . 'js/bootstrap.min.js"></script>
+        <script src="' . $dir . 'js/ib-footer-resize.js"></script>';
 }
 
 function generatePageByDirectory($page){
@@ -256,8 +256,12 @@ function generatePageByDirectory($page){
 }
 
 function saveUrl($page, $category, $url){
+    updateSql("INSERT INTO url VALUES (NULL,'$page','$category','$url');");
+
+}
+
+function updateSql($sql){
     $conn = new_connection();
-    $sql = "INSERT INTO url VALUES (NULL,'$page','$category','$url');";
     if ($conn->query($sql) !== TRUE) {
         die(json_encode(array('message' => 'SQL-ERROR', 'code' => 500)));
     }

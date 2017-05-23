@@ -35,3 +35,26 @@ function deleteRecord(isFile, info) {
         })
     }
 }
+
+function saveInlineEdit(editableObj,column,id) {
+    if($(editableObj).attr('data-old_value') === editableObj.innerHTML)
+        return false;
+
+    $(editableObj).css("background","#FFF url(img/loader.gif) no-repeat right");
+    var editval= editableObj.innerHTML.replace("&nbsp;","");
+
+    $.ajax({
+        url: "saveedit.php",
+        type: "POST",
+        data:{  column: column,
+                editval: editval,
+                id: id},
+        success: function(response) {
+            $(editableObj).attr('data-old_value',editableObj.innerHTML);
+            $(editableObj).css("background","#FDFDFD");
+        },
+        error: function () {
+            console.log("errr");
+        }
+    });
+}
