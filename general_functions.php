@@ -1,6 +1,6 @@
 <?php
 
-include('config.php');
+require_once __DIR__ . '/config.php';
 
 function new_connection() {
         $hostname = "localhost";
@@ -84,16 +84,65 @@ function loginLDAP($login, $password){
     @ldap_close($connect);
     return(false);
 }
-function loadHead($dir = ""){
+function loadHead(){
     echo    '<meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="' . $dir . 'css/eb_general.css">
-                <link href="' . $dir . 'css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="../css/eb_general.css">
+                <link href="../css/bootstrap.min.css" rel="stylesheet">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">';
 }
 
-function loadNavbar($dir = ""){
+function getLanguage(){
+    session_start();
+    header('Cache-control: private'); // IE 6 FIX
+    if(isSet($_GET['lang']))
+    {
+        $lang = $_GET['lang'];
+// register the session and set the cookie
+        $_SESSION['lang'] = $lang;
+        setcookie('lang', $lang, time() + (3600 * 24 * 30));
+    }
+    else if(isSet($_SESSION['lang']))
+    {
+        $lang = $_SESSION['lang'];
+    }
+    else if(isSet($_COOKIE['lang']))
+    {
+        $lang = $_COOKIE['lang'];
+    }
+    else
+    {
+        $lang = 'sk';
+    }
+/*    switch ($lang) {
+        case 'en':
+
+            break;
+        case 'sk':
+            $lang_file = 'lang.sk.php';
+            break;
+        default:
+            $lang_file = 'lang.en.php';
+    }*/
+}
+
+
+function loadNavbarSK($isIntranet = false){
+    if (!$isIntranet){
+        $last = $_SESSION['page'];
+        $all = explode("/", $last);
+        $lastPage = $all[3];
+        $pathENfile = '../en/' . $lastPage;
+        if (!file_exists($pathENfile)) {
+            $pathEN = $_SERVER['HTTP_HOST'] . '/' . $all[1] . '/en/index.php';
+            echo '<script>console.log("' . $pathEN . '")</script>';
+        } else {
+            $pathEN = $_SERVER['HTTP_HOST'] . '/' . $all[1] . '/en/' . $lastPage;
+            echo '<script>console.log("' . $pathEN . '")</script>';
+        }
+    }
+
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -105,7 +154,7 @@ function loadNavbar($dir = ""){
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="index.php">
                     <div class="logo">
-                        <img id="logoIMG" src="' . $dir . './images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
+                        <img id="logoIMG" src="../images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
                 </a>
             </div>
@@ -149,8 +198,8 @@ function loadNavbar($dir = ""){
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
-                            <li><a href="#" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
+                            <li><a href="'.'http://' . $_SERVER['HTTP_HOST'] .$last.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
+                            <li><a href="'.'http://'.$pathEN.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
                         </ul>
                     </li>
                     <li><a href="#" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>
@@ -201,10 +250,10 @@ function loadFooter(){
 </footer>';
 }
 
-function loadJScripts($dir = ""){
-    echo '<script src="' . $dir . 'js/jquery.js"></script>
-        <script src="' . $dir . 'js/bootstrap.min.js"></script>
-        <script src="' . $dir . 'js/ib-footer-resize.js"></script>';
+function loadJScripts(){
+    echo '<script src="../js/jquery.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/ib-footer-resize.js"></script>';
 }
 
 function generatePageByDirectory($page){
@@ -265,4 +314,87 @@ function updateSql($sql){
     if ($conn->query($sql) !== TRUE) {
         die(json_encode(array('message' => 'SQL-ERROR', 'code' => 500)));
     }
+}
+
+function loadNavbarEN($isIntranet = false){
+    if (!$isIntranet){
+		$last = $_SESSION['page'];
+		$all = explode("/", $last);
+		$lastPage = $all[3];
+		$pathSK = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/sk/'.$lastPage;
+	}
+
+
+    /*$pathENfile = '../en/'.$lastPage;
+    if (!file_exists($pathENfile)){
+        $pathEN = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/en/index.php';
+        echo '<script>console.log("'.$pathEN.'")</script>';
+    } else{
+        $pathEN = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/en/'.$lastPage;
+        echo '<script>console.log("'.$pathEN.'")</script>';
+    }*/
+    echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand navbar-brand-logo" href="#">
+                    <div class="logo">
+                        <img id="logoIMG" src="../images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
+                    </div>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="emNavbar">
+                <ul class="nav navbar-nav navbar-right scrollable-menu">
+                    <li><a href="#" class="navbarItem">About us</a></li>
+                    <li><a href="#" class="navbarItem">Staff</a></li>
+                    <li><a href="#" class="navbarItem">Study</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Research <b class="caret"></b></a>
+                        <ul class="dropdown-menu multi-level">
+                            <li><a href="#" class="navbarItem">Projects</a></li>
+                            <li class="dropdown-submenu dropdown">
+                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem" >
+                                    <li><a href="#" >Electric kart</a></li>
+                                    <li><a href="#" >Off-line vehicle 6×6</a></li>
+                                    <li><a href="#" >3D LED cube</a></li>
+                                    <li><a href="#" >Biomechatronics</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="navbarItem">News</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities <b class="caret"></b></a>
+                        <ul class="dropdown-menu multi-level">
+                            <li><a href="#" class="navbarItem">Photos</a></li>
+                            <li><a href="#" class="navbarItem">Video</a></li>
+                            <li><a href="#" class="navbarItem">Media</a></li>
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Our thematic web sites <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem2 navbarItem" >
+                                    <li><a href="http://www.e-mobilita.fei.stuba.sk/" >Electromobility</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#" class="navbarItem">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
+                            <li><a href="'.'http://' . $_SERVER['HTTP_HOST'] .$last.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="login.php" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>';
 }

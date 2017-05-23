@@ -6,13 +6,13 @@ require_once '../general_functions.php';
     <head>
         <title>Nákupy | ÚAMT FEI STU</title>
         <?php
-        loadHead("../");
+        loadHead();
         ?>
         <link rel="stylesheet" href="../css/intranet.css">
     </head>
     <body>
 <?php
-loadNavbar("../");
+loadNavbarSK(true);
 ?>
 
 <!-- Page Content -->
@@ -39,7 +39,7 @@ loadNavbar("../");
 
 <script src="../js/intranet.js"></script>
 <?php
-loadJScripts("../");
+loadJScripts();
 ?>
     </body>
     <?php

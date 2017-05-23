@@ -1,19 +1,20 @@
 <?php
 require_once '../general_functions.php';
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Doktorandi | ÚAMT FEI STU</title>
     <?php
-    loadHead("../");
+    loadHead();
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
 
 </head>
 <body>
 <?php
-loadNavbar("../");
+loadNavbarSK(true);
 
 $wasurl = false;
 
@@ -74,7 +75,7 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
 
 <script src="../js/intranet.js"></script>
 <?php
-loadJScripts("../");
+loadJScripts();
 ?>
 </body>
 <?php
