@@ -29,6 +29,7 @@
     </div>
 
     <?php
+        loadFooter();
         loadJScripts();
     ?>
 </body>

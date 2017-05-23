@@ -160,6 +160,47 @@ function loadNavbar(){
     </nav>';
 }
 
+function loadFooter(){
+        echo '<footer>
+    <div class="container" style="margin-right: auto; margin-left: auto;">    
+  <div class="row">
+    <div class="col-lg-offset-3">
+      <div class="col-md-3">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">STU<li>
+          <li> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </li>
+                        <li> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit"> Jedáleň STU </a> </li>
+                        <li> <a target="_blank" href="https://webmail.stuba.sk"> Webmail STU </a> </li>
+                        <li> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1"> Evidencia publikácií STU </a> </li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">FEI<li>
+          <li> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh"> Rozvrh hodín FEI </a> </li>
+                        <li> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle"> Moodle FEI </a> </li>              
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">Ostatné<li>
+          <li> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </li>
+                        <li> <a target="_blank" href="http://okocasopis.sk"> Časopis OKO </a> </li>
+                        <li> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU"> Facebook </a> </li>
+                        <li> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA"> YouTube </a> </li>						        
+        </ul>
+      </div>
+      <div class="col-md-3" style="padding-top: 80px; ">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">© 2017 Tim 9<li>
+        </ul>
+    </div>
+    </div>
+  </div>
+</div>
+</footer>';
+}
+
 function loadJScripts(){
     echo '<script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>';
