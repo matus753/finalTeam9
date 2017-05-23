@@ -164,3 +164,59 @@ function loadJScripts(){
     echo '<script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>';
 }
+
+function generatePageByDirectory($page){
+    $directories = scandir("intranet/$page");
+    foreach ($directories as $key => $value) {
+        if($value !== '.' && $value !== '..') {
+            echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
+            $files = scandir("intranet/$page/$value");
+            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 50px"><div class="list-group">';
+            foreach ($files as $key2 => $val) {
+                if($val !== '.' && $val !== '..') {
+                    echo '<a class="list-group-item" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
+                }
+            }
+
+            $conn = new_connection();
+            $sql = "SELECT * FROM url WHERE page = '$page' AND category =  '$value'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo '<a class="list-group-item" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a>';
+                }
+            }
+            echo "</div>";
+
+            echo '<form enctype="multipart/form-data" method="post" action="" style="margin-top:20px">
+                    <div class="col-xs-4" id="choice" >
+                        <input type="text" name="dir" style="display: none" value="'. $value . '"/>
+                        <input name="myfile" type="file"  class="form-control"/>
+                    </div>
+                    <div class="col-xs-1" >
+                        <input type="submit" value="Upload" name="submit" class="btn btn-primary"/>
+                    </div>
+                    <div class="col-xs-1"></div>
+                </form>';
+            echo '<form method="post" action="" style="margin-top:20px">
+                    <div class="col-xs-4" id="choice" >
+                        <input type="text" name="dir" style="display: none" value="'. $value . '"/>
+                        <input name="url" type="text" class="form-control" placeholder="Vložte url"/>
+                    </div>
+                    <div class="col-xs-1" >
+                        <input type="submit" value="Upload" name="submit" class="btn btn-primary"/>
+                    </div>
+                </form>';
+            echo "</div>";
+        }
+    }
+}
+
+function saveUrl($page, $category, $url){
+    $conn = new_connection();
+    $sql = "INSERT INTO url VALUES (NULL,'$page','$category','$url');";
+    if ($conn->query($sql) !== TRUE) {
+        die(json_encode(array('message' => 'SQL-ERROR', 'code' => 500)));
+    }
+}

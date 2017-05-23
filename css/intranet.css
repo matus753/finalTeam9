@@ -1,0 +1,28 @@
+/* CSS used here will be applied after bootstrap.css */
+.benefitList{
+    list-style: none;
+    margin: 0;
+}
+
+.benefits ul li{
+    padding-left: .6em;
+    background-position: 0 50%;
+    padding: 0 0 3px 70px;
+    margin: .4em 0;
+}
+
+.benefits li.lock{
+    background: url(/img/lock.png) no-repeat left top;
+}
+
+.benefits li.folder{
+    background: url(/img/folder.png) no-repeat left top;
+}
+
+.benefits li.sharing{
+    background: url(/img/sharing.png) no-repeat left top;
+}
+
+.benefits li.key{
+    background: url(/img/key.png) no-repeat left top;
+}

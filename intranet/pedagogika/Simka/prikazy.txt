@@ -1,0 +1,4 @@
+git add -A
+git commit -am "[inicialy]sprava"
+git pull --rebase origin master
+git push origin master
