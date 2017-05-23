@@ -162,9 +162,9 @@ function loadNavbar(){
 
 function loadFooter(){
         echo '<footer>
-    <div class="container" style="margin-right: auto; margin-left: auto;">    
+    <div class="container">    
   <div class="row">
-    <div class="col-lg-offset-3">
+    <div class="col-lg-offset-2">
       <div class="col-md-3">
         <ul class="list-unstyled">
           <li class="ib-highlited">STU<li>
@@ -212,11 +212,10 @@ function generatePageByDirectory($page){
         if($value !== '.' && $value !== '..') {
             echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
             $files = scandir("intranet/$page/$value");
-            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
+            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 50px"><div class="list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
-                    echo '<li class="list-group-item"><a class="list-group-link" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a><span class="pull-right">
-                          <a class="btn btn-sm btn-default" onclick="deleteRecord(true,' . "'intranet/" . $page .  '/' . $value . '/' . $val ."')\"" . '><span class="glyphicon glyphicon-remove"></a></span></span></li>';
+                    echo '<a class="list-group-item" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
                 }
             }
 
@@ -226,8 +225,7 @@ function generatePageByDirectory($page){
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo '<li class="list-group-item"><a class="list-group-link" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a><span class="pull-right">
-                          <a class="btn btn-sm btn-default" onclick="deleteRecord(false,' .  $row["id"] .')"><span class="glyphicon glyphicon-remove"></a></span></span></li>';
+                    echo '<a class="list-group-item" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a>';
                 }
             }
             echo "</div>";
@@ -257,12 +255,8 @@ function generatePageByDirectory($page){
 }
 
 function saveUrl($page, $category, $url){
-    updateSql("INSERT INTO url VALUES (NULL,'$page','$category','$url');");
-}
-
-function updateSql($sql){
     $conn = new_connection();
-
+    $sql = "INSERT INTO url VALUES (NULL,'$page','$category','$url');";
     if ($conn->query($sql) !== TRUE) {
         die(json_encode(array('message' => 'SQL-ERROR', 'code' => 500)));
     }
