@@ -6,11 +6,10 @@ $DBconn = new_connection();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fotogaléria | ÚAMT FEI STU</title>
+    <title>Videá | ÚAMT FEI STU</title>
     <?php
     loadHead();
     ?>
-    <link href="css/lightbox.css" rel="stylesheet">
     <link href="css/gallery.css" rel="stylesheet">
 </head>
 <body>
@@ -22,27 +21,27 @@ loadNavbar();
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Fotogaléria</h1>
+                <h1>Videá</h1>
                 <hr>
                 <div>
                     <?php
-                    $sql = "SELECT * FROM photo_gallery ORDER BY folder ASC";
+                    $sql = "SELECT * FROM video_gallery ORDER  BY type ASC";
                     $result = $DBconn->query($sql);
                     $pom = $result->fetch_all();
                     $folderPom = 'init';
                     for($i = 0; $i < sizeof($pom); $i++) {
-                        $date = $pom[$i][1];
-                        $titleSK = $pom[$i][2];
+                        $titleSK = $pom[$i][1];
+                        $url = $pom[$i][3];
+                        $url = str_replace('watch?v=', 'embed/', $url);
                         $folder = $pom[$i][4];
-                        $image = $pom[$i][5];
 
                         if ($folder != $folderPom) {
-                            echo '<div class="flip cursor"><h4>'.$titleSK.' ('.$date.')</h4>';
-                            echo '</div>';
+                            echo '<div class="flip cursor"><h4>'.$folder.'</h4></div>';
                             echo '<div class="panel">';
                             $folderPom = $folder;
                         }
-                        echo '<a class="image-link" href="images/photoGallery/'.$folder.'/'.$image.'" data-lightbox="'.$folder.'" data-title="'.$titleSK.'"><img class="small image" src="images/photoGallery/'.$folder.'/'.$image.'" alt=""/></a>';
+                        echo '<p>'.$titleSK.'</p>';
+                        echo '<iframe width="640" height="480" src="'.$url.'"></iframe>';
                         if ($i == sizeof($pom)-1) {
                             echo '</div>';
 
@@ -62,7 +61,6 @@ loadNavbar();
 <?php
 loadJScripts();
 ?>
-<script src="js/galleries/lightbox.js"></script>
 <script src="js/galleries/gallery_slider.js"></script>
 </body>
 </html>
