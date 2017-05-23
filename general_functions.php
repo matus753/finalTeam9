@@ -103,7 +103,7 @@ function loadNavbar(){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-brand-logo" href="#">
+                <a class="navbar-brand navbar-brand-logo" href="index.php">
                     <div class="logo">
                         <img id="logoIMG" src="./images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
@@ -129,7 +129,7 @@ function loadNavbar(){
                             </li>
                         </ul>
                     </li>
-                    <li><a href="#" class="navbarItem">Aktuality</a></li>
+                    <li><a href="news.php" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
@@ -161,7 +161,7 @@ function loadNavbar(){
 }
 
 function loadFooter(){
-        echo '<footer>
+        echo '<div class="push"></div><footer class="footer">
     <div class="container-fluid">    
   <div class="row">
     <div class="col-lg-offset-2">
@@ -203,7 +203,8 @@ function loadFooter(){
 
 function loadJScripts(){
     echo '<script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>';
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/ib-footer-resize.js"></script>';
 }
 
 function generatePageByDirectory($page){
