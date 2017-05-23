@@ -212,10 +212,11 @@ function generatePageByDirectory($page){
         if($value !== '.' && $value !== '..') {
             echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
             $files = scandir("intranet/$page/$value");
-            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 50px"><div class="list-group">';
+            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
-                    echo '<a class="list-group-item" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
+                    echo '<li class="list-group-item"><a class="list-group-link" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a><span class="pull-right">
+                          <a class="btn btn-sm btn-default" onclick="deleteRecord(true,' . "'intranet/" . $page .  '/' . $value . '/' . $val ."')\"" . '><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }
 
@@ -225,7 +226,8 @@ function generatePageByDirectory($page){
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo '<a class="list-group-item" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a>';
+                    echo '<li class="list-group-item"><a class="list-group-link" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a><span class="pull-right">
+                          <a class="btn btn-sm btn-default" onclick="deleteRecord(false,' .  $row["id"] .')"><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }
             echo "</div>";
@@ -255,8 +257,12 @@ function generatePageByDirectory($page){
 }
 
 function saveUrl($page, $category, $url){
+    updateSql("INSERT INTO url VALUES (NULL,'$page','$category','$url');");
+}
+
+function updateSql($sql){
     $conn = new_connection();
-    $sql = "INSERT INTO url VALUES (NULL,'$page','$category','$url');";
+
     if ($conn->query($sql) !== TRUE) {
         die(json_encode(array('message' => 'SQL-ERROR', 'code' => 500)));
     }

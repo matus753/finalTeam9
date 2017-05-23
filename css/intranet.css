@@ -8,7 +8,7 @@
     padding-left: .6em;
     background-position: 0 50%;
     padding: 0 0 3px 70px;
-    margin: .4em 0;
+    /*margin: .4em 0;*/
 }
 
 .benefits li.lock{
@@ -25,4 +25,33 @@
 
 .benefits li.key{
     background: url(/img/key.png) no-repeat left top;
+}
+
+.action-list-group {
+    position: relative;
+}
+
+/* remove the list group padding since our nested anchor tag will now have it */
+.action-list-group .list-group-item {
+    padding: 0;
+}
+
+.action-list-group .list-group-item > a.list-group-link {
+    display: block;
+    /* inherit from .list-group-item */
+    padding: 10px 15px;
+    color: #555;
+}
+
+/* re-add the link styling */
+.action-list-group .list-group-item > a.list-group-link:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+}
+
+.action-list-group .btn {
+    position: absolute;
+    right: 5px;
+    margin-top: 5px;
+    top: 0;
 }
