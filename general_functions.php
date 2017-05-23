@@ -84,16 +84,16 @@ function loginLDAP($login, $password){
     @ldap_close($connect);
     return(false);
 }
-function loadHead(){
+function loadHead($dir = ""){
     echo    '<meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="css/eb_general.css">
-                <link href="css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="' . $dir . 'css/eb_general.css">
+                <link href="' . $dir . 'css/bootstrap.min.css" rel="stylesheet">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">';
 }
 
-function loadNavbar(){
+function loadNavbar($dir = ""){
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -105,7 +105,7 @@ function loadNavbar(){
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="#">
                     <div class="logo">
-                        <img id="logoIMG" src="./images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
+                        <img id="logoIMG" src="' . $dir . './images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
                 </a>
             </div>
@@ -201,21 +201,27 @@ function loadFooter(){
 </footer>';
 }
 
-function loadJScripts(){
-    echo '<script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>';
+function loadJScripts($dir = ""){
+    echo '<script src="' . $dir . 'js/jquery.js"></script>
+        <script src="' . $dir . 'js/bootstrap.min.js"></script>';
 }
 
+
 function generatePageByDirectory($page){
-    $directories = scandir("intranet/$page");
+    if (!file_exists("../intranet/$page")) {
+        mkdir("../intranet/$page", 0777, true);
+        while (!file_exists("../intranet/$page")) sleep(1);
+    }
+    $directories = scandir("../intranet/$page");
     foreach ($directories as $key => $value) {
         if($value !== '.' && $value !== '..') {
             echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
-            $files = scandir("intranet/$page/$value");
-            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 50px"><div class="list-group">';
+            $files = scandir("../intranet/$page/$value");
+            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
-                    echo '<a class="list-group-item" href="intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
+                    echo '<li class="list-group-item"><a class="list-group-link" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a><span class="pull-right">
+                          <a class="btn btn-sm btn-default" onclick="deleteRecord(true,' . "'../intranet/" . $page .  '/' . $value . '/' . $val ."')\"" . '><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }
 

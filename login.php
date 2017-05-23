@@ -54,4 +54,7 @@ loadNavbar();
 loadJScripts();
 ?>
 </body>
+<?php
+loadFooter();
+?>
 </html>
