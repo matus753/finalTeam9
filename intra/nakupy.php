@@ -36,7 +36,19 @@ loadNavbarSK(true);
 
         echo '</ul></div></div>';
         ?>
+        <div style="margin-top: 20px">
+            <form>
+                <div class="col-xs-4"></div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" name="ctgName" id="ctgName" placeholder="Vytvoriť">
+                </div>
+                <div class="col-xs-2">
+                    <input type="button" value="Nový nákup" id="newCategory" onclick="novyNakup(document.getElementById('ctgName').value)" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <script src="../js/intranet.js"></script>

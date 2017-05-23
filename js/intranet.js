@@ -14,6 +14,18 @@ function novaKategoria(page, name) {
     })
 }
 
+function novyNakup(name) {
+
+    $.ajax({
+        type: "POST",
+        url: " newCategory.php",
+        data:{ name: name},
+        success: function(data){
+            window.location.href = window.location.href;
+        }
+    })
+}
+
 function deleteRecord(isFile, info) {
     if(isFile){
         $.ajax({
