@@ -1,5 +1,5 @@
 <?php
-require_once 'general_functions.php';
+require_once '../general_functions.php';
 
 $DBconn = new_connection();
 ?>
@@ -10,7 +10,7 @@ $DBconn = new_connection();
     <?php
     loadHead();
     ?>
-    <link href="css/gallery.css" rel="stylesheet">
+    <link href="../css/gallery.css" rel="stylesheet">
 </head>
 <body>
 <?php
@@ -59,8 +59,9 @@ loadNavbarSK();
 </div>
 
 <?php
+loadFooter();
 loadJScripts();
 ?>
-<script src="js/galleries/gallery_slider.js"></script>
+<script src="../js/galleries/gallery_slider.js"></script>
 </body>
 </html>
