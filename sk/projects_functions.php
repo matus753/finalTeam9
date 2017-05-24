@@ -10,23 +10,23 @@
 
         echo '<table class="table table-striped table-hover table-bordered" id="SS-table-staff">
                 <tr style="background-color: #3CDAB2; color: white;">
-                  <th class="projects-table-th1">Číslo projektu</th>
-                  <th class="projects-table-th2">Názov projektu</th>
-                  <th class="projects-table-th3">Doba riešenia</th>
-                  <th class="projects-table-th4">Zodpovedný riešiteľ</th>
+                  <th class="projects-table-th1 center">Číslo projektu</th>
+                  <th class="projects-table-th2 center">Názov projektu</th>
+                  <th class="projects-table-th3 center">Doba riešenia</th>
+                  <th class="projects-table-th4 center">Zodpovedný riešiteľ</th>
                 </tr>
               <tbody>';
 
               if ($result->num_rows > 0) {           
                   while($row = $result->fetch_assoc()) {
                       echo '<tr class="m" data-toggle="modal" data-id="'.$row['id'].'" data-target="#myModalProjects">';
-                          echo "<td>";
+                          echo "<td  class='center'>";
                               echo $row['number'];
                           echo "</td>";
                           echo "<td>";
                               echo $row['titleSK'];
                           echo "</td>";
-                          echo "<td>";
+                          echo "<td class='center'>";
                               uprav_datum($row['duration']);
                           echo "</td>";
                           echo "<td>";

@@ -11,11 +11,10 @@
       loadHead();
       ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="../js/scripty_projects.js"></script>
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/style_projects.css">
-        <title>Projects | UAMT</title>
+        <title>Projekty | ÚAMT FEI STU</title>
   </head>
 
   <body>
