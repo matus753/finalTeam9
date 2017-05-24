@@ -227,8 +227,8 @@ function loadNavbarSK($isIntranet = false){
 function loadFooter(){
         echo '<div class="push"></div><footer class="footer">
     <div class="container-fluid">    
-  <div class="row">
-    <div class="col-lg-offset-2">
+  <div class="row small bottom">
+    <div class="col-lg-offset-2" style="padding-top: 10px;">
       <div class="col-md-3">
         <ul class="list-unstyled">
           <li class="ib-highlited">STU<li>

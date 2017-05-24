@@ -1,0 +1,13 @@
+.ib-inline{
+    width: 400px;
+    float: left;
+}
+
+.ib-left{
+    float: left;
+}
+
+.ib-right{
+    float: right;
+    padding-top: 25px;
+}
