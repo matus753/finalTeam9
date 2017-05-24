@@ -168,12 +168,12 @@ function loadNavbarSK($isIntranet = false){
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
                     <li><a href="#" class="navbarItem">O nás</a></li>
-                    <li><a href="#" class="navbarItem">Pracovníci</a></li>
+                    <li><a href="'.$upDir.'staff.php" class="navbarItem">Pracovníci</a></li>
                     <li><a href="#" class="navbarItem">Štúdium</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Výskum <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="#" class="navbarItem">Projekty</a></li>
+                            <li><a href="'.$upDir.'projects.php" class="navbarItem">Projekty</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Výskumné oblasti <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem" >
@@ -347,9 +347,11 @@ function loadNavbarEN($isIntranet = false){
 		$lastPage = $all[3];
 		$pathSK = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/sk/'.$lastPage;
         $pathEN = $_SERVER['HTTP_HOST'] .$last;
+        $upDir = "";
 	}else{
         $pathSK = $_SERVER['HTTP_HOST'] .$last.'?lang=sk';
         $pathEN = $_SERVER['HTTP_HOST'] .$last.'?lang=en';
+        $upDir = '../en/';
     }
 
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
@@ -361,7 +363,7 @@ function loadNavbarEN($isIntranet = false){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-brand-logo" href="#">
+                <a class="navbar-brand navbar-brand-logo" href="'.$upDir.'index.php">
                     <div class="logo">
                         <img id="logoIMG" src="../images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
@@ -370,12 +372,12 @@ function loadNavbarEN($isIntranet = false){
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
                     <li><a href="#" class="navbarItem">About us</a></li>
-                    <li><a href="#" class="navbarItem">Staff</a></li>
+                    <li><a href="'.$upDir.'staff.php" class="navbarItem">Staff</a></li>
                     <li><a href="#" class="navbarItem">Study</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Research <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="#" class="navbarItem">Projects</a></li>
+                            <li><a href="'.$upDir.'projects.php" class="navbarItem">Projects</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research topics <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem" >
