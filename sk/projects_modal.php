@@ -1,5 +1,5 @@
 <?php
-        require_once('config.php'); 
+        //require_once('../config.php');
         require 'projects_functions.php';
 
 	if(isset($_GET['id'])){

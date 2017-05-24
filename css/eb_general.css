@@ -5,6 +5,7 @@ html {
 
 body{
     font-family: 'Open Sans', sans-serif !important;
+    padding-right: 0 !important;
 }
 #navbar-custom{
     height: 80px;

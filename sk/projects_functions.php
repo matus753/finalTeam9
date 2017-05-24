@@ -1,7 +1,7 @@
 <?php
 
-    include('config.php');
-    include('general_functions.php');
+    //include('../config.php');
+    include('../general_functions.php');
 
     
     function zobraz_projekty($typ) {
