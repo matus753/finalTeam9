@@ -1,5 +1,4 @@
 <?php
-	require_once('config.php'); 
         require 'staff_ldap.php';
         require 'staff_functions.php';
 
@@ -22,7 +21,7 @@
         while($row = $result->fetch_assoc()){
             $vys .= "<div class='modal-staff'>";
                 if (!empty($row['photo']))
-                    $vys .=  '<img src="images/staffPhoto/'. $row['photo'] .'" alt="Fotografia zamestnanca" class="SS-staff-img">';
+                    $vys .=  '<img src="../images/staffPhoto/'. $row['photo'] .'" alt="Fotografia zamestnanca" class="SS-staff-img">';
                  $vys .=  "<p class='modal-staff-name grey bold'> " . $row['surname'] . " " . $row['name'];
                     if (!empty($row['title1']))
                         $vys .= ", " . $row['title1'];

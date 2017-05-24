@@ -96,6 +96,7 @@ and open the template in the editor.
     font-size: 12px;
     text-align: center;
     color: #898e8f;
+    width: 100%;
 }
 
 .staff-table-publikace-head {
@@ -107,6 +108,56 @@ and open the template in the editor.
 
 th, td {
     padding: 5px;
+}
+
+.staff-filter {
+    margin: 10px 0 30px 0;
+    
+}
+
+.staff-table-th1 {
+    width: 28%;
+}
+
+.staff-table-th2 {
+    width: 8%;
+}
+
+.staff-table-th3 {
+    width: 9%;
+}
+
+.staff-table-th4 {
+    width: 10%;
+}
+
+.staff-table-th5 {
+    width: 10%;
+}
+
+.staff-table-th6 {
+    width: 35%;
+}
+
+.staff-icon-plus {
+    padding-right: 8px;
+    cursor: pointer;
+    color: #00BC8D;
+}
+
+h2 {
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    font-size: medium;
+    margin-top: 30px;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+}
+
+input {
+    width: 100%;
 }
 
 @media all and (max-width: 424px) {
