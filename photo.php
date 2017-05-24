@@ -1,5 +1,5 @@
 <?php
-require_once 'general_functions.php';
+require_once '../general_functions.php';
 
 $DBconn = new_connection();
 ?>
@@ -10,12 +10,12 @@ $DBconn = new_connection();
     <?php
     loadHead();
     ?>
-    <link href="css/lightbox.css" rel="stylesheet">
-    <link href="css/gallery.css" rel="stylesheet">
+    <link href="../css/lightbox.css" rel="stylesheet">
+    <link href="../css/gallery.css" rel="stylesheet">
 </head>
 <body>
 <?php
-loadNavbar();
+loadNavbarSK();
 ?>
 
 <div id="emPAGEcontent">
@@ -62,7 +62,7 @@ loadNavbar();
 <?php
 loadJScripts();
 ?>
-<script src="js/galleries/lightbox.js"></script>
-<script src="js/galleries/gallery_slider.js"></script>
+<script src="../js/galleries/lightbox.js"></script>
+<script src="../js/galleries/gallery_slider.js"></script>
 </body>
 </html>

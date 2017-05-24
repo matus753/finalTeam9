@@ -20,7 +20,8 @@ if(!isset($_SESSION['role'])){
 </head>
 <body>
 <?php
-loadNavbarSK(true);
+//loadNavbarSK(true);
+loadLanguageNavbar(true);
 ?>
 
 <!-- Page Content -->
@@ -67,5 +68,7 @@ loadJScripts();
     </body>
     <?php
     loadFooter();
+
+
     ?>
 </html>

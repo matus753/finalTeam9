@@ -93,9 +93,8 @@ function loadHead(){
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">';
 }
 
-function getLanguage(){
-    session_start();
-    header('Cache-control: private'); // IE 6 FIX
+function loadLanguageNavbar($isIntranet = false){
+/*    header('Cache-control: private'); // IE 6 FIX*/
     if(isSet($_GET['lang']))
     {
         $lang = $_GET['lang'];
@@ -115,22 +114,23 @@ function getLanguage(){
     {
         $lang = 'sk';
     }
-/*    switch ($lang) {
+    switch ($lang) {
         case 'en':
-
+            loadNavbarEN($isIntranet);
             break;
         case 'sk':
-            $lang_file = 'lang.sk.php';
+            loadNavbarSK($isIntranet);
             break;
         default:
-            $lang_file = 'lang.en.php';
-    }*/
+            loadNavbarSK($isIntranet);
+    }
 }
 
 
 function loadNavbarSK($isIntranet = false){
-    session_start();
     $last = $_SESSION['page'];
+    $lastAll = explode('?',$last);
+    $last = $lastAll[0];
     if (!$isIntranet){
 
         $all = explode("/", $last);
@@ -145,8 +145,8 @@ function loadNavbarSK($isIntranet = false){
             echo '<script>console.log("' . $pathEN . '")</script>';
         }
     } else{
-        $pathSK = $_SERVER['HTTP_HOST'] .$last;
-        $pathEN = $_SERVER['HTTP_HOST'] .$last;
+        $pathSK = $_SERVER['HTTP_HOST'] .$last.'?lang=sk';
+        $pathEN = $_SERVER['HTTP_HOST'] .$last.'?lang=en';
     }
 
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
@@ -158,7 +158,7 @@ function loadNavbarSK($isIntranet = false){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-brand-logo" href="index.php">
+                <a class="navbar-brand navbar-brand-logo" href="#">
                     <div class="logo">
                         <img id="logoIMG" src="../images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
@@ -330,6 +330,8 @@ function updateSql($sql){
 
 function loadNavbarEN($isIntranet = false){
     $last = $_SESSION['page'];
+    $lastAll = explode('?',$last);
+    $last = $lastAll[0];
     if (!$isIntranet){
 
 		$all = explode("/", $last);
@@ -337,19 +339,10 @@ function loadNavbarEN($isIntranet = false){
 		$pathSK = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/sk/'.$lastPage;
         $pathEN = $_SERVER['HTTP_HOST'] .$last;
 	}else{
-        $pathSK = $_SERVER['HTTP_HOST'] .$last;
-        $pathEN = $_SERVER['HTTP_HOST'] .$last;
+        $pathSK = $_SERVER['HTTP_HOST'] .$last.'?lang=sk';
+        $pathEN = $_SERVER['HTTP_HOST'] .$last.'?lang=en';
     }
 
-
-    /*$pathENfile = '../en/'.$lastPage;
-    if (!file_exists($pathENfile)){
-        $pathEN = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/en/index.php';
-        echo '<script>console.log("'.$pathEN.'")</script>';
-    } else{
-        $pathEN = $_SERVER['HTTP_HOST'] .'/'.$all[1].'/en/'.$lastPage;
-        echo '<script>console.log("'.$pathEN.'")</script>';
-    }*/
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">

@@ -2,6 +2,7 @@
     require_once '../general_functions.php';
     session_start();
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
+    $_SESSION['lang'] = 'en';
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,8 @@
 <body>
     <?php
 
-        loadNavbarEN();
+        //loadNavbarEN();
+        loadLanguageNavbar();
     ?>
 
     <div id="emPAGEcontent">
@@ -32,6 +34,7 @@
     </div>
 
     <?php
+        loadFooter();
         loadJScripts();
     ?>
 </body>
