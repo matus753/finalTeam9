@@ -22,7 +22,7 @@ if(!isset($_SESSION['role'])){
 </head>
 <body>
 <?php
-loadNavbarSK(true);
+loadLanguageNavbar(true);
 
 $wasurl = false;
 

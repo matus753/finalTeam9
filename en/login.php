@@ -7,30 +7,30 @@ $conn = new_connection();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Prihlásenie | ÚAMT FEI STU</title>
+    <title>Login | ÚAMT FEI STU</title>
     <?php
     loadHead();
     ?>
-<link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
 
 
-<script>
-    function ldapLogin(login, password){
-        $.ajax({
-            type: "POST",
-            url: "../ldapLogin.php",
-            data:{ login: login,
-                   password: password},
-            success: function(data){
-                if(data == "true") {
-                    window.location.href = "index.php";
-                } else {
-                    document.getElementById("badLogin").style.display = "block";
+    <script>
+        function ldapLogin(login, password){
+            $.ajax({
+                type: "POST",
+                url: "../ldapLogin.php",
+                data:{ login: login,
+                    password: password},
+                success: function(data){
+                    if(data == "true") {
+                        window.location.href = "index.php";
+                    } else {
+                        document.getElementById("badLogin").style.display = "block";
+                    }
                 }
-            }
-        })
-    }
-</script>
+            })
+        }
+    </script>
 </head>
 <body>
 <?php
@@ -46,8 +46,8 @@ loadNavbarSK();
             <form class="form-signin">
                 <input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <button type="button" class="btn btn-lg btn-primary btn-block btn-signin" onclick="ldapLogin(document.getElementById('inputLogin').value,document.getElementById('inputPassword').value)">Prihlásenie</button>
-                <span id="badLogin" style="color: red; display: none">Zle prihlasovacie údaje!</span>
+                <button type="button" class="btn btn-lg btn-primary btn-block btn-signin" onclick="ldapLogin(document.getElementById('inputLogin').value,document.getElementById('inputPassword').value)">Log in</button>
+                <span id="badLogin" style="color: red; display: none">Wrong access data!</span>
             </form>
         </div>
     </div>

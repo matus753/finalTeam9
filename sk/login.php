@@ -44,8 +44,8 @@ loadNavbarSK();
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin">
-                <input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="text" id="inputLogin" class="form-control" placeholder="Meno" required autofocus>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Heslo" required>
                 <button type="button" class="btn btn-lg btn-primary btn-block btn-signin" onclick="ldapLogin(document.getElementById('inputLogin').value,document.getElementById('inputPassword').value)">Prihlásenie</button>
                 <span id="badLogin" style="color: red; display: none">Zle prihlasovacie údaje!</span>
             </form>

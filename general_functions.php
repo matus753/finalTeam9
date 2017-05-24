@@ -473,9 +473,13 @@ function generate401Html(){
             <head>
                 <title>401 Unauthorized | ÚAMT FEI STU</title>';
     loadHead();
-    echo    '</head>
+
+    echo    '<style>
+                .cover{display:table-cell;vertical-align:middle;padding:0 20px}
+                .lead{color:silver;font-size:21px;line-height:1.4}
+            </style></head>
             <body>';
-    loadNavbarSK();
+    loadLanguageNavbar();
 
     echo "<div id=\"emPAGEcontent\">
     <div class=\"container\">

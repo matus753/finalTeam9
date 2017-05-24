@@ -2,6 +2,7 @@
 include '../general_functions.php';
 require_once 'functions.php';
 session_start();
+$_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 if(!isset($_SESSION['role'])){
     header("HTTP/1.1 401 Unauthorized");
@@ -9,7 +10,6 @@ if(!isset($_SESSION['role'])){
     exit;
 }
 
-$_SESSION['page'] = $_SERVER['REQUEST_URI'];
 $conn = new_connection();
 ?>
 <!DOCTYPE html>
