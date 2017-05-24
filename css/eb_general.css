@@ -16,6 +16,7 @@ body{
 }
 #emPAGEcontent{
     margin-top: 100px;
+    margin-bottom: 180px;
 }
 #emNavbar{
     margin-top: 13px;
@@ -96,6 +97,10 @@ body{
     margin-right: -157px !important;
     margin-top: 20px;
 }
+.submenuItem3{
+    margin-right: -493px !important;
+    margin-top: 20px;
+}
 @media screen and (max-device-width: 480px) and (orientation: portrait){
     .navbarItem{
         padding: 3px !important;
@@ -149,8 +154,6 @@ h1{
 ul.nav.navbar-nav.navbar-right.scrollable-menu{
     margin-left: 20px;
 }
-
-
 
 
 

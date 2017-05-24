@@ -167,8 +167,24 @@ function loadNavbarSK($isIntranet = false){
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
-                    <li><a href="#" class="navbarItem">O nás</a></li>
-                    <li><a href="#" class="navbarItem">Pracovníci</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="'.$upDir.'aboutUs.php#section1" id="navSec1" class="navbarItem sectItem">História</a></li>
+                            <li><a href="'.$upDir.'aboutUs.php#section2" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
+                            <li class="dropdown-submenu dropdown">
+                                <a href="'.$upDir.'aboutUs.php#section3" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem3" >
+                                    <li><a href="'.$upDir.'aboutUs.php#section31" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
+                                    <li><a href="'.$upDir.'aboutUs.php#section32" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
+                                    <li><a href="'.$upDir.'aboutUs.php#section33" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
+                                    <li><a href="'.$upDir.'aboutUs.php#section34" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--<li><a href="#" class="navbarItem">O nás</a></li>-->
+                    <li><a href="'.$upDir.'staff.php" class="navbarItem">Pracovníci</a></li>
                     <li><a href="#" class="navbarItem">Štúdium</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Výskum <b class="caret"></b></a>
@@ -176,7 +192,7 @@ function loadNavbarSK($isIntranet = false){
                             <li><a href="#" class="navbarItem">Projekty</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Výskumné oblasti <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem" >
+                                <ul class="dropdown-menu submenuItem">
                                     <li><a href="#" >Elektrická motokára</a></li>
                                     <li><a href="#" >Autonómne vozidlo 6×6</a></li>
                                     <li><a href="#" >3D LED kocka</a></li>
