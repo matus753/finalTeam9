@@ -3,6 +3,9 @@
 .light-grey {color: #c1c4c5; }
 .grey {color: #898e8f; }
 
+body {
+    padding-right: 0 !important;
+}
 h2 {
     text-align: right;
     text-transform: uppercase;

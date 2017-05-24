@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
     require_once __DIR__ . "/projects_functions.php";
-    //require_once "../config.php";
     session_start();
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
     $_SESSION['lang'] = 'sk';
@@ -22,8 +21,7 @@
   <body>
   <?php
   loadLanguageNavbar();
-  ?>
-      
+  ?>     
      <!-- Page Content -->
     <div id="emPAGEcontent">
         <div class="container">
@@ -50,7 +48,5 @@
         loadFooter();
         loadJScripts();
         ?>
-
-      <script src="js/navbarTouch.js"></script>
     </body>
 </html>

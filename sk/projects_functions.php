@@ -1,6 +1,5 @@
 <?php
 
-    //include('../config.php');
     include('../general_functions.php');
 
     
