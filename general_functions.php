@@ -143,9 +143,11 @@ function loadNavbarSK($isIntranet = false){
             $pathEN = $_SERVER['HTTP_HOST'] . '/' . $all[1] . '/en/' . $lastPage;
             echo '<script>console.log("' . $pathEN . '")</script>';
         }
+        $upDir = '';
     } else{
         $pathSK = $_SERVER['HTTP_HOST'] .$last.'?lang=sk';
         $pathEN = $_SERVER['HTTP_HOST'] .$last.'?lang=en';
+        $upDir = '../sk/';
     }
 
     echo '    <nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
@@ -157,7 +159,7 @@ function loadNavbarSK($isIntranet = false){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-brand-logo" href="#">
+                <a class="navbar-brand navbar-brand-logo" href="'.$upDir.'index.php">
                     <div class="logo">
                         <img id="logoIMG" src="../images/logo/logo_skratkove_transparentne_na_modre_pozadie.png" width="167" alt="logo">
                     </div>
@@ -199,8 +201,11 @@ function loadNavbarSK($isIntranet = false){
 
                         </ul>
                     </li>
-                    <li><a href="#" class="navbarItem">Kontakt</a></li>
-                    <li class="dropdown">
+                    <li><a href="#" class="navbarItem">Kontakt</a></li>';
+    if(isset($_SESSION['role'])) {
+        echo '<li><a href="#" class="navbarItem">Intranet</a></li>';
+    }
+                echo '<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
@@ -398,8 +403,11 @@ function loadNavbarEN($isIntranet = false){
 
                         </ul>
                     </li>
-                    <li><a href="#" class="navbarItem">Contact</a></li>
-                    <li class="dropdown">
+                    <li><a href="#" class="navbarItem">Contact</a></li>';
+    if(isset($_SESSION['role'])) {
+        echo '<li><a href="#" class="navbarItem">Intranet</a></li>';
+    }
+    echo    '<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
