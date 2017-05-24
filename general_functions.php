@@ -131,9 +131,8 @@ function loadNavbarSK($isIntranet = false){
     $last = $_SESSION['page'];
     $lastAll = explode('?',$last);
     $last = $lastAll[0];
+    $all = explode("/", $last);
     if (!$isIntranet){
-
-        $all = explode("/", $last);
         $lastPage = $all[3];
         $pathENfile = '../en/' . $lastPage;
         $pathSK = $_SERVER['HTTP_HOST'] .$last;
@@ -207,9 +206,14 @@ function loadNavbarSK($isIntranet = false){
                             <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
                             <li><a href="'.'http://'.$pathEN.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
                         </ul>
-                    </li>
-                    <li><a href="#" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>
-                </ul>
+                    </li>';
+    if(!isset($_SESSION['role'])) {
+        echo '<li><a href = "http://'. $_SERVER['HTTP_HOST'] . '/' . $all[1] . "/sk/login.php"  . '" class="navbarItem" ><span class="glyphicon glyphicon-user" ></span ></a></li>';
+    } else {
+        echo '<li><a href = "http://'. $_SERVER['HTTP_HOST'] . '/' . $all[1] . "/sk/logout.php"  . '" class="navbarItem" ><span class="glyphicon glyphicon-off" ></span ></a></li>';
+    }
+
+    echo            '</ul>
             </div>
         </div>
     </nav>';
@@ -402,8 +406,14 @@ function loadNavbarEN($isIntranet = false){
                             <li><a href="'.'http://' . $pathEN. '" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
                         </ul>
                     </li>
-                    <li><a href="sk/login.php" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>
-                </ul>
+                    <li>';
+    if(!isset($_SESSION['role'])) {
+        echo '<li><a href = "http://'. $_SERVER['HTTP_HOST'] . '/' . $all[1] . "/en/login.php"  . '" class="navbarItem" ><span class="glyphicon glyphicon-user" ></span ></a></li>';
+    } else {
+        echo '<li><a href = "http://'. $_SERVER['HTTP_HOST'] . '/' . $all[1] . "/en/logout.php"  . '" class="navbarItem" ><span class="glyphicon glyphicon-off" ></span ></a></li>';
+    }
+
+    echo            '</ul>
             </div>
         </div>
     </nav>';
