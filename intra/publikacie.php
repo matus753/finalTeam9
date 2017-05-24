@@ -2,6 +2,12 @@
 require_once '../general_functions.php';
 session_start();
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
+
+if(!isset($_SESSION['role'])){
+    header("HTTP/1.1 401 Unauthorized");
+    generate401Html();
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>

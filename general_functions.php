@@ -263,15 +263,20 @@ function loadJScripts(){
 }
 
 function generatePageByDirectory($page){
+    if (!file_exists("../intranet/$page")) {
+        mkdir("../intranet/$page", 0777, true);
+         while (!file_exists("../intranet/$page")) sleep(1);
+    }
     $directories = scandir("../intranet/$page");
     foreach ($directories as $key => $value) {
         if($value !== '.' && $value !== '..') {
             echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
             $files = scandir("../intranet/$page/$value");
-            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 50px"><div class="list-group">';
+            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
-                    echo '<a class="list-group-item" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a>';
+                    echo '<li class="list-group-item"><a class="list-group-link" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a><span class="pull-right">
+                           <a class="btn btn-sm btn-default" onclick="deleteRecord(true,' . "'../intranet/" . $page .  '/' . $value . '/' . $val ."')\"" . '><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }
 
@@ -281,7 +286,8 @@ function generatePageByDirectory($page){
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo '<a class="list-group-item" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a>';
+                    echo '<li class="list-group-item"><a class="list-group-link" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a><span class="pull-right">
+                           <a class="btn btn-sm btn-default" onclick="deleteRecord(false,' .  $row["id"] .')"><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }
             echo "</div>";
@@ -289,20 +295,20 @@ function generatePageByDirectory($page){
             echo '<form enctype="multipart/form-data" method="post" action="" style="margin-top:20px">
                     <div class="col-xs-4" id="choice" >
                         <input type="text" name="dir" style="display: none" value="'. $value . '"/>
-                        <input name="myfile" type="file"  class="form-control"/>
+                        <input name="myfile" type="file"  class="form-control" onchange="fileUpload(this,'."'". $value . 'btn' . "'" .')"/>
                     </div>
                     <div class="col-xs-1" >
-                        <input type="submit" value="Upload" name="submit" class="btn btn-primary"/>
+                        <input type="submit" value="Upload" name="submit" id="'. $value . 'btn' . '" class="btn btn-primary" disabled="disabled"/>
                     </div>
                     <div class="col-xs-1"></div>
                 </form>';
             echo '<form method="post" action="" style="margin-top:20px">
                     <div class="col-xs-4" id="choice" >
                         <input type="text" name="dir" style="display: none" value="'. $value . '"/>
-                        <input name="url" type="text" class="form-control" placeholder="Vložte url"/>
+                        <input name="url" type="text" class="form-control" placeholder="Vložte url" onchange="urlUpload(this.value,'."'". $value . 'btn2' . "'" .')"/>
                     </div>
                     <div class="col-xs-1" >
-                        <input type="submit" value="Upload" name="submit" class="btn btn-primary"/>
+                        <input type="submit" value="Upload" name="submit" class="btn btn-primary" id="'. $value . 'btn2' . '" class="btn btn-primary" disabled="disabled"/>
                     </div>
                 </form>';
             echo "</div>";
@@ -400,12 +406,77 @@ function loadNavbarEN($isIntranet = false){
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="'.'http://'.$pathSK.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
-                            <li><a href="'.'http://' . $pathEN.'" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
+                            <li><a href="'.'http://' . $pathEN. '" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
                         </ul>
                     </li>
-                    <li><a href="login.php" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>
+                    <li><a href="sk/login.php" class="navbarItem"><span class="glyphicon glyphicon-user"></span></a></li>
                 </ul>
             </div>
         </div>
     </nav>';
+}
+
+function isUser(){
+    if(isset($_SESSION["role"])) {
+        if ($_SESSION["role"][0] == 1 || $_SESSION["role"][4] == '1')
+            return true;
+    }
+    return false;
+}
+
+function isHr(){
+    if(isset($_SESSION["role"])) {
+        if ($_SESSION["role"][1] == '1' || $_SESSION["role"][4] == '1')
+            return true;
+    }
+    return false;
+}
+
+function isReporter(){
+    if(isset($_SESSION["role"])) {
+        if($_SESSION["role"][2] == '1' || $_SESSION["role"][4] == '1')
+            return true;
+    }
+    return false;
+}
+
+function isEditor(){
+    if(isset($_SESSION["role"])) {
+        if ($_SESSION["role"][3] == '1' || $_SESSION["role"][4] == '1')
+            return true;
+    }
+    return false;
+}
+
+function isAdmin(){
+    if(isset($_SESSION["role"])) {
+        if ($_SESSION["role"][4] == '1')
+            return true;
+    }
+    return false;
+}
+
+function generate401Html(){
+    echo '<!DOCTYPE html>
+            <html>
+            <head>
+                <title>401 Unauthorized | ÚAMT FEI STU</title>';
+    loadHead();
+    echo    '</head>
+            <body>';
+    loadNavbarSK();
+
+    echo "<div id=\"emPAGEcontent\">
+    <div class=\"container\">
+    <div class=\"cover\">
+        <h1>Unauthorized <small>Error 401</small></h1>
+        <p class=\"lead\">The requested resource requires an authentication.</p>
+    </div>
+    </div>
+    </div>";
+
+    loadJScripts();
+    echo '</body>';
+    loadFooter();
+    echo '</html>';
 }

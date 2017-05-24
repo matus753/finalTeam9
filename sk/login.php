@@ -1,5 +1,8 @@
 <?php
-require_once 'general_functions.php';
+require_once '../general_functions.php';
+session_start();
+$_SESSION['page'] = $_SERVER['REQUEST_URI'];
+$conn = new_connection();
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,14 +11,14 @@ require_once 'general_functions.php';
     <?php
     loadHead();
     ?>
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="../css/login.css">
 
 
 <script>
     function ldapLogin(login, password){
         $.ajax({
             type: "POST",
-            url: "ldapLogin.php",
+            url: "../ldapLogin.php",
             data:{ login: login,
                    password: password},
             success: function(data){
@@ -31,7 +34,7 @@ require_once 'general_functions.php';
 </head>
 <body>
 <?php
-loadNavbar();
+loadNavbarSK();
 ?>
 
 <!-- Page Content -->
