@@ -1,4 +1,5 @@
 <?php
+    require_once '../general_functions.php';
 
 createContent();
 
@@ -9,7 +10,6 @@ function createContent(){
         $type_local = 3;
     }
 
-    require_once 'general_functions.php';
     $type_array = ["Propagácia", "Oznamy", "Zo života ústavu"];
     $conn = new_connection();
     $output = "";

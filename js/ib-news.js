@@ -2,7 +2,7 @@ function updateType() {
     var type = document.getElementById('ib-news-select').selectedIndex;
     // alert(type);
     $.ajax({
-        url: 'news_generate.php',
+        url: '../sk/news_generate.php',
         type: 'POST',
         data: {type: type},
         success: function (output) {

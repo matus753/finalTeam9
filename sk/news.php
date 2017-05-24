@@ -1,20 +1,22 @@
 <?php
-require_once 'general_functions.php';
-
+require_once '../general_functions.php';
+session_start();
+$_SESSION['page'] = $_SERVER['REQUEST_URI'];
+$_SESSION['lang'] = 'sk';
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Aktuality | ÚAMT FEI STU</title>
-    <link rel="stylesheet" href="css/ib_style.css">
+    <link rel="stylesheet" href="../css/ib_style.css">
     <?php
     loadHead();
     ?>
 </head>
 <body>
 <?php
-loadNavbar();
+loadLanguageNavbar();
 ?>
 <div id="emPAGEcontent" class="container">
         <div class="row">
@@ -44,9 +46,9 @@ loadNavbar();
 </div>
 
 <?php
-loadFooter();
+loadLanguageFooter();
 loadJScripts();
 ?>
-<script type="text/javascript" src="js/ib-news.js"></script>
+<script type="text/javascript" src="../js/ib-news.js"></script>
 </body>
 </html>

@@ -19,7 +19,19 @@
 //     }
 // }, 250);
 
-$( window ).resize(function() {
+function update() {
     $('body').css('margin-bottom', $('.footer').height());
     $(".push").css("height", $(".push").css("height"));
+}
+
+$( window ).resize(function() {
+    update();
+});
+
+$( document ).ready(function() {
+    update();
+});
+
+$( document ).onload(function() {
+    update();
 });

@@ -34,7 +34,7 @@
     </div>
 
     <?php
-        loadFooter();
+        loadLanguageFooter();
         loadJScripts();
     ?>
 </body>

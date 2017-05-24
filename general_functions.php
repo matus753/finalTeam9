@@ -224,7 +224,41 @@ function loadNavbarSK($isIntranet = false){
     </nav>';
 }
 
-function loadFooter(){
+
+function loadLanguageFooter($isIntranet = false){
+    /*    header('Cache-control: private'); // IE 6 FIX*/
+    if(isSet($_GET['lang']))
+    {
+        $lang = $_GET['lang'];
+// register the session and set the cookie
+        $_SESSION['lang'] = $lang;
+        setcookie('lang', $lang, time() + (3600 * 24 * 30));
+    }
+    else if(isSet($_SESSION['lang']))
+    {
+        $lang = $_SESSION['lang'];
+    }
+    else if(isSet($_COOKIE['lang']))
+    {
+        $lang = $_COOKIE['lang'];
+    }
+    else
+    {
+        $lang = 'sk';
+    }
+    switch ($lang) {
+        case 'en':
+            loadFooterEN();
+            break;
+        case 'sk':
+            loadFooterSK();
+            break;
+        default:
+            loadFooterSK();
+    }
+}
+
+function loadFooterSK(){
         echo '<div class="push"></div><footer class="footer">
     <div class="container-fluid">    
   <div class="row small bottom">
@@ -250,6 +284,47 @@ function loadFooter(){
           <li class="ib-highlited">Ostatné<li>
           <li> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </li>
                         <li> <a target="_blank" href="http://okocasopis.sk"> Časopis OKO </a> </li>
+                        <li> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU"> Facebook </a> </li>
+                        <li> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA"> YouTube </a> </li>						        
+        </ul>
+      </div>
+      <div class="col-md-3" style="padding-top: 80px; ">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">© 2017 Tim 9<li>
+        </ul>
+    </div>
+    </div>
+  </div>
+</div>
+</footer>';
+}
+
+function loadFooterEN(){
+    echo '<div class="push"></div><footer class="footer">
+    <div class="container-fluid">    
+  <div class="row small bottom">
+    <div class="col-lg-offset-2" style="padding-top: 10px;">
+      <div class="col-md-3">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">STU<li>
+          <li> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </li>
+                        <li> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit"> STU Canteen </a> </li>
+                        <li> <a target="_blank" href="https://webmail.stuba.sk"> Webmail STU </a> </li>
+                        <li> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1"> STU publication registry </a> </li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">FEI<li>
+          <li> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh"> FEI timetable </a> </li>
+                        <li> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle"> Moodle FEI </a> </li>              
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <ul class="list-unstyled">
+          <li class="ib-highlited">Other<li>
+          <li> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </li>
+                        <li> <a target="_blank" href="http://okocasopis.sk"> OKO magazine </a> </li>
                         <li> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU"> Facebook </a> </li>
                         <li> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA"> YouTube </a> </li>						        
         </ul>
