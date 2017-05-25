@@ -68,6 +68,7 @@ function loginLDAP($login, $password){
             session_start();
             $row = $result->fetch_assoc();
             $_SESSION["role"] =  $row["role"];
+            $_SESSION["user"] =  $login;
             @ldap_close($connect);
             return true;
         }

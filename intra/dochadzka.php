@@ -129,15 +129,12 @@ loadLanguageNavbar(true);
     </div>
 </div>
 
-
 <script src="../js/intranet.js"></script>
 <?php
+loadLanguageFooter();
 loadJScripts();
 ?>
 <script src="../js/bootstrap-toggle.min.js"></script>
 </body>
-<?php
-loadFooter();
-?>
 </html>
 

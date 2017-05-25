@@ -63,12 +63,8 @@ loadLanguageNavbar(true);
 
 <script src="../js/intranet.js"></script>
 <?php
+loadLanguageFooter();
 loadJScripts();
 ?>
-    </body>
-    <?php
-    loadFooter();
-
-
-    ?>
+</body>
 </html>

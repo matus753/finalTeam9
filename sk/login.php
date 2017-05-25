@@ -55,10 +55,8 @@ loadNavbarSK();
 </div>
 
 <?php
+loadLanguageFooter();
 loadJScripts();
 ?>
 </body>
-<?php
-loadFooter();
-?>
 </html>

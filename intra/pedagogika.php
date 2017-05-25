@@ -82,10 +82,8 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
 
 <script src="../js/intranet.js"></script>
 <?php
+loadLanguageFooter();
 loadJScripts();
 ?>
 </body>
-<?php
-loadFooter();
-?>
 </html>

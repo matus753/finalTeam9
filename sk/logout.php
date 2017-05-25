@@ -7,6 +7,7 @@ $_SESSION['lang'] = 'sk';
 
 if(isset($_SESSION["role"])) {
     unset($_SESSION["role"]);
+    unset($_SESSION["user"]);
 } else {
     header("HTTP/1.1 401 Unauthorized");
     generate401Html();
@@ -15,15 +16,15 @@ if(isset($_SESSION["role"])) {
 
 $conn = new_connection();
 ?>
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
     <head>
         <title>Odhlásenie | ÚAMT FEI STU</title>
         <?php
         loadHead();
         ?>
     </head>
-    <body>
+<body>
 <?php
 loadLanguageNavbar();
 ?>
@@ -39,11 +40,9 @@ loadLanguageNavbar();
 </div>
 
 <?php
+loadLanguageFooter();
 loadJScripts();
 ?>
 </body>
-<?php
-loadFooter();
-?>
 </html>
 

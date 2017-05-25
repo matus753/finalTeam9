@@ -7,6 +7,7 @@ $_SESSION['lang'] = 'en';
 
 if(isset($_SESSION["role"])) {
     unset($_SESSION["role"]);
+    unset($_SESSION["user"]);
 } else {
     header("HTTP/1.1 401 Unauthorized");
     generate401Html();
@@ -39,11 +40,9 @@ loadLanguageNavbar();
 </div>
 
 <?php
+loadLanguageFooter();
 loadJScripts();
 ?>
 </body>
-<?php
-loadFooter();
-?>
 </html>
 
