@@ -18,7 +18,7 @@ $DBconn = new_connection();
 </head>
 <body>
 <?php
-loadNavbarSK();
+loadLanguageNavbar();
 
 if(isset($_POST["sender"])) {
     $curr_date = date("Y-m-d");

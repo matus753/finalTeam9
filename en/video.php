@@ -8,7 +8,7 @@ $DBconn = new_connection();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Videá | ÚAMT FEI STU</title>
+    <title>Video | ÚAMT FEI STU</title>
     <?php
     loadHead();
     ?>
@@ -17,7 +17,7 @@ $DBconn = new_connection();
 </head>
 <body>
 <?php
-loadNavbarSK();
+loadLanguageNavbar();
 
 if(isset($_POST["sender"])) {
     $titleSKPost = $_POST["title-SK"];

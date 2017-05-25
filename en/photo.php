@@ -8,7 +8,7 @@ $DBconn = new_connection();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fotogaléria | ÚAMT FEI STU</title>
+    <title>Photo | ÚAMT FEI STU</title>
     <?php
     loadHead();
     ?>
@@ -18,7 +18,7 @@ $DBconn = new_connection();
 </head>
 <body>
 <?php
-loadNavbarSK();
+loadLanguageNavbar();
 
 if(isset($_POST["sender"])) {
     $curr_date = date("Y-m-d");
@@ -44,7 +44,7 @@ if(isset($_POST["sender"])) {
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="hlNadpis">Photo gallery</h1>
+                <h1 class="hlNadpis">Photo</h1>
                 <?php
                 echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";
                 ?>
