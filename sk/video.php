@@ -1,5 +1,7 @@
 <?php
 require_once '../general_functions.php';
+session_start();
+$_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
 $DBconn = new_connection();
 ?>
@@ -11,17 +13,31 @@ $DBconn = new_connection();
     loadHead();
     ?>
     <link href="../css/gallery.css" rel="stylesheet">
+    <link href="../css/bu_styles.css" rel="stylesheet">
 </head>
 <body>
 <?php
 loadNavbarSK();
+
+if(isset($_POST["sender"])) {
+    $titleSKPost = $_POST["title-SK"];
+    $titleENPost = $_POST["title-EN"];
+    $urlPost = $_POST["url-address"];
+    $typePost = $_POST["selected-option"];
+
+    $query = "INSERT INTO video_gallery (title_SK, title_EN, url, type) VALUES ('$titleSKPost', '$titleENPost', '$urlPost', '$typePost')";
+    $DBconn->query($query);
+}
 ?>
 
 <div id="emPAGEcontent">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Videá</h1>
+                <h1 class="hlNadpis">Videá</h1>
+                <?php
+                echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";
+                ?>
                 <hr>
                 <div>
                     <?php
@@ -57,9 +73,40 @@ loadNavbarSK();
         </div>
     </div>
 </div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Vloženie nového videa</h4>
+            </div>
+            <form action="video.php" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div>
+                        Zvoľ typ videa:
+                        <select class="form-control" name="selected-option">
+                            <option>Naše laboratóriá</option>
+                            <option>Naše zariadenie</option>
+                            <option>Predmety</option>
+                            <option>Propagačné videá</option>
+                        </select><br>
+                        <input class="form-control" type="text" placeholder="Slovenský nadpis videa" style="padding-bottom: 7px;" name="title-SK"><br>
+                        <input class="form-control" type="text" placeholder="Anglický nadpis videa" style="padding-bottom: 7px;" name="title-EN"><br>
+                        <input class="form-control" type="text" placeholder="URL adresa videa vo formáte https://www.youtube.com/watch?v=57BJvTZK6Vc" style="padding-bottom: 7px;" name="url-address">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" name="sender" class="btn btn-default" value="Odoslať">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
 <?php
-loadFooter();
+loadLanguageFooter();
 loadJScripts();
 ?>
 <script src="../js/galleries/gallery_slider.js"></script>
