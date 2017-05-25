@@ -470,7 +470,7 @@ function loadNavbarEN($isIntranet = false){
                             <li><a href="'.$upDir.'aboutUs.php#section2" id="navSec2" class="navbarItem sectItem">Head of Institute</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="'.$upDir.'aboutUs.php#section3" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem3" >
+                                <ul class="dropdown-menu submenuItem4" >
                                     <li><a href="'.$upDir.'aboutUs.php#section3" id="navSec31" class="sectItem">Department of Mechanics and Mechatronics (OAMM)</a></li>
                                     <li><a href="'.$upDir.'aboutUs.php#section32" id="navSec32" class="sectItem">Department of Information, Communication and Control Systems  (OIKR)</a></li>
                                     <li><a href="'.$upDir.'aboutUs.php#section33" id="navSec33" class="sectItem">Department of Electronics, Microcomputers and PLC (OEMP)</a></li>
@@ -488,7 +488,7 @@ function loadNavbarEN($isIntranet = false){
                             <li><a href="'.$upDir.'projects.php" class="navbarItem">Projects</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research topics <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem" >
+                                <ul class="dropdown-menu submenuItem5" >
                                     <li><a href="#" >Electric kart</a></li>
                                     <li><a href="#" >Off-line vehicle 6×6</a></li>
                                     <li><a href="#" >3D LED cube</a></li>
@@ -504,7 +504,7 @@ function loadNavbarEN($isIntranet = false){
                             <li><a href="#" class="navbarItem">Photos</a></li>
                             <li><a href="#" class="navbarItem">Video</a></li>
                             <li><a href="#" class="navbarItem">Media</a></li>
-                            <li class="dropdown-submenu">
+                            <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Our thematic web sites <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem2 navbarItem" >
                                     <li><a href="http://www.e-mobilita.fei.stuba.sk/" >Electromobility</a></li>
