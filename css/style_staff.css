@@ -9,9 +9,8 @@ and open the template in the editor.
 */
 
 .staff-th {
-        min-width: 115px;
-    }
-
+         min-width: 115px;
+}
 
 .SS-staff-img {
     max-height: 220px;
@@ -92,7 +91,6 @@ and open the template in the editor.
     transition: all 0.3s ease;
 }
 #staff-table-publikace {
-    display: none;
     font-size: 12px;
     text-align: center;
     color: #898e8f;
@@ -158,6 +156,13 @@ h2 {
 
 input {
     width: 100%;
+}
+
+.img-loading {
+    width: 120px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media all and (max-width: 424px) {

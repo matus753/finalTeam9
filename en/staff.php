@@ -3,7 +3,7 @@
     require_once __DIR__ . "/staff_functions.php";
     session_start();
     $_SESSION['page'] = $_SERVER['REQUEST_URI'];
-    $_SESSION['lang'] = 'sk';
+    $_SESSION['lang'] = 'en';
 ?>
 <html>
   <head>      
@@ -12,7 +12,7 @@
         <script src="../js/scripty_staff.js"></script>
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/style_staff.css">
-        <title>Pracovníci | ÚAMT FEI STU</title>
+        <title>Staffs | ÚAMT FEI STU</title>
   </head>
   <body>
       <?php loadLanguageNavbar();  ?>  
@@ -20,17 +20,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Pracovníci</h1>
+                    <h1>Staffs</h1>
                     <hr>
-                    <h2>Filter pre oddelenia a zaradenia:</h2>
+                    <h2>Filter:</h2>
                     <div class="form-inline staff-filter">
                         <div class='row'> 
                             <div class='col-md-3'></div>
                             <div class="col-md-3 col-xs-6">
-                                <input type="text" id="SS-filterDep" onkeyup="filterDepartment()" placeholder="Filter oddelení.." title="Zadajte oddelenie" class="form-control mb-2 mr-sm-2 mb-sm-0">
+                                <input type="text" id="SS-filterDep" onkeyup="filterDepartment()" placeholder="Department Filter" title="Department Filter" class="form-control mb-2 mr-sm-2 mb-sm-0">
                             </div>
                             <div class="col-md-3 col-xs-6">
-                                <input type="text" id="SS-filterRole" onkeyup="filterRole()" placeholder="Filter zaradenia.." title="Zadajte zaradenie" class="form-control mb-2 mr-sm-2 mb-sm-0">
+                                <input type="text" id="SS-filterRole" onkeyup="filterRole()" placeholder="Staff role Filter" title="Staff role Filter" class="form-control mb-2 mr-sm-2 mb-sm-0">
                             </div>
                             <div class='col-md-3'></div>
                         </div>
