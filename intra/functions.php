@@ -1,7 +1,13 @@
 <?php
 require_once __DIR__ . '/../general_functions.php';
 
-function generateTable($m,$y){
+function generateTable($m,$y,$isPdf = false){
+    $str = "";
+
+    if($isPdf){
+        $str .= "<h1>Dochádzka za $m. $y</h1>";
+    }
+
     $conn = new_connection();
     $days = array("Ne", "Po", "Ut", "St", "Št", "Pi", "So");
 
@@ -9,59 +15,94 @@ function generateTable($m,$y){
     $result = $conn->query($sql);
 
     $number = cal_days_in_month(CAL_GREGORIAN, $m, $y);
-    echo '<table class="table table-bordered" id="table"><thead><tr><th></th>';
+    $str .= '<table class="table table-bordered" id="table"><thead><tr><th></th>';
 
     for ($x = 1; $x <= $number; $x++) {
-        echo "<th class=\"fixed\">$x</th>";
+        if(!$isPdf) {
+            $str .= "<th class=\"fixed\">$x</th>";
+        } else {
+            $str .= "<th style=\"width: 35px; height: 35px; text-align: center\">$x</th>";
+        }
     }
-    echo '</tr><tr><th style="display: none">ID</th><th>Meno</th>';
+    $str .= '</tr><tr>';
+    if(!$isPdf) {
+        $str .= '<th style="display: none">ID</th>';
+        $str .= '<th>Meno</th>';
+    } else {
+        $str .= '<th style="height: 35px; padding: 5px; text-align: center" >Meno</th>';
+    }
     for ($x = 1; $x <= $number; $x++){
         $day = $days[date("w",strtotime($y . "-" . $m . "-" . $x))];
-        if(strcmp($day,"Ne") == 0 || strcmp($day,"So") == 0)
-            echo "<th style='background: slategray'>$day</th>";
-        else
-            echo "<th>$day</th>";
+        if(!$isPdf) {
+            if (strcmp($day, "Ne") == 0 || strcmp($day, "So") == 0)
+                $str .= "<th style='background: slategray'>$day</th>";
+            else
+                $str .= "<th>$day</th>";
+        } else {
+            if (strcmp($day, "Ne") == 0 || strcmp($day, "So") == 0)
+                $str .= "<th style='background: slategray; width: 35px; height: 35px; text-align: center'>$day</th>";
+            else
+                $str .= "<th style=\"width: 35px; height: 35px; text-align: center\">$day</th>";
+        }
     }
-    echo '</tr></thead>';
+    $str .= '</tr></thead>';
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            echo "<tr><th style=\"display: none\">". $row["id"] . "</th><th class='unselectable name' onclick='show(this)'>" . $row["name"] ." " . $row["surname"] . "</th>";
-            $sql = "SELECT id_typu, datum from nepritomnosti where id_zamestnanca = " . $row["id"] . ' AND MONTH(datum) = ' . $m . ' ORDER BY datum';
-            $nepr = $conn->query($sql);
-            if($nepr->num_rows > 0){
-                $d = $nepr->fetch_assoc();
-                $timestamp = DateTime::createFromFormat("Y-m-d",$d["datum"])->format("d");
-            } else {
-                $d = null;
-            }
-            for ($x = 1; $x <= $number; $x++) {
-                if($d != null){
-                    if($timestamp == $x) {
-                        $sql = "SELECT skratka,farba from typ_nepritomnosti where id = " . $d["id_typu"];
-                        $typ = $conn->query($sql);
-                        $typsk = $typ->fetch_assoc();
-                        echo '<td class="unselectable" style="background-color: '. $typsk["farba"].'">' . $typsk["skratka"] . "</td>";
-                        $d = $nepr->fetch_assoc();
-                        if($d != null)
-                            $timestamp = DateTime::createFromFormat("Y-m-d", $d["datum"])->format("d");
-                    }
-                    else {
-                        echo "<td class='unselectable'></td>";
-                    }
-                } else {
-                    echo "<td class='unselectable'></td>";
+            if ($row["name"] !== "Admin") {
+                $str .= '<tr>';
+                if (!$isPdf) {
+                    $str .= "<th style=\"display: none\">" . $row["id"] . "</th>";
                 }
+                $str .= "<th class='unselectable name' style=\"height: 35px; padding: 5px; text-align: center\" onclick='show(this)'>" . $row["name"] . " " . $row["surname"] . "</th>";
+                $sql = "SELECT id_typu, datum from nepritomnosti where id_zamestnanca = " . $row["id"] . ' AND MONTH(datum) = ' . $m . ' AND YEAR(datum) = ' . $y .' ORDER BY datum';
+                $nepr = $conn->query($sql);
+                if ($nepr->num_rows > 0) {
+                    $d = $nepr->fetch_assoc();
+                    $timestamp = DateTime::createFromFormat("Y-m-d", $d["datum"])->format("d");
+                } else {
+                    $d = null;
+                }
+                for ($x = 1; $x <= $number; $x++) {
+                    if ($d != null) {
+                        if ($timestamp == $x) {
+                            $sql = "SELECT skratka,farba from typ_nepritomnosti where id = " . $d["id_typu"];
+                            $typ = $conn->query($sql);
+                            $typsk = $typ->fetch_assoc();
+                            $str .= '<td class="unselectable" style="background-color: ' . $typsk["farba"] . '">' . $typsk["skratka"] . "</td>";
+                            $d = $nepr->fetch_assoc();
+                            if ($d != null)
+                                $timestamp = DateTime::createFromFormat("Y-m-d", $d["datum"])->format("d");
+                        } else {
+                            $str .= "<td class='unselectable'></td>";
+                        }
+                    } else {
+                        $str .= "<td class='unselectable'></td>";
+                    }
+                }
+                $str .= "</tr>";
             }
-            echo "</tr>";
         }
     } else {
-        echo "0 results";
+        $str .= "0 results";
     }
-    echo '</table>';
+    $str .= '</table>';
+
+    if($isPdf){
+        $str .= '<div>';
+        $sql = "SELECT * from typ_nepritomnosti";
+        $result = $conn->query($sql);
+        $str .= '<h3>Legenda</h3><ul>';
+        while($row = $result->fetch_assoc()) {
+            $str .= '<li><span style="background:'.$row["farba"].';">___</span>   '. $row["nazov"] .'</li>';
+        }
+        $str .= '</ul></div>';
+    }
+
+    return $str;
 }
 
-function build_month($month,$year, $id) {
+function build_month($month,$year, $id, $isPdf = false) {
 
     // Create array containing abbreviations of days of week.
     $daysOfWeek = array('Ne','Po','Ut','St','Št','Pi','So');
@@ -87,39 +128,49 @@ function build_month($month,$year, $id) {
     $sql = "SELECT * FROM staff WHERE id = " . $id;
     $result = $conn->query($sql);
     $emp = $result->fetch_assoc();
+    $calendar = "";
+    $name = $emp["name"];
+    $surname = $emp["surname"];
 
-    $calendar = '<div class="container"><div class="col-xs-3"><h2 style="margin-bottom: 5px">'. $emp["name"] . ' ' . $emp["surname"] .'</h2></div>';
-
-    $calendar .= "<div class=\"col-xs-1\" style=\"margin-top: 15px\">
+    if(!$isPdf) {
+        $calendar .= '<div class="container"><div class="col-xs-3"><h2 style="margin-bottom: 5px">' . $name . ' ' . $surname . '</h2></div>';
+        $calendar .= "<div class=\"col-xs-1\">
+                <br>
+                <button type=\"button\" class=\"btn btn-primary\" style=\"margin-top: 5px\" onclick=\"generateMonthPdf($id,$month,$year)\">PDF</button>
+            </div>
+            <div class=\"col-xs-1\" style=\"margin-top: 15px\">
         <input id=\"editingView\" type=\"checkbox\" data-toggle=\"toggle\" onchange=\"changeEditView()\">
     </div>
     <form id=\"editingFormView\" style=\"display: none\">
         <div class=\"col-xs-3\" id=\"choice\" style=\"margin-top: 15px\">
             <select name=\"type_nep\" id=\"type_nep_view\" class=\"form-control\" onchange=\"changeTypeView(this[this.selectedIndex].value)\">
-                <option value=" .'{"farba":"white","skratka":"x"}' . " selected>zrušiť</option>";
+                <option value=" . '{"farba":"white","skratka":"x"}' . " selected>zrušiť</option>";
 
-    $sql = "SELECT * from typ_nepritomnosti";
-    $result = $conn->query($sql);
+        $sql = "SELECT * from typ_nepritomnosti";
+        $result = $conn->query($sql);
 
-    while($row = $result->fetch_assoc()) {
-        $calendar .= '<option value=\'{"farba":"'.$row["farba"].'","skratka":"'.$row["skratka"].'"}\'>' . $row["nazov"] . '</option>';
-    }
+        while ($row = $result->fetch_assoc()) {
+            $calendar .= '<option value=\'{"farba":"' . $row["farba"] . '","skratka":"' . $row["skratka"] . '"}\'>' . $row["nazov"] . '</option>';
+        }
 
-    $calendar .= "</select></div> <div class=\"col-xs-1\" style=\"margin-top: 10px\">
+        $calendar .= "</select></div> <div class=\"col-xs-1\" style=\"margin-top: 10px\">
                             <button type=\"button\" class=\"btn btn-primary\" style=\"margin-top: 5px\" onclick=\"saveView()\">Uložiť</button>
                         </div>
                     </form></div>";
+    }
+
+    if($isPdf){
+        $calendar .= "<h1>$name $surname</h1>";
+    }
 
     // Create the table tag opener and day headers
-
     $calendar .= "<table class='table table-bordered' id='table_view'>";
     $calendar .= "<caption>$monthName $year</caption>";
     $calendar .= "<tr>";
 
     // Create the calendar headers
-
     foreach($daysOfWeek as $day) {
-        $calendar .= "<th class='monthDay'>$day</th>";
+        $calendar .= "<th class='monthDay' style='text-align: center'>$day</th>";
     }
 
     // Create the rest of the calendar
@@ -140,7 +191,7 @@ function build_month($month,$year, $id) {
 
     $month = str_pad($month, 2, "0", STR_PAD_LEFT);
 
-    $sql = "SELECT id_typu, datum from nepritomnosti where id_zamestnanca = " . $id. ' AND MONTH(datum) = ' . $month . ' ORDER BY datum';
+    $sql = "SELECT id_typu, datum from nepritomnosti where id_zamestnanca = " . $id. ' AND MONTH(datum) = ' . $month . ' AND YEAR(datum) = ' . $year .' ORDER BY datum';
     $nepr = $conn->query($sql);
 
     if($nepr->num_rows > 0){
@@ -194,6 +245,17 @@ function build_month($month,$year, $id) {
     }
     $calendar .= "</tr>";
     $calendar .= "</table>";
+
+    if($isPdf){
+        $calendar .= '<div>';
+        $sql = "SELECT * from typ_nepritomnosti";
+        $result = $conn->query($sql);
+        $calendar .= '<h3>Legenda</h3><ul>';
+        while($row = $result->fetch_assoc()) {
+            $calendar .= '<li><span style="background:'.$row["farba"].';">___</span>   '. $row["nazov"] .'</li>';
+        }
+        $calendar .= '</ul></div>';
+    }
 
     return $calendar;
 

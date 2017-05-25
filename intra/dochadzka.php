@@ -15,7 +15,7 @@ $conn = new_connection();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kalendár nepritomnosti | ÚAMT FEI STU</title>
+    <title>Kalendár neprítomnosti | ÚAMT FEI STU</title>
     <?php
     loadHead();
     ?>
@@ -30,8 +30,12 @@ loadLanguageNavbar(true);
 <!-- Page Content -->
 <div id="emPAGEcontent">
     <div class="container">
-        <h1>Kalendár nepritomnosti</h1>
-        <form action="index.php" method="post">
+        <h1>Kalendár neprítomnosti</h1>
+        <form action="dochadzka.php" method="post">
+            <div class="col-xs-1">
+                <br>
+                <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="generatePdf()">PDF</button>
+            </div>
             <div class="col-xs-2">
                 <label for="slc_m">Mesiac: </label>
                 <select name="month" id="slc_m" class="form-control" onchange="generateTable(this.value, document.getElementById('slc_y').value);">
@@ -61,46 +65,46 @@ loadLanguageNavbar(true);
                     ?>
                 </select>
             </div>
-        </form>
-        <div class="col-xs-1" <?php if(!(isAdmin() || isHr())) echo 'style="display:none"'?>>
-            <label for="editing">Editovat: </label><br>
-            <input id="editing" type="checkbox" data-toggle="toggle" onchange="changeEdit()">
-        </div>
-        <form id="editingForm" style="display: none">
-            <div class="col-xs-3" id="choice" >
-                <label for="type_nep">Typ nepritomnosti: </label>
-                <select name="type_nep" id="type_nep" class="form-control" onchange="changeType(this[this.selectedIndex].value)">
-                    <option value='{"farba":"white","skratka":"x"}' selected>zrušiť</option>
-                    <?php
-                    $sql = "SELECT * from typ_nepritomnosti";
-                    $result = $conn->query($sql);
+            <div class="col-xs-1" <?php if(!(isAdmin() || isHr())) echo 'style="display:none"'?>>
+                <label for="editing">Editovať: </label><br>
+                <input id="editing" type="checkbox" data-toggle="toggle" onchange="changeEdit()">
+            </div>
+            <div id="editingForm" style="display: none">
+                <div class="col-xs-3" id="choice" >
+                    <label for="type_nep">Typ nepritomnosti: </label>
+                    <select name="type_nep" id="type_nep" class="form-control" onchange="changeType(this[this.selectedIndex].value)">
+                        <option value='{"farba":"white","skratka":"x"}' selected>zrušiť</option>
+                        <?php
+                        $sql = "SELECT * from typ_nepritomnosti";
+                        $result = $conn->query($sql);
 
-                    while($row = $result->fetch_assoc()) {
-                        echo '<option value=\'{"farba":"'.$row["farba"].'","skratka":"'.$row["skratka"].'"}\'>' . $row["nazov"] . '</option>';
-                    }
-                    ?>
-                </select>
+                        while($row = $result->fetch_assoc()) {
+                            echo '<option value=\'{"farba":"'.$row["farba"].'","skratka":"'.$row["skratka"].'"}\'>' . $row["nazov"] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="col-xs-1">
+                    <br>
+                    <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="save()">Uložiť</button>
+                </div>
             </div>
-            <div class="col-xs-1">
-                <br>
-                <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="save()">Uložiť</button>
+            <div class="col-xs-3" id="uspech" style="display: none">
+                <br>Dáta úspešne uložené!
             </div>
         </form>
-        <div class="col-xs-3" id="uspech" style="display: none">
-            <br>Dáta úspešne uložené!
-        </div>
         </div>
         <div class="mycontainer" id="calendar">
             <?php
             $month = date('m');
-            $year = date('y');
+            $year = date('Y');
 
             if(isset($_POST['month']) && isset($_POST['year'])){
                 $month  = htmlspecialchars($_POST['month']);
                 $year  = htmlspecialchars($_POST['year']);
             }
 
-            generateTable($month, $year);
+            echo generateTable($month, $year);
             ?>
         </div>
         <div class="container legenda" id="legend" style="margin-bottom: 150px">

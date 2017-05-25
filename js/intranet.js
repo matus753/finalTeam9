@@ -174,9 +174,15 @@ function changeTypeView(json) {
 
 function setEvent(color) {
     var isDown = false;   // Tracks status of mouse button
+    var isSetParent = false;
+    var parent;
 
     $('td').mousedown(function() {
         if(!(skratka == "x" && this.innerHTML == "")){
+            if(!isSetParent){
+                isSetParent = true;
+                parent = this.parentElement;
+            }
             $(this).css('backgroundColor', color);
             $(this).html(skratka);
             isDown = true;
@@ -184,11 +190,12 @@ function setEvent(color) {
     })
         .mouseup(function() {
             isDown = false;    // When mouse goes up, set isDown to false
+            isSetParent = false;
         });
 
     $('td').mouseover(function () {
         if(!(skratka == "x" && this.innerHTML == "")) {
-            if (isDown) {
+            if (isDown && parent===this.parentElement) {
                 $(this).css('backgroundColor', color);
                 $(this).html(skratka);
             }
@@ -363,6 +370,35 @@ function show(element) {
             document.getElementById("cal_month").innerHTML = data;
             $("[data-toggle='toggle']").bootstrapToggle('destroy')
             $("[data-toggle='toggle']").bootstrapToggle();
+        }
+    })
+}
+
+function generatePdf() {
+    $.ajax({
+        type: "POST",
+        url: "generatePdf.php",
+        success: function(){
+            window.location = 'generatePdf.php';
+        },
+        error: function(data){
+            alert(data);
+        }
+    })
+}
+
+function generateMonthPdf(id, mesiac, rok) {
+    $.ajax({
+        type: "POST",
+        url: "generateMonthPdf.php",
+        data:{ month: mesiac,
+               year: rok,
+               id: id},
+        success: function(){
+            window.location = 'generateMonthPdf.php';
+        },
+        error: function(data){
+            alert(data);
         }
     })
 }

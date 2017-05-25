@@ -3,6 +3,7 @@ session_start();
 
 require_once '../general_functions.php';
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
+$_SESSION['lang'] = 'sk';
 
 if(isset($_SESSION["role"])) {
     unset($_SESSION["role"]);

@@ -9,4 +9,4 @@ if(isset($_POST['month']) && isset($_POST['year'])){
     $y  = htmlspecialchars($_POST['year']);
 }
 
-generateTable($m,$y);
+echo generateTable($m,$y);
