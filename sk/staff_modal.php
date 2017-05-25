@@ -39,19 +39,11 @@
                 
                 if (!empty($row['ldapLogin'])) {
                     $AISid = getLdapId($row['ldapLogin']);
-                    $vys .= "<p id='modal-staff-more' class='grey bold'>Zobraziť / Skryť publikácie <i class='fa fa-caret-down'></i></p>";
+                    $vys .= "<p id='modal-staff-more' class='grey bold' data-id='".$AISid."' style='cursor:pointer'>Zobraziť publikácie <i class='fa fa-caret-down'></i></p>";
                       
-                    
                     $vys .= "<div id='modal-staff-more-content'>";
-                    zobraz_publikacie($AISid);
                     $vys .= "</div>";
-                    
-                    echo "<script>";
-                    echo '$(document).ready(function(){
-                            $("#modal-staff-more").click(function(){
-                                $("#staff-table-publikace").toggle("slow");
-                            });
-                        });</script>';
+
                 }
                     
                 

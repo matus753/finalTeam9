@@ -12,9 +12,21 @@ $(document).on('click', '.m', function(){
     });
 });
 
-$(document).ready(function(){
-    $("#modal-staff-more").click(function(){
-        $("#staff-table-publikace").toggle();
+$(document).on('click', '#modal-staff-more', function(){
+    var val = $(this).attr('data-id');
+    
+    $('#modal-staff-more-content').html('<img src="../images/loading_car.gif" class="img-loading">');
+     
+    $.ajax({
+        type: 'GET',
+        url: "staff_publication.php",
+        data: {AISid : val},
+        success: function(msg){
+            setTimeout(function () {
+                $("#modal-staff-more-content").html(msg);
+            }, 2000);
+            
+        }
     });
 });
 
