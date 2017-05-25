@@ -1,0 +1,32 @@
+.carousel-item {
+    margin-top: -20px;
+}
+
+.slider-h3 {
+    text-transform: uppercase;
+    font-size: 30px;   
+    padding: 20px;
+    margin: 10px 40px;
+}
+
+.slider-bg-white {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.slider-bg-black {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.slider-text {
+    font-size: 20px;
+}
+
+.slider-a {
+    color: white;
+    text-decoration: underline;
+    font-size: 25px;
+}
+
+.slider-a:hover {
+    color: #FFD446;
+}
