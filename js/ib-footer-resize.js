@@ -31,7 +31,3 @@ $( window ).resize(function() {
 $( document ).ready(function() {
     update();
 });
-
-$( document ).onload(function() {
-    update();
-});

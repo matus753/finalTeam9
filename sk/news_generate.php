@@ -9,32 +9,53 @@ function createContent(){
     } else {
         $type_local = 3;
     }
+    if(isset($_POST['expired'])){
+        $show_expired = $_POST['expired'];
+    } else {
+        $show_expired = false;
+    }
+    if (isset($_POST["page"])) {
+        $page  = $_POST["page"];
+    } else {
+        $page=1;
+    };
 
     $type_array = ["Propagácia", "Oznamy", "Zo života ústavu"];
     $conn = new_connection();
     $output = "";
+    $date = date("Y-m-d");
+    $per_page = 5;
+    $start_from = ($page-1) * $per_page;
+
 //    0 - Propagacia, 1 - Oznamy, 2 - Zo zivota fakulty, 3 - vsetky
+
+    $sql_max = "SELECT COUNT(ID) AS total FROM news where content_sk <> '' ".($show_expired == "false" ? " and curdate() <= date_expiration" : "");
+    $result = $conn->query($sql_max);
+    $row = $result->fetch_assoc();
+    $total_records = $row["total"];
+    $total_pages = ceil($total_records / $per_page);
 
 
     if($type_local == 3){
-        $sql = "SELECT * FROM news order by date_created desc";
+        $sql = "SELECT * FROM news where content_sk <> '' ".($show_expired == "false" ? "and curdate() <= date_expiration" : "")." order by date_created desc limit ".$start_from.",".$per_page;
     } else {
-        $sql = "SELECT * FROM news where type = ".$type_local." order by date_created desc";
+        $sql = "SELECT * FROM news where content_sk <> '' and type = ".$type_local.($show_expired == "false" ? " and curdate() <= date_expiration" : "")." order by date_created desc";
     }
+
+//    echo $total_pages."---".$sql."---".$sql_max;
 
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
-            $date_expiration = $row['date_expiraton'];
-            $date = date("Y-m-d");
-            if($date > $date_expiration){
-                $expired = " ib-expired' style='display: none;'";
-            } else {
-                $expired = "'";
-            }
+            $message = $row['content_sk'];
+            $date_expiration = $row['date_expiration'];
             $type_db = $row['type'];
-            $output .= "<div class='well".$expired.">";
+
+            if(empty($message)){
+                continue;
+            }
+            $output .= "<div class='well ib-expired'>";
             $output .= "<h1>".$row['title_sk']."</h1>";
             $output .= "<p>".$row['content_sk']."</p>";
             $output .= "<div class=''>";
@@ -61,6 +82,18 @@ function createContent(){
 
         }
     }
+
+    $w = $total_pages * 50 + 40;
+    $output .= "<div class='row'>";
+    $output .= "<div class='ib-news-buttons' style='width: ".$w."px'>";
+    for ($i=1; $i<=$total_pages; $i++) {
+//        $output .= "<a href='index.php?page=".$i."'>".$i."</a> ";
+        $output .= "<button type='button' class='btn btn-default btn-lg ".($page == $i ? "disabled active'" : "'").($page == $i ? "id='ib-active-page-button' value='".$i."'" : "")." onclick='updateType(".$i.");scroll();'>".$i."</button>";
+    }
+    $output .= "</div>";
+    $output .= "</div>";
+
+
     echo $output;
 //    echo str_split($output, strlen($output) - 10)[0]."</div>";
 
