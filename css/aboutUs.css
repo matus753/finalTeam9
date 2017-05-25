@@ -1,6 +1,18 @@
 #section1, #section3, #section2{
-    padding: 3px 100px 10px 100px;
+    padding: 3px 50px 10px 50px;
 }
 #section31, #section32, #section33, #section34{
     padding: 3px 20px 10px 20px;
+}
+.sectionH2{
+    padding-top: 100px;
+}
+#sectContent1, #sectContent2, #sectContent3{
+    padding-bottom: 100px;
+}
+#secH32, #secH33, #secH34{
+    padding-top: 100px;
+}
+#secH31{
+    padding-top: 20px;
 }

@@ -175,7 +175,7 @@ function loadNavbarSK($isIntranet = false){
                             <li class="dropdown-submenu dropdown">
                                 <a href="'.$upDir.'aboutUs.php#section3" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem3" >
-                                    <li><a href="'.$upDir.'aboutUs.php#section31" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
+                                    <li><a href="'.$upDir.'aboutUs.php#section3" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
                                     <li><a href="'.$upDir.'aboutUs.php#section32" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
                                     <li><a href="'.$upDir.'aboutUs.php#section33" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
                                     <li><a href="'.$upDir.'aboutUs.php#section34" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>

@@ -13,7 +13,7 @@ $_SESSION['lang'] = 'sk';
     ?>
     <link href="../css/aboutUs.css" rel="stylesheet">
 </head>
-<body data-spy="scroll" data-target="#navbar-custom" data-offset="100">
+<body data-spy="scroll" data-target="#navbar-custom" data-offset="20">
 <?php
     loadLanguageNavbar();
 
@@ -29,11 +29,11 @@ $_SESSION['lang'] = 'sk';
                         <h3 class="sectionH2 sectItem" id="secH1">História</h3>
                         <div id="sectContent1">
                         <p>Ústav automobilovej mechatroniky bol zriadený k 1. júlu 2013 ako pedagogické a vedecko-výskumné pracovisko Fakulty elektrotechniky a informatiky STU v Bratislave. Zriadenie ústavu Automobilovej mechatroniky bolo logickým vyústením zámerov  vedenia Fakulty elektrotechniky a informatiky STU v Bratislave vytvoriť taký ústav, ktorý by zohľadňoval súčasné požiadavky a potreby automobilového priemyslu  na  Slovensku  s  hlavným  cieľom  pripravovať  absolventov bakalárskeho a  inžinierského štúdia pre oblasť automobilovej mechatroniky.</p>
-                        <p>V súčasnosti Ústav automobilovej mechatroniky zabezpečuje výskum, vývoj a vzdelávanie  vo viacerých  oblastiach aplikovanej mechatroniky so špeciálnym dôrazom vo sfére  automobilovej mechatroniky  a  mechatronických  systémov  na  základe  integrácie  a synergie mechanických, elektronických,   informačných,   komunikačných   a   riadiacich   technológií   do   komplexných mechatronických systémov automobilov.</p>
+                        <p class="y1">V súčasnosti Ústav automobilovej mechatroniky zabezpečuje výskum, vývoj a vzdelávanie  vo viacerých  oblastiach aplikovanej mechatroniky so špeciálnym dôrazom vo sfére  automobilovej mechatroniky  a  mechatronických  systémov  na  základe  integrácie  a synergie mechanických, elektronických,   informačných,   komunikačných   a   riadiacich   technológií   do   komplexných mechatronických systémov automobilov.</p>
                         <p>Ústav garantuje študijné programy vo všetkých stupňoch štúdia akreditovaných na STU v Bratislave. Pre  širokospektrálnu  oblasť  výučby  a  výskumu  zabezpečuje  integráciu  výskumníkov  a pedagógov  z  FEI STU do výskumného a výučbového procesu v jednotlivých študijných programoch.</p>
                         </div>
                     </div>
-                <hr>
+                <hr class="aboutUsHR">
                     <div id="section2" class="sectionDiv">
                         <h3 class="sectionH2 sectItem" id="secH2">Vedenie ústavu</h3>
                         <div id="sectContent2" class="row">
@@ -51,11 +51,11 @@ $_SESSION['lang'] = 'sk';
                             </div>
                         </div>
                     </div>
-                <hr>
+                <hr class="aboutUsHR">
                     <div id="section3" class="sectionDiv">
 
-                        <h3 class="sectionH2 sectItem" id="secH3">Oddelenia ústavu automobilovej mechatroniky</h3>
                         <div id="sectContent3">
+                            <h3 class="sectionH2 sectItem" id="secH3">Oddelenia ústavu automobilovej mechatroniky</h3>
                         <div id="section31">
                             <h4 class="sectItem" id="secH31">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</h4>
                             <div id="sectContent31">
@@ -133,7 +133,7 @@ $_SESSION['lang'] = 'sk';
 </div>
 
 <?php
-loadFooter();
+loadLanguageFooter();
 loadJScripts();
 ?>
 <script src="../js/scripty_aboutUs.js"></script>
