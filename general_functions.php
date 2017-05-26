@@ -216,9 +216,9 @@ function loadNavbarSK($isIntranet = false){
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="photo.php" class="navbarItem">Fotogaléria</a></li>
-                            <li><a href="video.php" class="navbarItem">Videá</a></li>
-                            <li><a href="media.php" class="navbarItem">Média</a></li>
+                            <li><a href="'.$upDir.'photo.php" class="navbarItem">Fotogaléria</a></li>
+                            <li><a href="'.$upDir.'video.php" class="navbarItem">Videá</a></li>
+                            <li><a href="'.$upDir.'media.php" class="navbarItem">Média</a></li>
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Naše témetické web stránky <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem2 navbarItem" >
@@ -520,15 +520,9 @@ function loadNavbarEN($isIntranet = false){
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-<<<<<<< cb64861a98154266372c9d05a8b5c40865199026
-                            <li><a href="photo.php" class="navbarItem">Photos</a></li>
-                            <li><a href="video.php" class="navbarItem">Video</a></li>
-                            <li><a href="media.php" class="navbarItem">Media</a></li>
-=======
                             <li><a href="'.$upDir.'photo.php" class="navbarItem">Photos</a></li>
                             <li><a href="'.$upDir.'video.php" class="navbarItem">Video</a></li>
-                            <li><a href="#" class="navbarItem">Media</a></li>
->>>>>>> [EB] intranet menu dorobete + niekotre dalsie veci pridane do href do navbaru
+                            <li><a href="'.$upDir.'media.php" class="navbarItem">Media</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Our thematic web sites <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem2 navbarItem" >
