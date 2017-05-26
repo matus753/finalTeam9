@@ -383,7 +383,7 @@ function generatePageByDirectory($page){
         if($value !== '.' && $value !== '..') {
             echo '<a data-toggle="collapse" href="#'.$value.'" class="list-group-item" data-parent="#accordion"><li class="lock">' . $value . '</li></a>';
             $files = scandir("../intranet/$page/$value");
-            echo '<div  id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
+            echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
                     echo '<li class="list-group-item"><a class="list-group-link" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '"><span class="glyphicon glyphicon-download-alt" style="margin-right: 10px"></span>' . $val . '</a><span class="pull-right">

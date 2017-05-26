@@ -5,11 +5,14 @@ require_once  '../../mpdf/mpdf.php';
 
 $m = date('m');
 $y = date('Y');
+$f = "";
 
 if(isset($_POST['month']) && isset($_POST['year'])){
     $m  = htmlspecialchars($_POST['month']);
     $y  = htmlspecialchars($_POST['year']);
+    $f = htmlspecialchars($_POST['filter']);
 }
+
 
 $file = 'dochadzka.pdf';
 
@@ -19,7 +22,7 @@ $mpdf -> SetDisplayMode('fullpage');
 $stylesheet = file_get_contents('../css/intranet.css');
 $stylesheet .= file_get_contents('../css/bootstrap.css');
 $mpdf->WriteHTML($stylesheet,1);
-$mpdf -> WriteHTML(generateTable($m,$y,true),2);
+$mpdf -> WriteHTML(generateTable($m,$y,true, $f),2);
 $mpdf -> Output($file,'F');// this generates the pdf
 
 header('Content-Description: File Transfer');

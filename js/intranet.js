@@ -377,10 +377,14 @@ function show(element) {
     })
 }
 
-function generatePdf() {
+function generatePdf(mesiac, rok, filter) {
+    var fi = String(filter);
     $.ajax({
         type: "POST",
         url: "generatePdf.php",
+        data: { month: mesiac,
+                year: rok,
+                filter: fi},
         success: function(){
             window.location = 'generatePdf.php';
         },

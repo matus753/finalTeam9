@@ -38,9 +38,17 @@ loadLanguageNavbar(true);
         ?>
         <h2>Kalendár neprítomnosti</h2>
         <form action="dochadzka.php" method="post">
+            <div class="col-xs-2">
+                <label for="slc_m">Mesiac: </label>
+                <select name="pdf" id="pdf" class="form-control">
+                    <option>Všetci</option>
+                    <option>Učitelia</option>
+                    <option>Doktorandi</option>
+                </select>
+            </div>
             <div class="col-xs-1">
                 <br>
-                <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="generatePdf()">PDF</button>
+                <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="generatePdf(document.getElementById('slc_m').value, document.getElementById('slc_y').value, document.getElementById('pdf').selectedIndex)">PDF</button>
             </div>
             <div class="col-xs-2">
                 <label for="slc_m">Mesiac: </label>
@@ -110,7 +118,7 @@ loadLanguageNavbar(true);
                 $year  = htmlspecialchars($_POST['year']);
             }
 
-            echo generateTable($month, $year);
+            echo generateTable($month, $year,false,0);
             ?>
         </div>
         <div class="container legenda" id="legend" style="margin-bottom: 150px">

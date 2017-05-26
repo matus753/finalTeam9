@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../general_functions.php';
 
-function generateTable($m,$y,$isPdf = false){
+function generateTable($m,$y,$isPdf, $filter){
     $str = "";
 
     if($isPdf){
@@ -10,8 +10,14 @@ function generateTable($m,$y,$isPdf = false){
 
     $conn = new_connection();
     $days = array("Ne", "Po", "Ut", "St", "Št", "Pi", "So");
+    if($filter == "0") {
+        $sql = "SELECT id, name, surname FROM staff ORDER BY surname";
+    } else if ($filter == "1") {
+        $sql = "SELECT id, name, surname FROM staff WHERE staffRole='teacher' ORDER BY surname";
+    } else {
+        $sql = "SELECT id, name, surname FROM staff WHERE staffRole='doktorand' ORDER BY surname";
+    }
 
-    $sql = "SELECT id, name, surname FROM staff ORDER BY surname";
     $result = $conn->query($sql);
 
     $number = cal_days_in_month(CAL_GREGORIAN, $m, $y);
