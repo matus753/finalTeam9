@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Domov | ÚAMT FEI STU</title>
+    <title>Home | ÚAMT FEI STU</title>
     <?php
         loadHead();
     ?>
@@ -71,8 +71,7 @@
                             <img src="../images/indexPhoto/t1.JPG" alt="...">
                             <div class="caption">
                               <h3>About us</h3>
-                              <p>Chcete sa o nás dozvedieť čosi viac? Prejdite na podstránky "O nás" a "Pracovníci" a zistite niečo viac z našej histórie, dozviete sa bližšie informácie o jednotlivých oddeleniach 
-                              a pracovníkoch.</p>
+                              <p>Do you want to find out more about us? Go to the "About Us" and "Staff" subpages to find out more of our history, learn more about each department and staff.</p>
                               <p><a href="aboutUs.php" class="btn btn-default btn-dark-blue" role="button">About us</a> <a href="staff.php" class="btn btn-default btn-blue" role="button">Staffs</a></p>
                             </div>
                           </div> 
@@ -82,7 +81,7 @@
                             <img src="../images/indexPhoto/t2.JPG" alt="...">
                             <div class="caption">
                               <h3>News</h3>
-                              <p>Čo sa chystá a čo sa niekedy chystalo na našom ústave nájdete na podstránke Aktuality.</p>
+                              <p>What is going on and what has ever been done at our institute can be found on the News subpage.</p>
                               <p><a href="news.php" class="btn btn-default btn-dark-blue" role="button">News</a>
                             </div>
                           </div>
@@ -92,7 +91,7 @@
                             <img src="../images/indexPhoto/t3.JPG" alt="...">
                             <div class="caption">
                               <h3>Photos</h3>
-                              <p>Fotografie a videá z našich akcií Vám priblížia život na našej fakulte o čosi bližšie.</p>
+                              <p>Photos and videos from our stock will bring you closer to life on our faculty.</p>
                               <p><a href="photo.php" class="btn btn-default btn-dark-blue" role="button">Photos</a> <a href="video.php" class="btn btn-default btn-blue" role="button">Videos</a></p>
                             </div>
                           </div>
@@ -109,7 +108,7 @@
                                 </script>
                             <div class="fb-page" data-href="https://www.facebook.com/UAMTFEISTU/?fref=ts" data-tabs="timeline" data-height="430" data-width="320" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
                                 <blockquote cite="https://www.facebook.com/UAMTFEISTU/?fref=ts" class="fb-xfbml-parse-ignore">
-                                    <a href="https://www.facebook.com/UAMTFEISTU/?fref=ts">Ústav automobilovej mechatroniky FEI STU</a>
+                                    <a href="https://www.facebook.com/UAMTFEISTU/?fref=ts">Institute of Automotive Mechatronics FEI STU</a>
                                 </blockquote>
                             </div>
                        </div>
@@ -122,18 +121,18 @@
                       <div class="row">                        
                         <div class="col-sm-4">
                           <span class="glyphicon glyphicon-education gicon"></span>
-                          <h4>Dištančné inžinierske štúdium</h4>
-                          <p class="con-text">Od školského roka 2017/2018 otvárame dištančnú formu inžinierskeho štúdia v modernom študijnom programe Aplikovaná mechatronika a elektromobilita.</p>
+                          <h4>Distanct master study</h4>
+                          <p class="con-text">From the school year 2017/2018, we are opening the distance form of engineering studies in the modern study program Applied Mechatronics and Electromobility.</p>
                         </div>
                         <div class="col-sm-4">
                           <span class="glyphicon glyphicon-certificate gicon"></span>
-                          <h4>KVALITU ŠTÚDIA</h4>
-                          <p class="con-text">Máš záujem o informatiku, elektronické systémy, mechaniku a automatické riadenie? Všetky tieto oblasti môžeš študovať súčasne v jednom študijnom programe.</p>
+                          <h4>QUALITY OF STUDIES</h4>
+                          <p class="con-text">Are you interested in computer science, electronic systems, mechanics and automatic control? All these areas can be studied simultaneously in one study program.</p>
                         </div>
                         <div class="col-sm-4">
                           <span class="glyphicon glyphicon-cog gicon"></span>
-                          <h4>Prácu na zaujímavých projektoch</h4>
-                          <p class="con-text">Náš ústav spolupracuje s množstvom firiem a je zapojený do niekoľkých domácich či medzinárodných projektov.</p>
+                          <h4>Working on interesting projects</h4>
+                          <p class="con-text">Our institute cooperates with a number of companies and is involved in several domestic or international projects.</p>
                         </div>
                       </div>
                     </div>
