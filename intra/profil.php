@@ -20,6 +20,7 @@ if(!isset($_SESSION['role'])){
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
     <link rel="stylesheet" href="../css/style_staff.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
     
 
 </head>
