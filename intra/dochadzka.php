@@ -141,11 +141,5 @@ loadJScripts();
 <script src="../js/scripty_intra.js"></script>
 <script src="../js/bootstrap-toggle.min.js"></script>
 </body>
-<<<<<<< 3b3bea294cca2af16282f4c32e94f04e4484b10d
-=======
-<?php
-loadLanguageFooter();
-?>
->>>>>>> [EB] study.php v anglictine a upravene intranet.. v procese zmien
 </html>
 

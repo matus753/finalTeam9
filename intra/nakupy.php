@@ -76,16 +76,7 @@ loadLanguageNavbar(true);
 loadLanguageFooter();
 loadJScripts();
 ?>
-<<<<<<< 3b3bea294cca2af16282f4c32e94f04e4484b10d
 </body>
-=======
 <script src="../js/scripty_intra.js"></script>
 
-    </body>
-    <?php
-    loadLanguageFooter();
-
-
-    ?>
->>>>>>> [EB] study.php v anglictine a upravene intranet.. v procese zmien
 </html>
