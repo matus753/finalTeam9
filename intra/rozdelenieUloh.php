@@ -288,11 +288,11 @@ if(!isset($_SESSION['role'])){
                                         <tr>
                                             <td>Responzivita * (ul. 2) </td>
                                             <td></td>
-                                            <td></td>
+                                            <td>x</td>
                                             <td>x</td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>x</td>
+                                            <td>x</td>
                                         </tr>
                                         <tr>
                                             <td>Dvojjazyčnosť *  (ul. 3)</td>
