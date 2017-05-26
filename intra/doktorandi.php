@@ -64,24 +64,26 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
         <?php
         loadNavbarIntra();
         ?>
-        <div class="benefits">
-            <h2>Doktorandi</h2>
-            <div id="accordion">
-                <ul class="panel benefitList list-group">
-                    <?php generatePageByDirectory("doktorandi"); ?>
-                </ul>
+        <div class="well well-sm">
+            <div class="benefits">
+                <h2>Doktorandi</h2>
+                <div id="accordion">
+                    <ul class="panel benefitList list-group">
+                        <?php generatePageByDirectory("doktorandi"); ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div style="margin-top: 20px">
-            <form>
-                <div class="col-xs-4"></div>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control" name="ctgName" id="ctgName" placeholder="Názov kategórie">
-                </div>
-                <div class="col-xs-2">
-                    <input type="button" value="Vytvoriť novú kategóriu" id="newCategory" onclick="novaKategoria('doktorandi',document.getElementById('ctgName').value)" class="btn btn-primary">
-                </div>
-            </form>
+            <div style="margin-top: 20px" class="container-fluid">
+                <form>
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" name="ctgName" id="ctgName" placeholder="Názov kategórie">
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="button" value="Vytvoriť novú kategóriu" id="newCategory" onclick="novaKategoria('doktorandi',document.getElementById('ctgName').value)" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@ $id = "";
 
 if(isset($_POST['column']) && isset($_POST['editval']) && isset($_POST['id'])){
     $column  =$_POST['column'];
-    $editval = $_POST['editval'];
+    $editval = addslashes($_POST['editval']);
     $id = $_POST['id'];
 }
 

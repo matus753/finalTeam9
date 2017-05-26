@@ -1,10 +1,11 @@
 <?php
 require_once '../general_functions.php';
+require_once 'generalIntra.php';
 require_once 'functions.php';
 session_start();
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
-if(!isset($_SESSION['role'])){
+if(isset($_SESSION['role'])){
     if(!isAdmin()) {
         header("HTTP/1.1 401 Unauthorized");
         generate401Html();
@@ -22,6 +23,15 @@ if(!isset($_SESSION['role'])){
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
     <link rel="stylesheet" href="../css/style_staff.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
+    <style>
+        .btn span.glyphicon {
+            opacity: 0;
+        }
+        .btn.active span.glyphicon {
+            opacity: 1;
+        }
+    </style>
 
 </head>
 <body>
@@ -30,7 +40,10 @@ if(!isset($_SESSION['role'])){
 loadLanguageNavbar(true);
 
 echo '<div id="emPAGEcontent">
-    <div class="container"><div class="well well-sm text-center"><h1>Spravovanie rolí</h1>';
+    <div class="container">';
+
+loadNavbarIntra();
+echo '<div class="well well-sm text-center"><h1>Spravovanie rolí</h1>';
 $conn = new_connection();
 $sql = "SELECT * FROM staff WHERE ldapLogin != 'NULL' ORDER BY surname";
 $result = $conn->query($sql);

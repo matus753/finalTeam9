@@ -21,6 +21,7 @@ if(!isset($_SESSION['role'])){
     <link rel="stylesheet" href="../css/intranet.css">
     <link rel="stylesheet" href="../css/intra_general.css">
     <link rel="stylesheet" href="../css/study.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
     
 
 </head>

@@ -25,10 +25,10 @@ function loginLDAP($login, $password){
     $conn = new_connection();
     $sql = "SELECT * FROM staff WHERE ldapLogin='$login'";
     $result = $conn->query($sql);
-    /*if ($result->num_rows != 1){
+    if ($result->num_rows != 1){
         print "failure: no access rights<br>\n";
         return false;
-    }*/
+    }
 
     //LDAP login
     if($connect=@ldap_connect($ldap_server)){ // if connected to ldap server
@@ -67,7 +67,7 @@ function loginLDAP($login, $password){
         try{
             session_start();
             $row = $result->fetch_assoc();
-            $_SESSION["role"] =  "11000";//$row["role"];
+            $_SESSION["role"] =  $row["role"];
             $_SESSION["user"] =  $login;
             @ldap_close($connect);
             return true;
@@ -386,7 +386,7 @@ function generatePageByDirectory($page){
             echo '<div id="'.$value.'" class="panel-collapse collapse" style="padding: 25px; padding-bottom: 40px"><div class="list-group action-list-group">';
             foreach ($files as $key2 => $val) {
                 if($val !== '.' && $val !== '..') {
-                    echo '<li class="list-group-item"><a class="list-group-link" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '">' . $val . '</a><span class="pull-right">
+                    echo '<li class="list-group-item"><a class="list-group-link" href="../intranet/' . $page . '/' . $value . '/' . $val . '" download="' . $val . '"><span class="glyphicon glyphicon-download-alt" style="margin-right: 10px"></span>' . $val . '</a><span class="pull-right">
                            <a class="btn btn-sm btn-default" onclick="deleteRecord(true,' . "'../intranet/" . $page .  '/' . $value . '/' . $val ."')\"" . '><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }
@@ -397,7 +397,7 @@ function generatePageByDirectory($page){
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                    echo '<li class="list-group-item"><a class="list-group-link" target="_blank" href="' . $row["url"] .'">' . $row["url"] . '</a><span class="pull-right">
+                    echo '<li class="list-group-item"><a class="list-group-link" target="_blank" href="' . $row["url"] .'"><span class="glyphicon glyphicon-globe" style="margin-right: 10px"></span>' . $row["url"] . '</a><span class="pull-right">
                            <a class="btn btn-sm btn-default" onclick="deleteRecord(false,' .  $row["id"] .')"><span class="glyphicon glyphicon-remove"></a></span></span></li>';
                 }
             }

@@ -67,20 +67,26 @@ function saveInlineEdit(editableObj,column,id) {
     $(editableObj).css("background","#FFF url(img/loader.gif) no-repeat right");
     var editval= editableObj.innerHTML.replace("&nbsp;","");
 
-    $.ajax({
-        url: "saveedit.php",
-        type: "POST",
-        data:{  column: column,
+    if(editval.length < 5000) {
+        $.ajax({
+            url: "saveedit.php",
+            type: "POST",
+            data: {
+                column: column,
                 editval: editval,
-                id: id},
-        success: function(response) {
-            $(editableObj).attr('data-old_value',editableObj.innerHTML);
-            $(editableObj).css("background","#FDFDFD");
-        },
-        error: function () {
-            console.log("errr");
-        }
-    });
+                id: id
+            },
+            success: function (response) {
+                $(editableObj).attr('data-old_value', editableObj.innerHTML);
+                $(editableObj).css("background", "#FDFDFD");
+            },
+            error: function () {
+                console.log("errr");
+            }
+        });
+    } else {
+
+    }
 }
 
 function fileUpload(input, id){
