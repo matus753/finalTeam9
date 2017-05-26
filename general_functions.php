@@ -204,10 +204,10 @@ function loadNavbarSK($isIntranet = false){
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Výskumné oblasti <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem">
-                                    <li><a href="#" >Elektrická motokára</a></li>
-                                    <li><a href="#" >Autonómne vozidlo 6×6</a></li>
-                                    <li><a href="#" >3D LED kocka</a></li>
-                                    <li><a href="#" >Biomechatronika</a></li>
+                                    <li><a href="ekart.php" >Elektrická motokára</a></li>
+                                    <li><a href="autonomVehicle.php" >Autonómne vozidlo 6×6</a></li>
+                                    <li><a href="ledCube.php" >3D LED kocka</a></li>
+                                    <li><a href="biomechatronic.php" >Biomechatronika</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -508,10 +508,10 @@ function loadNavbarEN($isIntranet = false){
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research topics <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem5" >
-                                    <li><a href="#" >Electric kart</a></li>
-                                    <li><a href="#" >Off-line vehicle 6×6</a></li>
-                                    <li><a href="#" >3D LED cube</a></li>
-                                    <li><a href="#" >Biomechatronics</a></li>
+                                    <li><a href="ekart.php" >Electric kart</a></li>
+                                    <li><a href="autonomVehicle.php" >Off-line vehicle 6×6</a></li>
+                                    <li><a href="ledCube.php" >3D LED cube</a></li>
+                                    <li><a href="biomechatronic.php" >Biomechatronics</a></li>
                                 </ul>
                             </li>
                         </ul>
