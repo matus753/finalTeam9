@@ -187,7 +187,16 @@ function loadNavbarSK($isIntranet = false){
                     </li>
                     <!--<li><a href="#" class="navbarItem">O nás</a></li>-->
                     <li><a href="'.$upDir.'staff.php" class="navbarItem">Pracovníci</a></li>
-                    <li><a href="#" class="navbarItem">Štúdium</a></li>
+                    <!--<li><a href="#" class="navbarItem">Štúdium</a></li>-->
+                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="'.$upDir.'study.php#section1" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
+                            <li><a href="'.$upDir.'study.php#section2" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
+                            <li><a href="'.$upDir.'study.php#section3" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li><a href="'.$upDir.'study.php#section4" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Výskum <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
@@ -482,8 +491,16 @@ function loadNavbarEN($isIntranet = false){
                         </ul>
                     </li>
                     <!--<li><a href="#" class="navbarItem">About us</a></li>-->
-                    <li><a href="'.$upDir.'staff.php" class="navbarItem">Staff</a></li>
-                    <li><a href="#" class="navbarItem">Study</a></li>
+                    <li><a href="'.$upDir.'staff.php" class="navbarItem">Staff</a></li>                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Study <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="'.$upDir.'study.php#section1" class="navbarItem sectItemS">  Applicants</a></li>
+                            <li><a href="'.$upDir.'study.php#section2" class="navbarItem sectItemS">  Bachelor Study</a></li>
+                            <li><a href="'.$upDir.'study.php#section3" class="navbarItem sectItemS">  Master Study</a></li>
+                            <li><a href="'.$upDir.'study.php#section4" class="navbarItem sectItemS">  Postgraduate Study</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Research <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">

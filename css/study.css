@@ -87,3 +87,15 @@
 .themes-here:hover {
     color: #FFD446;
 }
+@media screen and (max-device-width: 767px) and (orientation: portrait) {
+    .jumbotron{
+        font-size: 10px;
+    }
+    .generalInfoContent, .bpPraceContent, .hKoniecDiv, .hKoniec{
+        margin: 0;
+        padding: 0;
+    }
+    .sectionH2{
+        padding-top: 20px;
+    }
+}

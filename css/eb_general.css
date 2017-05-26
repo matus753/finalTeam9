@@ -122,6 +122,15 @@ body{
     #emNavbar{
         margin-top: 3px;
     }
+    .question, .answers{
+        margin: 0;
+        padding: 0;
+    }
+    .bpStudy, .ingStudy{
+        margin: 0;
+    }
+
+
 }
 @media screen and (max-device-width: 640px) and (min-device-width: 480px){
     .navbarItem{
@@ -168,8 +177,12 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
     margin-right: -160px !important;
     margin-top: 20px;
 }
-
-
+@media print
+{
+    .footer{
+        display: none;
+    }
+}
 
 
 
