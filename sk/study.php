@@ -319,7 +319,6 @@ loadLanguageNavbar();
 loadLanguageFooter();
 loadJScripts();
 ?>
-<script src="../js/scripty_aboutUs.js"></script>
 <script src="../js/scripty_study.js"></script>
 </body>
 </html>
