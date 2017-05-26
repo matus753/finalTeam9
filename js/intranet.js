@@ -99,10 +99,7 @@ function urlUpload(url, id){
     }
 }
 
-/**
- * Created by user on 3/1/2017.
- */
-window.onload = init;
+//dochadzka
 var skratka, viewId;
 
 function generateTable(mesiac, rok) {
@@ -396,6 +393,20 @@ function generateMonthPdf(id, mesiac, rok) {
                id: id},
         success: function(){
             window.location = 'generateMonthPdf.php';
+        },
+        error: function(data){
+            alert(data);
+        }
+    })
+}
+
+function changeRole(id, role) {
+    $.ajax({
+        type: "POST",
+        url: "changeSpecificRole.php",
+        data:{  role: role,
+                id: id},
+        success: function(){
         },
         error: function(data){
             alert(data);

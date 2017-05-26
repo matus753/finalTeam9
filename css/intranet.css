@@ -45,6 +45,13 @@ td, th{
     white-space: nowrap;
 }
 
+.btn span.glyphicon {
+    opacity: 0;
+}
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+
 .fixed {
     max-width: 37.5px;
     min-width: 37.5px;

@@ -49,7 +49,7 @@ function generateTable($m,$y,$isPdf = false){
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            if ($row["name"] !== "Admin") {
+            if (true) {
                 $str .= '<tr>';
                 if (!$isPdf) {
                     $str .= "<th style=\"display: none\">" . $row["id"] . "</th>";
@@ -131,31 +131,36 @@ function build_month($month,$year, $id, $isPdf = false) {
     $calendar = "";
     $name = $emp["name"];
     $surname = $emp["surname"];
+    session_start();
 
     if(!$isPdf) {
-        $calendar .= '<div class="container"><div class="col-xs-3"><h2 style="margin-bottom: 5px">' . $name . ' ' . $surname . '</h2></div>';
-        $calendar .= "<div class=\"col-xs-1\">
-                <br>
-                <button type=\"button\" class=\"btn btn-primary\" style=\"margin-top: 5px\" onclick=\"generateMonthPdf($id,$month,$year)\">PDF</button>
-            </div>
-            <div class=\"col-xs-1\" style=\"margin-top: 15px\">
-        <input id=\"editingView\" type=\"checkbox\" data-toggle=\"toggle\" onchange=\"changeEditView()\">
-    </div>
-    <form id=\"editingFormView\" style=\"display: none\">
-        <div class=\"col-xs-3\" id=\"choice\" style=\"margin-top: 15px\">
-            <select name=\"type_nep\" id=\"type_nep_view\" class=\"form-control\" onchange=\"changeTypeView(this[this.selectedIndex].value)\">
-                <option value=" . '{"farba":"white","skratka":"x"}' . " selected>zrušiť</option>";
-
-        $sql = "SELECT * from typ_nepritomnosti";
-        $result = $conn->query($sql);
-
-        while ($row = $result->fetch_assoc()) {
-            $calendar .= '<option value=\'{"farba":"' . $row["farba"] . '","skratka":"' . $row["skratka"] . '"}\'>' . $row["nazov"] . '</option>';
+        $calendar .= '<div class="container"><form><div class="col-xs-3"><h2 style="margin-bottom: 5px">' . $name . ' ' . $surname . '</h2></div>';
+        if($emp["ldapLogin"] == $_SESSION["user"]) {
+            $calendar .= "<div class=\"col-xs-1\">
+                                <button type=\"button\" class=\"btn btn-primary\" style=\"margin-top: 16px\" onclick=\"generateMonthPdf($id,$month,$year)\">PDF</button>
+                          </div>";
         }
+        if(isAdmin() || isHr() || $emp["ldapLogin"] == $_SESSION["user"]) {
+            $calendar .= "<div class=\"col-xs-1\" style=\"margin-top: 15px\">
+                            <input id=\"editingView\" type=\"checkbox\" data-toggle=\"toggle\" onchange=\"changeEditView()\">
+                        </div>";
+        }
+        $calendar .= "<div id=\"editingFormView\" style='display: none'><div class=\"col-xs-3\" id=\"choice\" style=\"margin-top: 15px\">
+                            <select name=\"type_nep\" id=\"type_nep_view\" class=\"form-control\" onchange=\"changeTypeView(this[this.selectedIndex].value)\">
+                                <option value=" . '{"farba":"white","skratka":"x"}' . " selected>zrušiť</option>";
+                                if(isAdmin() || isHr()) {
+                                    $sql = "SELECT * from typ_nepritomnosti";
+                                } else {
+                                    $sql = "SELECT * from typ_nepritomnosti WHERE skratka = 'PD'";
+                                }
+                                $result = $conn->query($sql);
 
+                                while ($row = $result->fetch_assoc()) {
+                                    $calendar .= '<option value=\'{"farba":"' . $row["farba"] . '","skratka":"' . $row["skratka"] . '"}\'>' . $row["nazov"] . '</option>';
+                                }
         $calendar .= "</select></div> <div class=\"col-xs-1\" style=\"margin-top: 10px\">
                             <button type=\"button\" class=\"btn btn-primary\" style=\"margin-top: 5px\" onclick=\"saveView()\">Uložiť</button>
-                        </div>
+                        </div></div>
                     </form></div>";
     }
 
@@ -259,4 +264,11 @@ function build_month($month,$year, $id, $isPdf = false) {
 
     return $calendar;
 
+}
+
+function getCheckBox($id, $role, $type, $hasRole = ''){
+    return "<div class=\"btn-group\" data-toggle=\"buttons\"><label class='btn $type $hasRole' onclick='changeRole($id,$role)'>
+				<input type='checkbox' autocomplete='off'>
+				<span class='glyphicon glyphicon-ok'></span>
+		  </label></div>";
 }
