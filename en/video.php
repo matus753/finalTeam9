@@ -13,7 +13,6 @@ $DBconn = new_connection();
     <?php
     loadHead();
     ?>
-    <link href="../css/gallery.css" rel="stylesheet">
     <link href="../css/bu_styles.css" rel="stylesheet">
 </head>
 <body>
@@ -37,7 +36,7 @@ if(isset($_POST["sender"])) {
             <div class="col-lg-12">
                 <h1 class="hlNadpis">Video</h1>
                 <?php
-                echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";
+                if(isReporter() || isAdmin()) {echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";}
                 ?>
                 <hr>
                 <div>
@@ -53,7 +52,23 @@ if(isset($_POST["sender"])) {
                         $folder = $pom[$i][4];
 
                         if ($folder != $folderPom) {
-                            echo '<div class="flip cursor"><h4>'.$folder.'</h4></div>';
+                            switch ($folder) {
+                                case 'Naše laboratóriá':
+                                    $folderEN = 'Our laboratories';
+                                    break;
+                                case 'Naše zariadenie':
+                                    $folderEN = 'Our equipment';
+                                    break;
+                                case 'Predmety':
+                                    $folderEN = 'Courses';
+                                    break;
+                                case 'Propagačné videá':
+                                    $folderEN = 'Promotional videos';
+                                    break;
+                                default:
+                                    $folderEN = $folder;
+                            }
+                            echo '<div class="flip cursor"><h4>'.$folderEN.'</h4></div>';
                             echo '<div class="panel">';
                             $folderPom = $folder;
                         }

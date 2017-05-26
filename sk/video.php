@@ -13,7 +13,6 @@ $DBconn = new_connection();
     <?php
     loadHead();
     ?>
-    <link href="../css/gallery.css" rel="stylesheet">
     <link href="../css/bu_styles.css" rel="stylesheet">
 </head>
 <body>
@@ -37,7 +36,7 @@ if(isset($_POST["sender"])) {
             <div class="col-lg-12">
                 <h1 class="hlNadpis">Videá</h1>
                 <?php
-                echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";
+                if(isReporter() || isAdmin()) {echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";}
                 ?>
                 <hr>
                 <div>

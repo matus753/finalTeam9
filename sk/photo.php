@@ -14,7 +14,6 @@ $DBconn = new_connection();
     loadHead();
     ?>
     <link href="../css/lightbox.css" rel="stylesheet">
-    <link href="../css/gallery.css" rel="stylesheet">
     <link href="../css/bu_styles.css" rel="stylesheet">
 </head>
 <body>
@@ -47,7 +46,7 @@ if(isset($_POST["sender"])) {
             <div class="col-lg-12">
                 <h1 class="hlNadpis">Fotogaléria</h1>
                 <?php
-                echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";
+                if(isReporter() || isAdmin()) {echo "<button type='button' class='btn addButton' data-toggle='modal' data-target='#myModal'>Vkladanie</button>";}
                 ?>
                 <hr>
                 <div>
@@ -68,7 +67,7 @@ if(isset($_POST["sender"])) {
                             echo '<div class="panel">';
                             $folderPom = $folder;
                         }
-                        echo '<a class="image-link" href="../images/photoGallery/Normal/'.$folder.'/'.$image.'" data-lightbox="'.$folder.'" data-title="'.$titleSK.'"><img class="small image" src="../images/photoGallery/Normal/'.$folder.'/'.$image.'" alt=""/></a>';
+                        echo '<a class="image-link" href="../images/photoGallery/Normal/'.$folder.'/'.$image.'" data-lightbox="'.$folder.'" data-title="'.$titleSK.'"><img class="smallImg image" src="../images/photoGallery/Normal/'.$folder.'/'.$image.'" alt=""/></a>';
                         if ($i == sizeof($pom)-1) {
                             echo '</div>';
 
