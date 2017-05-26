@@ -1,33 +1,8 @@
 <?php
 require_once 'general_functions.php';
-//$wl = $_SESSION['lang'];
-if(isSet($_GET['lang']))
-{
-    $wl = $_GET['lang'];
-    $z = 'get';
-}
-else if(isSet($_SESSION['lang']))
-{
-    $wl = $_SESSION['lang'];
-    $z = 'sess';
+session_start();
 
-}
-else if(isSet($_COOKIE['lang']))
-{
-    $wl = $_COOKIE['lang'];
-    $z = 'cookie';
-
-} else if(isset($_POST['lang'])){
-    $wl = $_POST['lang'];
-    $z = 'post';
-
-}
-else
-{
-    $wl = 'sk';
-    $z = 'nic';
-
-}
+$wl = $_SESSION['lang'];
 
 createContent($wl);
 

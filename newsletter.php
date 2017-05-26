@@ -1,5 +1,6 @@
 <?php
 require_once 'general_functions.php';
+session_start();
 $web_lang = $_SESSION['lang'];
 
 if($web_lang == 'sk'){

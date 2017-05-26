@@ -23,9 +23,7 @@ $conn = new_connection();
     <link rel="stylesheet" href="../css/intranet.css">
     <link rel="stylesheet" href="../css/intra_general.css">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script>
-        window.onload = init;
-    </script>
+
 </head>
 <body>
 <?php
@@ -144,6 +142,9 @@ loadJScripts();
 ?>
 <script src="../js/scripty_intra.js"></script>
 <script src="../js/bootstrap-toggle.min.js"></script>
+<script>
+    window.onload = init;
+</script>
 </body>
 </html>
 

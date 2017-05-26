@@ -49,7 +49,7 @@ function generateTable($m,$y,$isPdf = false){
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-            if (true) {
+            if ($row["name"] !== "Admin") {
                 $str .= '<tr>';
                 if (!$isPdf) {
                     $str .= "<th style=\"display: none\">" . $row["id"] . "</th>";
@@ -135,7 +135,7 @@ function build_month($month,$year, $id, $isPdf = false) {
 
     if(!$isPdf) {
         $calendar .= '<div class="container"><form><div class="col-xs-3"><h2 style="margin-bottom: 5px">' . $name . ' ' . $surname . '</h2></div>';
-        if($emp["ldapLogin"] == $_SESSION["user"]) {
+        if(isAdmin() || isHr() || $emp["ldapLogin"] == $_SESSION["user"]) {
             $calendar .= "<div class=\"col-xs-1\">
                                 <button type=\"button\" class=\"btn btn-primary\" style=\"margin-top: 16px\" onclick=\"generateMonthPdf($id,$month,$year)\">PDF</button>
                           </div>";

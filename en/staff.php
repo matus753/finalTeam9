@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Staffs</h1>
+                    <h1>Staff</h1>
                     <hr>
                     <h2>Filter:</h2>
                     <div class="form-inline staff-filter">
