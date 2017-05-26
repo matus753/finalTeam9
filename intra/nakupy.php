@@ -18,6 +18,7 @@ if(!isset($_SESSION['role'])){
     loadHead();
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
 </head>
 <body>
 <?php
@@ -32,15 +33,12 @@ loadLanguageNavbar(true);
         loadNavbarIntra();
         ?>
 
-        <div class="tab-content">
-        <div class="tab-pane">
-
         <?php
         $conn = new_connection();
         $sql = "SELECT * FROM nakupy";
         $result = $conn->query($sql);
 
-        echo '<div class="benefits"><h1>Nákupy</h1> <div id="accordion"><ul class="panel benefitList list-group action-list-group">';
+        echo '<div class="benefits"><h2>Nákupy</h2> <div id="accordion"><ul class="panel benefitList list-group action-list-group">';
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -66,8 +64,7 @@ loadLanguageNavbar(true);
             </form>
         </div>
     </div>
-    </div>
-    </div>
+
 
 </div>
 

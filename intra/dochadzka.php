@@ -21,6 +21,7 @@ $conn = new_connection();
     loadHead();
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 </head>
 <body>
@@ -34,7 +35,7 @@ loadLanguageNavbar(true);
         <?php
         loadNavbarIntra();
         ?>
-        <h1>Kalendár neprítomnosti</h1>
+        <h2>Kalendár neprítomnosti</h2>
         <form action="dochadzka.php" method="post">
             <div class="col-xs-1">
                 <br>

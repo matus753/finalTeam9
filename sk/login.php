@@ -59,10 +59,5 @@ loadLanguageFooter();
 loadJScripts();
 ?>
 </body>
-<<<<<<< 3b3bea294cca2af16282f4c32e94f04e4484b10d
-=======
-<?php
-loadLanguageFooter();
-?>
->>>>>>> [EB] study.php v anglictine a upravene intranet.. v procese zmien
+
 </html>

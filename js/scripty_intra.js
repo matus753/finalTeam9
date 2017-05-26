@@ -1,21 +1,16 @@
-/*var act;
+var act;
 
 function setProfileActive() {
-    $("#intraMenu").addClass("active");
+    $("#item1").addClass("actItem");
+    act = "#item1";
 }
 
 $(document).ready(function () {
-    $(".intraMenu").click(function(){
-        $("#intraItem1").removeClass("active");
-        //var id = $(this).attr("id");
-        //act = id;
-        //$(".intraMenu").removeClass("active");
-        $(id).addClass("active");
+    $(".intraItem").click(function(){
+/*        e.preventDefault();*/
+        $(act).removeClass("actItem");
+        act = "#" + $(this).attr("id");
+        $(this).addClass("actItem");
+        /*return false;*/
     });
-});*/
-$(function(){
-    if(window.location.hash!=''){
-        var hash=window.location.hash;
-        $('.nav-tabs a[href='+hash+']').click();
-    }
 });

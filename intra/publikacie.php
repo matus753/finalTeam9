@@ -18,6 +18,7 @@ if(!isset($_SESSION['role'])){
     loadHead();
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
 
 </head>
 <body>
@@ -63,7 +64,7 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
         loadNavbarIntra();
         ?>
         <div class="benefits">
-            <h1>Publikácie</h1>
+            <h2>Publikácie</h2>
             <div id="accordion">
                 <ul class="panel benefitList list-group">
                     <?php generatePageByDirectory("publikacie");?>

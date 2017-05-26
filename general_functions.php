@@ -212,7 +212,7 @@ function loadNavbarSK($isIntranet = false){
                             </li>
                         </ul>
                     </li>
-                    <li><a href="news.php" class="navbarItem">Aktuality</a></li>
+                    <li><a href="'.$upDir.'news.php" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
@@ -228,9 +228,9 @@ function loadNavbarSK($isIntranet = false){
 
                         </ul>
                     </li>
-                    <li><a href="#" class="navbarItem">Kontakt</a></li>';
+                    <li><a href="'.$upDir.'contact.php" class="navbarItem">Kontakt</a></li>';
     if(isset($_SESSION['role'])) {
-        echo '<li><a href="#" class="navbarItem">Intranet</a></li>';
+        echo '<li><a href="'.$upDir.'intra/profil.php" class="navbarItem">Intranet</a></li>';
     }
                 echo '<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
@@ -442,6 +442,7 @@ function loadNavbarEN($isIntranet = false){
     $last = $_SESSION['page'];
     $lastAll = explode('?',$last);
     $last = $lastAll[0];
+    $all = explode("/", $last);
     if (!$isIntranet){
 
 		$all = explode("/", $last);
@@ -515,13 +516,19 @@ function loadNavbarEN($isIntranet = false){
                             </li>
                         </ul>
                     </li>
-                    <li><a href="#" class="navbarItem">News</a></li>
+                    <li><a href="'.$upDir.'news.php" class="navbarItem">News</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Activities <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
+<<<<<<< cb64861a98154266372c9d05a8b5c40865199026
                             <li><a href="photo.php" class="navbarItem">Photos</a></li>
                             <li><a href="video.php" class="navbarItem">Video</a></li>
                             <li><a href="media.php" class="navbarItem">Media</a></li>
+=======
+                            <li><a href="'.$upDir.'photo.php" class="navbarItem">Photos</a></li>
+                            <li><a href="'.$upDir.'video.php" class="navbarItem">Video</a></li>
+                            <li><a href="#" class="navbarItem">Media</a></li>
+>>>>>>> [EB] intranet menu dorobete + niekotre dalsie veci pridane do href do navbaru
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Our thematic web sites <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem2 navbarItem" >
@@ -531,9 +538,9 @@ function loadNavbarEN($isIntranet = false){
 
                         </ul>
                     </li>
-                    <li><a href="#" class="navbarItem">Contact</a></li>';
+                    <li><a href="'.$upDir.'contact.php" class="navbarItem">Contact</a></li>';
     if(isset($_SESSION['role'])) {
-        echo '<li><a href="#" class="navbarItem">Intranet</a></li>';
+        echo '<li><a href="'.$upDir.'intra/profil.php" class="navbarItem">Intranet</a></li>';
     }
     echo    '<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
