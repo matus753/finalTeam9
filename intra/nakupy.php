@@ -1,5 +1,6 @@
 <?php
 require_once '../general_functions.php';
+require_once 'generalIntra.php';
 session_start();
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
@@ -27,6 +28,13 @@ loadLanguageNavbar(true);
 <!-- Page Content -->
 <div id="emPAGEcontent">
     <div class="container">
+        <?php
+        loadNavbarIntra();
+        ?>
+
+        <div class="tab-content">
+        <div class="tab-pane">
+
         <?php
         $conn = new_connection();
         $sql = "SELECT * FROM nakupy";
@@ -58,6 +66,8 @@ loadLanguageNavbar(true);
             </form>
         </div>
     </div>
+    </div>
+    </div>
 
 </div>
 
@@ -66,5 +76,16 @@ loadLanguageNavbar(true);
 loadLanguageFooter();
 loadJScripts();
 ?>
+<<<<<<< 3b3bea294cca2af16282f4c32e94f04e4484b10d
 </body>
+=======
+<script src="../js/scripty_intra.js"></script>
+
+    </body>
+    <?php
+    loadLanguageFooter();
+
+
+    ?>
+>>>>>>> [EB] study.php v anglictine a upravene intranet.. v procese zmien
 </html>

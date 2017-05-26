@@ -1,5 +1,6 @@
 <?php
 require_once '../general_functions.php';
+require_once 'generalIntra.php';
 session_start();
 $_SESSION['page'] = $_SERVER['REQUEST_URI'];
 
@@ -58,6 +59,9 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
 <!-- Page Content -->
 <div id="emPAGEcontent">
     <div class="container">
+        <?php
+        loadNavbarIntra();
+        ?>
         <div class="benefits">
             <h1>Služobné cesty</h1>
             <div id="accordion">
@@ -85,5 +89,12 @@ if(isset($_POST['submit']) && isset($_POST['dir']) && !$wasurl){
 loadLanguageFooter();
 loadJScripts();
 ?>
+<script src="../js/scripty_intra.js"></script>
 </body>
+<<<<<<< 3b3bea294cca2af16282f4c32e94f04e4484b10d
+=======
+<?php
+loadLanguageFooter();
+?>
+>>>>>>> [EB] study.php v anglictine a upravene intranet.. v procese zmien
 </html>
