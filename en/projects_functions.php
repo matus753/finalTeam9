@@ -7,7 +7,7 @@
         $conn = new_connection();	    
         $sql = "SELECT * FROM project WHERE projectType LIKE '". $typ . "%' ORDER BY RIGHT(duration, 4) DESC";
         $result = $conn->query($sql);
-
+        echo '<div style="overflow-x: auto;">';
         echo '<table class="table table-striped table-hover table-bordered" id="SS-table-staff">
                 <tr style="background-color: #3CDAB2; color: white;">
                   <th class="projects-table-th1 center">Project number</th>
@@ -38,6 +38,7 @@
 
          echo '</tbody>
       </table>
+      </div>
 
         <div class="modal fade" id="myModalProjects" role="dialog">
           <div class="modal-dialog modal-md">

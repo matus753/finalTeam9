@@ -5,6 +5,7 @@
             $sql = "SELECT * FROM staff ORDER BY surname";
             $result = $conn->query($sql);  
             
+            echo '<div style="overflow-x: auto;">';
             echo '<table class="table table-striped table-hover table-bordered" id="SS-table-staff">
                     <tr style="background-color: #3CDAB2; color: white;">
                       <th onclick="sortTable(0)" style="cursor:pointer" class="staff-th center staff-table-th1"><i class="fa fa-sort"></i> Name</th>
@@ -49,6 +50,7 @@
             
              echo '</tbody>
   	  </table>
+          </div>
         
             <div class="modal fade" id="myModal" role="dialog">
               <div class="modal-dialog modal-md">

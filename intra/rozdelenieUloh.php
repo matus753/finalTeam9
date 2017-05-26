@@ -19,6 +19,7 @@ if(!isset($_SESSION['role'])){
     loadHead();
     ?>
     <link rel="stylesheet" href="../css/intranet.css">
+    <link rel="stylesheet" href="../css/intra_general.css">
     <link rel="stylesheet" href="../css/study.css">
     
 

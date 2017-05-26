@@ -30,6 +30,7 @@
     $xPath = new DOMXPath($doc);
     $tablePublikacia = $xPath->query('//html/body/div/div/div/table[3]/tbody/tr');
     $vys = "";
+    $vys .= '<div style="overflow-x: auto;">';
     $vys .= '<table id="staff-table-publikace" class="table-horizontal table-bordered table-hover">
             <thead class="staff-table-publikace-head">
                 <tr>
@@ -73,5 +74,5 @@
             $vys .= "</tr>";
         }
     }
-    
+    $vys .= "</div>";
     echo $vys;
