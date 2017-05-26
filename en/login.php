@@ -35,7 +35,7 @@ $conn = new_connection();
 </head>
 <body>
 <?php
-loadNavbarSK();
+loadLanguageNavbar();
 ?>
 
 <!-- Page Content -->

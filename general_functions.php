@@ -230,7 +230,7 @@ function loadNavbarSK($isIntranet = false){
                     </li>
                     <li><a href="'.$upDir.'contact.php" class="navbarItem">Kontakt</a></li>';
     if(isset($_SESSION['role'])) {
-        echo '<li><a href="'.$upDir.'intra/profil.php" class="navbarItem">Intranet</a></li>';
+        echo '<li><a href="'.$upDir.'../intra/profil.php" class="navbarItem">Intranet</a></li>';
     }
                 echo '<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
@@ -534,7 +534,7 @@ function loadNavbarEN($isIntranet = false){
                     </li>
                     <li><a href="'.$upDir.'contact.php" class="navbarItem">Contact</a></li>';
     if(isset($_SESSION['role'])) {
-        echo '<li><a href="'.$upDir.'intra/profil.php" class="navbarItem">Intranet</a></li>';
+        echo '<li><a href="'.$upDir.'../intra/profil.php" class="navbarItem">Intranet</a></li>';
     }
     echo    '<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
