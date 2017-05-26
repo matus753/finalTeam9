@@ -1,9 +1,39 @@
 <?php
-    require_once '../general_functions.php';
+require_once 'general_functions.php';
+//$wl = $_SESSION['lang'];
+if(isSet($_GET['lang']))
+{
+    $wl = $_GET['lang'];
+    $z = 'get';
+}
+else if(isSet($_SESSION['lang']))
+{
+    $wl = $_SESSION['lang'];
+    $z = 'sess';
 
-createContent();
+}
+else if(isSet($_COOKIE['lang']))
+{
+    $wl = $_COOKIE['lang'];
+    $z = 'cookie';
 
-function createContent(){
+} else if(isset($_POST['lang'])){
+    $wl = $_POST['lang'];
+    $z = 'post';
+
+}
+else
+{
+    $wl = 'sk';
+    $z = 'nic';
+
+}
+
+createContent($wl);
+
+
+function createContent($wl){
+
     if(isset($_POST['type'])){
         $type_local = $_POST['type'];
     } else {
@@ -20,7 +50,9 @@ function createContent(){
         $page=1;
     };
 
-    $type_array = ["Propagácia", "Oznamy", "Zo života ústavu"];
+
+    $type_array_sk = ["Propagácia", "Oznamy", "Zo života ústavu"];
+    $type_array_en = ["Propagation", "Notices", "From the life of the institute"];
     $conn = new_connection();
     $output = "";
     $date = date("Y-m-d");
@@ -29,7 +61,9 @@ function createContent(){
 
 //    0 - Propagacia, 1 - Oznamy, 2 - Zo zivota fakulty, 3 - vsetky
 
-    $sql_max = "SELECT COUNT(ID) AS total FROM news where content_sk <> '' ".($show_expired == "false" ? " and curdate() <= date_expiration" : "");
+    $type_cond = $type_local == 3 ? "" : " and type = ".$type_local." ";
+
+    $sql_max = "SELECT COUNT(ID) AS total FROM news where content_sk <> '' ".$type_cond.($show_expired == "false" ? " and curdate() <= date_expiration" : "");
     $result = $conn->query($sql_max);
     $row = $result->fetch_assoc();
     $total_records = $row["total"];
@@ -39,16 +73,29 @@ function createContent(){
     if($type_local == 3){
         $sql = "SELECT * FROM news where content_sk <> '' ".($show_expired == "false" ? "and curdate() <= date_expiration" : "")." order by date_created desc limit ".$start_from.",".$per_page;
     } else {
-        $sql = "SELECT * FROM news where content_sk <> '' and type = ".$type_local.($show_expired == "false" ? " and curdate() <= date_expiration" : "")." order by date_created desc";
+        $sql = "SELECT * FROM news where content_sk <> '' and type = ".$type_local.($show_expired == "false" ? " and curdate() <= date_expiration" : "")." order by date_created desc limit ".$start_from.",".$per_page;
     }
 
 //    echo $total_pages."---".$sql."---".$sql_max;
+
+    // DVOJJAZYCNOST
+    if(isSK($wl)){
+        $prid = "Pridané ";
+        $exp = "Expirované ";
+        $type_array = $type_array_sk;
+    } else {
+        $prid = "Added ";
+        $exp = "Expired ";
+        $type_array = $type_array_en;
+    }
 
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
-            $message = $row['content_sk'];
+//            $message = $row['content_sk'];
+            $message = isSK($wl) ? $row['content_sk'] : $row['content_en'];
+            $title = isSK($wl) ? $row['title_sk'] : $row['title_en'];
             $date_expiration = $row['date_expiration'];
             $type_db = $row['type'];
 
@@ -56,12 +103,12 @@ function createContent(){
                 continue;
             }
             $output .= "<div class='well ib-expired'>";
-            $output .= "<h1>".$row['title_sk']."</h1>";
-            $output .= "<p>".$row['content_sk']."</p>";
+            $output .= "<h1>".$title."</h1>";
+            $output .= "<p>".$message."</p>";
             $output .= "<div class=''>";
-            $output .= "<span class='badge'>Pridané ".$row['date_created']."</span> ";
+            $output .= "<span class='badge'>".$prid.$row['date_created']."</span> ";
             if($date > $date_expiration){
-                $output .= " <span class='badge'>Expirované ".$date_expiration."</span>";
+                $output .= " <span class='badge'>".$exp.$date_expiration."</span>";
             }
             $output .= "<div class='pull-right'>";
             switch($type_db){
@@ -97,4 +144,8 @@ function createContent(){
     echo $output;
 //    echo str_split($output, strlen($output) - 10)[0]."</div>";
 
+}
+
+function isSK($wl){
+    return $wl == 'sk';
 }

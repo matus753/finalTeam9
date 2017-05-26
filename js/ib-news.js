@@ -4,9 +4,9 @@ function updateType(page) {
     page = typeof page !== 'undefined' ? page : 1;
 
     $.ajax({
-        url: '../sk/news_generate.php',
+        url: '../news_generate.php',
         type: 'POST',
-        data: {type: type, expired: expired, page: page},
+        data: {type: type, expired: expired, page: page, lang: getCookie('lang')},
         success: function (output) {
             document.getElementById('news-content').innerHTML = output;
         }
@@ -23,6 +23,7 @@ function toggleExpired() {
     }
 }
 
+// window.onload = function(){updateType();};
 $( document ).ready(function() {
     updateType();
 });
@@ -61,7 +62,7 @@ function newsletter(bool) {
     var email = document.getElementById('ib-newsletter-email').value;
     if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
         $.ajax({
-            url: '../sk/newsletter.php',
+            url: '../newsletter.php',
             type: 'POST',
             data: {bool: bool,
                 lang: lang,
@@ -71,7 +72,12 @@ function newsletter(bool) {
             }
         });
     } else {
-        alert("Chybny email");
+        var l = getCookie('lang');
+        if(l === 'sk'){
+            alert("Chybný email");
+        } else {
+            alert('Invalid email address');
+        }
     }
     // alert(bool+" "+lang+" "+email);
 
@@ -80,7 +86,7 @@ function newsletter(bool) {
 function newModal() {
     var newModal = true;
     $.ajax({
-        url: '../sk/newsletter.php',
+        url: '../newsletter.php',
         type: 'POST',
         data: {newModal: newModal},
         success: function (output) {
@@ -93,7 +99,20 @@ function scroll() {
     $("html, body").animate({ scrollTop: 0 }, "slow");
     return false;
 }
-// $("button[href='#top']").click(function() {
-//     $("html, body").animate({ scrollTop: 0 }, "slow");
-//     return false;
-// });
+
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}

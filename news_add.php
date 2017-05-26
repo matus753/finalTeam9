@@ -33,13 +33,14 @@ $date_cur = date("Y-m-d");
 if(isset($date_exp) && isset($type)){
     $conn = new_connection();
     $sql = "INSERT INTO news VALUES (null,'".$title_en."','".$title_sk."','".$content_en."','".$content_sk."','".$date_cur."','".$date_exp."',1)";
-    sendNews($title_sk, $content_sk, $title_en, $content_en);
     $result = $conn->query($sql);
+    sendNews($title_sk, $content_sk, $title_en, $content_en);
 }
 
 
 function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
     $sql = "select * from newsletter";
+    $header = "From: ÚAM FEI \r\n";
     $conn = new_connection();
 
     $result = $conn->query($sql);
@@ -50,11 +51,12 @@ function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
 
             if($lang_db == "SK"){
                 if(!empty($_title_sk) && !empty($_content_sk)){
-                    mail($email, $_title_sk, $_content_sk);
+                    mail($email, $_title_sk, $_content_sk, $header);
                 }
-            } else {
+            }
+            if($lang_db == "EN"){
                 if(!empty($_title_en) && !empty($_content_en)){
-                    mail($email, $_title_en, $_content_en);
+                    mail($email, $_title_en, $_content_en, $header);
                 }
             }
         }
