@@ -10,9 +10,9 @@ function generateTable($m,$y,$isPdf, $filter){
 
     $conn = new_connection();
     $days = array("Ne", "Po", "Ut", "St", "Št", "Pi", "So");
-    if($filter == "0") {
+    if($filter == 0) {
         $sql = "SELECT id, name, surname FROM staff ORDER BY surname";
-    } else if ($filter == "1") {
+    } else if ($filter == 1) {
         $sql = "SELECT id, name, surname FROM staff WHERE staffRole='teacher' ORDER BY surname";
     } else {
         $sql = "SELECT id, name, surname FROM staff WHERE staffRole='doktorand' ORDER BY surname";

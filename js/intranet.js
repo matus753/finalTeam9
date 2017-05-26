@@ -378,20 +378,52 @@ function show(element) {
 }
 
 function generatePdf(mesiac, rok, filter) {
-    var fi = String(filter);
-    $.ajax({
-        type: "POST",
-        url: "generatePdf.php",
-        data: { month: mesiac,
-                year: rok,
-                filter: fi},
-        success: function(){
-            window.location = 'generatePdf.php';
-        },
-        error: function(data){
-            alert(data);
-        }
-    })
+    if(filter == 0) {
+        $.ajax({
+            type: "POST",
+            url: "generatePdf.php",
+            data: {
+                month: mesiac,
+                year: rok
+            },
+            success: function (data) {
+                window.location = 'generatePdf.php';
+            },
+            error: function (data) {
+                alert(data);
+            }
+        })
+    } else if(filter == 1){
+        $.ajax({
+            type: "POST",
+            url: "generatePdfDok.php",
+            data: {
+                month: mesiac,
+                year: rok
+            },
+            success: function (data) {
+                window.location = 'generatePdfDok.php';
+            },
+            error: function (data) {
+                alert(data);
+            }
+        })
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "generatePdfTec.php",
+            data: {
+                month: mesiac,
+                year: rok
+            },
+            success: function (data) {
+                window.location = 'generatePdfTec.php';
+            },
+            error: function (data) {
+                alert(data);
+            }
+        })
+    }
 }
 
 function generateMonthPdf(id, mesiac, rok) {
