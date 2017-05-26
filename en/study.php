@@ -8,12 +8,12 @@ $_SESSION['lang'] = 'en';
 <html>
 <head>
     <link rel="stylesheet" href="../css/study.css">
-    <title>Domov | ÚAMT FEI STU</title>
+    <title>Study | ÃšAMT FEI STU</title>
     <?php
     loadHead();
     ?>
 </head>
-<body>
+<body data-spy="scroll" data-target="#navbar-custom" data-offset="20">
 <?php
 loadLanguageNavbar();
 //loadNavbarSK();
@@ -23,185 +23,185 @@ loadLanguageNavbar();
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1>O nás</h1>
+                <h1>Study</h1>
                 <hr>
                 <div id="section1" class="sectionDiv">
-                    <h2 class="sectionH2 sectItem" id="secH1">Pre uchádzacov o štúdium</h2>
+                    <h2 class="sectionH2 sectItem" id="secH1">For aspirants to study</h2>
                     <div id="sectContent1">
                         <div class="bpStudy">
-                            <h3>Bakalárske štúdium</h3>
-                            <p>Informácie budú dodané neskôr.</p>
-                            <p>Kompletnı študijnı plán pre akademickı rok 2017-2018: <a href="../docs/SP20172018b.pdf">SP20172018b.pdf</a></p>
-                            <p>Dalšie informácie na <a href="http://www.mechatronika.cool">http://www.mechatronika.cool</a></p>
+                            <h3>Bachelor study</h3>
+                            <p>Information will be added later</p>
+                            <p>Complete study plan for academic year 2017-2018: <a href="../docs/SP20172018b.pdf">SP20172018b.pdf</a></p>
+                            <p>Additional information at <a href="http://www.mechatronika.cool">http://www.mechatronika.cool</a></p>
                         </div>
                         <div class="ingStudy">
-                            <h3>Ininierske štúdium</h3>
-                            <b><p class="question">Preco študovat na našom ústave?</p></b>
+                            <h3>Master study</h3>
+                            <b><p class="question">PreÄo Å¡tudovaÅ¥ na naÅ¡om Ãºstave?</p></b>
                             <div class="answers">
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> monost získat znalosti, ktoré sú implementovatelné v praxi</p>
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> menšie skupiny študentov</p>
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> monost dohodnút si tému pre diplomovku s vybranım pedagógom na základe vlastnıch preferencií</p>
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> monost riešit diplomovú prácu a teda to, co kadého zaujíma, a 3 semestre</p>
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> pre vynikajúcich študentov monost študovat dištancnou metódou</p>
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> pre absolventov bakalárskeho štúdia na FEI STU odpustená prijímacia skúška</p>
-                                <p><span class="glyphicon glyphicon-ok-circle"></span> snaha o maximálnu informovanost študentov prostredníctvom web stránky v dostatocnom predstihu</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> Lorem ipsum dolor sit amet</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque</p>
+                                <p><span class="glyphicon glyphicon-ok-circle"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque</p>
                             </div>
-                            <b><p class="question">Nebudem mat problémy, ked som neštudoval mechatroniku aj na bakalárskom štúdiu?</p></b>
+                            <b><p class="question">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque?</p></b>
                             <div class="answers">
-                                <p><span class="glyphicon glyphicon-briefcase"></span> Mechatronika predstavuje medziodborové štúdium, take kadı by sa tu mal nájst. Hned v prvom semestri ininierskeho štúdia je pre študentov, ktorí predtım neštudovali mechatroniku pripravenı vyrovnávací predmet z oblasti automatizácie.</p>
+                                <p><span class="glyphicon glyphicon-briefcase"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque. Etiam a tempus massa, eu euismod lorem. Nam ac orci purus. Fusce ante lorem, vulputate vitae consectetur ut, euismod id enim.</p>
                             </div>
                             <div class="studyProgram jumbotron">
-                                <h3 id="toggle1" class="line">Študijnı program – 1. rocník</h3><button type="button" class="btn btn-lg" id="btnTogStudProgram">zobraz <span class="glyphicon glyphicon-menu-down"></span></button>
+                                <h3 id="toggle1" class="line">Study program â€“ 1. year</h3><button type="button" class="btn btn-lg" id="btnTogStudProgram">show <span class="glyphicon glyphicon-menu-down"></span></button>
                                 <div class="studyProgramContent">
                                     <div class="winterSem">
                                         <hr class="hrStudy">
-                                        <h3><b>Zimnı semester</b></h3>
+                                        <h3><b>Winter term</b></h3>
                                         <div class="winterSemContent answers">
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>CAE mechatronickıch systémov </b>- tvorba virtuálnych dynamickıch modelov a ich simulácia</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Metóda konecnıch prvkov </b>- modelovanie a analıza mechatronickıch prvkov a systémov</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Optimalizácia procesov v mechatronike </b>- optimalizacné úlohy a metódy v ininierskych aplikáciách</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Vıvojové programové prostredia pre mechatronické systémy </b>- programovanie mikroprocesorov</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Povinne volitelnı predmet</b></p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>CAE mechatronickÃ½ch systÃ©mov </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>MetÃ³da koneÄnÃ½ch prvkov </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>OptimalizÃ¡cia procesov v mechatronike </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>VÃ½vojovÃ© programovÃ© prostredia pre mechatronickÃ© systÃ©my </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Lorem ipsum dolor sit amet</b></p>
                                         </div>
                                     </div>
                                     <div class="summerSem">
                                         <hr class="hrStudy">
-                                        <h3><b>Letnı semester</b></h3>
+                                        <h3><b>Summer term</b></h3>
                                         <div class="summerSemContent answers">
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Diplomovı projekt 1 </b></p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Metódy císlicového riadenia  </b>- návrh regulacnıch obvodov pre modely mechatronickıch systémov</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Multifyzikálne procesy v mechatronike </b>- modelovanie tepelnıch, termoelastickıch, termoelektrickıch a piezoelektrickıch systémov</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Pokrocilé informacné technológie </b>- klient-server aplikácie, riadenie mechatronickıch systémov v prostredí internetu, Internet vecí (IoT), Industry 4.0</p>
-                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Povinne volitelnı predmet</b></p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>DiplomovÃ½ projekt 1 </b></p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>MetÃ³dy ÄÃ­slicovÃ©ho riadenia  </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>MultifyzikÃ¡lne procesy v mechatronike </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>PokroÄilÃ© informaÄnÃ© technolÃ³gie </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-list-alt"></span> <b>Lorem ipsum dolor sit amet</b></p>
                                         </div>
                                     </div>
                                     <hr class="hrStudy">
                                     <div class="pvpElektronika">
-                                        <h3 class="line nazovPVP">Moné PVP pre záujemcov o elektroniku </h3>
-                                        <button type="button" class="btn line" id="btnTogPVPe">zobraz <span class="glyphicon glyphicon-menu-down"></span></button>
+                                        <h3 class="line nazovPVP">Lorem ipsum dolor sit amet, consectetur </h3>
+                                        <button type="button" class="btn line" id="btnTogPVPe">show <span class="glyphicon glyphicon-menu-down"></span></button>
                                         <div class="pvpElektronikaContent answers">
-                                            <p><span class="glyphicon glyphicon-cd"></span> <b>Inteligentné mechatronické systémy </b>- implementácia metód vıpoctovej a umelej inteligencie pre mechatronické systémy</p>
-                                            <p><span class="glyphicon glyphicon-cd"></span> <b>MEMS - inteligentné senzory a aktuátory </b>- najmodernejšie senzory pouívané nielen v automobilovom priemysle (akcelerometre, gyroskopy, CCD senzory) a spracovanie signálov vnorenımi mikropocítacmi</p>
+                                            <p><span class="glyphicon glyphicon-cd"></span> <b>InteligentnÃ© mechatronickÃ© systÃ©my </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><span class="glyphicon glyphicon-cd"></span> <b>MEMS - inteligentnÃ© senzory a aktuÃ¡tory </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque. Etiam a tempus massa, eu euismod lorem. </p>
                                         </div>
                                     </div>
                                     <div class="pvpAutomobily">
-                                        <h3 class="line nazovPVP">Moné PVP pre záujemcov o automobily </h3>
-                                        <button type="button" class="btn line" id="btnTogPVPa">zobraz <span class="glyphicon glyphicon-menu-down"></span></button>
+                                        <h3 class="line nazovPVP">Lorem ipsum dolor sit amet, consectetur </h3>
+                                        <button type="button" class="btn line" id="btnTogPVPa">show <span class="glyphicon glyphicon-menu-down"></span></button>
                                         <div class="pvpAutomobilyContent answers">
-                                            <p><img src="../images/icons/glyphicons-6-car.png"> <b>Transmisné systémy automobilov a elektromobilov </b>- prevodové mechanizmy automobilov a elektromobilov</p>
-                                            <p><img src="../images/icons/glyphicons-6-car.png"> <b>Pohonné systémy a zdroje v elektromobiloch </b>- modelovanie a simulovanie cinnosti trakcného a energetického systému elektromobilu</p>
+                                            <p><img src="../images/icons/glyphicons-6-car.png"> <b>TransmisnÃ© systÃ©my automobilov a elektromobilov </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><img src="../images/icons/glyphicons-6-car.png"> <b>PohonnÃ© systÃ©my a zdroje v elektromobiloch </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                         </div>
                                     </div>
                                     <div class="pvpInformatika">
-                                        <h3 class="line nazovPVP">Moné PVP pre záujemcov o informatiku </h3>
-                                        <button type="button" class="btn line" id="btnTogPVPi">zobraz <span class="glyphicon glyphicon-menu-down"></span></button>
+                                        <h3 class="line nazovPVP">Lorem ipsum dolor sit amet, consectetur </h3>
+                                        <button type="button" class="btn line" id="btnTogPVPi">show <span class="glyphicon glyphicon-menu-down"></span></button>
                                         <div class="pvpInfoContent answers">
-                                            <p><img src="../images/icons/glyphicons-161-imac.png"> <b>Inteligentné mechatronické systémy </b>- implementácia metód vıpoctovej a umelej inteligencie pre mechatronické systémy</p>
-                                            <p><img src="../images/icons/glyphicons-161-imac.png"> <b>Vybrané kapitoly z automatického riadenia pre mechatroniku </b>- vyrovnávací predmet z automatizácie</p>
-                                            <p><img src="../images/icons/glyphicons-161-imac.png"> <b>MEMS - inteligentné senzory a aktuátory </b>- najmodernejšie senzory pouívané nielen v automobilovom priemysle (akcelerometre, gyroskopy, CCD senzory) a spracovanie signálov vnorenımi mikropocítacmi</p>
+                                            <p><img src="../images/icons/glyphicons-161-imac.png"> <b>InteligentnÃ© mechatronickÃ© systÃ©my </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><img src="../images/icons/glyphicons-161-imac.png"> <b>VybranÃ© kapitoly z automatickÃ©ho riadenia pre mechatroniku </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                            <p><img src="../images/icons/glyphicons-161-imac.png"> <b>MEMS - inteligentnÃ© senzory a aktuÃ¡tory </b>- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque. Etiam a tempus massa, eu euismod lorem.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <p>Kompletnı študijnı plán pre akademickı rok 2017-2018: <a href="../docs/SP20172018b.pdf">SP20172018b.pdf</a></p>
+                            <p>Complete study plan for academic year 2017-2018: <a href="../docs/SP20172018b.pdf">SP20172018b.pdf</a></p>
                             <table class="table tableStudy">
                                 <tbody>
-                                <tr><th>Prijímacie skúšky na ininierske štúdium</th><td>28.6.2017 o 10:00 v D124</td></tr>
-                                <tr><th rowspan="5">Prijímacia komisia</th><td>prof. Ing. Mikuláš Huba, PhD. (predseda)</td></tr>
-                                <tr><td>prof. Ing. Justín Murín, DrSc. (predseda)</td></tr>
+                                <tr><th>Admission exams to Master study</th><td>28.6.2017 o 10:00 v D124</td></tr>
+                                <tr><th rowspan="5">Admission committee</th><td>prof. Ing. MikulÃ¡Å¡ Huba, PhD. (head of committee)</td></tr>
+                                <tr><td>prof. Ing. JustÃ­n MurÃ­n, DrSc. (head of committee)</td></tr>
                                 <tr><td>prof. Ing. Viktor Ferencey, PhD.</td></tr>
-                                <tr><td>prof. Ing. Štefan Kozák, PhD.</td></tr>
-                                <tr><td>doc. Ing. Katarína áková, PhD.</td></tr>
+                                <tr><td>prof. Ing. Å tefan KozÃ¡k, PhD.</td></tr>
+                                <tr><td>doc. Ing. KatarÃ­na Å½Ã¡kovÃ¡, PhD.</td></tr>
                                 </tbody>
                             </table>
-                            <p>Dalšie informácie na <a href="http://www.mechatronika.cool">http://www.mechatronika.cool</a></p>
+                            <p>Additional information at <a href="http://www.mechatronika.cool">http://www.mechatronika.cool</a></p>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div id="section2" class="sectionDiv">
-                    <h2 class="sectionH2 sectItem" id="secH2">Bakalárske štúdium</h2>
+                    <h2 class="sectionH2 sectItem" id="secH2">Bachelor study</h2>
                     <div class="generalInfo">
-                        <h3 class="h3Study">Všeobecné informácie</h3>
+                        <h3 class="h3Study">General information</h3>
                         <div class="generalInfoContent">
                             <div class="jumbotron">
-                                <h4 class="hStudy"><b>Harmonogram bakalárskeho štúdia</b></h4>
+                                <h4 class="hStudy"><b>Schedule of bachelor study</b></h4>
                             <div class="harmonogram">
                                 <table class="table">
                                     <tbody>
-                                        <tr><th colspan="2">Zimnı semester</th></tr>
-                                        <tr><td>Zaciatok vıucby v semestri</td><td>19. 09. 2016</td></tr>
-                                        <tr><td rowspan="3">Prázdniny</td><td>31. 10. 2016</td></tr>
+                                        <tr><th colspan="2">Winter term</th></tr>
+                                        <tr><td>Education starts</td><td>19. 09. 2016</td></tr>
+                                        <tr><td rowspan="3">Vacation</td><td>31. 10. 2016</td></tr>
                                         <tr><td>18. 11. 2016</td></tr>
-                                        <tr><td>23. 12. 2016 – 01. 01. 2017</td></tr>
-                                        <tr><td>Zaciatok skúškového obdobia</td><td>02. 01. 2017</td></tr>
-                                        <tr><td>Ukoncenie skúškového obdobia</td><td>12. 02. 2017</td></tr>
-                                        <tr><th colspan="2">Letnı semester</th></tr>
-                                        <tr><td>Zaciatok vıucby v semestri</td><td>13. 02. 2017</td></tr>
-                                        <tr><td>Prázdniny</td><td>14. 04. 2017 – 18. 04. 2017</td></tr>
-                                        <tr><td>Zaciatok skúškového obdobia</td><td>22. 05. 2017</td></tr>
-                                        <tr><td>Ukoncenie skúškového obdobia</td><td>02. 07. 2017</td></tr>
-                                        <tr><th colspan="2">Záver bakalárskeho štúdia</th></tr>
-                                        <tr><td>Zadanie záverecnej práce</td><td>13. 02. 2017</td></tr>
-                                        <tr><td>Odovzdanie záverecnej práce</td><td>19. 05. 2017</td></tr>
-                                        <tr><td>Štátne skúšky bakalárskeho štúdia</td><td>06. 07. 2017 – 07. 07. 2017</td></tr>
-                                        <tr><td>Promócie absolventov bakalárskeho štúdia </td><td>14. 09. 2016</td></tr>
+                                        <tr><td>23. 12. 2016 â€“ 01. 01. 2017</td></tr>
+                                        <tr><td>Exam period starts</td><td>02. 01. 2017</td></tr>
+                                        <tr><td>Exam period ends</td><td>12. 02. 2017</td></tr>
+                                        <tr><th colspan="2">Summer term</th></tr>
+                                        <tr><td>Education starts</td><td>13. 02. 2017</td></tr>
+                                        <tr><td>Vacation</td><td>14. 04. 2017 â€“ 18. 04. 2017</td></tr>
+                                        <tr><td>Exam period starts</td><td>22. 05. 2017</td></tr>
+                                        <tr><td>Exam period ends</td><td>02. 07. 2017</td></tr>
+                                        <tr><th colspan="2">The end of bachelor study</th></tr>
+                                        <tr><td>Assignment of final thesis</td><td>13. 02. 2017</td></tr>
+                                        <tr><td>Handing-over of final thesis</td><td>19. 05. 2017</td></tr>
+                                        <tr><td>State exams bachelor study</td><td>06. 07. 2017 â€“ 07. 07. 2017</td></tr>
+                                        <tr><td>Promotions of graduates bachelor study </td><td>14. 09. 2016</td></tr>
                                     </tbody>
                                 </table>
                             </div>
                             </div>
-                            <p>Študijnı plán 2016-2017 <a href="../docs/SP20162017b.pdf">SP20162017b.pdf</a></p>
-                            <p>Študijnı poriadok (<a href="../docs/studijny_poriadok.pdf">studijny_poriadok.pdf</a>)</p>
-                            <p>Klasifikacná stupnica (<a href="../docs/klasifikacna_stupnica.pdf">klasifikacna_stupnica.pdf</a>)</p>
+                            <p>Study plan 2016-2017 <a href="../docs/SP20162017b.pdf">SP20162017b.pdf</a></p>
+                            <p>Study order (<a href="../docs/studijny_poriadok.pdf">studijny_poriadok.pdf</a>)</p>
+                            <p>Classification scale (<a href="../docs/klasifikacna_stupnica.pdf">klasifikacna_stupnica.pdf</a>)</p>
                         </div>
                     </div>
                     <div class="bpPrace">
-                        <h3>Bakalárske práce</h3>
+                        <h3>Bachelor thesis</h3>
                         <div class="bpPraceContent">
                             <div >
-                                <h4 ><b>Pokyny</b></h4>
+                                <h4 ><b>Instructions</b></h4>
                             <div>
-                                <h4 class="hKoniec">Ukoncovanie predmetov BP1, BP2, BZP</h4>
+                                <h4 class="hKoniec">Closing of subjects BP1, BP2, BZP</h4>
                                 <div class="hKoniecDiv">
-                                    <!--<p>Bakalársky projekt 1</p>-->
-                                    <button type="button" class="btn lg" id="btnTogBP1">Bakalársky projekt 1 <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <!--<p>BakalÃ¡rsky projekt 1</p>-->
+                                    <button type="button" class="btn lg" id="btnTogBP1">Bachelor project 1 <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableBP1" class="jumbotron">
                                     <table class="table">
-                                        <!--<tr><th colspan="2">Bakalársky projekt 1</th></tr>-->
-                                        <tr><td>Zodpovednı</td><td>doc. Ing. Vladimír Kutiš, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanı zápocet</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>3. roc. bakalárskeho štúdia, zimnı semester</td></tr>
-                                        <tr><td colspan="2">Pre získanie klasifikovaného zápoctu musí študent odovzdat technickú dokumentáciu svojmu vedúcemu práce v nim špecifikovanom rozsahu najneskôr do 20.januára daného roku. Prácu na projekte hodnotí vedúci práce.</td></tr>
+                                        <!--<tr><th colspan="2">BakalÃ¡rsky projekt 1</th></tr>-->
+                                        <tr><td>Responsible</td><td>doc. Ing. VladimÃ­r KutiÅ¡, PhD.</td></tr>
+                                        <tr><td>Evaluation of subject</td><td>Lorem ipsum</td></tr>
+                                        <tr><td>Standard time for fulfillment</td><td>3. year of bachelor study, winter term</td></tr>
+                                        <tr><td colspan="2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dapibus vitae nisi eu pellentesque. Etiam a tempus massa, eu euismod lorem. Nam ac orci purus. Fusce ante lorem, vulputate vitae consectetur ut, euismod id enim.</td></tr>
                                     </table>
                                     </div>
-                                    <button type="button" class="btn lg" id="btnTogBP2">Bakalársky projekt 2 <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <button type="button" class="btn lg" id="btnTogBP2">Bachelor project 2 <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableBP2" class="jumbotron">
                                     <table class="table">
-                                        <tr><td>Zodpovednı</td><td>doc. Ing. Vladimír Kutiš, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanı zápocet</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>3. roc. bakalárskeho štúdia, letnı semester</td></tr>
-                                        <tr><td colspan="2"><p>Pre získanie klasifikovaného zápoctu musí študent do dátumu špecifikovanom v harmonograme štúdia FEI STU odovzdat bakalársku prácu:</p>
+                                        <tr><td>Responsible</td><td>doc. Ing. VladimÃ­r KutiÅ¡, PhD.</td></tr>
+                                        <tr><td>Evaluation of subject</td><td>lorem ipsum</td></tr>
+                                        <tr><td>Standard time for fulfillment</td><td>lorem ipsum dolor sit amet </td></tr>
+                                        <tr><td colspan="2"><p>Pre zÃ­skanie klasifikovanÃ©ho zÃ¡poÄtu musÃ­ Å¡tudent do dÃ¡tumu Å¡pecifikovanom v harmonograme Å¡tÃºdia FEI STU odovzdaÅ¥ bakalÃ¡rsku prÃ¡cu:</p>
                                                 <p>1.	v elektronickej forme do AIS</p>
-                                                <p>2.	v tlacenej forme v pocte 2 kusy Ing. Sedlárovi? (A803)</p>
-                                                <p>alebo odovzdat technickú dokumentáciu svojmu vedúcemu práce v nim špecifikovanom rozsahu najneskôr do 20.júna daného roku.</p>
-                                                <p>Prácu na projekte hodnotí vedúci práce.</p>
+                                                <p>2.	v tlaÄenej forme v poÄte 2 kusy Ing. SedlÃ¡rovi? (A803)</p>
+                                                <p>alebo odovzdaÅ¥ technickÃº dokumentÃ¡ciu svojmu vedÃºcemu prÃ¡ce v nim Å¡pecifikovanom rozsahu najneskÃ´r do 20.jÃºna danÃ©ho roku.</p>
+                                                <p>PrÃ¡cu na projekte hodnotÃ­ vedÃºci prÃ¡ce.</p>
                                             </td></tr>
                                     </table>
                                     </div>
-                                    <button type="button" class="btn lg" id="btnTogBZP">Bakalárska záverecná práca <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <button type="button" class="btn lg" id="btnTogBZP">BakalÃ¡rska zÃ¡vereÄnÃ¡ prÃ¡ca <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableBZP" class="jumbotron">
                                     <table class="table">
-                                        <tr><td>Zodpovednı</td><td>doc. Ing. Vladimír Kutiš, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanı zápocet</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>3. roc. bakalárskeho štúdia, letnı semester</td></tr>
-                                        <tr><td colspan="2">Pre získanie skúšky musí študent obhájit tému svojej diplomovej práce pred štátnicovou komisiou, ktorá zároven udeluje známku za obhajobu.
+                                        <tr><td>ZodpovednÃ½</td><td>doc. Ing. VladimÃ­r KutiÅ¡, PhD.</td></tr>
+                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanÃ½ zÃ¡poÄet</td></tr>
+                                        <tr><td>Å tandardnÃ½ Äas plnenia</td><td>3. roÄ. bakalÃ¡rskeho Å¡tÃºdia, letnÃ½ semester</td></tr>
+                                        <tr><td colspan="2">Pre zÃ­skanie skÃºÅ¡ky musÃ­ Å¡tudent obhÃ¡jiÅ¥ tÃ©mu svojej diplomovej prÃ¡ce pred Å¡tÃ¡tnicovou komisiou, ktorÃ¡ zÃ¡roveÅˆ udeÄ¾uje znÃ¡mku za obhajobu.
                                             </td></tr>
                                     </table>
                                     </div>
                                 </div>
                             </div>
                             </div>
-                            <h4><b>Volné témy</b></h4>
+                            <h4><b>VoÄ¾nÃ© tÃ©my</b></h4>
                             <div class="volneTemyContentBP">
                                 <h2 id="SIMKA">SIMKA TUTO</h2>
                             </div>
@@ -210,95 +210,95 @@ loadLanguageNavbar();
                 </div>
                 <hr>
                 <div id="section3" class="sectionDiv">
-                    <h2 class="sectionH2 sectItem" id="secH3">Ininierske štúdium</h2>
+                    <h2 class="sectionH2 sectItem" id="secH3">InÅ¾inierske Å¡tÃºdium</h2>
                     <div class="generalInfo">
-                        <h3>Všeobecné informácie</h3>
+                        <h3>VÅ¡eobecnÃ© informÃ¡cie</h3>
                         <div class="generalInfoContent">
                             <div class="jumbotron">
-                                <h4 class="hStudy"><b>Harmonogram ininierskeho štúdia</b></h4>
+                                <h4 class="hStudy"><b>Harmonogram inÅ¾inierskeho Å¡tÃºdia</b></h4>
                             <div class="harmonogram">
                                 <table class="table">
                                     <tbody>
-                                    <tr><th colspan="2">Zimnı semester</th></tr>
-                                    <tr><td>Zaciatok vıucby v semestri</td><td>19. 09. 2016</td></tr>
-                                    <tr><td rowspan="3">Prázdniny</td><td>31. 10. 2016</td></tr>
+                                    <tr><th colspan="2">ZimnÃ½ semester</th></tr>
+                                    <tr><td>ZaÄiatok vÃ½uÄby v semestri</td><td>19. 09. 2016</td></tr>
+                                    <tr><td rowspan="3">PrÃ¡zdniny</td><td>31. 10. 2016</td></tr>
                                     <tr><td>18. 11. 2016</td></tr>
-                                    <tr><td>23. 12. 2016 – 01. 01. 2017</td></tr>
-                                    <tr><td>Zaciatok skúškového obdobia</td><td>02. 01. 2017</td></tr>
-                                    <tr><td>Ukoncenie skúškového obdobia</td><td>12. 02. 2017</td></tr>
-                                    <tr><th colspan="2">Letnı semester</th></tr>
-                                    <tr><td>Zaciatok vıucby v semestri</td><td>13. 02. 2017</td></tr>
-                                    <tr><td>Prázdniny</td><td>14. 04. 2017 – 18. 04. 2017</td></tr>
-                                    <tr><td>Zaciatok skúškového obdobia</td><td>22. 05. 2017</td></tr>
-                                    <tr><td>Ukoncenie skúškového obdobia</td><td>02. 07. 2017</td></tr>
-                                    <tr><th colspan="2">Záver ininierskeho štúdia</th></tr>
-                                    <tr><td>Zadanie diplomovej práce</td><td>13. 02. 2017</td></tr>
-                                    <tr><td>Odovzdanie diplomovej práce</td><td>19. 05. 2017</td></tr>
-                                    <tr><td>Štátne skúšky ininierskeho štúdia</td><td>13. 06. 2017 – 16. 06. 2017</td></tr>
-                                    <tr><td>Termín promócií </td><td>10. 07. 2017 – 14. 07. 2017</td></tr>
+                                    <tr><td>23. 12. 2016 â€“ 01. 01. 2017</td></tr>
+                                    <tr><td>ZaÄiatok skÃºÅ¡kovÃ©ho obdobia</td><td>02. 01. 2017</td></tr>
+                                    <tr><td>UkonÄenie skÃºÅ¡kovÃ©ho obdobia</td><td>12. 02. 2017</td></tr>
+                                    <tr><th colspan="2">LetnÃ½ semester</th></tr>
+                                    <tr><td>ZaÄiatok vÃ½uÄby v semestri</td><td>13. 02. 2017</td></tr>
+                                    <tr><td>PrÃ¡zdniny</td><td>14. 04. 2017 â€“ 18. 04. 2017</td></tr>
+                                    <tr><td>ZaÄiatok skÃºÅ¡kovÃ©ho obdobia</td><td>22. 05. 2017</td></tr>
+                                    <tr><td>UkonÄenie skÃºÅ¡kovÃ©ho obdobia</td><td>02. 07. 2017</td></tr>
+                                    <tr><th colspan="2">ZÃ¡ver inÅ¾inierskeho Å¡tÃºdia</th></tr>
+                                    <tr><td>Zadanie diplomovej prÃ¡ce</td><td>13. 02. 2017</td></tr>
+                                    <tr><td>Odovzdanie diplomovej prÃ¡ce</td><td>19. 05. 2017</td></tr>
+                                    <tr><td>Å tÃ¡tne skÃºÅ¡ky inÅ¾inierskeho Å¡tÃºdia</td><td>13. 06. 2017 â€“ 16. 06. 2017</td></tr>
+                                    <tr><td>TermÃ­n promÃ³ciÃ­ </td><td>10. 07. 2017 â€“ 14. 07. 2017</td></tr>
                                     </tbody>
                                 </table>
                             </div>
                             </div>
-                            <p>Študijnı plán 2016-2017 <a href="../docs/SP20162017b.pdf">SP20162017b.pdf</a></p>
-                            <p>Študijnı poriadok (<a href="../docs/studijny_poriadok.pdf">studijny_poriadok.pdf</a>)</p>
-                            <p>Klasifikacná stupnica (<a href="../docs/klasifikacna_stupnica.pdf">klasifikacna_stupnica.pdf</a>)</p>
+                            <p>Å tudijnÃ½ plÃ¡n 2016-2017 <a href="../docs/SP20162017b.pdf">SP20162017b.pdf</a></p>
+                            <p>Å tudijnÃ½ poriadok (<a href="../docs/studijny_poriadok.pdf">studijny_poriadok.pdf</a>)</p>
+                            <p>KlasifikaÄnÃ¡ stupnica (<a href="../docs/klasifikacna_stupnica.pdf">klasifikacna_stupnica.pdf</a>)</p>
                         </div>
                     </div>
                     <div class="dpPrace">
-                        <h3>Diplomové práce</h3>
+                        <h3>DiplomovÃ© prÃ¡ce</h3>
                         <div class="dpPraceContent">
                             <h4><b>Pokyny</b></h4>
                             <div>
-                                <h4 class="hKoniec">Ukoncovanie predmetov DP1, DP2, DP3, DZP</h4>
+                                <h4 class="hKoniec">UkonÄovanie predmetov DP1, DP2, DP3, DZP</h4>
                                 <div class="hKoniecDiv">
-                                    <button type="button" class="btn lg" id="btnTogDP1">Diplomovı projekt 1 <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <button type="button" class="btn lg" id="btnTogDP1">DiplomovÃ½ projekt 1 <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableDP1" class="jumbotron">
                                     <table class="table">
-                                        <!--<tr><th colspan="2">Bakalársky projekt 1</th></tr>-->
-                                        <tr><td>Zodpovednı</td><td>prof. Ing. Mikuláš Huba, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanı zápocet</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>1. roc. ininierskeho štúdia, letnı semester</td></tr>
-                                        <tr><td colspan="2">Pre získanie klasifikovaného zápoctu musí študent odovzdat technickú dokumentáciu svojmu vedúcemu práce v nim špecifikovanom rozsahu najneskôr do 20.júna daného roku. Prácu na projekte hodnotí vedúci práce.</td></tr>
+                                        <!--<tr><th colspan="2">BakalÃ¡rsky projekt 1</th></tr>-->
+                                        <tr><td>ZodpovednÃ½</td><td>prof. Ing. MikulÃ¡Å¡ Huba, PhD.</td></tr>
+                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanÃ½ zÃ¡poÄet</td></tr>
+                                        <tr><td>Å tandardnÃ½ Äas plnenia</td><td>1. roÄ. inÅ¾inierskeho Å¡tÃºdia, letnÃ½ semester</td></tr>
+                                        <tr><td colspan="2">Pre zÃ­skanie klasifikovanÃ©ho zÃ¡poÄtu musÃ­ Å¡tudent odovzdaÅ¥ technickÃº dokumentÃ¡ciu svojmu vedÃºcemu prÃ¡ce v nim Å¡pecifikovanom rozsahu najneskÃ´r do 20.jÃºna danÃ©ho roku. PrÃ¡cu na projekte hodnotÃ­ vedÃºci prÃ¡ce.</td></tr>
                                     </table>
                                     </div>
-                                    <button type="button" class="btn lg" id="btnTogDP2">Diplomovı projekt 2 <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <button type="button" class="btn lg" id="btnTogDP2">DiplomovÃ½ projekt 2 <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableDP2" class="jumbotron">
                                     <table class="table">
-                                        <tr><td>Zodpovednı</td><td>prof. Ing. Mikuláš Huba, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanı zápocet</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>2. roc. ininierskeho štúdia, zimnı semester</td></tr>
-                                        <tr><td colspan="2">Pre získanie klasifikovaného zápoctu musí študent odovzdat technickú dokumentáciu svojmu vedúcemu práce v nim špecifikovanom rozsahu najneskôr do 20.januára daného roku a obhájit svoje priebené vısledky pred minimálne 2-clennou komisiou (jej clenom by mal byt vedúci práce). Prácu na projekte hodnotí komisia pri obhajobe, ktorá zoberie do úvahy hodnotenie vedúceho práce.
+                                        <tr><td>ZodpovednÃ½</td><td>prof. Ing. MikulÃ¡Å¡ Huba, PhD.</td></tr>
+                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanÃ½ zÃ¡poÄet</td></tr>
+                                        <tr><td>Å tandardnÃ½ Äas plnenia</td><td>2. roÄ. inÅ¾inierskeho Å¡tÃºdia, zimnÃ½ semester</td></tr>
+                                        <tr><td colspan="2">Pre zÃ­skanie klasifikovanÃ©ho zÃ¡poÄtu musÃ­ Å¡tudent odovzdaÅ¥ technickÃº dokumentÃ¡ciu svojmu vedÃºcemu prÃ¡ce v nim Å¡pecifikovanom rozsahu najneskÃ´r do 20.januÃ¡ra danÃ©ho roku a obhÃ¡jiÅ¥ svoje priebeÅ¾nÃ© vÃ½sledky pred minimÃ¡lne 2-Älennou komisiou (jej Älenom by mal byÅ¥ vedÃºci prÃ¡ce). PrÃ¡cu na projekte hodnotÃ­ komisia pri obhajobe, ktorÃ¡ zoberie do Ãºvahy hodnotenie vedÃºceho prÃ¡ce.
                                             </td></tr>
                                     </table>
                                     </div>
-                                    <button type="button" class="btn lg" id="btnTogDP3">Diplomovı projekt 3 <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <button type="button" class="btn lg" id="btnTogDP3">DiplomovÃ½ projekt 3 <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableDP3" class="jumbotron">
                                     <table class="table">
-                                        <tr><td>Zodpovednı</td><td>prof. Ing. Mikuláš Huba, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanı zápocet</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>2. roc. ininierskeho štúdia, letnı semester</td></tr>
-                                        <tr><td colspan="2"><p>Pre získanie klasifikovaného zápoctu musí študent do dátumu špecifikovanom v harmonograme štúdia FEI STU odovzdat diplomovú prácu:</p>
+                                        <tr><td>ZodpovednÃ½</td><td>prof. Ing. MikulÃ¡Å¡ Huba, PhD.</td></tr>
+                                        <tr><td>Hodnotenie predmetu</td><td>klasifikovanÃ½ zÃ¡poÄet</td></tr>
+                                        <tr><td>Å tandardnÃ½ Äas plnenia</td><td>2. roÄ. inÅ¾inierskeho Å¡tÃºdia, letnÃ½ semester</td></tr>
+                                        <tr><td colspan="2"><p>Pre zÃ­skanie klasifikovanÃ©ho zÃ¡poÄtu musÃ­ Å¡tudent do dÃ¡tumu Å¡pecifikovanom v harmonograme Å¡tÃºdia FEI STU odovzdaÅ¥ diplomovÃº prÃ¡cu:</p>
                                                 <p>1.	v elektronickej forme do AIS</p>
-                                                <p>2.	v tlacenej forme v pocte 2 kusy Ing. Sedlárovi? (A803)</p>
-                                                <p>alebo odovzdat technickú dokumentáciu svojmu vedúcemu práce v nim špecifikovanom rozsahu najneskôr do 20.júna daného roku.</p>
-                                                <p>Prácu na projekte hodnotí vedúci práce.</p>
+                                                <p>2.	v tlaÄenej forme v poÄte 2 kusy Ing. SedlÃ¡rovi? (A803)</p>
+                                                <p>alebo odovzdaÅ¥ technickÃº dokumentÃ¡ciu svojmu vedÃºcemu prÃ¡ce v nim Å¡pecifikovanom rozsahu najneskÃ´r do 20.jÃºna danÃ©ho roku.</p>
+                                                <p>PrÃ¡cu na projekte hodnotÃ­ vedÃºci prÃ¡ce.</p>
                                             </td></tr>
                                     </table>
                                     </div>
-                                    <button type="button" class="btn lg" id="btnTogDZP">Diplomová záverecná práca <span class="glyphicon glyphicon-menu-down"></span></button>
+                                    <button type="button" class="btn lg" id="btnTogDZP">DiplomovÃ¡ zÃ¡vereÄnÃ¡ prÃ¡ca <span class="glyphicon glyphicon-menu-down"></span></button>
                                     <div id="tableDZP" class="jumbotron">
                                     <table class="table">
-                                        <tr><td>Zodpovednı</td><td>prof. Ing. Mikuláš Huba, PhD.</td></tr>
-                                        <tr><td>Hodnotenie predmetu</td><td>skúška</td></tr>
-                                        <tr><td>Štandardnı cas plnenia</td><td>2. roc. ininierskeho štúdia, letnı semester</td></tr>
-                                        <tr><td colspan="2">Pre získanie skúšky musí študent obhájit tému svojej diplomovej práce pred štátnicovou komisiou, ktorá zároven udeluje známku za obhajobu.
+                                        <tr><td>ZodpovednÃ½</td><td>prof. Ing. MikulÃ¡Å¡ Huba, PhD.</td></tr>
+                                        <tr><td>Hodnotenie predmetu</td><td>skÃºÅ¡ka</td></tr>
+                                        <tr><td>Å tandardnÃ½ Äas plnenia</td><td>2. roÄ. inÅ¾inierskeho Å¡tÃºdia, letnÃ½ semester</td></tr>
+                                        <tr><td colspan="2">Pre zÃ­skanie skÃºÅ¡ky musÃ­ Å¡tudent obhÃ¡jiÅ¥ tÃ©mu svojej diplomovej prÃ¡ce pred Å¡tÃ¡tnicovou komisiou, ktorÃ¡ zÃ¡roveÅˆ udeÄ¾uje znÃ¡mku za obhajobu.
                                             </td></tr>
                                     </table>
                                     </div>
                                 </div>
                             </div>
-                            <h4><b>Volné témy</b></h4>
+                            <h4><b>VoÄ¾nÃ© tÃ©my</b></h4>
                             <div class="volneTemyContentDP">
                                 <h2 id="SIMKA">SIMKA TUTO</h2>
                             </div>
@@ -307,8 +307,8 @@ loadLanguageNavbar();
                 </div>
                 <hr>
                 <div id="section4" class="sectionDiv">
-                    <h2 class="sectionH2 sectItem" id="secH4">Doktorandské štúdium</h2>
-                    <p>Informácie budú dodané neskôr.</p>
+                    <h2 class="sectionH2 sectItem" id="secH4">DoktorandskÃ© Å¡tÃºdium</h2>
+                    <p>InformÃ¡cie budÃº dodanÃ© neskÃ´r.</p>
                 </div>
             </div>
         </div>
