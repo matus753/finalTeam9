@@ -32,7 +32,7 @@ $( document ).ready(function() {
 function addNews() {
     // alert("button pressed");
     var date_expiration = document.getElementById('ib-modal-date').value;
-    var type = document.getElementById('ib-modal-type').selectedIndex;
+    var type = document.getElementById('ib-modal-type-add').selectedIndex;
     var svk_title = document.getElementById('ib-modal-title-sk').value;
     var svk_content = document.getElementById('ib-modal-content-sk').value;
     var eng_title = document.getElementById('ib-modal-title-eng').value;
@@ -50,11 +50,36 @@ function addNews() {
             title_en: eng_title,
             content_en: eng_content},
         success: function (output) {
-            alert(output);
             updateType();
         }
     });
 
+}
+
+function sendEmail() {
+    // alert("button pressed");
+    var date_expiration = document.getElementById('ib-modal-date').value;
+    var type = document.getElementById('ib-modal-type-add').selectedIndex;
+    var svk_title = document.getElementById('ib-modal-title-sk').value;
+    var svk_content = document.getElementById('ib-modal-content-sk').value;
+    var eng_title = document.getElementById('ib-modal-title-eng').value;
+    var eng_content = document.getElementById('ib-modal-content-eng').value;
+
+    // alert(date_expiration+"."+type+"."+svk_title+"."+svk_content+"."+eng_title+"."+eng_content+".");
+
+    $.ajax({
+        url: '../send_email.php',
+        type: 'POST',
+        data: {date: date_expiration,
+            type: type,
+            title_sk: svk_title,
+            content_sk: svk_content,
+            title_en: eng_title,
+            content_en: eng_content},
+        success: function (output) {
+
+        }
+    });
 }
 
 function newsletter(bool) {

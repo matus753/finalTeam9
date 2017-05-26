@@ -67,7 +67,7 @@ loadLanguageNavbar();
                 Expiration date:
                 <input class="form-control ib-inline2" type="date" id="ib-modal-date">
                 Category:
-                <select class="form-control ib-inline2" id="ib-modal-type">
+                <select class="form-control ib-inline2" id="ib-modal-type-add">
                     <option>Propagation</option>
                     <option>Notices</option>
                     <option>From the life of the institute</option>
@@ -86,7 +86,7 @@ loadLanguageNavbar();
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addNews()">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addNews(); sendEmail();">Add</button>
             </div>
         </div>
 

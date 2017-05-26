@@ -66,7 +66,7 @@ loadLanguageNavbar();
                 Dátum expirácie:
                 <input class="form-control ib-inline2" type="date" id="ib-modal-date">
                 Kategória:
-                <select class="form-control ib-inline2" id="ib-modal-type">
+                <select class="form-control ib-inline2" id="ib-modal-type-add">
                     <option>Propagácia</option>
                     <option>Oznamy</option>
                     <option>Zo života ústavu</option>
@@ -85,7 +85,7 @@ loadLanguageNavbar();
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addNews()">Pridať</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addNews();sendEmail();">Pridať</button>
             </div>
         </div>
 
