@@ -1,0 +1,51 @@
+.jumbotron p{
+    font-size: 16px !important;
+}
+
+.center {
+    text-align: center;
+}
+
+h2 {
+    text-transform: uppercase;
+    color: white;
+    font-size: medium;
+    margin-top: 30px;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+}
+
+.themes-filter {
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.btn-zobraz {
+    background-color: #00BC8D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+}
+
+.themes-icon-plus {
+    padding-right: 8px;
+    cursor: pointer;
+    color: #00BC8D;
+}
+
+.modal-theme-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-size: 20px;
+    color: #00BC8D;
+    text-transform: uppercase;
+}
+
+#anotaciaObsah {
+    margin-bottom: 40px;
+}
+
+.btn-center {
+    text-align: center;
+}

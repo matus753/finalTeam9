@@ -203,7 +203,7 @@ loadLanguageNavbar();
                             </div>
                             <h4><b>Voľné témy</b></h4>
                             <div class="volneTemyContentBP">
-                                <h2 id="SIMKA">SIMKA TUTO</h2>
+                                <p>Pre zobrazenie voľných bakalárskych tém kliknite <a href="themesBP.php" target="_blank" class="themes-here">TU</a></p>
                             </div>
                         </div>
                     </div>
@@ -300,7 +300,7 @@ loadLanguageNavbar();
                             </div>
                             <h4><b>Voľné témy</b></h4>
                             <div class="volneTemyContentDP">
-                                <h2 id="SIMKA">SIMKA TUTO</h2>
+                                 <p>Pre zobrazenie voľných diplomových tém kliknite <a href="themesDP.php" target="_blank" class="themes-here">TU</a></p>
                             </div>
                         </div>
                     </div>

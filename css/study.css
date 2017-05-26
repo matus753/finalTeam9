@@ -78,3 +78,12 @@
 .sectionH2{
     padding-top: 100px;
 }
+.themes-here {
+    color: #00BC8D;
+    text-decoration: underline;
+    font-size: 25px;
+}
+
+.themes-here:hover {
+    color: #FFD446;
+}
