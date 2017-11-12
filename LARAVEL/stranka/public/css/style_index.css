@@ -1,0 +1,125 @@
+.carousel-item {
+    margin-top: -20px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.slider-h3 {
+    text-transform: uppercase;
+    font-size: 30px;   
+    padding: 20px;
+    margin: 10px 40px;
+}
+
+.slider-bg-white {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.slider-bg-black {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.slider-text {
+    font-size: 20px;
+}
+
+.slider-a {
+    color: white;
+    text-decoration: underline;
+    font-size: 25px;
+}
+
+.slider-a:hover {
+    color: #FFD446;
+}
+
+.thumb-fb-row {
+    margin: 40px 0;
+}
+
+.thumbfb {
+    height: 430px;
+    max-width: 320px;
+}
+
+.btn-dark-blue {
+    background-color: #0A61BC;
+    color: white;
+}
+
+.btn-blue {
+    background-color: #4890DB;
+    color: white;
+}
+
+.btn-blue:hover, .btn-dark-blue:hover {
+     background-color: #6CA8E6;
+     color: white;
+}
+
+h4  {
+    text-transform: uppercase;
+}
+
+.gicon {
+    font-size: 50px;
+    color: #4890DB;
+}
+
+.con-text {
+    font-size: 14px;
+    color: rgb(191,191,191);
+}
+
+.video-index {
+    margin: 60px 0 30px;
+}
+
+@media all and (max-width: 1023px) {
+
+    .slider-h3 {
+        text-transform: uppercase;
+        font-size: 20px;   
+        padding: 10px;
+        margin: 0px 0px;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .carousel-item {
+        margin-top: 0px;
+    }
+    
+    .slider-h3 {
+        text-transform: uppercase;
+        font-size: 10px;   
+        padding: 0px;
+        margin: 0px 0px;
+    }
+
+    .slider-bg-white {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .slider-bg-black {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .slider-text {
+        font-size: 0px;
+    }
+
+    .slider-a {
+        color: white;
+        text-decoration: underline;
+        font-size: 0px;
+    }
+    
+    .carousel-caption {
+        padding-top: 0;
+        padding-bottom: 5px;
+        bottom: 0px;
+    }
+}

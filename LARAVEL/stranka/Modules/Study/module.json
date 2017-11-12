@@ -1,0 +1,16 @@
+{
+    "name": "Study",
+    "alias": "study",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Study\\Providers\\StudyServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

@@ -1,0 +1,89 @@
+.center { text-align: center;}
+.bold { font-weight: bold;}
+.light-grey {color: #c1c4c5; }
+.grey {color: #898e8f; }
+
+body {
+    padding-right: 0 !important;
+}
+h2 {
+    text-align: right;
+    text-transform: uppercase;
+    color: white;
+    font-size: medium;
+    margin-top: 30px;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+}
+
+hr {
+    border-top: 1px dashed #e5e5e5;
+    border-bottom: 1px dashed #fff;
+}
+
+.modal-projects{
+    font-family: 'Open Sans', sans-serif;
+    margin: 20px;
+}
+
+.modal-project-title {
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-size: 22px;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+}
+
+.modal-project-subtitle {
+    text-align: left;
+    margin: 15px 60px 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #3CDAB2;
+}
+
+.modal-project-text {
+    text-align: center;
+    margin: 0px;
+    font-size: 14px;    
+}
+
+.modal-project-annotation {
+    text-align: justify;
+}
+
+.projects-table-th1 {
+    width: 10%;
+}
+
+.projects-table-th2 {
+    width: 45%;
+}
+
+.projects-table-th3 {
+    width: 15%;
+}
+
+.projects-table-th4 {
+    width: 30%;
+}
+
+.modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+
+@media all and (max-width: 767px) {
+    .modal-project-title {
+        font-size: 18px;
+    }
+    
+    .modal-project-subtitle {
+        margin: 10px 10px 15px;
+    }
+}

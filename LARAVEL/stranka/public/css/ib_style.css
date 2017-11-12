@@ -1,0 +1,42 @@
+.ib-inline{
+    width: 500px;
+    float: left;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.ib-left{
+    float: left;
+}
+
+.ib-right{
+    float: right;
+    padding-top: 25px;
+}
+
+.ib-add{
+    background-color: #b2cdf5;
+}
+
+.ib-inline2{
+    width: 200px;
+}
+
+.ib-news-buttons{
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ib-in{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.ib-contact-right-1 {
+    height: 425px;
+}
+
+.ib-contact-left, .ib-contact-right{
+    margin-top: 40px;
+}

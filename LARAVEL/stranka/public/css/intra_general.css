@@ -1,0 +1,22 @@
+.intraItem{
+    display: inline-block !important;
+    border-bottom: solid;
+    border-color: rgb(212,212,212);
+    border-width: 1px;
+}
+/*.actItem{
+    border-left: solid;
+    border-right: solid;
+    border-top: solid;
+    border-color: rgb(212,212,212);
+    border-width: 1px;
+    border-bottom: none;
+}*/
+.navbarIntra{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+hr {
+    border-top: 1px dashed #e5e5e5 !important;
+    border-bottom: 1px dashed #fff !important;
+}
