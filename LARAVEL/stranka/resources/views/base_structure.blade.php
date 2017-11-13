@@ -5,14 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="<?php echo URL::asset('css/eb_general.css'); ?>">
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ URL::asset('css/ib_style.css') }}">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
 		<title> ÚAMT - {{ $title }}</title>
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
-        <script src="{{ URL::asset('js/ib-contact.js') }}"></script>
 	</head>
 	<body>
 	<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
