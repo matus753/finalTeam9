@@ -50,10 +50,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="'.$upDir.'study.php#section1" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="'.$upDir.'study.php#section2" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="'.$upDir.'study.php#section3" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
-                            <li><a href="'.$upDir.'study.php#section4" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
+                            <li><a href="{{ URL::asset('study#section1') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
+                            <li><a href="{{ URL::asset('study#section2') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
+                            <li><a href="{{ URL::asset('study#section3') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li><a href="{{ URL::asset('study#section4') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
