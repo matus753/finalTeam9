@@ -3,7 +3,7 @@
     <head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="<?php echo URL::asset('css/eb_general.css'); ?>">
+		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
@@ -33,15 +33,15 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="'.$upDir.'aboutUs.php#section1" id="navSec1" class="navbarItem sectItem">História</a></li>
-                            <li><a href="'.$upDir.'aboutUs.php#section2" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
+                            <li><a href="{{ URL::asset('about#section1') }}" id="navSec1" class="navbarItem sectItem">História</a></li>
+                            <li><a href="{{ URL::asset('about#section2') }}" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
                             <li class="dropdown-submenu dropdown">
-                                <a href="'.$upDir.'aboutUs.php#section3" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
+                                <a href="{{ URL::asset('about#section3') }}" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem3" >
-                                    <li><a href="'.$upDir.'aboutUs.php#section3" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
-                                    <li><a href="'.$upDir.'aboutUs.php#section32" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
-                                    <li><a href="'.$upDir.'aboutUs.php#section33" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
-                                    <li><a href="'.$upDir.'aboutUs.php#section34" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
+                                    <li><a href="{{ URL::asset('about#section3') }}" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
+                                    <li><a href="{{ URL::asset('about#section32') }}" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
+                                    <li><a href="{{ URL::asset('about#section33') }}" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
+                                    <li><a href="{{ URL::asset('about#section34') }}" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -86,7 +86,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="" class="navbarItem">Kontakt</a></li>
+                    <li><a href="{{ URL::asset('contact') }}" class="navbarItem">Kontakt</a></li>
 					<li><a href="" class="navbarItem">Intranet</a></li> 
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
