@@ -1,7 +1,7 @@
 @extends('base_structure')
 
 @section('content')
- <div id="emPAGEcontent">        
+ <div id="emPAGEcontent">
 	<div class="carousel-item">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
@@ -17,8 +17,8 @@
 					<img src="{{ URL::asset('images/indexPhoto/slider2.jpg') }}" alt="UAMT" width="100%">
 					<div class="carousel-caption">
 						<p class="slider-text">Vitajte na stránke</p>
-					<h3 class="slider-h3 slider-bg-white">Automobilová Mechatronika</h3>                     
-					</div>      
+					<h3 class="slider-h3 slider-bg-white">Automobilová Mechatronika</h3>
+					</div>
 				</div>
 
 				<div class="item">
@@ -26,7 +26,7 @@
 					<div class="carousel-caption">
 					<h3 class="slider-h3 slider-bg-white">"Našou prioritou sú úspešní študenti"</h3>
 					<p class="slider-text">doc. Ing. Peter DRAHOŠ, PhD.</p>
-					</div>      
+					</div>
 				</div>
 
 				<div class="item">
@@ -34,7 +34,7 @@
 					<div class="carousel-caption">
 					<h3 class="slider-h3 slider-bg-black">Automobilová Mechatronika</h3>
 					<p class="slider-text">Navštívte našu propagačnú stránku <a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a">TU</a></p>
-					</div>      
+					</div>
 				</div>
 			</div>
 			<!-- Left and right controls -->
@@ -47,7 +47,7 @@
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
-		
+
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -57,11 +57,11 @@
 							<img src="{{ URL::asset('images/indexPhoto/t1.JPG') }}" alt="...">
 							<div class="caption">
 							  <h3>O nás</h3>
-							  <p>Chcete sa o nás dozvedieť čosi viac? Prejdite na podstránky "O nás" a "Pracovníci" a zistite niečo viac z našej histórie, dozviete sa bližšie informácie o jednotlivých oddeleniach 
+							  <p>Chcete sa o nás dozvedieť čosi viac? Prejdite na podstránky "O nás" a "Pracovníci" a zistite niečo viac z našej histórie, dozviete sa bližšie informácie o jednotlivých oddeleniach
 							  a pracovníkoch.</p>
 							  <p><a href="aboutUs.php" class="btn btn-default btn-dark-blue" role="button">O nás</a> <a href="staff.php" class="btn btn-default btn-blue" role="button">Pracovníci</a></p>
 							</div>
-						  </div> 
+						  </div>
 						</div>
 						  <div class="col-sm-6 col-md-3">
 						  <div class="thumbnail thumbfb">
@@ -83,7 +83,7 @@
 							</div>
 						  </div>
 						</div>
-						<div class="col-sm-6 col-md-3">                          
+						<div class="col-sm-6 col-md-3">
 							<div id="fb-root"></div>
 								<script>(function(d, s, id) {
 								  var js, fjs = d.getElementsByTagName(s)[0];
@@ -100,12 +100,12 @@
 							</div>
 					   </div>
 					</div>
-					
+
 					<!-- Container (Services Section) -->
 					<div class="container-fluid text-center">
 					  <h2 class="bold">PONÚKAME</h2>
 					  <br>
-					  <div class="row">                        
+					  <div class="row">
 						<div class="col-sm-4">
 						  <span class="glyphicon glyphicon-education gicon"></span>
 						  <h4>Dištančné inžinierske štúdium</h4>
@@ -123,13 +123,13 @@
 						</div>
 					  </div>
 					</div>
-					<div class="row video-index">  
-						<div class="col-md-3"> 
+					<div class="row video-index">
+						<div class="col-md-3">
 						</div>
-						<div class="col-md-6 col-xs-12">                    
+						<div class="col-md-6 col-xs-12">
 							<iframe width="100%" height="320px" src="https://www.youtube.com/embed/vCYq4JspSCI" frameborder="0" allowfullscreen></iframe>
 						</div>
-						<div class="col-md-3"> 
+						<div class="col-md-3">
 						</div>
 					</div>
 				</div>
