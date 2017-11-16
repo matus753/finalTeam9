@@ -1,0 +1,17 @@
+.staff-publications {
+	&__button {
+		text-align: center;
+		margin-top: 250px;
+		>button {
+			text-transform: uppercase;
+			padding: 10px 20px;
+			border: 2px solid #f5f5f5;
+			background-color: transparent;
+			font-weight: bold;
+			transition: color 0.2s ease;
+			&:hover {
+				color: #0A61BC;
+			}
+		}
+	}
+}

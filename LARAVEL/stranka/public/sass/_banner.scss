@@ -24,4 +24,11 @@
 		position: relative;
 		z-index: 1;
 	}
+	&--big {
+		height: 400px;
+		background-size: cover;
+		&::after {
+			height: 400px;
+		}
+	}
 }

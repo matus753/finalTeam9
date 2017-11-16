@@ -1,0 +1,61 @@
+.staff-profile {
+	&__img {
+		img {
+			width: 100%;
+		}		
+	}
+	&__content {
+		background-color: #ffffff;
+		position: absolute;
+		top: 210px;
+		z-index: 999;
+		width: inherit;
+		box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	}
+	&__info {
+		padding: 50px 50px 0;
+	}
+	&__description {
+		>p {
+			margin-bottom: 20px;
+			>span {
+				width: 150px;
+				display: inline-block;
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+		}
+	}
+	&__role {
+		font-style: italic;
+	}
+	&__back {
+		color: #0A61BC;
+		>i {
+			margin-right: 10px;
+		}
+		&:hover {
+			text-decoration: unset;
+		}
+	}
+	&__contact {
+		width: 100%;
+		background-color: #0A61BC;
+		height: 60px;
+		margin-top: 60px;
+		position: relative;
+	}
+	&__links {
+		left: 50%;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		>a {
+			>i {
+				font-size: 24px;
+				color: #ffffff;
+				padding: 0 30px;
+			}
+		}
+	}
+}
