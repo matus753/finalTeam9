@@ -20,6 +20,7 @@ $(document).ready(function() {
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
+		<a href="{{ url('/staff') }}" class="btn btn-default">Späť</a>
 		{{ $ais->title1 }}<br>
 		{{ $ais->name }}<br>
 		{{ $ais->surname }}<br>

@@ -35,6 +35,9 @@ Route::get('/staff/{id}',['uses' => '\Modules\Staff\Http\Controllers\Staff@getSt
 
 /* News */
 Route::get('/news', '\Modules\News\Http\Controllers\News@index');
+Route::get('/news/{id}', '\Modules\News\Http\Controllers\News@concrete_new');
+Route::post('/news/filter', '\Modules\News\Http\Controllers\News@ajax_news_filter');
+Route::post('/news/optin', '\Modules\News\Http\Controllers\News@optin');
 
 /* Study */
 Route::get('/study', '\Modules\Study\Http\Controllers\Study@index');

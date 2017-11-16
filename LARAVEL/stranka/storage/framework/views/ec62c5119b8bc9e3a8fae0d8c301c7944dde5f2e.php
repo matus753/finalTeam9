@@ -10,6 +10,7 @@
         <script src="<?php echo e(URL::asset('js/ib-footer-resize.js')); ?>"></script>
 		
 		<title> ÚAMT - <?php echo e($title); ?></title>
+		<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 		<?php echo $__env->yieldContent('additional_headers'); ?>
 	</head>
 	<body>
@@ -30,6 +31,7 @@
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
+					<li><a href="<?php echo e(url('/news')); ?>" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -71,7 +73,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="<?php echo e(url('/news')); ?>" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">

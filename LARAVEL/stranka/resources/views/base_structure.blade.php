@@ -10,6 +10,7 @@
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
 		
 		<title> ÚAMT - {{ $title }}</title>
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		@yield('additional_headers')
 	</head>
 	<body>
@@ -30,6 +31,7 @@
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
+					<li><a href="{{ url('/news') }}" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -71,7 +73,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('/news') }}" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
