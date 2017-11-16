@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>

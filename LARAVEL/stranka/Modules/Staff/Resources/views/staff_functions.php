@@ -1,7 +1,7 @@
 <?php
 	function zobraz_zoznam_pracovnikov($result) {  
             
-            echo '<div style="overflow-x: auto;">';
+/*            echo '<div style="overflow-x: auto;">';
             echo '<table class="table table-striped table-hover table-bordered" id="SS-table-staff">
                     <tr style="background-color: #3CDAB2; color: white;">
                       <th onclick="sortTable(0)" style="cursor:pointer" class="staff-th center staff-table-th1"><i class="fa fa-sort"></i> Meno</th>
@@ -42,9 +42,9 @@
                             echo "</tr>";
                           }
                       }
-                  }
+                  }*/
             
-             echo '</tbody>
+/*             echo '</tbody>
   	  </table>
           </div>
         
@@ -63,7 +63,7 @@
                 </div>
 
               </div>
-            </div>';    
+            </div>';  */  
         }
  
 ?>
