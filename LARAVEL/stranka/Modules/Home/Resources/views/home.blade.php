@@ -1,5 +1,10 @@
 @extends('base_structure')
 
+@section('additional_headers')
+<link href="{{ URL::asset('css/style_index.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+@stop
+
 @section('content')
  <div id="emPAGEcontent">        
 	<div class="carousel-item">
@@ -39,11 +44,11 @@
 			</div>
 			<!-- Left and right controls -->
 			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="fa fa-chevron-left fa-2x" aria-hidden="true"></span>
 				<span class="sr-only">Previous</span>
 			</a>
 			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="fa fa-chevron-right fa-2x" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
@@ -107,17 +112,17 @@
 					  <br>
 					  <div class="row">                        
 						<div class="col-sm-4">
-						  <span class="glyphicon glyphicon-education gicon"></span>
+						  <span class="fa fa-graduation-cap fa-3x" style="color: #4da6ff;"></span>
 						  <h4>Dištančné inžinierske štúdium</h4>
 						  <p class="con-text">Od školského roka 2017/2018 otvárame dištančnú formu inžinierskeho štúdia v modernom študijnom programe Aplikovaná mechatronika a elektromobilita.</p>
 						</div>
 						<div class="col-sm-4">
-						  <span class="glyphicon glyphicon-certificate gicon"></span>
+						  <span class="fa fa-certificate fa-3x" style="color: #4da6ff;"></span>
 						  <h4>KVALITU ŠTÚDIA</h4>
 						  <p class="con-text">Máš záujem o informatiku, elektronické systémy, mechaniku a automatické riadenie? Všetky tieto oblasti môžeš študovať súčasne v jednom študijnom programe.</p>
 						</div>
 						<div class="col-sm-4">
-						  <span class="glyphicon glyphicon-cog gicon"></span>
+						  <span class="fa fa-cog fa-3x" style="color: #4da6ff;"></span>
 						  <h4>Prácu na zaujímavých projektoch</h4>
 						  <p class="con-text">Náš ústav spolupracuje s množstvom firiem a je zapojený do niekoľkých domácich či medzinárodných projektov.</p>
 						</div>

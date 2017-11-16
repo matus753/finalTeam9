@@ -5,12 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-		<title> ÚAMT - {{ $title }}</title>
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
+		
+		<title> ÚAMT - {{ $title }}</title>
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		@yield('additional_headers')
 	</head>
 	<body>
 	<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
@@ -22,7 +23,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-brand-logo" href="'.$upDir.'index.php">
+                <a class="navbar-brand navbar-brand-logo" href="{{ url('/') }}">
                     <div class="logo">
                         <img id="logoIMG" src="{{ URL::asset('images/logo/logo_skratkove_transparentne_na_modre_pozadie.png') }}" width="167" alt="logo">
                     </div>
@@ -30,54 +31,54 @@
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
+					<li><a href="{{ url('/news') }}" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ URL::asset('about#section1') }}" id="navSec1" class="navbarItem sectItem">História</a></li>
-                            <li><a href="{{ URL::asset('about#section2') }}" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
+                            <li><a href="{{ url('/about#history') }}" id="navSec1" class="navbarItem sectItem">História</a></li>
+                            <li><a href="{{ url('/about#hoi') }}" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
                             <li class="dropdown-submenu dropdown">
-                                <a href="{{ URL::asset('about#section3') }}" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
+                                <a href="{{ url('/about#departments') }}" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem3" >
-                                    <li><a href="{{ URL::asset('about#section3') }}" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
-                                    <li><a href="{{ URL::asset('about#section32') }}" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
-                                    <li><a href="{{ URL::asset('about#section33') }}" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
-                                    <li><a href="{{ URL::asset('about#section34') }}" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
+                                    <li><a href="{{ url('/about#department1') }}" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
+                                    <li><a href="{{ url('/about#department2') }}" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
+                                    <li><a href="{{ url('/about#department3') }}" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
+                                    <li><a href="{{ url('/about#department4') }}" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="" class="navbarItem">Pracovníci</a></li>
+                    <li><a href="{{ url('/staff') }}" class="navbarItem">Pracovníci</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="'.$upDir.'study.php#section1" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="'.$upDir.'study.php#section2" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="'.$upDir.'study.php#section3" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
-                            <li><a href="'.$upDir.'study.php#section4" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
+                            <li><a href="{{ url('/study#section1') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
+                            <li><a href="{{ url('/study#section2') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
+                            <li><a href="{{ url('/study#section3') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li><a href="{{ url('/study#section4') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Výskum <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="'.$upDir.'projects.php" class="navbarItem">Projekty</a></li>
+                            <li><a href="{{ url('/projects') }}" class="navbarItem">Projekty</a></li>
                             <li class="dropdown-submenu dropdown">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Výskumné oblasti <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem">
-                                    <li><a href="ekart.php" >Elektrická motokára</a></li>
-                                    <li><a href="autonomVehicle.php" >Autonómne vozidlo 6×6</a></li>
-                                    <li><a href="ledCube.php" >3D LED kocka</a></li>
-                                    <li><a href="biomechatronic.php" >Biomechatronika</a></li>
+                                    <li><a href="{{ url('/ekart') }}" >Elektrická motokára</a></li>
+                                    <li><a href="{{ url('/autonom-vehicle') }}" >Autonómne vozidlo 6×6</a></li>
+                                    <li><a href="{{ url('/led-cube') }}" >3D LED kocka</a></li>
+                                    <li><a href="{{ url('/biomechatronic') }}" >Biomechatronika</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="" class="navbarItem">Aktuality</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="'.$upDir.'photo.php" class="navbarItem">Fotogaléria</a></li>
-                            <li><a href="'.$upDir.'video.php" class="navbarItem">Videá</a></li>
-                            <li><a href="'.$upDir.'media.php" class="navbarItem">Média</a></li>
+                            <li><a href="{{ url('/photos') }}" class="navbarItem">Fotogaléria</a></li>
+                            <li><a href="{{ url('/videos') }}" class="navbarItem">Videá</a></li>
+                            <li><a href="{{ url('/media') }}" class="navbarItem">Média</a></li>
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Naše témetické web stránky <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem2 navbarItem" >
@@ -86,17 +87,17 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ URL::asset('contact') }}" class="navbarItem">Kontakt</a></li>
-					<li><a href="" class="navbarItem">Intranet</a></li> 
+                    <li><a href="{{ url('/contact') }}" class="navbarItem">Kontakt</a></li>
+					<li><a href="#TODO" class="navbarItem">Intranet</a></li> 
 					<li class="dropdown">
-                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span></a>
+                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  SK</a></li>
-                            <li><a href="" class="navbarItem"><span class="glyphicon glyphicon-flag"></span>  EN</a></li>
+                            <li><a href="" class="navbarItem"><span class="fa fa-flag"></span>  SK</a></li>
+                            <li><a href="" class="navbarItem"><span class="fa fa-flag"></span>  EN</a></li>
                         </ul>
                     </li>
-					<li><a href = "" class="navbarItem" ><span class="glyphicon glyphicon-user" ></span ></a></li>   
-					<li><a href = "" class="navbarItem" ><span class="glyphicon glyphicon-off" ></span ></a></li>
+					<li><a href = "" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
+					<li><a href = "" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
 				</ul>
             </div>
         </div>

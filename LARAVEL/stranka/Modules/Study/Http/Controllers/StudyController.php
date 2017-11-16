@@ -14,7 +14,9 @@ class StudyController extends Controller
      */
     public function index()
     {
-        return view('study::index');
+		$module_name = config('study.name');
+
+        return view('study::study')->with('title', $module_name);;
     }
 
     /**
