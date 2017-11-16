@@ -114,5 +114,5 @@
     </div>
 </div>
 
-<script src="../js/scripty_aboutUs.js"></script>
+<script src="{{ URL::asset('js/scripty_aboutUs.js') }}"></script>
 @stop
