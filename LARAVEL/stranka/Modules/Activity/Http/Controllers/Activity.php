@@ -13,11 +13,14 @@ class Activity extends Controller
     {
 		$module_name = config('activity.name');
 		
-		$videos_db = DB::table('photo_gallery')->orderBy('date', 'desc')->get();
+		$photos_db = DB::table('photo_gallery')->orderBy('date', 'desc')->get();
+		$photos_cats = DB::table('photo_gallery')->groupBy('folder')->get();
+		
 		
 		$data = [
 			'title' => $module_name,
-			'videos' => $videos_db
+			'categories' => $photos_cats,
+			'photos' => $photos_db
 		];
 		debug($data);
         return view('activity::photos', $data);

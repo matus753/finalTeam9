@@ -6,6 +6,9 @@
 
 @section('content')
 <div id="emPAGEcontent" class="container">
-       TODO dizajn
+cez m sa dostavate k objektom
+@foreach($media as $m)
+
+@endforeach
 </div>    
 @stop
