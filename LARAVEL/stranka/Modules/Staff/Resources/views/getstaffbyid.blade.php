@@ -55,49 +55,4 @@ $(document).ready(function() {
 		<button>Zobraziť publikácie</button>
 	</div>
 </section>
-<!-- <div class="container">
-	<div class="row">
-		<div class="col-lg-12">
-		<a href="{{ url('/staff') }}" class="btn btn-default">Späť</a>
-		{{ $ais->title1 }}<br>
-		{{ $ais->name }}<br>
-		{{ $ais->surname }}<br>
-		{{ $ais->title2 }}<br>
-		do src v img {{ URL::asset('images/staffPhoto') }}/{{ $ais->photo }}<br>
-		{{ $ais->room }}<br>
-		{{ $ais->phone }}<br>
-		{{ $ais->department }}<br>
-		{{ $ais->staffRole }}<br>
-		{{ $ais->function }}<br>
-			<div class="table table-responsive">
-				Zmenit na publikacie ked pojde ldap
-				<table id="staff" class="table-striped">
-					<thead>
-						<tr>
-							<th>Meno</th>
-							<th>Miestnosť</th>
-							<th>Klapka</th>
-							<th>Oddelenie</th>
-							<th>Zaradenie</th>
-							<th>Funkcia</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-					<tfoot>
-						<tr>
-							<th>Meno</th>
-							<th>Miestnosť</th>
-							<th>Klapka</th>
-							<th>Oddelenie</th>
-							<th>Zaradenie</th>
-							<th>Funkcia</th>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-		</div>
-	</div>
-</div> -->
-
 @stop

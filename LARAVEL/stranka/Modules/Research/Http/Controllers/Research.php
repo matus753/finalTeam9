@@ -18,19 +18,22 @@ class Research extends Controller
 		$module_name = config('research.name');
 		$projects_db = DB::table('project')->get();
 		
-		
-		/*
-		// change type of project in db INTERNATIONAL ????
-		$projects_db_kega = DB::table('project')->where('projectType','KEGA')->get();
-		$projects_db_vega = DB::table('project')->where('projectType','VEGA')->get();
-		$projects_db_apvv = DB::table('project')->where('projectType','APVV')->get();
-		*/
+		// pre medzinarodne pouzivat International type
+		$projects_db_international = DB::table('project')->where('projectType', config('research.db_international') )->get();
+		$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->get();
+		$projects_db_vega = DB::table('project')->where('projectType', config('research.db_vega') )->get();
+		$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->get();
+		$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->get();
 		
 		$data = [
 			'title' => $module_name,
-			'allProjects' => $projects_db
+			'international' => $projects_db_international,
+			'kega' => $projects_db_kega,
+			'vega' => $projects_db_vega,
+			'apvv' => $projects_db_apvv,
+			'other' => $projects_db_other
 		];
-		debug($data);
+		
         return view('research::projects', $data);
     }
 	

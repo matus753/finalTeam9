@@ -15,4 +15,5 @@ return array(
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
     'e7223560d890eab89cda23685e711e2c' => $vendorDir . '/psy/psysh/src/Psy/functions.php',
     '9f394da3192a168c4633675768d80428' => $vendorDir . '/nwidart/laravel-modules/src/helpers.php',
+    'b4e3f29b106af37a2bb239f73cdf68c7' => $baseDir . '/app/helpers.php',
 );

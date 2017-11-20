@@ -51,7 +51,7 @@ $(document).ready(function() {
 						</thead>
 						<tbody>
 							@foreach($staff as $s)
-							<tr class="staff__table-row" data-href="<?php echo e(URL::asset('/staff/' . $s->id)); ?>">
+							<tr class="staff__table-row" data-href="{{ url('/staff') }}/{{ $s->id }}">
 								<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;{{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2) ,{{ $s->title2 }} @endif</td>
 								<td>{{ $s->room }}</td>
 								<td>{{ $s->phone }}</td>
