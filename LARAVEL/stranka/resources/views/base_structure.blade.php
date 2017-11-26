@@ -6,7 +6,8 @@
 		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">		
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
-		
+
+        <script src=" {{ URL::asset('js/scripty_upButton.js') }}"></script>
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
@@ -105,7 +106,9 @@
             </div>
         </div>
     </nav>
+    <div id="upPage" onclick="topFunction()" title="Go to the top"> <i class="fa fa-angle-up fa-3x" aria-hidden="true"></i></div>
 	@yield('content')
+
 	<div class="push"></div>
 	<footer class="footer">
 		<div class="container-fluid">    
@@ -145,5 +148,5 @@
 			</div>
 		</div>
 	</footer>
-	</body>	
+	</body>
 </html>

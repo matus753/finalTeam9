@@ -184,10 +184,25 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
     }
 }
 
+/*----------sipka hore--------*/
+#upPage{
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 0; /* Place the button at the bottom of the page */
+    right: 5%; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: rgb(255,212,70); /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 0 15px 0 15px;
+    border-radius: 10px 10px 0 0;
+}
 
-
-
-
+#upPage:hover{
+    background-color: rgb(119,119,119);
+}
 
 
 
