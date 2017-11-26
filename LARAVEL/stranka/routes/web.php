@@ -51,5 +51,12 @@ Route::get('/biomechatronic', '\Modules\Research\Http\Controllers\Research@biome
 
 /* Activity */
 Route::get('/videos', '\Modules\Activity\Http\Controllers\Activity@videos');
+Route::post('/videos/filter', '\Modules\Activity\Http\Controllers\Activity@ajax_get_videos_by_type');
 Route::get('/media', '\Modules\Activity\Http\Controllers\Activity@media');
-Route::get('/photos', '\Modules\Activity\Http\Controllers\Activity@photos');
+Route::get('/photo-gallery', '\Modules\Activity\Http\Controllers\Activity@photos_previews');
+
+/* Contact */
+Route::get('/contact', '\Modules\Contact\Http\Controllers\Contact@index');
+
+/* Languages */
+Route::get('/ml/{lang}', [ 'uses' => 'Languages@switchLanguage']);

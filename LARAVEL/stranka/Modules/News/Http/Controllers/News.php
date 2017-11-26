@@ -17,13 +17,11 @@ class News extends Controller
     {
 		$module_name = config('news.name');
 		
-		//$news_db = DB::table('news')->get();
+		$news_db = DB::table('news')->get();
 		
 		$data = [
 			'title' => $module_name
-			//'news' => $news_db
 		];
-		debug($data);
         return view('news::news', $data);
     }
 
@@ -61,13 +59,13 @@ class News extends Controller
 			if($expired){
 				$res = DB::table('news')->get();
 			}else{
-				$res = DB::table('news')->where('date_expiration', '<', 'NOW()')->get();
+				$res = DB::table('news')->whereDate('date_expiration', '>=', date('Y-m-d'))->get();
 			}
 		}else{ // podla typu
 			if($expired){
 				$res = DB::table('news')->where('type', $filter)->get();
 			}else{
-				$res = DB::table('news')->where('date_expiration', '<', 'NOW()')->where('type', $filter)->get();
+				$res = DB::table('news')->whereDate('date_expiration', '>=', date('Y-m-d'))->where('type', $filter)->get();
 			}
 		}
 

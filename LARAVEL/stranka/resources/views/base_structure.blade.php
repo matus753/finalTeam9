@@ -4,8 +4,9 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">		
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
@@ -77,7 +78,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="{{ url('/photos') }}" class="navbarItem">Fotogaléria</a></li>
+                            <li><a href="{{ url('/photo-gallery') }}" class="navbarItem">Fotogaléria</a></li>
                             <li><a href="{{ url('/videos') }}" class="navbarItem">Videá</a></li>
                             <li><a href="{{ url('/media') }}" class="navbarItem">Média</a></li>
                             <li class="dropdown-submenu">
@@ -93,8 +94,9 @@
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="" class="navbarItem"><span class="fa fa-flag"></span>  SK</a></li>
-                            <li><a href="" class="navbarItem"><span class="fa fa-flag"></span>  EN</a></li>
+							@foreach(config('languages') as $l => $lang)
+								<li><a href="{{ url('/ml') }}/{{ $l }}" class="navbarItem"><span class="fa fa-flag"></span> {{ $lang }}</a></li>
+							@endforeach
                         </ul>
                     </li>
 					<li><a href = "" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
@@ -103,10 +105,9 @@
             </div>
         </div>
     </nav>
-	
 	@yield('content')
-	
-	<div class="push"></div><footer class="footer">
+	<div class="push"></div>
+	<footer class="footer">
 		<div class="container-fluid">    
 			<div class="row small bottom">
 				<div class="col-lg-offset-2" style="padding-top: 10px;">
@@ -143,6 +144,6 @@
 				</div>
 			</div>
 		</div>
-		</footer>
+	</footer>
 	</body>	
 </html>

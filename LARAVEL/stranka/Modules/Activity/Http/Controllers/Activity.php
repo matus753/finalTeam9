@@ -9,37 +9,68 @@ use Illuminate\Support\Facades\DB;
 
 class Activity extends Controller
 {
-    public function photos()
+    public function photos_previews()
     {
 		$module_name = config('activity.name');
 		
-		$photos_db = DB::table('photo_gallery')->orderBy('date', 'desc')->get();
-		$photos_cats = DB::table('photo_gallery')->groupBy('folder')->get();
-		
+		$photos_db_previews = [];
+		$photos_cats = DB::table('photo_gallery')->select('type')->groupBy('folder')->orderBy('date', 'desc')->get();
+
+		foreach($photos_cats as $p){
+			$tmp = DB::table('photo_gallery')->limit(4)->get();
+			$photos_db_previews[] = [ $p->folder => $tmp ];
+		}
 		
 		$data = [
 			'title' => $module_name,
 			'categories' => $photos_cats,
-			'photos' => $photos_db
+			'previews' => $photos_db_previews
 		];
 		debug($data);
-        return view('activity::photos', $data);
+        return view('activity::photos_previews', $data);
     }
+	
+	public function photos_event($event = ''){
+		if($event == ''){
+			return false;
+		}
+		//to do remove bad string
+		$module_name = config('activity.name');
+		$photos = DB::table('photo_gallery')->where('folder', $event)->get();
+		$data = [
+			'title' => $module_name,
+			'photos' => $photos
+		];
+		
+		debug($data);
+        return view('activity::photos', $data);
+	}
 	
     public function videos()
     {
 		$module_name = config('activity.name');
-		
-		$videos_db = DB::table('video_gallery')->get();
+		$videos_db_cats = DB::table('video_gallery')->select('type')->groupBy('type')->get();
 		
 		$data = [
 			'title' => $module_name,
-			'videos' => $videos_db
+			'videos_cats' => $videos_db_cats
 		];
-		debug($data);
         return view('activity::videos', $data);
     }
 
+	public function ajax_get_videos_by_type( Request $request ){
+		$filter = $request->input('category');
+		
+		$videos_db = null;
+		
+		if($filter == 'all'){
+			$videos_db = DB::table('video_gallery')->get();
+		}else{
+			$videos_db = DB::table('video_gallery')->where('type', $filter)->get();
+		}
+		return json_encode($videos_db);
+	}
+	
     public function media()
     {
 		$module_name = config('activity.name');

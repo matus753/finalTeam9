@@ -1,5 +1,9 @@
 @extends('base_structure')
 
+@section('additional_headers')
+<link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+@stop
+
 @section('content')
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCggSU4ruU2Ydfj_m_K_5pz9WZWKFc50ZQ&callback=initMap">
