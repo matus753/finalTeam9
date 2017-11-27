@@ -10,10 +10,36 @@
 
 @section('content')
 <script>
+/*var table_pubs;
 $(document).ready(function() {
-    $('#staff').DataTable();
-} )
+    table_pubs = $('#publications').DataTable({
+		data: [],
+		columns: [
+			{ "data" : "content" },
+			{ "data" : "type" },
+			{ "data" : "year" }
+		],
+		rowCallback: function(row,data){},
+		processing: true,
+		retrieve: true  
+	});
+});*/
 
+function showPubs(){
+	var data = { 'ais_id' : {{ $ais_id }} };
+	$.ajax({
+		url:"{{ url('/staff/ajax_publications') }}", 
+		type: 'POST' , 
+		data : data, 
+		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+		success : function(data){
+			console.log(data);
+			//table_pubs.clear().draw();
+			//table_pubs.rows.add(data).draw();
+		}
+	});
+	$('#publications_table').removeClass('hidden');
+}
 
 </script>
 <section class="banner banner--big" style="background-image: url('{{ URL::asset('images/banners/banner2.jpg') }}')">
@@ -50,9 +76,37 @@ $(document).ready(function() {
 		</div>
 	</div>
 </section>
+
 <section class="staff-publications">
 	<div class="staff-publications__button">
-		<button>Zobraziť publikácie</button>
+		@if( $ais->ldapLogin )
+		<button onclick="showPubs()" >Zobraziť publikácie</button>
+		@else
+		<br>
+		@endif
 	</div>
 </section>
+
+<section class="staff hidden" id="publications_table" >
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="table-responsive">
+					<table class="table table-stripped table-bordered" id="staff" class="staff__table">
+						<thead>
+							<tr class="staff__table-title">
+								<th>Meno</th>
+								<th>Meno</th>
+								<th>Meno</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 @stop

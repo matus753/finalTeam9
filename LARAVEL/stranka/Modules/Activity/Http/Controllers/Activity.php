@@ -14,7 +14,7 @@ class Activity extends Controller
 		$module_name = config('activity.name');
 		
 		$photos_db_previews = [];
-		$photos_cats = DB::table('photo_gallery')->select('type')->groupBy('folder')->orderBy('date', 'desc')->get();
+		$photos_cats = DB::table('photo_gallery')->select('folder')->groupBy('folder')->orderBy('date', 'desc')->get();
 
 		foreach($photos_cats as $p){
 			$tmp = DB::table('photo_gallery')->limit(4)->get();

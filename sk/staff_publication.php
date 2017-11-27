@@ -4,7 +4,7 @@
 	    $AISid  = $_GET['AISid'];
 	}
         
- $urltopost = "http://is.stuba.sk/lide/clovek.pl";
+	$urltopost = "http://is.stuba.sk/lide/clovek.pl";
     $datatopost = array (
         "lang" => "sk",
         "zalozka" => "5",

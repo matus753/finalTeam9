@@ -6,17 +6,20 @@
 		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">		
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
 
         <script src=" {{ URL::asset('js/scripty_upButton.js') }}"></script>
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
+		<script src="{{ URL::asset('js/additional_js.js') }}"></script>
 		
 		<title> ÚAMT - {{ $title }}</title>
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		@yield('additional_headers')
 	</head>
 	<body>
+	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
 	<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
