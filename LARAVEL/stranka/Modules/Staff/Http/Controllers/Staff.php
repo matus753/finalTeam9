@@ -95,28 +95,29 @@ class Staff extends Controller
 		$doc->loadHTML($returndata);
 		$xPath = new \DOMXPath($doc);
 		$tablePublikacia = $xPath->query('//html/body/div/div/div/table[3]/tbody/tr');
-		
+		//??
 		$monografie = [];
 		$clanky = [];
 		$prispevky = [];
+		$data = [];
 		foreach ($tablePublikacia as $publ) {
 			if((intval($publ->childNodes[3]->textContent) > config('staff.publications_year_limit'))){
 				if(strpos($publ->childNodes[2]->textContent,"monografie") === 0){
-					$monografie[] = [ 
+					$data[] = [ 
 								'content' => $publ->childNodes[1]->textContent, 
 								'type' => $publ->childNodes[2]->textContent, 
 								'year' => intval($publ->childNodes[3]->textContent) 
 							];
 				}
 				if(strpos($publ->childNodes[2]->textContent,"články") === 0){
-					$clanky[] = [ 
+					$data[] = [ 
 								'content' => $publ->childNodes[1]->textContent, 
 								'type' => $publ->childNodes[2]->textContent, 
 								'year' => intval($publ->childNodes[3]->textContent) 
 							];
 				}
 				if(strpos($publ->childNodes[2]->textContent,"príspevky") === 0){
-					$prispevky[] = [ 
+					$data[] = [ 
 								'content' => $publ->childNodes[1]->textContent, 
 								'type' => $publ->childNodes[2]->textContent, 
 								'year' => intval($publ->childNodes[3]->textContent) 
@@ -124,12 +125,6 @@ class Staff extends Controller
 				}
 			}
 		}
-		
-		$data = [
-			'monografie' => $monografie,
-			'clanky' => $clanky,
-			'prispevky' => $prispevky
-		];
 		
 		//debug($data);
 		

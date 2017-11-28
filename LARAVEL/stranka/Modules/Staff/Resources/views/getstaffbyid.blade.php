@@ -10,20 +10,8 @@
 
 @section('content')
 <script>
-/*var table_pubs;
-$(document).ready(function() {
-    table_pubs = $('#publications').DataTable({
-		data: [],
-		columns: [
-			{ "data" : "content" },
-			{ "data" : "type" },
-			{ "data" : "year" }
-		],
-		rowCallback: function(row,data){},
-		processing: true,
-		retrieve: true  
-	});
-});*/
+var table_pubs;
+var table_content;
 
 function showPubs(){
 	var data = { 'ais_id' : {{ $ais_id }} };
@@ -33,12 +21,20 @@ function showPubs(){
 		data : data, 
 		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 		success : function(data){
-			console.log(data);
-			//table_pubs.clear().draw();
-			//table_pubs.rows.add(data).draw();
+			var jsonObject = JSON.parse(data);
+			if(data){
+				$('#publications_table').removeClass('hidden');
+			}
+			$('#publications_table').DataTable({
+				data: jsonObject,
+				columns : [
+						{"data" : "content"},
+						{"data" : "type"},
+						{"data" : "year"}        
+				]
+			});
 		}
 	});
-	$('#publications_table').removeClass('hidden');
 }
 
 </script>
@@ -87,21 +83,19 @@ function showPubs(){
 	</div>
 </section>
 
-<section class="staff hidden" id="publications_table" >
+<section class="staff"  >
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="table-responsive">
-					<table class="table table-stripped table-bordered" id="staff" class="staff__table">
+					<table id="publications_table" class="table table-stripped table-bordered hidden" id="staff">
 						<thead>
-							<tr class="staff__table-title">
-								<th>Meno</th>
-								<th>Meno</th>
-								<th>Meno</th>
+							<tr>
+								<th>Nadpis</th>
+								<th>Typ</th>
+								<th>Rok</th>
 							</tr>
 						</thead>
-						<tbody>
-						</tbody>
 					</table>
 				</div>
 			</div>
