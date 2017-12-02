@@ -40,7 +40,10 @@ Route::post('/news/filter', '\Modules\News\Http\Controllers\News@ajax_news_filte
 Route::post('/news/optin', '\Modules\News\Http\Controllers\News@optin');
 
 /* Study */
-Route::get('/study', '\Modules\Study\Http\Controllers\Study@index');
+Route::get('/admission', '\Modules\Study\Http\Controllers\Study@admission');
+Route::get('/bachelor', '\Modules\Study\Http\Controllers\Study@bachelor');
+Route::get('/master', '\Modules\Study\Http\Controllers\Study@master');
+Route::get('/doctoral', '\Modules\Study\Http\Controllers\Study@doctoral');
 
 /* Research */
 Route::get('/projects', '\Modules\Research\Http\Controllers\Research@projects');

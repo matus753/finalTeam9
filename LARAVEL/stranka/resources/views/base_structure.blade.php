@@ -20,7 +20,7 @@
 	</head>
 	<body>
 	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
-	<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
+	<nav class="navbar navbar-default" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
@@ -58,10 +58,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/study#section1') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="{{ url('/study#section2') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="{{ url('/study#section3') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
-                            <li><a href="{{ url('/study#section4') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
+                            <li><a href="{{ url('/admission') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
+                            <li><a href="{{ url('/bachelor') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
+                            <li><a href="{{ url('/master') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -109,7 +109,7 @@
             </div>
         </div>
     </nav>
-    <div id="upPage" onclick="topFunction()" title="Go to the top"> <i class="fa fa-angle-up fa-3x" aria-hidden="true"></i></div>
+
 	@yield('content')
 
 	<div class="push"></div>
