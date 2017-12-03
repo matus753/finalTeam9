@@ -12,6 +12,13 @@
 		left: 0;
 		top: 0;
 		background-color: rgba(#0A61BC, 0.7);
+
+		@media screen and (max-device-width: 480px) and (orientation: portrait){
+		    margin-top: 65px;
+		}
+		@media screen and (max-device-width: 640px) and (min-device-width: 480px){
+			margin-top: 62px;
+		}
 	}
 	>h1 {
 		text-align: center;
@@ -24,6 +31,12 @@
 		font-size: 36px;
 		position: relative;
 		z-index: 1;
+		@media screen and (max-width: 991px) {
+		    font-size: 24px;
+		}
+		@media screen and (max-width: 767px) {
+		    font-size: 18px;
+		}
 	}
 	&--big {
 		height: 400px;

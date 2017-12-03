@@ -2,11 +2,11 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">		
-		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1">	
+		<link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
 		<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">    
 
         <script src=" {{ URL::asset('js/scripty_upButton.js') }}"></script>
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
@@ -31,7 +31,7 @@
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="{{ url('/') }}">
                     <div class="logo">
-                        <img id="logoIMG" src="{{ URL::asset('images/logo/logo_skratkove_transparentne_na_modre_pozadie.png') }}" width="167" alt="logo">
+                        <img id="logoIMG" class="logo-lg" src="{{ URL::asset('images/logo/logo_skratkove_transparentne_na_modre_pozadie.png') }}" alt="logo">
                     </div>
                 </a>
             </div>
@@ -95,7 +95,7 @@
                     </li>
                     <li><a href="{{ url('/contact') }}" class="navbarItem">Kontakt</a></li>
 					<li><a href="#TODO" class="navbarItem">Intranet</a></li> 
-					<li class="dropdown">
+					<li class="dropdown navbarIconSm">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
                         <ul class="dropdown-menu">
 							@foreach(config('languages') as $l => $lang)
@@ -103,8 +103,8 @@
 							@endforeach
                         </ul>
                     </li>
-					<li><a href = "" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
-					<li><a href = "" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
+					<li><a href = "" class="navbarItem navbarIconSm" ><span class="fa fa-user" ></span ></a></li>   
+					<li><a href = "" class="navbarItem navbarIconSm" ><span class="fa fa-power-off" ></span ></a></li>
 				</ul>
             </div>
         </div>

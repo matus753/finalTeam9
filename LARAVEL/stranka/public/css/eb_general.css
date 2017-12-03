@@ -21,6 +21,8 @@ body{
 }
 #emNavbar{
     margin-top: 13px;
+    position: relative;
+    z-index: 10;
 }
 .navbar{
     margin-bottom: 0 !important;
@@ -181,8 +183,6 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
     }
 }
 
-
-/**************************        BIAC        ***********************************/
 .ib-highlited{
     color: #acc1d9;
 }
@@ -276,4 +276,72 @@ footer.nb-footer a{
 }
 footer.nb-footer a:hover{
     opacity: 0.7;
+}
+
+.navbar-header {
+    position: relative;
+    z-index: 10000;
+}
+
+/*@media screen and (max-width: 992px){
+    .navbar-toggle {
+        display: block !important;
+    }
+}*/
+
+@media screen and (min-width: 768px) and (max-width: 1199px){
+    .navbar > .container {
+        width: 100% !important;
+        margin-right: unset;
+        margin-left: unset;
+        padding-right: unset !important;
+        padding-left: unset !important;
+    }
+}
+
+.logo-lg {
+    width: 167px;
+}
+
+@media screen and (min-width: 991px) and (max-width: 1199px){
+    .logo-lg {
+        width: 130px;
+        margin-left: 15px;
+    }
+    ul.nav.navbar-nav.navbar-right.scrollable-menu {
+        margin-left: unset;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .logo-lg {
+        width: 167px;
+    }
+    #emNavbar{
+        margin-top: 10px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .logo-lg {
+        margin-left: 15px;
+    }
+    .container > .navbar-collapse {
+        margin-right: unset;
+        margin-left: unset;
+    }
+}
+
+.navbar-default .navbar-toggle {
+    background-color: transparent;
+}
+
+.navbar-default .navbar-toggle:hover {
+    background-color: transparent;
+}
+
+@media screen and (max-width: 991px) {
+    #emNavbar{
+        margin-top: 0px;
+    }
 }
