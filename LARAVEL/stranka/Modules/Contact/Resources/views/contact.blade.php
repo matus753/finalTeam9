@@ -2,6 +2,7 @@
 
 @section('additional_headers')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/ib-style.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
@@ -13,30 +14,30 @@
     </section>
     <div id="emPAGEcontent" class="container">
         <div class="col-md-6">
-            <div class="ib-contact-left ib-contact-left-1">
+            <div class="contact-left">
                 <fieldset>
-                    <legend>Ústav</legend>
+                    <legend><h2 class="hlNadpis">@lang('contact::contact.institute')</h2> </legend>
                     <address>
-                        <h4>Ústav automobilovej mechatroniky</h4>
-                        <h5>FEI STU</h5>
+                        <h4>@lang('contact::contact.stu')</h4>
+                        <h4>@lang('contact::contact.fei')</h4>
                         <h5>Ilkovičova 3</h5>
                         <h5>812 19 Bratislava</h5>
-                        <h5>Slovenská republika</h5>
+                        <h5>@lang('contact::contact.sk')</h5>
                     </address>
                 </fieldset>
             </div>
-            <div class="ib-contact-left ib-contact-left-2">
+            <div class="contact-left">
                 <fieldset>
-                    <legend>Sekretariát</legend>
+                    <legend>@lang('contact::contact.secretariat')</legend>
                     <address>
                         <h4>Katarína Kermietová</h4>
-                        <h5>Miestnosť D116</h5>
-                        <h5>Telefón: +421 (2) 60 291 598</h5>
+                        <h5>@lang('contact::contact.room') D116</h5>
+                        <h5>@lang('contact::contact.secretariat'): +421 (2) 60 291 598</h5>
                     </address>
                 </fieldset>
             </div>
         </div>
-        <div id="map" class="ib-contact-right ib-contact-right-1 col-md-6">
+        <div id="map" class="contact-right col-md-6">
 
         </div>
     </div>
