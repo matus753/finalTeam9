@@ -17,8 +17,6 @@ class News extends Controller
     {
 		$module_name = config('news.name');
 		
-		$news_db = DB::table('news')->get();
-		
 		$data = [
 			'title' => $module_name
 		];

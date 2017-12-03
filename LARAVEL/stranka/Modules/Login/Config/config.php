@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Login'
+    'name' => 'Login',
+	'ldapServer' => 'ldap.stuba.sk'
 ];

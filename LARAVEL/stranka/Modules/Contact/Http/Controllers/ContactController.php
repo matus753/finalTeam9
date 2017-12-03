@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Intranet\Http\Controllers;
+namespace Modules\Contact\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class IntranetController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class IntranetController extends Controller
      */
     public function index()
     {
-        return view('intranet::index');
+		$module_name = config('contact.name');
+
+        return view('contact::contact')->with('title', $module_name);;
     }
 
     /**
@@ -23,7 +25,7 @@ class IntranetController extends Controller
      */
     public function create()
     {
-        return view('intranet::create');
+        return view('contact::create');
     }
 
     /**
@@ -41,7 +43,7 @@ class IntranetController extends Controller
      */
     public function show()
     {
-        return view('intranet::show');
+        return view('contact::show');
     }
 
     /**
@@ -50,7 +52,7 @@ class IntranetController extends Controller
      */
     public function edit()
     {
-        return view('intranet::edit');
+        return view('contact::edit');
     }
 
     /**

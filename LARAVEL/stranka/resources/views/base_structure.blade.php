@@ -94,7 +94,7 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/contact') }}" class="navbarItem">Kontakt</a></li>
-					<li><a href="#TODO" class="navbarItem">Intranet</a></li> 
+					<li><a href="{{ url('/intranet') }}" class="navbarItem">Intranet</a></li> 
 					<li class="dropdown navbarIconSm">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
                         <ul class="dropdown-menu">
@@ -103,15 +103,16 @@
 							@endforeach
                         </ul>
                     </li>
-					<li><a href = "" class="navbarItem navbarIconSm" ><span class="fa fa-user" ></span ></a></li>   
-					<li><a href = "" class="navbarItem navbarIconSm" ><span class="fa fa-power-off" ></span ></a></li>
+					<li><a href ="#USER_Profile_show_this_icon_after_login" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
+					<li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
 				</ul>
             </div>
         </div>
     </nav>
 
+	
 	@yield('content')
-
+<?php debug( session()->all() ); ?>
 	<div class="push"></div>
     <footer class="nb-footer">
         <div class="container">

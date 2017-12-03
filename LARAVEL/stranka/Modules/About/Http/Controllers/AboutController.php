@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Login\Http\Controllers;
+namespace Modules\About\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class LoginController extends Controller
+class AboutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('login::index');
+        return view('about::index');
     }
 
     /**
@@ -23,7 +23,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        return view('login::create');
+        return view('about::create');
     }
 
     /**
@@ -41,7 +41,7 @@ class LoginController extends Controller
      */
     public function show()
     {
-        return view('login::show');
+        return view('about::show');
     }
 
     /**
@@ -50,7 +50,7 @@ class LoginController extends Controller
      */
     public function edit()
     {
-        return view('login::edit');
+        return view('about::edit');
     }
 
     /**

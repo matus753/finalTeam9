@@ -9,3 +9,13 @@ function debug($var, $exit = false, $return_value = false){
 		exit;
 	}
 }
+
+function isLogged(){
+	$user = session()->get('user');
+	if($user['logged']){
+		return true;
+	}else{
+		return false;
+	}
+	return false;
+}

@@ -1,9 +1,18 @@
-@extends('intranet::layouts.master')
+@extends('base_structure')
+
+@section('additional_headers')
+<link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+@stop
 
 @section('content')
-    <h1>Hello World</h1>
+<div id="emPAGEcontent" class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="text-center">
+				<h1>JUHUUUU Intranet</h1>
+			</div>
+		</div>
+	</div>
 
-    <p>
-        This view is loaded from module: {!! config('intranet.name') !!}
-    </p>
+</div>   
 @stop
