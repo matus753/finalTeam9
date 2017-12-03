@@ -113,43 +113,55 @@
 	@yield('content')
 
 	<div class="push"></div>
-	<footer class="footer">
-		<div class="container-fluid">    
-			<div class="row small bottom">
-				<div class="col-lg-offset-2" style="padding-top: 10px;">
-					<div class="col-md-3">
-						<ul class="list-unstyled">
-							<li class="ib-highlited">STU<li>
-							<li> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </li>
-							<li> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit"> Jedáleň STU </a> </li>
-							<li> <a target="_blank" href="https://webmail.stuba.sk"> Webmail STU </a> </li>
-							<li> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1"> Evidencia publikácií STU </a> </li>
-						</ul>
-					</div>
-					<div class="col-md-3">
-						<ul class="list-unstyled">
-						<li class="ib-highlited">FEI<li>
-						<li> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh"> Rozvrh hodín FEI </a> </li>
-                        <li> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle"> Moodle FEI </a> </li>              
-					</ul>
-					</div>
-					<div class="col-md-3">
-					<ul class="list-unstyled">
-						<li class="ib-highlited">Ostatné<li>
-						<li> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </li>
-                        <li> <a target="_blank" href="http://okocasopis.sk"> Časopis OKO </a> </li>
-                        <li> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU"> Facebook </a> </li>
-                        <li> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA"> YouTube </a> </li>						        
-					</ul>
-					</div>
-					<div class="col-md-3" style="padding-top: 80px; ">
-					<ul class="list-unstyled">
-						<li class="ib-highlited">© Tímový projekt 2017/2018<li>
-					</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+    <footer class="nb-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">STU</h2>
+                        <p> <i class="fa fa-info-circle" aria-hidden="true"></i> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </p>
+                        <p> <i class="fa fa-envelope" aria-hidden="true"></i> <a target="_blank" href="https://webmail.stuba.sk">@lang('footer::footer.email')</a> </p>
+                        <p> <i class="fa fa-database" aria-hidden="true"></i> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1">@lang('footer::footer.evidence')</a> </p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">FEI</h2>
+                        <p> <i class="fa fa-cutlery" aria-hidden="true"></i> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit">@lang('footer::footer.canteen')</a></p>
+                        <p> <i class="fa fa-calendar" aria-hidden="true"></i> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh">@lang('footer::footer.timetable')</a> </p>
+                        <p> <i class="fa fa-cube" aria-hidden="true"></i> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle">Moodle FEI</a> </p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">Social</h2>
+                        <p> <i class="fa fa-facebook-square" aria-hidden="true"></i> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU">Facebook</a></p>
+                        <p> <i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA">YouTube</a></p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">Ostatné</h2>
+                        <p> <i class="fa fa-black-tie" aria-hidden="true"></i> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </p>
+                        <p> <i class="fa fa-eye" aria-hidden="true"></i> <a target="_blank" href="http://okocasopis.sk">@lang('footer::footer.magazine')</a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>© @lang('footer::footer.copyright') 2017/2018</p>
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+            </div>
+        </section>
+    </footer>
 	</body>
 </html>
