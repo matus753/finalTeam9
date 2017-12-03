@@ -39,3 +39,11 @@
     color: #fff;
     top: 5px;
 }
+
+.contact-right {
+    height: 425px;
+}
+
+.contact-left, .contact-right{
+    margin-top: 40px;
+}
