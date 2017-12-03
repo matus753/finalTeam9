@@ -21,7 +21,30 @@ $(document).ready(function() {
 		    null,
 		    null,
 		    null
-		  ]
+		  ],
+		"language": {
+		    "sEmptyTable":     "@lang('staff::staff.sEmptyTable')",
+		    "sInfo":           "@lang('staff::staff.sInfo')",
+		    "sInfoEmpty":      "@lang('staff::staff.sInfoEmpty')",
+		    "sInfoFiltered":   "@lang('staff::staff.sInfoFiltered')",
+		    "sInfoPostFix":    "@lang('staff::staff.sInfoPostFix')",
+		    "sInfoThousands":  "@lang('staff::staff.sInfoThousands')",
+		    "sLengthMenu":     "@lang('staff::staff.sLengthMenu')",
+		    "sLoadingRecords": "@lang('staff::staff.sLoadingRecords')",
+		    "sProcessing":     "@lang('staff::staff.sProcessing')",
+		    "sSearch":         "@lang('staff::staff.sSearch')",
+		    "sZeroRecords":    "@lang('staff::staff.sZeroRecords')",
+		    "oPaginate": {
+		        "sFirst":    "@lang('staff::staff.sFirst')",
+		        "sLast":     "@lang('staff::staff.sLast')",
+		        "sNext":     "@lang('staff::staff.sNext')",
+		        "sPrevious": "@lang('staff::staff.sPrevious')"
+		    },
+		    "oAria": {
+		        "sSortAscending":  "@lang('staff::staff.sSortAscending')",
+		        "sSortDescending": "@lang('staff::staff.sSortDescending')"
+		    }
+		}
     });
     $('.staff__table-row').on("click",function(){
         window.location = $(this).data('href');
@@ -31,7 +54,7 @@ $(document).ready(function() {
 </script>
 
 <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner1.jpg') }}')">
-	<h1>Pracovníci</h1>
+	<h1>@lang('staff::staff.title')</h1>
 </section>
 <section class="staff">
 	<div class="container">
@@ -41,12 +64,12 @@ $(document).ready(function() {
 					<table id="staff" class="staff__table">
 						<thead>
 							<tr class="staff__table-title">
-								<th>Meno</th>
-								<th>Miestnosť</th>
-								<th>Klapka</th>
-								<th>Oddelenie</th>
-								<th>Zaradenie</th>
-								<th>Funkcia</th>
+								<th>@lang('staff::staff.name')</th>
+								<th>@lang('staff::staff.room')</th>
+								<th>@lang('staff::staff.phone') +421&nbsp;60291&nbsp;xxx</th>
+								<th>@lang('staff::staff.department')</th>
+								<th>@lang('staff::staff.role')</th>
+								<th>@lang('staff::staff.function')</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -63,12 +86,12 @@ $(document).ready(function() {
 						</tbody>
 						<tfoot>
 							<tr class="staff__table-title">
-								<th>Meno</th>
-								<th>Miestnosť</th>
-								<th>Klapka</th>
-								<th>Oddelenie</th>
-								<th>Zaradenie</th>
-								<th>Funkcia</th>
+								<th>@lang('staff::staff.name')</th>
+								<th>@lang('staff::staff.room')</th>
+								<th>@lang('staff::staff.phone')</th>
+								<th>@lang('staff::staff.department')</th>
+								<th>@lang('staff::staff.role')</th>
+								<th>@lang('staff::staff.function')</th>
 							</tr>
 						</tfoot>
 					</table>

@@ -4,6 +4,9 @@
 		text-align: center;
 		margin-top: 30px !important;
 		margin-bottom: 30px !important;
+		@media screen and (min-width: 1200px) {
+		    width: 100% !important;
+		}		
 	}
 	&__table-row {
 		transition: background-color 0.3s ease;

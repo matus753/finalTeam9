@@ -15,10 +15,6 @@ body{
     border-color: rgb(255, 212, 70);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-#emPAGEcontent{
-    /*margin-top: 20px;*/
-    margin-bottom: 180px;
-}
 #emNavbar{
     margin-top: 13px;
     position: relative;
@@ -343,5 +339,9 @@ footer.nb-footer a:hover{
 @media screen and (max-width: 991px) {
     #emNavbar{
         margin-top: 0px;
+    }
+
+    .dropdown.open .dropdown-menu {
+        padding-left: 15px;
     }
 }

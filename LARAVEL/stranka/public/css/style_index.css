@@ -124,4 +124,8 @@ h4  {
         padding-bottom: 5px;
         bottom: 0px;
     }
+
+    #myCarousel {
+        display: none;
+    }
 }

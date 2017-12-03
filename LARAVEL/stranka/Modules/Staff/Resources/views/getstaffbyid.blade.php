@@ -50,15 +50,15 @@ function showPubs(){
 						<img src="{{ URL::asset('images/staffPhoto') }}/{{ $ais->photo }}" alt="{{ $ais->photo }}">
 					</div>
 					<div class="col-sm-offset-1 col-sm-7">
-						<a href="{{ url('/staff') }}" class="staff-profile__back"><i class="fa fa-arrow-left"></i>Späť na všetkých zamestnancov</a>
+						<a href="{{ url('/staff') }}" class="staff-profile__back"><i class="fa fa-arrow-left"></i>@lang('staff::staff.back')</a>
 						<h2>{{ $ais->title1 }} {{ $ais->name }} <b>{{ $ais->surname }}</b>, {{ $ais->title2 }}</h2>
 						<span class="staff-profile__role">{{ $ais->staffRole }}</span>
 						<hr>
 						<div class="staff-profile__description">
-							<p><span>Kancelária: </span>{{ $ais->room }}</p>
-							<p><span>Klapka: </span>{{ $ais->phone }}</p>
-							<p><span>Oddelenie: </span>{{ $ais->department }}</p>
-							<p><span>Funkcia: </span>{{ $ais->function }}</p>
+							<p><span>@lang('staff::staff.room'): </span>{{ $ais->room }}</p>
+							<p><span>@lang('staff::staff.phone'): </span>+421 60291 {{ $ais->phone }}</p>
+							<p><span>@lang('staff::staff.department'): </span>{{ $ais->department }}</p>
+							<p><span>@lang('staff::staff.function'): </span>{{ $ais->function }}</p>
 						</div>
 					</div>
 				</div>
@@ -76,7 +76,7 @@ function showPubs(){
 <section class="staff-publications">
 	<div class="staff-publications__button">
 		@if( $ais->ldapLogin )
-		<button onclick="showPubs()" >Zobraziť publikácie</button>
+		<button onclick="showPubs()" >@lang('staff::staff.show_publications')</button>
 		@else
 		<br>
 		@endif
@@ -91,9 +91,9 @@ function showPubs(){
 					<table id="publications_table" class="table table-stripped table-bordered hidden" id="staff">
 						<thead>
 							<tr>
-								<th>Nadpis</th>
-								<th>Typ</th>
-								<th>Rok</th>
+								<th>@lang('staff::staff.tbl-title')</th>
+								<th>@lang('staff::staff.type')</th>
+								<th>@lang('staff::staff.year')</th>
 							</tr>
 						</thead>
 					</table>
