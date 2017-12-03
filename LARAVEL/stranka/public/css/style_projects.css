@@ -87,3 +87,22 @@ hr {
         margin: 10px 10px 15px;
     }
 }
+th{
+    text-align: left !important;
+}
+.category{
+    color: white;
+    background-color: rgba(10, 97, 188, 0.8);
+}
+.column1{
+    width: 11%;
+}
+.column2{
+    width: 45%;
+}
+.column3{
+    width: 13%;
+}
+.table-responsive{
+    margin-bottom: 30px;
+}

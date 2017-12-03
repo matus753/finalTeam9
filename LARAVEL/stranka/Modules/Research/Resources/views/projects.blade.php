@@ -4,6 +4,7 @@
 
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/style_projects.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
@@ -13,118 +14,120 @@
 <div id="emPAGEcontent" class="container">
     <div class="container">
 		<div class="row">
-			<div class="col-lg-12">
+			<div >
 				<div class="table-responsive">
-					TO DO dizajn
-					INTERNATIONAL
-					<table class="table table-stripped table-bordered">
+					<table class="table table-striped">
+						<thead class="category"><tr><th colspan="4">INTERNATIONAL</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th>Číslo projektu</th>
-								<th>Názov projektu</th>
-								<th>Doba riešenia</th>
-								<th>Zodpovedný riešiteľ</th>
+								<th class="column1">Číslo projektu</th>
+								<th class="column2">Názov projektu</th>
+								<th class="column3">Doba riešenia</th>
+								<th class="column4">Zodpovedný riešiteľ</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($international as $i)
 							<tr>
-								<td>{{ $i->number }}</td>
-								<td>{{ $i->titleSK }}</td>
-								<td>{{ $i->duration }}</td>
-								<td>{{ $i->coordinator }}</td>
+								<td class="column1">{{ $i->number }}</td>
+								<td class="column2">{{ $i->titleSK }}</td>
+								<td class="column3">{{ $i->duration }}</td>
+								<td class="column4">{{ $i->coordinator }}</td>
 							</tr>
 							@endforeach
 						</tbody>
 					</table>
 				</div>
 				<div class="table-responsive">
-					KEGA
-					<table class="table table-stripped table-bordered">
+
+					<table class="table table-striped">
+                        <thead class="category"><tr><th colspan="4">KEGA</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th>Číslo projektu</th>
-								<th>Názov projektu</th>
-								<th>Doba riešenia</th>
-								<th>Zodpovedný riešiteľ</th>
+								<th class="column1">Číslo projektu</th>
+								<th class="column2">Názov projektu</th>
+								<th class="column3">Doba riešenia</th>
+								<th class="column4">Zodpovedný riešiteľ</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($kega as $k)
 							<tr>
-								<td>{{ $k->number }}</td>
-								<td>{{ $k->titleSK }}</td>
-								<td>{{ $k->duration }}</td>
-								<td>{{ $k->coordinator }}</td>
+								<td class="column1">{{ $k->number }}</td>
+								<td class="column2">{{ $k->titleSK }}</td>
+								<td class="column3">{{ $k->duration }}</td>
+								<td class="column4">{{ $k->coordinator }}</td>
 							</tr>
 							@endforeach
 						</tbody>
 					</table>
 				</div>
 				<div class="table-responsive">
-					VEGA
-					<table class="table table-stripped table-bordered">
+					<table class="table table-striped">
+                        <thead class="category"><tr><th colspan="4">VEGA</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th>Číslo projektu</th>
-								<th>Názov projektu</th>
-								<th>Doba riešenia</th>
-								<th>Zodpovedný riešiteľ</th>
+								<th class="column1">Číslo projektu</th>
+								<th class="column2">Názov projektu</th>
+								<th class="column3">Doba riešenia</th>
+								<th class="column4">Zodpovedný riešiteľ</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($vega as $v)
 							<tr>
-								<td>{{ $v->number }}</td>
-								<td>{{ $v->titleSK }}</td>
-								<td>{{ $v->duration }}</td>
-								<td>{{ $v->coordinator }}</td>
+								<td class="column1">{{ $v->number }}</td>
+								<td class="column2">{{ $v->titleSK }}</td>
+								<td class="column3">{{ $v->duration }}</td>
+								<td class="column4">{{ $v->coordinator }}</td>
 							</tr>
 							@endforeach
 						</tbody>
 					</table>
 				</div>
 				<div class="table-responsive">
-					APVV
-					<table class="table table-stripped table-bordered">
+
+					<table class="table table-striped">
+                        <thead class="category"><tr><th colspan="4">APVV</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th>Číslo projektu</th>
-								<th>Názov projektu</th>
-								<th>Doba riešenia</th>
-								<th>Zodpovedný riešiteľ</th>
+								<th class="column1">Číslo projektu</th>
+								<th class="column2">Názov projektu</th>
+								<th class="column3">Doba riešenia</th>
+								<th class="column4">Zodpovedný riešiteľ</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($apvv as $a)
 							<tr>
-								<td>{{ $a->number }}</td>
-								<td>{{ $a->titleSK }}</td>
-								<td>{{ $a->duration }}</td>
-								<td>{{ $a->coordinator }}</td>
+								<td class="column1">{{ $a->number }}</td>
+								<td class="column2">{{ $a->titleSK }}</td>
+								<td class="column3">{{ $a->duration }}</td>
+								<td class="column4">{{ $a->coordinator }}</td>
 							</tr>
 							@endforeach
 						</tbody>
 					</table>
 				</div>
 				<div class="table-responsive">
-					OTHER
-					<table class="table table-stripped table-bordered">
+
+					<table class="table table-striped ">
+                        <thead class="category"><tr><th colspan="4">OTHER</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th>Číslo projektu</th>
-								<th>Názov projektu</th>
-								<th>Doba riešenia</th>
-								<th>Zodpovedný riešiteľ</th>
+								<th class="column1">Číslo projektu</th>
+								<th class="column2">Názov projektu</th>
+								<th class="column3">Doba riešenia</th>
+								<th class="column4">Zodpovedný riešiteľ</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($other as $o)
 							<tr>
-								<td>{{ $o->number }}</td>
-								<td>{{ $o->titleSK }}</td>
-								<td>{{ $o->duration }}</td>
-								<td>{{ $o->coordinator }}</td>
+								<td class="column1">{{ $o->number }}</td>
+								<td class="column2">{{ $o->titleSK }}</td>
+								<td class="column3">{{ $o->duration }}</td>
+								<td class="column4">{{ $o->coordinator }}</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -135,5 +138,6 @@
 	</div>
 	   
 	   
-</div>    
+</div>
+{{--<script src="{{ URL::asset('js/scripty_projects.js') }}" ></script>--}}
 @stop
