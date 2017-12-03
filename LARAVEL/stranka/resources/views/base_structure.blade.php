@@ -4,18 +4,23 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">		
 		<link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
+
+        <script src=" {{ URL::asset('js/scripty_upButton.js') }}"></script>
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
+		<script src="{{ URL::asset('js/additional_js.js') }}"></script>
 		
 		<title> ÚAMT - {{ $title }}</title>
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		@yield('additional_headers')
 	</head>
 	<body>
-	<nav class="navbar navbar-default navbar-fixed-top" id="navbar-custom">
+	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
+	<nav class="navbar navbar-default" id="navbar-custom">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
@@ -53,10 +58,10 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/study#section1') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="{{ url('/study#section2') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="{{ url('/study#section3') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
-                            <li><a href="{{ url('/study#section4') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
+                            <li><a href="{{ url('/admission') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
+                            <li><a href="{{ url('/bachelor') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
+                            <li><a href="{{ url('/master') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -77,7 +82,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
-                            <li><a href="{{ url('/photos') }}" class="navbarItem">Fotogaléria</a></li>
+                            <li><a href="{{ url('/photo-gallery') }}" class="navbarItem">Fotogaléria</a></li>
                             <li><a href="{{ url('/videos') }}" class="navbarItem">Videá</a></li>
                             <li><a href="{{ url('/media') }}" class="navbarItem">Média</a></li>
                             <li class="dropdown-submenu">
@@ -93,8 +98,9 @@
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="" class="navbarItem"><span class="fa fa-flag"></span>  SK</a></li>
-                            <li><a href="" class="navbarItem"><span class="fa fa-flag"></span>  EN</a></li>
+							@foreach(config('languages') as $l => $lang)
+								<li><a href="{{ url('/ml') }}/{{ $l }}" class="navbarItem"><span class="fa fa-flag"></span> {{ $lang }}</a></li>
+							@endforeach
                         </ul>
                     </li>
 					<li><a href = "" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
@@ -103,10 +109,11 @@
             </div>
         </div>
     </nav>
-	
+
 	@yield('content')
-	
-	<div class="push"></div><footer class="footer">
+
+	<div class="push"></div>
+	<footer class="footer">
 		<div class="container-fluid">    
 			<div class="row small bottom">
 				<div class="col-lg-offset-2" style="padding-top: 10px;">
@@ -143,6 +150,6 @@
 				</div>
 			</div>
 		</div>
-		</footer>
-	</body>	
+	</footer>
+	</body>
 </html>

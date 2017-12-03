@@ -21,34 +21,34 @@
 				<div class="item active">
 					<img src="{{ URL::asset('images/indexPhoto/slider2.jpg') }}" alt="UAMT" width="100%">
 					<div class="carousel-caption">
-						<p class="slider-text">Vitajte na stránke</p>
-					<h3 class="slider-h3 slider-bg-white">Automobilová Mechatronika</h3>                     
+						<p class="slider-text">@lang('home::home.slider1')</p>
+					<h3 class="slider-h3 slider-bg-white">@lang('home::home.slider1_highlighted')</h3>                     
 					</div>      
 				</div>
 
 				<div class="item">
 					<img src="{{ URL::asset('images/indexPhoto/slider3.jpg') }}" alt="UAMT" width="100%">
 					<div class="carousel-caption">
-					<h3 class="slider-h3 slider-bg-white">"Našou prioritou sú úspešní študenti"</h3>
-					<p class="slider-text">doc. Ing. Peter DRAHOŠ, PhD.</p>
+					<h3 class="slider-h3 slider-bg-white">@lang('home::home.slider2_highlighted')</h3>
+					<p class="slider-text">@lang('home::home.slider2')</p>
 					</div>      
 				</div>
 
 				<div class="item">
 					<img src="{{ URL::asset('images/indexPhoto/slider1.jpg') }}" alt="UAMT" width="100%">
 					<div class="carousel-caption">
-					<h3 class="slider-h3 slider-bg-black">Automobilová Mechatronika</h3>
-					<p class="slider-text">Navštívte našu propagačnú stránku <a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a">TU</a></p>
+					<h3 class="slider-h3 slider-bg-black">@lang('home::home.slider3_highlighted')</h3>
+					<p class="slider-text">@lang('home::home.slider3')<a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a">@lang('home::home.slider3_link')</a></p>
 					</div>      
 				</div>
 			</div>
 			<!-- Left and right controls -->
 			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="fa fa-chevron-left fa-2x" aria-hidden="true"></span>
+				<span id="carousel-left-arrow" class="fa fa-chevron-left" aria-hidden="true"></span>
 				<span class="sr-only">Previous</span>
 			</a>
 			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="fa fa-chevron-right fa-2x" aria-hidden="true"></span>
+				<span id="carousel-right-arrow" class="fa fa-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
@@ -61,10 +61,9 @@
 						  <div class="thumbnail thumbfb">
 							<img src="{{ URL::asset('images/indexPhoto/t1.JPG') }}" alt="...">
 							<div class="caption">
-							  <h3>O nás</h3>
-							  <p>Chcete sa o nás dozvedieť čosi viac? Prejdite na podstránky "O nás" a "Pracovníci" a zistite niečo viac z našej histórie, dozviete sa bližšie informácie o jednotlivých oddeleniach 
-							  a pracovníkoch.</p>
-							  <p><a href="aboutUs.php" class="btn btn-default btn-dark-blue" role="button">O nás</a> <a href="staff.php" class="btn btn-default btn-blue" role="button">Pracovníci</a></p>
+							  <h3>@lang('home::home.about_us')</h3>
+							  <p>@lang('home::home.about_us_section_preview')</p>
+							  <p><a href="aboutUs.php" class="btn btn-default btn-dark-blue" role="button">@lang('home::home.about_us')</a> <a href="staff.php" class="btn btn-default btn-blue" role="button">@lang('home::home.staff')</a></p>
 							</div>
 						  </div> 
 						</div>
@@ -72,9 +71,9 @@
 						  <div class="thumbnail thumbfb">
 							<img src="{{ URL::asset('images/indexPhoto/t2.JPG') }}" alt="...">
 							<div class="caption">
-							  <h3>Aktuality</h3>
-							  <p>Čo sa chystá a čo sa niekedy chystalo na našom ústave nájdete na podstránke Aktuality.</p>
-							  <p><a href="news.php" class="btn btn-default btn-dark-blue" role="button">Aktuality</a>
+							  <h3>@lang('home::home.news')</h3>
+							  <p>@lang('home::home.news_section_preview')<p>
+							  <p><a href="news.php" class="btn btn-default btn-dark-blue" role="button">@lang('home::home.news')</a>
 							</div>
 						  </div>
 						</div>
@@ -82,9 +81,9 @@
 						  <div class="thumbnail thumbfb">
 							<img src="{{ URL::asset('images/indexPhoto/t3.JPG') }}" alt="...">
 							<div class="caption">
-							  <h3>Fotogaléria</h3>
-							  <p>Fotografie a videá z našich akcií Vám priblížia život na našej fakulte o čosi bližšie.</p>
-							  <p><a href="photo.php" class="btn btn-default btn-dark-blue" role="button">Fotogaléria</a> <a href="video.php" class="btn btn-default btn-blue" role="button">Videá</a></p>
+							  <h3>@lang('home::home.photo_gallery')</h3>
+							  <p>@lang('home::home.photo_gallery_section_preview')</p>
+							  <p><a href="photo.php" class="btn btn-default btn-dark-blue" role="button">@lang('home::home.photo_gallery')</a> <a href="video.php" class="btn btn-default btn-blue" role="button">@lang('home::home.videos')</a></p>
 							</div>
 						  </div>
 						</div>
@@ -105,26 +104,25 @@
 							</div>
 					   </div>
 					</div>
-					
 					<!-- Container (Services Section) -->
 					<div class="container-fluid text-center">
-					  <h2 class="bold">PONÚKAME</h2>
+					  <h2 class="bold">@lang('home::home.offering')</h2>
 					  <br>
 					  <div class="row">                        
 						<div class="col-sm-4">
 						  <span class="fa fa-graduation-cap fa-3x" style="color: #4da6ff;"></span>
-						  <h4>Dištančné inžinierske štúdium</h4>
-						  <p class="con-text">Od školského roka 2017/2018 otvárame dištančnú formu inžinierskeho štúdia v modernom študijnom programe Aplikovaná mechatronika a elektromobilita.</p>
+						  <h4>@lang('home::home.dis_master_study')</h4>
+						  <p class="con-text">@lang('home::home.dis_master_study_text')</p>
 						</div>
 						<div class="col-sm-4">
 						  <span class="fa fa-certificate fa-3x" style="color: #4da6ff;"></span>
-						  <h4>KVALITU ŠTÚDIA</h4>
-						  <p class="con-text">Máš záujem o informatiku, elektronické systémy, mechaniku a automatické riadenie? Všetky tieto oblasti môžeš študovať súčasne v jednom študijnom programe.</p>
+						  <h4>@lang('home::home.quality_of_studies')</h4>
+						  <p class="con-text">@lang('home::home.quality_of_studies_text')</p>
 						</div>
 						<div class="col-sm-4">
 						  <span class="fa fa-cog fa-3x" style="color: #4da6ff;"></span>
-						  <h4>Prácu na zaujímavých projektoch</h4>
-						  <p class="con-text">Náš ústav spolupracuje s množstvom firiem a je zapojený do niekoľkých domácich či medzinárodných projektov.</p>
+						  <h4>@lang('home::home.interesting_projects')</h4>
+						  <p class="con-text">@lang('home::home.interesting_projects_text')</p>
 						</div>
 					  </div>
 					</div>

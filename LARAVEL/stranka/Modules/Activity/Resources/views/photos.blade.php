@@ -6,6 +6,6 @@
 
 @section('content')
 <div id="emPAGEcontent" class="container">
-       TODO dizajn
+
 </div>    
 @stop

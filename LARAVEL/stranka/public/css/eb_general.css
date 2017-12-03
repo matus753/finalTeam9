@@ -16,13 +16,15 @@ body{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #emPAGEcontent{
-    margin-top: 100px;
+    /*margin-top: 20px;*/
     margin-bottom: 180px;
 }
 #emNavbar{
     margin-top: 13px;
 }
-
+.navbar{
+    margin-bottom: 0 !important;
+}
 .navbar-default .navbar-collapse{
     border-color: rgb(153,153,153) !important;
     background-color: rgb(255, 212, 70);
@@ -102,6 +104,7 @@ body{
     margin-right: -493px !important;
     margin-top: 20px;
 }
+
 @media screen and (max-device-width: 480px) and (orientation: portrait){
     .navbarItem{
         padding: 3px !important;
@@ -115,9 +118,6 @@ body{
     .navbar-default .navbar-toggle{
         border-color: transparent !important;
         margin-top: 15px;
-    }
-    #emPAGEcontent{
-        margin-top: 60px;
     }
     #emNavbar{
         margin-top: 3px;
@@ -146,9 +146,6 @@ body{
     .navbar-default .navbar-toggle{
         border-color: transparent !important;
         margin-top: 15px;
-    }
-    #emPAGEcontent{
-        margin-top: 60px;
     }
     #emNavbar{
         margin-top: 3px;
@@ -183,15 +180,6 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
         display: none;
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 /**************************        BIAC        ***********************************/

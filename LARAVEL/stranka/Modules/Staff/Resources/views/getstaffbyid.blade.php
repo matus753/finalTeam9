@@ -10,10 +10,32 @@
 
 @section('content')
 <script>
-$(document).ready(function() {
-    $('#staff').DataTable();
-} )
+var table_pubs;
+var table_content;
 
+function showPubs(){
+	var data = { 'ais_id' : {{ $ais_id }} };
+	$.ajax({
+		url:"{{ url('/staff/ajax_publications') }}", 
+		type: 'POST' , 
+		data : data, 
+		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+		success : function(data){
+			var jsonObject = JSON.parse(data);
+			if(data){
+				$('#publications_table').removeClass('hidden');
+			}
+			$('#publications_table').DataTable({
+				data: jsonObject,
+				columns : [
+						{"data" : "content"},
+						{"data" : "type"},
+						{"data" : "year"}        
+				]
+			});
+		}
+	});
+}
 
 </script>
 <section class="banner banner--big" style="background-image: url('{{ URL::asset('images/banners/banner2.jpg') }}')">
@@ -50,54 +72,35 @@ $(document).ready(function() {
 		</div>
 	</div>
 </section>
+
 <section class="staff-publications">
 	<div class="staff-publications__button">
-		<button>Zobraziť publikácie</button>
+		@if( $ais->ldapLogin )
+		<button onclick="showPubs()" >Zobraziť publikácie</button>
+		@else
+		<br>
+		@endif
 	</div>
 </section>
-<!-- <div class="container">
-	<div class="row">
-		<div class="col-lg-12">
-		<a href="{{ url('/staff') }}" class="btn btn-default">Späť</a>
-		{{ $ais->title1 }}<br>
-		{{ $ais->name }}<br>
-		{{ $ais->surname }}<br>
-		{{ $ais->title2 }}<br>
-		do src v img {{ URL::asset('images/staffPhoto') }}/{{ $ais->photo }}<br>
-		{{ $ais->room }}<br>
-		{{ $ais->phone }}<br>
-		{{ $ais->department }}<br>
-		{{ $ais->staffRole }}<br>
-		{{ $ais->function }}<br>
-			<div class="table table-responsive">
-				Zmenit na publikacie ked pojde ldap
-				<table id="staff" class="table-striped">
-					<thead>
-						<tr>
-							<th>Meno</th>
-							<th>Miestnosť</th>
-							<th>Klapka</th>
-							<th>Oddelenie</th>
-							<th>Zaradenie</th>
-							<th>Funkcia</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-					<tfoot>
-						<tr>
-							<th>Meno</th>
-							<th>Miestnosť</th>
-							<th>Klapka</th>
-							<th>Oddelenie</th>
-							<th>Zaradenie</th>
-							<th>Funkcia</th>
-						</tr>
-					</tfoot>
-				</table>
+
+<section class="staff"  >
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="table-responsive">
+					<table id="publications_table" class="table table-stripped table-bordered hidden" id="staff">
+						<thead>
+							<tr>
+								<th>Nadpis</th>
+								<th>Typ</th>
+								<th>Rok</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-</div> -->
+</section>
 
 @stop
