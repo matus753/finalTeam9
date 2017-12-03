@@ -5,12 +5,13 @@
 @stop
 
 @section('content')
+<section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner3.jpg') }}')">
+    <h1>Autonómne vozidlo 6×6</h1>
+</section>
 <div id="emPAGEcontent">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="hlNadpis">Autonómne vozidlo 6×6</h1>
-                <hr>
                 <div>
                     <img src="http://uamt.fei.stuba.sk/web/sites/images/vozidlo6x6/dve_vozidla.png" alt="Autonómne vozidlo 6×6" style="width:100%;height:100%">
 

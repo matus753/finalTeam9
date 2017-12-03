@@ -5,12 +5,13 @@
 @stop
 
 @section('content')
+<section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner_study2.jpeg') }}')">
+    <h1>O nás</h1>
+</section>
 <div id="emPAGEcontent">
     <div class="container">
         <div class="row" >
             <div class="col-md-12" id="history">
-                <h1>O nás</h1>
-                <hr>
 				<div class="sectionDiv">
 					<h3 class="sectionH2 sectItem" id="secH1">História</h3>
 					<div id="sectContent1">

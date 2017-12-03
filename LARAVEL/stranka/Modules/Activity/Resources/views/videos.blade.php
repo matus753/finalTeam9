@@ -35,6 +35,9 @@
 	}
 	
 </script>
+<section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner12.png') }}')">
+    <h1>Videá</h1>
+</section>
 <div id="emPAGEcontent" class="container">
 	<select id="videos_cats" onchange="change_videos_cats(this)">
 		<option value="all">Všetky</option>

@@ -107,7 +107,9 @@ function optin_no(){
 
 
 </script>
-
+<section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner4.jpg') }}')">
+	<h1>Aktuality</h1>
+</section>
 <div id="emPAGEcontent" class="container">
         <div class="row" style="margin-bottom: 10px">
             <div class="ib-inline ib-left">

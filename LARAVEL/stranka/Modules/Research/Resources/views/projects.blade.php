@@ -7,6 +7,9 @@
 @stop
 
 @section('content')
+<section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner2.jpg') }}')">
+	<h1>Projekty</h1>
+</section>
 <div id="emPAGEcontent" class="container">
     <div class="container">
 		<div class="row">

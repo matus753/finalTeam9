@@ -8,6 +8,9 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCggSU4ruU2Ydfj_m_K_5pz9WZWKFc50ZQ&callback=initMap">
     </script>
+    <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner17.jpg') }}')">
+        <h1>Kontakt</h1>
+    </section>
     <div id="emPAGEcontent" class="container">
         <div class="col-md-6">
             <div class="ib-contact-left ib-contact-left-1">

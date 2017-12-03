@@ -6,11 +6,13 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ URL::asset('css/study.css') }}">
+    <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner_study6.jpeg') }}')">
+        <h1>@lang('study::study.titleMS')</h1>
+    </section>
     <div id="emPAGEcontent">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="hlNadpis">@lang('study::study.titleMS')</h1>
                     <div class="generalInfo">
                         <h3>@lang('study::study.generalInfo')</h3>
                         <div class="generalInfoContent">
