@@ -6,5 +6,9 @@ return [
     'institute' => 'Ústav automobilovej mechatroniky',
     'secretariat' => 'Sekretariát',
     'room' => 'Miestnosť',
-    'phone' => 'Telefón'
+    'phone' => 'Telefón',
+    'contact' => 'Kontakt',
+    'walking' => 'Pešo',
+    'transit' => 'MHD',
+    'driving' => 'Autom'
 ];

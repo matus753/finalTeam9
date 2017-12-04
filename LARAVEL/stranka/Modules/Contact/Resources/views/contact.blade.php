@@ -7,10 +7,10 @@
 
 @section('content')
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCggSU4ruU2Ydfj_m_K_5pz9WZWKFc50ZQ&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCggSU4ruU2Ydfj_m_K_5pz9WZWKFc50ZQ&libraries=places&callback=initMap">
     </script>
     <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner17.jpg') }}')">
-        <h1>Kontakt</h1>
+        <h1>@lang('contact::contact.contact')</h1>
     </section>
     <div id="emPAGEcontent" class="container">
         <div class="col-md-6">
@@ -37,8 +37,26 @@
                 </fieldset>
             </div>
         </div>
-        <div id="map" class="contact-right col-md-6">
+        <div id="wrap">
+            <input id="origin-input" class="controls" type="text"
+                   placeholder="Enter an origin location">
 
+            <!--<input id="destination-input" class="controls" type="text"-->
+            <!--placeholder="Enter a destination location">-->
+
+            <div id="mode-selector" class="controls">
+                <input type="radio" name="type" id="changemode-walking" checked="checked">
+                <label for="changemode-walking">@lang('contact::contact.walking')</label>
+
+                <input type="radio" name="type" id="changemode-transit">
+                <label for="changemode-transit">@lang('contact::contact.transit')</label>
+
+                <input type="radio" name="type" id="changemode-driving">
+                <label for="changemode-driving">@lang('contact::contact.driving')</label>
+            </div>
+            <div id="map" class="contact-right col-md-6">
+
+            </div>
         </div>
     </div>
 @stop

@@ -6,5 +6,9 @@ return [
     'institute' => 'Institute of Automotive Mechatronics',
     'secretariat' => 'Secretariat',
     'room' => 'Room',
-    'phone' => 'Phone'
+    'phone' => 'Phone',
+    'contact' => 'Contact',
+    'walking' => 'Walking',
+    'transit' => 'Transit',
+    'driving' => 'Driving'
 ];
