@@ -2,7 +2,7 @@
 
 @section('additional_headers')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/ib-style.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/ib_style.css') }}" rel="stylesheet">
 @stop
 
 @section('content')

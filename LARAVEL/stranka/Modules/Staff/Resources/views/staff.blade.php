@@ -3,6 +3,7 @@
 @section('additional_headers')
 <link href="{{ URL::asset('css/datatables.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
 
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
@@ -12,7 +13,7 @@
 @section('content')
 <script>
 $(document).ready(function() {
-    $('#staff').DataTable( {
+    var table = $('#staff').DataTable( {
     	"pageLength": 50,
     	"columns": [
 		    { "width": "28%" },
@@ -44,13 +45,43 @@ $(document).ready(function() {
 		        "sSortAscending":  "@lang('staff::staff.sSortAscending')",
 		        "sSortDescending": "@lang('staff::staff.sSortDescending')"
 		    }
+		},
+		initComplete: function(){
+			var col = 4;
+			
+			this.api().columns().every( function (i) {
+				if(i == 4){
+					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em"></div></label>').prependTo($('#staff_filter'));
+					$('<label>@lang("staff::staff.role")</label>').prependTo($('#staff_filter'));
+					var column = this;
+					var select = $('<select class="form-control input-sm" style="width:170px;"><option value=""></option></select>')
+						.prependTo( $('#filterbox').empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+	 
+							column
+								.search( val ? '^'+val+'$' : '', true, false )
+								.draw();
+						} );
+					
+					
+					column.data().unique().sort().each( function ( d, j ) {
+						if(d != ''){
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						}
+					} );
+				}
+            });
 		}
     });
     $('.staff__table-row').on("click",function(){
         window.location = $(this).data('href');
         return false;
     });
-} )
+	
+} );
 </script>
 
 <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner1.jpg') }}')">
@@ -58,6 +89,12 @@ $(document).ready(function() {
 </section>
 <section class="staff">
 	<div class="container">
+		<div class="row">
+			<div class="col-md-6" >
+				
+			</div>
+		</div>
+		<br>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="table table-responsive">

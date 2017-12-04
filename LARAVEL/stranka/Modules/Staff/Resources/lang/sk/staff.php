@@ -29,4 +29,16 @@ return [
 	'sPrevious' => 'Predchádzajúca',
 	'sSortAscending' => ': aktivujte na zoradenie stĺpca vzostupne',
 	'sSortDescending' => ': aktivujte na zoradenie stĺpca zostupne',
+	
+	'zastupca_veduceho' => 'Zástupca veduceho oddelenia',
+	'zastupca_veduceho_r1' => 'Zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia',
+	'zastupca_veduceho_r2' => 'Zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia',
+	'zastupca_veduceho_r3' => 'Zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia',
+	'veduci_oddelenia' => 'Vedúci oddelenia',
+	'riaditel' => 'Riaditeľ ustavu, veduci oddelenia',
+	
+	'teacher' => 'Učiteľ',
+	'doktorand' => 'Doktorant',
+	'researcher' => 'Výskumník',
+	'role' => 'Rola'
 ];

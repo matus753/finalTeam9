@@ -32,5 +32,16 @@ return [
 	'sPrevious' => 'Previous',
 	'sSortAscending' => ': activate to sort column ascending',
 	'sSortDescending' => ': activate to sort column descending',
+	
+	'zastupca_veduceho' => 'TO ENGLISH Zastupca veduceho oddelenia',
+	'zastupca_veduceho_r1' => 'TO ENGLISH zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia',
+	'zastupca_veduceho_r2' => 'TO ENGLISH zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia',
+	'zastupca_veduceho_r3' => 'TO ENGLISH zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia',
+	'veduci_oddelenia' => 'TO ENGLISH veduci oddelenia',
+	'riaditel' => 'TO ENGLISH riaditel ustavu, veduci oddelenia',
 		
+	'teacher' => 'Teacher',
+	'doktorand' => 'Doktorand',
+	'researcher' => 'Researcher',
+	'role' => 'Role'
 ];

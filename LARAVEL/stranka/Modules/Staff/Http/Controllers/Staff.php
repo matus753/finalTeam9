@@ -14,11 +14,45 @@ class Staff extends Controller
 		$module_name = config('staff.name');
 		$staff_db = DB::table('staff')->get();
 		
+		foreach($staff_db as $s){
+			if($s->function != null){
+				if($s->function == "zástupca vedúceho oddelenia"){
+					$s->function = trans('staff::staff.zastupca_veduceho');
+				}
+				if($s->function == "zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia"){
+					$s->function = trans('staff::staff.zastupca_veduceho_r1');
+				}
+				if($s->function == "zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia"){
+					$s->function = trans('staff::staff.zastupca_veduceho_r2');
+				}
+				if($s->function == "zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia"){
+					$s->function = trans('staff::staff.zastupca_veduceho_r3');
+				}
+				if($s->function == "vedúci oddelenia"){
+					$s->function = trans('staff::staff.veduci_oddelenia');
+				}
+				if($s->function == "riaditeľ ústavu; vedúci oddelenia"){
+					$s->function = trans('staff::staff.riaditel');
+				}
+			}
+			if($s->staffRole != null){
+				if($s->staffRole == "teacher"){
+					$s->staffRole = trans('staff::staff.teacher');
+				}
+				if($s->staffRole == "doktorand"){
+					$s->staffRole = trans('staff::staff.doktorand');
+				}
+				if($s->staffRole == "researcher"){
+					$s->staffRole = trans('staff::staff.researcher');
+				}
+			}
+		}
+		
+		
 		$data= [
 			'title' => $module_name,
 			'staff' => $staff_db
 		];
-		
         return view('staff::staff', $data);
     }
 	
