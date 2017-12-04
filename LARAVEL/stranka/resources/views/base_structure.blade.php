@@ -121,16 +121,16 @@
                     <div class="footer-info-single">
                         <h2 class="title">STU</h2>
                         <p> <i class="fa fa-info-circle" aria-hidden="true"></i> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </p>
-                        <p> <i class="fa fa-envelope" aria-hidden="true"></i> <a target="_blank" href="https://webmail.stuba.sk">@lang('footer::footer.email')</a> </p>
-                        <p> <i class="fa fa-database" aria-hidden="true"></i> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1">@lang('footer::footer.evidence')</a> </p>
+                        <p> <i class="fa fa-envelope" aria-hidden="true"></i> <a target="_blank" href="https://webmail.stuba.sk">@lang('footer.email')</a> </p>
+                        <p> <i class="fa fa-database" aria-hidden="true"></i> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1">@lang('footer.evidence')</a> </p>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-info-single">
                         <h2 class="title">FEI</h2>
-                        <p> <i class="fa fa-cutlery" aria-hidden="true"></i> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit">@lang('footer::footer.canteen')</a></p>
-                        <p> <i class="fa fa-calendar" aria-hidden="true"></i> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh">@lang('footer::footer.timetable')</a> </p>
+                        <p> <i class="fa fa-cutlery" aria-hidden="true"></i> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit">@lang('footer.canteen')</a></p>
+                        <p> <i class="fa fa-calendar" aria-hidden="true"></i> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh">@lang('footer.timetable')</a> </p>
                         <p> <i class="fa fa-cube" aria-hidden="true"></i> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle">Moodle FEI</a> </p>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                     <div class="footer-info-single">
                         <h2 class="title">Ostatné</h2>
                         <p> <i class="fa fa-black-tie" aria-hidden="true"></i> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </p>
-                        <p> <i class="fa fa-eye" aria-hidden="true"></i> <a target="_blank" href="http://okocasopis.sk">@lang('footer::footer.magazine')</a> </p>
+                        <p> <i class="fa fa-eye" aria-hidden="true"></i> <a target="_blank" href="http://okocasopis.sk">@lang('footer.magazine')</a> </p>
                     </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>© @lang('footer::footer.copyright') 2017/2018</p>
+                        <p>© @lang('footer.copyright') 2017/2018</p>
                     </div>
                     <div class="col-sm-6"></div>
                 </div>
