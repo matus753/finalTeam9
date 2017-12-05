@@ -4,6 +4,6 @@
 /intra/osobnaDochadzka.pdf
 /config.php
 /.idea
-/LARAVEL/stranka/vendor
-/LARAVEL/stranka/storage/logs
+/LARAVEL/stranka/vendor/
+/LARAVEL/stranka/storage/logs/
 /LARAVEL/stranka/config/database.php
