@@ -27,7 +27,10 @@
 Route::get('/', '\Modules\Home\Http\Controllers\Home@index');
 
 /* About us */
-Route::get('/about', '\Modules\About\Http\Controllers\About@index');
+Route::get('/history', '\Modules\About\Http\Controllers\About@history');
+Route::get('/management', '\Modules\About\Http\Controllers\About@management');
+Route::get('/institutes', '\Modules\About\Http\Controllers\About@institutes');
+
 
 /* Staff */
 Route::get('/staff', '\Modules\Staff\Http\Controllers\Staff@index');
