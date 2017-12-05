@@ -14,13 +14,13 @@
         <div class="row" >
             <div class="col-md-12" id="hoi">
                 <div class="sectionDiv">
-                    <h3 class="sectionH2 sectItem" id="secH2">Vedenie ústavu</h3>
+                    <h3 class="sectionH2 sectItem" id="secH2">@lang('about::aboutUs.management')</h3>
                     <div id="sectContent2" class="row">
                         <div class="col-md-6">
-                            <p>Riaditeľ ústavu</p>
-                            <p>Zástupca riaditeľa ústavu pre vedeckú činnosť</p>
-                            <p>Zástupca riaditeľa ústavu pre rozvoj ústavu</p>
-                            <p>Zástupca riaditeľa ústavu pre pedagogickú činnosť</p>
+                            <p>@lang('about::aboutUs.head')</p>
+                            <p>@lang('about::aboutUs.deputy1')</p>
+                            <p>@lang('about::aboutUs.deputy2')</p>
+                            <p>@lang('about::aboutUs.deputy3')</p>
                         </div>
                         <div class="col-md-6">
                             <p>prof. Ing. Mikuláš Huba, PhD.</p>

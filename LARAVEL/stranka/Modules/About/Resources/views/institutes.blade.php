@@ -6,7 +6,7 @@
 
 @section('content')
 <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner_study2.jpeg') }}')">
-    <h1>O nás</h1>
+    <h1>@lang('about::aboutUs.about')</h1>
 </section>
 <div id="emPAGEcontent">
     <div class="container">
