@@ -31,10 +31,10 @@ Route::get('/history', '\Modules\About\Http\Controllers\About@history');
 Route::get('/management', '\Modules\About\Http\Controllers\About@management');
 Route::get('/institutes', '\Modules\About\Http\Controllers\About@institutes');
 
-
 /* Staff */
 Route::get('/staff', '\Modules\Staff\Http\Controllers\Staff@index');
 Route::get('/staff/{id}',['uses' => '\Modules\Staff\Http\Controllers\Staff@getStaffById'] );
+Route::post('/staff/ajax_publications', '\Modules\Staff\Http\Controllers\Staff@ajax_get_pubs');
 
 /* News */
 Route::get('/news', '\Modules\News\Http\Controllers\News@index');
