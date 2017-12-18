@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Research\Http\Controllers;
+namespace Modules\Study\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class ResearchController extends Controller
+class StudyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class ResearchController extends Controller
      */
     public function index()
     {
-        return view('research::index');
+		$module_name = config('study.name');
+
+        return view('study::study')->with('title', $module_name);;
     }
 
     /**
@@ -23,7 +25,7 @@ class ResearchController extends Controller
      */
     public function create()
     {
-        return view('research::create');
+        return view('study::create');
     }
 
     /**
@@ -41,7 +43,7 @@ class ResearchController extends Controller
      */
     public function show()
     {
-        return view('research::show');
+        return view('study::show');
     }
 
     /**
@@ -50,7 +52,7 @@ class ResearchController extends Controller
      */
     public function edit()
     {
-        return view('research::edit');
+        return view('study::edit');
     }
 
     /**

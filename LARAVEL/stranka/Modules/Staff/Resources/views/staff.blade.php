@@ -47,14 +47,14 @@ $(document).ready(function() {
 		    }
 		},
 		initComplete: function(){
-			var col = 4;
-			
+			var roles = 4;
+			var dep = 3;
 			this.api().columns().every( function (i) {
-				if(i == 4){
+				if(i == roles){
 					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em"></div></label>').prependTo($('#staff_filter'));
 					$('<label>@lang("staff::staff.role")</label>').prependTo($('#staff_filter'));
 					var column = this;
-					var select = $('<select class="form-control input-sm" style="width:170px;"><option value=""></option></select>')
+					var select = $('<select class="form-control input-sm"><option value=""></option></select>')
 						.prependTo( $('#filterbox').empty() )
 						.on( 'change', function () {
 							var val = $.fn.dataTable.util.escapeRegex(
@@ -73,6 +73,31 @@ $(document).ready(function() {
 						}
 					} );
 				}
+				
+				if(i == dep){
+					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em"></div></label>').prependTo($('#staff_filter'));
+					$('<label>@lang("staff::staff.department")</label>').prependTo($('#staff_filter'));
+					var column = this;
+					var select = $('<select class="form-control input-sm"><option value=""></option></select>')
+						.prependTo( $('#filterbox').empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+	 
+							column
+								.search( val ? '^'+val+'$' : '', true, false )
+								.draw();
+						} );
+					
+					
+					column.data().unique().sort().each( function ( d, j ) {
+						if(d != ''){
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						}
+					} );
+				}
+				
             });
 		}
     });

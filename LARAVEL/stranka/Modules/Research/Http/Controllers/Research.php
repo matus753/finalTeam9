@@ -33,7 +33,7 @@ class Research extends Controller
 			'apvv' => $projects_db_apvv,
 			'other' => $projects_db_other
 		];
-		
+		//debug($data, true);
         return view('research::projects', $data);
     }
 	
