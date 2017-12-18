@@ -72,4 +72,4 @@ Route::get('/login', '\Modules\Login\Http\Controllers\Login@index');
 Route::post('/login-action', '\Modules\Login\Http\Controllers\Login@login_action');
 
 /* Intranet */
-Route::get('/intranet', '\Modules\Intranet\Http\Controllers\Intranet@index');
+Route::get('/intranet', '\Modules\Intranet\Http\Controllers\Intranet@intranet');

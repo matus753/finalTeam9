@@ -8,13 +8,13 @@ use Illuminate\Routing\Controller;
 
 class Intranet extends Controller
 {
-    public function index()
+    public function intranet()
     {
 		$module_name = config('intranet.name');
 		
 		$data = [ 'title' => $module_name ];
 		
-        return view('intranet::index', $data);
+        return view('intranet::intranet', $data);
     }
 
 }

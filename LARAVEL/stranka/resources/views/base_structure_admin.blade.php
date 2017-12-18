@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">    
 
-      
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
@@ -16,7 +15,7 @@
 		
 		<title> ÚAMT - {{ $title }}</title>
 		<meta name="csrf-token" content="{{ csrf_token() }}">
-		@yield('additional_headers')
+		@yield('additional_headers_admin')
 	</head>
 	<body>
 	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
@@ -111,57 +110,6 @@
     </nav>
 
 	
-	@yield('content')
-	<div class="push"></div>
-    <footer class="nb-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-info-single">
-                        <h2 class="title">STU</h2>
-                        <p> <i class="fa fa-info-circle" aria-hidden="true"></i> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </p>
-                        <p> <i class="fa fa-envelope" aria-hidden="true"></i> <a target="_blank" href="https://webmail.stuba.sk">@lang('footer.email')</a> </p>
-                        <p> <i class="fa fa-database" aria-hidden="true"></i> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1">@lang('footer.evidence')</a> </p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-info-single">
-                        <h2 class="title">FEI</h2>
-                        <p> <i class="fa fa-cutlery" aria-hidden="true"></i> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit">@lang('footer.canteen')</a></p>
-                        <p> <i class="fa fa-calendar" aria-hidden="true"></i> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh">@lang('footer.timetable')</a> </p>
-                        <p> <i class="fa fa-cube" aria-hidden="true"></i> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle">Moodle FEI</a> </p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-info-single">
-                        <h2 class="title">Social</h2>
-                        <p> <i class="fa fa-facebook-square" aria-hidden="true"></i> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU">Facebook</a></p>
-                        <p> <i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA">YouTube</a></p>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-info-single">
-                        <h2 class="title">Ostatné</h2>
-                        <p> <i class="fa fa-black-tie" aria-hidden="true"></i> <a target="_blank" href="http://www.sski.sk/webstranka"> SSKI </a> </p>
-                        <p> <i class="fa fa-eye" aria-hidden="true"></i> <a target="_blank" href="http://okocasopis.sk">@lang('footer.magazine')</a> </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>© @lang('footer.copyright') 2017/2018</p>
-                    </div>
-                    <div class="col-sm-6"></div>
-                </div>
-            </div>
-        </section>
-    </footer>
+	@yield('content_admin')	
 	</body>
 </html>

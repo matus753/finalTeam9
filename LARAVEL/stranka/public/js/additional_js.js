@@ -1,9 +1,9 @@
 // ===== Scroll to Top ==== 
 $(window).scroll(function() {
     if ($(this).scrollTop() >= 300) {        
-        $('#return-to-top').fadeIn(200);    
+        $('#return-to-top').fadeIn(500);    
     } else {
-        $('#return-to-top').fadeOut(200);   
+        $('#return-to-top').fadeOut(500);   
     }
 });
 function scrollToTop(){     
