@@ -51,6 +51,9 @@ class NewsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/config.php', 'news'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../../Intranet/Config/news_admin.php', 'news_admin'
+        );
     }
 
     /**

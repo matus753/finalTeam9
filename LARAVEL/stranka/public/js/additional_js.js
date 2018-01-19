@@ -1,3 +1,24 @@
+
+var redirect = null;
+
+function confirmation_redirect(head,text,link){
+    redirect = link;
+    $('#confirmation-title').text(head);
+    $('#confirmation-body').text(text);
+    $('#confirmation-modal').modal('show');
+    $('#confirmation-modal').on('shown.bs.modal', function(){
+        $('#confirmation-modal-cancel').focus();
+    });
+}
+
+$(document).ready(function(){
+    $('#confirmation-modal-ok').click(function(){
+        if(redirect != null){
+            window.location = redirect;
+        }
+    });
+});
+
 // ===== Scroll to Top ==== 
 $(window).scroll(function() {
     if ($(this).scrollTop() >= 300) {        

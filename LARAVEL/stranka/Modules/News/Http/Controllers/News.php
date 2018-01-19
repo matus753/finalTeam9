@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class News extends Controller
 {
@@ -13,37 +15,23 @@ class News extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
 		$module_name = config('news.name');
+		$pages_count = DB::table('settings')->value('pagination_count');
 		
-		$data = [
-			'title' => $module_name
-		];
-        return view('news::news', $data);
-    }
-
-	public function concrete_news( $id = 0 ){
-		if(!is_numeric($id)){
-			return false;
+		// skontrolovat a osetrit vstupy
+		$filter = -1;
+		if(isset($_GET['type'])){
+			$filter = $_GET['type'];
 		}
-		$module_name = config('news.name');
+
+		$expired = 0;
+		if(isset($_GET['expired'])){
+			$expired = 1;
+		}
 		
-		$news_concrete_db = DB::table('news')->where('id', $id)->get();
-		
-		$data = [
-			'title' => $module_name,
-			'news' => $news_concrete_db
-		];
-		debug($data);
-        return view('news::concrete_news', $data);
-    }
-	
-	public function ajax_news_filter( Request $request ){
-		$filter = $request->input('type');
-		$expired = $request->input('exp');
-		
-		if(!is_numeric($filter) && !is_numeric($expired)){
+		if(!is_numeric($filter) && !is_numeric($expired) && !is_numeric($page)){
 			return false;
 		}
 		if(($filter > 2) || ($filter < -1)){
@@ -52,22 +40,51 @@ class News extends Controller
 		if(($expired < 0) || ($expired > 1)){
 			return false;
 		}
-		
+
 		if($filter == -1){ // vsetky
 			if($expired){
-				$res = DB::table('news')->get();
+				$res = DB::table('news')->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}else{
-				$res = DB::table('news')->whereDate('date_expiration', '>=', date('Y-m-d'))->get();
+				$res = DB::table('news')->where('date_expiration', '>=', time())->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}
 		}else{ // podla typu
 			if($expired){
-				$res = DB::table('news')->where('type', $filter)->get();
+				$res = DB::table('news')->where('type', $filter)->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}else{
-				$res = DB::table('news')->whereDate('date_expiration', '>=', date('Y-m-d'))->where('type', $filter)->get();
+				$res = DB::table('news')->where('date_expiration', '>=', time())->where('type', $filter)->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}
 		}
+		
+		if($res){
+			foreach($res as $r){
+				$r->date_expiration = format_time($r->date_expiration);
+			}
+		}
+		
+		$data = [
+			'news' => $res,
+			'title' => $module_name,
+			'type' => $filter,
+			'expired' => $expired
+		];
+		//debug($data);
+        return view('news::news', $data);
+    }
 
-		return json_encode($res);
+	public function show_content_news($id = 0){
+		if( !is_numeric($id) ){
+			return false;
+		}
+		// kotrola ma id content ?
+
+		$content = DB::table('news')->where('id', $id)->first();
+		
+		$data = [
+			'title' => $content->title_sk,
+			'content' => $content
+		];
+		
+		return view('news::show_content_news', $data);
 	}
 	
 	public function optin( Request $request ){

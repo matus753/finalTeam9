@@ -51,6 +51,18 @@ class IntranetServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/config.php', 'intranet'
         );
+		$this->mergeConfigFrom(
+            __DIR__.'/../Config/news_admin.php', 'news_admin'
+        );
+		$this->mergeConfigFrom(
+            __DIR__.'/../Config/projects_admin.php', 'projects_admin'
+        );
+		$this->mergeConfigFrom(
+            __DIR__.'/../Config/media_admin.php', 'media_admin'
+        );
+        $this->mergeConfigFrom(
+            __DIR__.'/../Config/videos_admin.php', 'videos_admin'
+        );
     }
 
     /**

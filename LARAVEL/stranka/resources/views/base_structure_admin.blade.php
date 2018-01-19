@@ -29,87 +29,42 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="{{ url('/') }}">
-                    <div class="logo">
-                        <img id="logoIMG" class="logo-lg" src="{{ URL::asset('images/logo/logo_skratkove_transparentne_na_modre_pozadie.png') }}" alt="logo">
+                    <div class="navbarItem">
+                        <p class="navbarItem">Hlavná stránka (prerobiť odkaz)</p>
                     </div>
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
-					<li><a href="{{ url('/news') }}" class="navbarItem">Aktuality</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/history') }}" id="navSec1" class="navbarItem sectItem">História</a></li>
-                            <li><a href="{{ url('/management') }}" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
-                            <li class="dropdown-submenu dropdown">
-                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem3" >
-                                    <li><a href="{{ url('/institutes') }}" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('/staff') }}" class="navbarItem">Pracovníci</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/admission') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="{{ url('/bachelor') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="{{ url('/master') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
-                            <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Výskum <b class="caret"></b></a>
-                        <ul class="dropdown-menu multi-level">
-                            <li><a href="{{ url('/projects') }}" class="navbarItem">Projekty</a></li>
-                            <li class="dropdown-submenu dropdown">
-                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Výskumné oblasti <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem">
-                                    <li><a href="{{ url('/ekart') }}" >Elektrická motokára</a></li>
-                                    <li><a href="{{ url('/autonom-vehicle') }}" >Autonómne vozidlo 6×6</a></li>
-                                    <li><a href="{{ url('/led-cube') }}" >3D LED kocka</a></li>
-                                    <li><a href="{{ url('/biomechatronic') }}" >Biomechatronika</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Aktivity <b class="caret"></b></a>
-                        <ul class="dropdown-menu multi-level">
-                            <li><a href="{{ url('/photo-gallery') }}" class="navbarItem">Fotogaléria</a></li>
-                            <li><a href="{{ url('/videos') }}" class="navbarItem">Videá</a></li>
-                            <li><a href="{{ url('/media') }}" class="navbarItem">Média</a></li>
-                            <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Naše témetické web stránky <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem2 navbarItem" >
-                                    <li><a href="http://www.e-mobilita.fei.stuba.sk/" >Elektromobilita</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ url('/contact') }}" class="navbarItem">Kontakt</a></li>
-					<li><a href="{{ url('/intranet') }}" class="navbarItem">Intranet</a></li> 
-					<li class="dropdown navbarIconSm">
-                        <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
-                        <ul class="dropdown-menu">
-							@foreach(config('languages') as $l => $lang)
-								<li><a href="{{ url('/ml') }}/{{ $l }}" class="navbarItem"><span class="fa fa-flag"></span> {{ $lang }}</a></li>
-							@endforeach
-                        </ul>
-                    </li>
-					<li><a href ="#USER_Profile_show_this_icon_after_login" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
-					<li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
+					<li><a href="{{ url('/news-admin') }}" class="navbarItem">Aktuality</a></li>
+                    <li><a href="{{ url('/projects-admin') }}" class="navbarItem">Projekty</a></li>
+                    <li><a href="{{ url('/staff-admin') }}" class="navbarItem">Pracovníci</a></li>
+                    <li><a href="{{ url('/media-admin') }}" class="navbarItem">Médiá</a></li>
+                    <li><a href="{{ url('/videos-admin') }}" class="navbarItem">Videá</a></li>
+                    <li><a href="{{ url('/photos-admin') }}" class="navbarItem">Fotky</a></li>
+				</ul>
 				</ul>
             </div>
         </div>
     </nav>
 
-	
+	<body>
 	@yield('content_admin')	
 	</body>
+
+    <div class="modal fade" id="confirmation-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="confirmation-title" class="modal-title"></h3>
+                </div>
+                <div id="confirmation-body" class="modal-body" >
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmation-modal-cancel" class="btn btn-danger" data-dismiss="modal">Zrušiť</button>
+                    <button id="confirmation-modal-ok" class="btn btn-success">Pokračovať</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </html>
