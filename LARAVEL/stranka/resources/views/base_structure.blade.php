@@ -112,7 +112,7 @@
 
 	
 	@yield('content')
-<?php debug( session()->all() ); ?>
+
 	<div class="push"></div>
     <footer class="nb-footer">
         <div class="container">

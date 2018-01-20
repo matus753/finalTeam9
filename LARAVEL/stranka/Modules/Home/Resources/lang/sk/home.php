@@ -3,7 +3,7 @@
 return [
 
 	'slider1' => 'Vitajte na stránke',
-	'slider1_highlighted' => 'AUTOMOBILOVÁ MECHATRONIKA',
+	'slider1_highlighted' => 'Ústavu automobilovej mechatroniky FEI STU',
 	'slider1_link' => '',
 	'slider2' => 'doc. Ing. Peter DRAHOŠ, PhD.',
 	'slider2_highlighted' => '"NAŠOU PRIORITOU SÚ ÚSPEŠNÍ ŠTUDENTI"',

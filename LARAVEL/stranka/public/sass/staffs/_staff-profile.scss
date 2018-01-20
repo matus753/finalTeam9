@@ -31,6 +31,7 @@
 	}
 	&__back {
 		color: #0A61BC;
+		transition: color 0.2s ease;
 		>i {
 			margin-right: 10px;
 		}
@@ -51,10 +52,20 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 		>a {
+			color: #ffffff;
+			transition: color 0.2s ease;
 			>i {
 				font-size: 24px;
 				color: #ffffff;
-				padding: 0 30px;
+				padding: 0 10px 0 30px;
+				text-decoration: none;
+			}
+			&:hover {
+				text-decoration: none;
+				color: rgba(#ffffff, 0.7);
+				>i {
+					color: rgba(#ffffff, 0.7);
+				}
 			}
 		}
 	}

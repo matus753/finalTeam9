@@ -3,7 +3,7 @@
 return [
 
 	'slider1' => 'Welcome to page',
-	'slider1_highlighted' => 'AUTOMOTIVE MECHATRONICS',
+	'slider1_highlighted' => 'Institute of Automotive Mechatronics FEI STU',
 	'slider1_link' => '',
 	'slider2' => 'doc. Ing. Peter DRAHOŠ, PhD.',
 	'slider2_highlighted' => '"OUR PRIORITY ARE SUCCESSFUL STUDENTS"',

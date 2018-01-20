@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Hostiteľ: 127.0.0.1
--- Čas generovania: Po 20.Nov 2017, 22:08
--- Verzia serveru: 10.1.22-MariaDB
--- Verzia PHP: 7.1.4
+-- Čas generovania: So 20.Jan 2018, 18:10
+-- Verzia serveru: 10.1.30-MariaDB
+-- Verzia PHP: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,8 +34,9 @@ CREATE TABLE `media` (
   `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
   `media` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
   `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `file` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_slovak_ci DEFAULT NULL,
+  `filename` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci DEFAULT NULL,
+  `file_hash_name` varchar(128) DEFAULT NULL,
   `title_EN` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -43,14 +44,16 @@ CREATE TABLE `media` (
 -- Sťahujem dáta pre tabuľku `media`
 --
 
-INSERT INTO `media` (`id`, `date`, `title`, `media`, `type`, `url`, `file`, `title_EN`) VALUES
-(1, '2014-10-14', 'Študenti z Bratislavy vyvinuli u nás prvú elektrickú motokáru', 'Hospodárske noviny', 'link', 'http://dennik.hnonline.sk/ekonomika-a-firmy/591621-studenti-z-bratislavy-vyvinuli-u-nas-prvu-elektricku-motokaru#.VETnmBjntpk.facebook', '', 'Students from Bratislava have developed the first electric kart in our country'),
-(2, '2014-10-20', 'Prvá elektrická motokára na Slovensku vznikla v škole', 'Pravda', 'link', 'http://spravy.pravda.sk/ekonomika/clanok/333718-prva-elektricka-motokara-na-slovensku-vznikla-v-skole/', '', 'The first electric kart in Slovakia was set up in the school'),
-(3, '2015-11-10', 'Poodkryl tajomstvo', 'Šarm', 'server', '', 'sarm201546.pdf', 'He uncovered a secret'),
-(4, '2016-01-19', 'Mladí vedci navrhli snímač akupunktúrnych bodov', 'Rádio Regina', 'link', 'http://reginazapad.rtvs.sk/clanky/deti/98134/mladi-vedci-navrhli-snimac-akupunkturnych-bodov', '', 'Young scientists have designed an acupuncture point reader'),
-(5, '2016-03-29', 'Vďaka biomechatronikom z STU sa už akupunktúrne body neskryjú', 'Dennik N', 'both', 'http://science.dennikn.sk/clankyarozhovory/\r\nnezivapriroda/\r\ntechnika/6196vdakaslovenskymbiomechatronikomsauzakupunkturnebodyneskryju', 'science20162903.pdf', 'Thanks to biomechatronics from STU, acupuncture points are no longer hidden'),
-(6, '2017-01-12', 'Automobilová mechatronika (od 6:35 min)', 'VAT RTVS', 'link', 'https://www.rtvs.sk/televizia/archiv/11767/115433', '', 'Automobile Mechatronics (from 6:35 min)'),
-(7, '2017-01-19', 'Prvý slovenský elektrický skúter (od 7:50 min)', 'VAT RTVS', 'link', 'https://www.rtvs.sk/televizia/archiv/11767/117377', '', 'First Slovak electric scooter (from 7:50 min)');
+INSERT INTO `media` (`id`, `date`, `title`, `media`, `type`, `url`, `filename`, `file_hash_name`, `title_EN`) VALUES
+(1, '2014-10-14', 'Študenti z Bratislavy vyvinuli u nás prvú elektrickú motokáru', 'Hospodárske noviny', 'link', 'http://dennik.hnonline.sk/ekonomika-a-firmy/591621-studenti-z-bratislavy-vyvinuli-u-nas-prvu-elektricku-motokaru#.VETnmBjntpk.facebook', '', NULL, 'Students from Bratislava have developed the first electric kart in our country'),
+(2, '2014-10-20', 'Prvá elektrická motokára na Slovensku vznikla v škole', 'Pravda', 'link', 'http://spravy.pravda.sk/ekonomika/clanok/333718-prva-elektricka-motokara-na-slovensku-vznikla-v-skole/', '', NULL, 'The first electric kart in Slovakia was set up in the school'),
+(3, '2015-11-10', 'Poodkryl tajomstvo', 'Šarm', 'server', '', 'sarm201546.pdf', NULL, 'He uncovered a secret'),
+(4, '2016-01-19', 'Mladí vedci navrhli snímač akupunktúrnych bodov', 'Rádio Regina', 'link', 'http://reginazapad.rtvs.sk/clanky/deti/98134/mladi-vedci-navrhli-snimac-akupunkturnych-bodov', '', NULL, 'Young scientists have designed an acupuncture point reader'),
+(5, '2016-03-29', 'Vďaka biomechatronikom z STU sa už akupunktúrne body neskryjú', 'Dennik N', 'both', 'http://science.dennikn.sk/clankyarozhovory/\r\nnezivapriroda/\r\ntechnika/6196vdakaslovenskymbiomechatronikomsauzakupunkturnebodyneskryju', 'science20162903.pdf', NULL, 'Thanks to biomechatronics from STU, acupuncture points are no longer hidden'),
+(6, '2017-01-12', 'Automobilová mechatronika (od 6:35 min)', 'VAT RTVS', 'link', 'https://www.rtvs.sk/televizia/archiv/11767/115433', '', NULL, 'Automobile Mechatronics (from 6:35 min)'),
+(7, '2017-01-19', 'Prvý slovenský elektrický skúter (od 7:50 min)', 'VAT RTVS', 'link', 'https://www.rtvs.sk/televizia/archiv/11767/117377', '', NULL, 'First Slovak electric scooter (from 7:50 min)'),
+(8, '2017-12-24', 'fsadfas', 'asdfasd', 'server', NULL, 'test.jpg', 'fRr71rBJTBibDuQjbirqJFYRejpDrAjW3IkWks3F', 'dfasdfasdf'),
+(12, '2017-12-24', 'fsdfsadfasdf', 'fdfdfdfdfd', 'link', 'dfdfdfdfdfdfdfd', NULL, NULL, 'asdfdfdfd');
 
 -- --------------------------------------------------------
 
@@ -174,12 +177,16 @@ INSERT INTO `nepritomnosti` (`id`, `id_zamestnanca`, `id_typu`, `datum`) VALUES
 
 CREATE TABLE `news` (
   `id` int(11) NOT NULL,
-  `title_en` varchar(100) NOT NULL,
-  `title_sk` varchar(100) NOT NULL,
-  `content_en` varchar(1000) NOT NULL,
-  `content_sk` varchar(1000) NOT NULL,
-  `date_created` date NOT NULL,
-  `date_expiration` date NOT NULL,
+  `hash_id` varchar(32) NOT NULL,
+  `title_en` varchar(256) CHARACTER SET ucs2 COLLATE ucs2_slovak_ci NOT NULL,
+  `title_sk` varchar(256) CHARACTER SET ucs2 COLLATE ucs2_slovak_ci NOT NULL,
+  `image_hash_name` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  `preview_sk` text CHARACTER SET utf8 NOT NULL,
+  `preview_en` text CHARACTER SET utf8 NOT NULL,
+  `editor_content_sk` longtext CHARACTER SET utf8,
+  `editor_content_en` longtext CHARACTER SET utf8,
+  `date_created` int(11) NOT NULL,
+  `date_expiration` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL COMMENT '0 - Propagácia, 1 - Oznamy, 2 - Zo života fakulty'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -187,44 +194,26 @@ CREATE TABLE `news` (
 -- Sťahujem dáta pre tabuľku `news`
 --
 
-INSERT INTO `news` (`id`, `title_en`, `title_sk`, `content_en`, `content_sk`, `date_created`, `date_expiration`, `type`) VALUES
-(1, 'English Title', 'Slovenský Nadpis', 'English Content', 'Slovenský Obsah', '2017-05-24', '2017-05-31', 1),
-(2, 'English Title1', 'Slovenský Nadpis1', 'English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1', 'Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1', '2017-05-23', '2017-05-31', 2),
-(3, 'English Title2', 'Slovenský Nadpis2', 'English Content2', 'Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2', '2017-05-22', '2017-05-31', 0),
-(4, 'English Title3', 'Slovenský Nadpis3', 'English Content3', 'Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3', '2017-05-18', '2017-05-31', 1),
-(5, 'English Title4', 'Slovenský Nadpis4', 'English Content4', 'Slovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský Obsah4', '2017-05-14', '2017-05-23', 0),
-(6, 'English Title', 'Slovenský Nadpis', 'English Content', 'Slovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský Obsah', '2017-05-05', '2017-05-09', 2),
-(7, 'English Title', 'svk prazdny content', 'English Content', '', '2017-05-24', '2017-05-31', 1),
-(8, 'title_en', 'title_sk', 'content_en', 'content_sk', '2017-05-25', '2017-05-31', 1),
-(9, 'test', 'test', 'test', 'test', '2017-05-25', '2017-06-03', 1),
-(10, 'Bitch', 'Ivo', 'Yeah hi is dick', 'ivo zase premiestnil footer a mam tam error', '2017-05-25', '2017-05-29', 1),
-(11, 'English Title', 'Slovenský Nadpis', 'English Content', 'Slovenský Obsah', '2017-05-24', '2017-05-31', 1),
-(12, 'English Title1', 'Slovenský Nadpis1', 'English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1English Content1', 'Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1Slovenský Obsah1', '2017-05-23', '2017-05-31', 2),
-(13, 'English Title2', 'Slovenský Nadpis2', 'English Content2', 'Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2Slovenský Obsah2', '2017-05-22', '2017-05-31', 0),
-(14, 'English Title3', 'Slovenský Nadpis3', 'English Content3', 'Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3Slovenský Obsah3', '2017-05-18', '2017-05-31', 1),
-(15, 'English Title4', 'Slovenský Nadpis4', 'English Content4', 'Slovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský Obsah4', '2017-05-14', '2017-05-23', 0),
-(16, 'English Title', 'Slovenský Nadpis', 'English Content', 'Slovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský ObsahSlovenský Obsah', '2017-05-05', '2017-05-09', 2),
-(17, 'English Title', 'svk prazdny content', 'English Content', '', '2017-05-24', '2017-05-31', 1),
-(18, 'title_en', 'title_sk', 'content_en', 'content_sk', '2017-05-25', '2017-05-31', 1),
-(19, 'test', 'test', 'test', 'test', '2017-05-25', '2017-06-03', 1),
-(20, 'Bitch', 'Ivo', 'Yeah hi is dick', 'ivo zase premiestnil footer a mam tam error', '2017-05-25', '2017-05-29', 1),
-(21, 'EN title both', 'SK titulok oboje', 'EN content both', 'SK content oboje', '2017-05-26', '2017-06-04', 1),
-(22, 'EN title both', 'SK titulok oboje', 'EN content both', 'SK content oboje', '2017-05-26', '2017-06-04', 1),
-(23, 'EN title both', 'SK titulok oboje', 'EN content both', 'SK content oboje', '2017-05-26', '2017-06-04', 1),
-(24, 'tp1718a en title', 'tp1718a sk title', 'tp1718a en content', 'tp1718a sk content', '2017-05-26', '2017-06-04', 1),
-(25, 'en tp1718a tp1718a title', 'sk tp1718a tp1718a title', 'en tp1718a tp1718a content', 'sk tp1718a tp1718a content', '2017-05-26', '2017-06-04', 1),
-(26, 'gjdgjdtjdt', 'srjsjdj', 'jdgjdtjdtyjdtyj', 'dyjdyjdjd', '2017-05-26', '2017-06-04', 1),
-(27, 'prop', 'prop', 'prop', 'prop', '2017-05-26', '2017-06-04', 1),
-(28, 'tututyutyu', 'tyutyutyuty', 'tyututyu', 'utyututyu', '2017-05-26', '2017-06-04', 3),
-(29, 'tututyutyu', 'tyutyutyuty', 'tyututyu', 'utyututyu', '2017-05-26', '2017-06-04', 0),
-(30, 'tututyutyu', 'tyutyutyuty', 'tyututyu', 'utyututyu', '2017-05-26', '2017-06-04', 0),
-(31, 'ghfhfghfgh', 'fghfghfgh', 'fghfghfghfgh', 'fhfghfghf', '2017-05-26', '2017-06-04', 2),
-(32, 'News', 'Aktualita sk', 'en en en ', 'sk sk sk sk ', '2017-05-29', '2017-05-31', 0),
-(33, 'test en', 'test sk', 'text en', 'text sk', '2017-05-29', '2017-05-31', 1),
-(34, 'News test', 'Dalsia skuska noviniek', 'dôlkjsfdklsj ', 'aaaaaaaaaaaa', '2017-05-29', '2017-06-01', 2),
-(35, '', 'Toto by sa nemalo stat', '', 'iba sk', '2017-05-29', '2017-06-02', 2),
-(36, '', 'Toto by sa nemalo stat', '', 'iba sk', '2017-05-29', '2017-06-02', 2),
-(37, '', 'Pridavam aktualitu aj ked som odhlaseny', '', 'a nikto mi v tom nezabrani, ', '2017-05-29', '2017-06-03', 2);
+INSERT INTO `news` (`id`, `hash_id`, `title_en`, `title_sk`, `image_hash_name`, `preview_sk`, `preview_en`, `editor_content_sk`, `editor_content_en`, `date_created`, `date_expiration`, `type`) VALUES
+(47, '', 'silvester', 'silvester', '0K3IqzHZy0BRryYubim59wSvctqFp3qVwaccCzL2.jpeg', '3 2 1 juchuchuuu', '3 2 1 juchuchuuu', NULL, NULL, 1514284567, 1514678400, 0),
+(48, '', 'assaaa', 'afaaa zmeneny text', 'info.png', 'f4rfref', 'rferfefrfer', NULL, NULL, 1515425714, 1514592000, 2),
+(49, '', 'Lalala', 'Tralala', 'nv8vyNwaJzDHZMmyt5grMYkYGJDyPiNa3u1ELjJI.png', 'dfasdfsa', 'fsafasdf', NULL, NULL, 1514630498, 1516665600, 1),
+(50, '', 'asdfsadfsadf', 'fdasdfsf', 'info.png', 'sadfsad', 'fasdfsadfsa', NULL, NULL, 1514643858, 1514678400, 0),
+(51, '', 'asdfsadfasd', 'fadsfasdf', 'info.png', 'sadfsadfsd', 'fsdfasdfsa', NULL, NULL, 1514643871, 1516924800, 2),
+(52, '', 'fasfasdf', 'dfasdfsadfsad', 'info.png', 'asdfsadfasdf', 'asdfsadfsadfsadf', NULL, NULL, 1514643883, 1516924800, 1),
+(53, '', 'fsadfasdfasdf', 'dfasdfasdfasd', 'info.png', 'asdfasdfsdfd', 'fdfdfd', NULL, NULL, 1514643900, 1516752000, 1),
+(54, '', 'dfasdfasdf', 'dsafasdfas', 'info.png', 'fdfdf', 'fff', NULL, NULL, 1514643918, 1518134400, 1),
+(55, '', 'ffffffff', 'ffffffff', 'info.png', 'ffffffff', 'ffffffff', NULL, NULL, 1514643931, 1517011200, 2),
+(56, '', 'ffffffffffffffffffr', 'ffffffff', 'info.png', 'rrrrrrrrr', 'rrrrrrrrrrrr', NULL, NULL, 1514643947, 1519776000, 0),
+(57, '', 'rrr', 'dfdf', 'info.png', 'eeee', 'err', NULL, NULL, 1514643966, 1516233600, 2),
+(58, '', 'rrr', 'dfdf', 'info.png', 'eeee', 'err', NULL, NULL, 1514643966, 1516233600, 2),
+(59, '', 'test', 'test', 'info.png', 'dfsadf', 'fsadfas', NULL, NULL, 1515142650, 0, 0),
+(60, '', 'fsadfasdfas', 'dfasdfsad', 'info.png', 'sdfasdfasd', 'fasdfsadfas', NULL, NULL, 1515142659, 0, 0),
+(61, '', 'test editor', 'test editor', NULL, 'editor', 'editor', '<p><strong>gfsdgdsfgdsfg</strong>gfgsdfgsdfgsdfg</p>', '<p><strong>gfdgdsfgsdfg</strong>fgsdfgsdfgsdfgsdfgsd</p>', 1515152962, 1519344000, 0),
+(63, '', 'test image', 'test image', 'info.png', 'test image', 'testimage', NULL, NULL, 1515153912, 0, 0),
+(64, '', 'dsfgdsfgsdfg', 'fdgsdfgsdfg', 'info.png', 'sdfgsdfgsdf', 'gsdfgsdfgsdfgdsfg', '<p><img src=\"http://127.0.0.1:8000/storage/news/5a4fa42fafaea/2G8y1hVwqxz9l2EnuZyMLsqQkM2wYJGqVFzSxYs7.jpeg\" style=\"width: 300px;\" class=\"fr-fic fr-dib\" data-headers=\"[object Object]\" data-original=\"\"></p>', NULL, 1515168875, 0, 0),
+(65, '5a4fac7b0c59b', 'REAL test', 'REAL test', 'info.png', 'REAL test', 'REAL test', '<p fr-original-style=\"\" style=\"box-sizing: border-box; margin: 0px 0px 10px;\">REAL testREAL testREAL testREAL test</p><p fr-original-style=\"\" style=\"box-sizing: border-box; margin: 0px 0px 10px;\"><img src=\"http://127.0.0.1:8000/storage/news/5a4fac7b0c59b/IqcieiWvaNfdzbSMQuDnbyuPW9N7eCaIMTo8nIJn.jpeg\" style=\"width: 300px; display: block; vertical-align: top; margin: 5px auto; text-align: center; box-sizing: border-box; border: 0px; cursor: pointer;\" data-headers=\"[object Object]\" data-original=\"\" fr-original-style=\"width: 300px; display: block; vertical-align: top; margin: 5px auto; text-align: center;\" fr-original-class=\"fr-draggable\"></p>', '<p fr-original-style=\"\" style=\"box-sizing: border-box; margin: 0px 0px 10px;\">REAL testREAL testREAL testREAL test</p><p fr-original-style=\"\" style=\"box-sizing: border-box; margin: 0px 0px 10px;\"><img src=\"http://127.0.0.1:8000/storage/news/5a4fac7b0c59b/IqcieiWvaNfdzbSMQuDnbyuPW9N7eCaIMTo8nIJn.jpeg\" style=\"width: 300px; display: block; vertical-align: top; margin: 5px auto; text-align: center; box-sizing: border-box; border: 0px; cursor: pointer;\" data-headers=\"[object Object]\" data-original=\"\" fr-original-style=\"width: 300px; display: block; vertical-align: top; margin: 5px auto; text-align: center;\" fr-original-class=\"fr-draggable\"></p>', 1515170980, 1519257600, 1),
+(66, '5a5387a152587', 'real life', 'real life', 'info.png', 'real life life life', 'real life life life', NULL, NULL, 1515423694, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -267,22 +256,22 @@ CREATE TABLE `photo_gallery` (
 
 INSERT INTO `photo_gallery` (`id`, `date`, `title_SK`, `title_EN`, `folder`, `photo`) VALUES
 (1, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5627.JPG'),
-(3, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5635.JPG'),
-(4, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5728.JPG'),
-(5, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', 'DSCN8589.JPG'),
-(6, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5688.JPG'),
-(7, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5674.JPG'),
-(8, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6460.jpg'),
-(9, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6465.jpg'),
-(10, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6470.jpg'),
-(11, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6471.jpg'),
-(12, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6476.jpg'),
-(13, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6477.jpg'),
-(14, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6483.jpg'),
-(15, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6535.jpg'),
-(16, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6557.jpg'),
-(17, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6568.jpg'),
-(18, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '13 Meranie 01_0.JPG');
+(2, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5635.JPG'),
+(3, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5728.JPG'),
+(4, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', 'DSCN8589.JPG'),
+(5, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5688.JPG'),
+(6, '2017-02-07', 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', 'event001', '_MG_5674.JPG'),
+(7, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6460.jpg'),
+(8, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6465.jpg'),
+(9, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6470.jpg'),
+(10, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6471.jpg'),
+(11, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6476.jpg'),
+(12, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6477.jpg'),
+(13, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6483.jpg'),
+(14, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6535.jpg'),
+(15, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6557.jpg'),
+(16, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '2015-09-25-6568.jpg'),
+(17, '2015-09-25', 'Noc výskumníkov', 'Night of researchers', 'event002', '13 Meranie 01_0.JPG');
 
 -- --------------------------------------------------------
 
@@ -324,7 +313,27 @@ INSERT INTO `project` (`id`, `projectType`, `number`, `titleSK`, `titleEN`, `dur
 (12, 'International', 'SK06-II-01-004', 'Podpora medzinárodnej mobility medzi STU Bratislava, NTNU Trondheim a Universität Liechtenstein \r\n', 'Support of international mobilites between STU Bratislava, NTNU Trondheim, and Universität Liechtenstein \r\n', '2.6.2015 - 30.9.2016', 'zodpovedný za ÚAMT - prof. Ing. Mikuláš Huba, PhD. \r\n', 'Norwegian University of Science and Technology Trondheim (prof. Skogestad, prof. Johansen, prof. Hovd)|Universität Liechtenstein, Liechtenstein (prof. Droege)\r\n', NULL, NULL, 'Projekt rieši aktuálne otázky výskumu a vývoja moderných metód riadenia s využitím hardvérových realizácií konvenčných (PID) ako aj moderných (optimálne, robustné, prediktívne) algoritmov riadenia pre procesy s rýchlou dynamikou. V súčasnosti dominujú vo výskume a implementácii moderných riadiacich systémov tieto smery: riešenia na báze mikroprocesorov (softvérový prístup), jednoúčelové riešenia ASIC a riešenia na báze programovateľných hradlových polí (Field Programmable Gate Arrays, FPGA), ktoré predstavujú konfigurovateľné obvody vysokého stupňa integrácie (VLSI) schopné integrovať rôzne logické a riadiace funkcie. Hardvérové implementácie algoritmov riadenia sú v porovnaní so softvérovými realizáciami vo všeobecnosti o niekoľko rádov rýchlejšie, pretože spracovanie v nich prebieha paralelne, navyše sú kompaktnejšie a vo všeobecnosti lacnejšie. Hlavným cieľom projektu je výskum a vývoj algoritmov na báze FPGA štruktúr, ktorý bude skúmaný na vývojových FPGA systémoch a verifikovaný na fyzikálnych laboratórnych modeloch s rýchlou dynamikou.\r\n', 'The aim of the project is to support international mobility of students, PhD students, and staff members of four participating faculties of STU in Bratislava with partners from NTNU Trondheim and Universität Liechtenstein. It will initiate academic cooperation between the University of Liechtenstein and STU Bratislava in construction, architecture, and space planning, focusing on the use of alternative energy sources in operation of buildings, including computer-aided simulations of energy needs and internal environment, and spatial planning of rural settlements as well. The project also contributes to further strengthening of already existing cooperation between NTNU Trondheim and faculties of STU in Bratislava in the field of advanced methods of automatic control and to progress of inter-faculty cooperation at STU in Bratislava.\r\n'),
 (13, 'other', 'TB ', 'Softvérové riadenie smerovej dynamiky vozidla UGV 6x6 \r\n', 'Softvérové riadenie smerovej dynamiky vozidla UGV 6x6 \r\n', '2015', 'Ing. Martin Bugár, PhD. \r\n', NULL, NULL, '7506', NULL, NULL),
 (14, 'other', 'VW ', 'Predlžovanie životnosti akumulátorového systému \r\n', 'Predlžovanie životnosti akumulátorového systému \r\n', '2015', 'Ing. Martin Bugár, PhD. \r\n', NULL, NULL, '7509', NULL, NULL),
-(15, 'other', 'MV ', 'REST platforma pre online riadenie experimentov \r\n', 'REST Platform for Online Control of Experiments \r\n', '2015', 'Ing. Miroslav Gula \r\n', NULL, NULL, '1361', '\"Tento projekt je súčasťou rozsiahlejšieho cieľa o vytvorenie univerzálneho protokolu pre vzdialené riadenie reálnych sústav a tiež balíka softvérových nástrojov na jeho implementáciu. Hlavným cieľom celého úsilia je zjednodušiť a urýchliť budovanie modulárnych online laboratórií.\r\nÚlohami projektu sú návrh a vytvorenie nástroaj pre vzdialený prístup k softvéru Scilab, zavŕšenie implementácie podobného nástroja určeného pre softvérový balík Matlab/Simulink, a návrh a čiastočná implementácia mechatronického systému, ktorý bude v budúcnosti slúžiť na demonštráciu spomenutých nástrojov a následne ako učebná pomôcka.\"\r\n', 'The project is a part of an extensive endeavor to create universal protocol for remote control of real plants, and a suite of software tools to implement this protocol. The main objective of this whole endeavor is to simplify and accelerate implementation of modular online laboratories. Tasks of this project include design and implementation of a software tool for remote access to Scilab, completion of implementation of a similar tool for Matlab/Simulink, and design and partial implementation of a mechatronic system which will serve for demonstration of mentioned tools and later on as teaching aid.\r\n');
+(15, 'other', 'MV ', 'REST platforma pre online riadenie experimentov \r\n', 'REST Platform for Online Control of Experiments \r\n', '2015', 'Ing. Miroslav Gula \r\n', NULL, NULL, '1361', '\"Tento projekt je súčasťou rozsiahlejšieho cieľa o vytvorenie univerzálneho protokolu pre vzdialené riadenie reálnych sústav a tiež balíka softvérových nástrojov na jeho implementáciu. Hlavným cieľom celého úsilia je zjednodušiť a urýchliť budovanie modulárnych online laboratórií.\r\nÚlohami projektu sú návrh a vytvorenie nástroaj pre vzdialený prístup k softvéru Scilab, zavŕšenie implementácie podobného nástroja určeného pre softvérový balík Matlab/Simulink, a návrh a čiastočná implementácia mechatronického systému, ktorý bude v budúcnosti slúžiť na demonštráciu spomenutých nástrojov a následne ako učebná pomôcka.\"\r\n', 'The project is a part of an extensive endeavor to create universal protocol for remote control of real plants, and a suite of software tools to implement this protocol. The main objective of this whole endeavor is to simplify and accelerate implementation of modular online laboratories. Tasks of this project include design and implementation of a software tool for remote access to Scilab, completion of implementation of a similar tool for Matlab/Simulink, and design and partial implementation of a mechatronic system which will serve for demonstration of mentioned tools and later on as teaching aid.\r\n'),
+(17, 'International', '12345/s', 'ťľščťľščdfasdf', 'haha hľa', '2017-2018', 'Ja', NULL, NULL, '12345', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `settings`
+--
+
+CREATE TABLE `settings` (
+  `settings_id` int(11) NOT NULL,
+  `pagination_count` int(11) NOT NULL,
+  `file_max_size` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sťahujem dáta pre tabuľku `settings`
+--
+
+INSERT INTO `settings` (`settings_id`, `pagination_count`, `file_max_size`) VALUES
+(1, 5, 20971520);
 
 -- --------------------------------------------------------
 
@@ -345,56 +354,59 @@ CREATE TABLE `staff` (
   `department` varchar(30) COLLATE utf8_slovak_ci NOT NULL,
   `staffRole` varchar(40) COLLATE utf8_slovak_ci NOT NULL,
   `function` varchar(120) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `role` varchar(10) COLLATE utf8_slovak_ci NOT NULL
+  `role` varchar(10) COLLATE utf8_slovak_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_slovak_ci NOT NULL,
+  `web` varchar(100) COLLATE utf8_slovak_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 --
 -- Sťahujem dáta pre tabuľku `staff`
 --
 
-INSERT INTO `staff` (`id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`, `photo`, `room`, `phone`, `department`, `staffRole`, `function`, `role`) VALUES
-(1, 'Vladislav', 'Bača', 'Ing.', NULL, NULL, 'baca.jpg', 'T005', '264', 'OEMP', 'doktorand', NULL, '10000'),
-(2, 'Peter', 'Balko', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', NULL, '10000'),
-(3, 'Richard', 'Balogh', 'Ing.', ' PhD.', NULL, 'balogh.jpg', 'D110', '411', 'OEMP', 'teacher', 'zástupca vedúceho oddelenia', '10000'),
-(4, 'Igor', 'Bélai', 'Ing.', ' PhD.', NULL, NULL, 'D 126', '478', 'OEMP', 'teacher', NULL, '10000'),
-(5, 'Katarína', 'Beringerová', NULL, NULL, NULL, NULL, 'A 705', '672', 'AHU', 'teacher', NULL, '10000'),
-(6, 'Pavol', 'Bisták', 'Ing.', ' PhD.', 'bistak', 'bistak.jpg', 'D 120', '695', 'OEAP', 'teacher', NULL, '10011'),
-(7, 'Dmitrii', 'Borkin', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', NULL, '10000'),
-(8, 'Martin', 'Bugár', 'Ing.', ' PhD.', NULL, NULL, 'A 708', '579', 'OEAP', 'teacher', NULL, '10000'),
-(9, 'Ján', 'Cigánek', 'Ing.', ' PhD.', NULL, NULL, 'D 104', '686', 'OIKR', 'teacher', NULL, '10000'),
-(10, 'Peter', 'Drahoš', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 118', '669', 'OEMP', 'teacher', NULL, '10000'),
-(11, 'František', 'Erdödy', NULL, NULL, NULL, 'erdody.jpg', 'A S39', '818', 'AHU', 'teacher', NULL, '10000'),
-(12, 'Viktor', 'Ferencey', 'prof. Ing.', ' PhD.', NULL, 'ferencey.jpg', 'A 802', '438', 'OEAP', 'teacher', 'zástupca vedúceho oddelenia', '10000'),
-(13, 'Peter', 'Fuchs', 'doc. Ing.', ' PhD.', NULL, NULL, 'B S05', '826', 'OEMP', 'researcher', NULL, '10000'),
-(14, 'Gabriel', 'Gálik', 'Ing.', NULL, NULL, NULL, 'A 706', '559', 'OAMM', 'researcher', NULL, '11000'),
-(15, 'Vladimír', 'Goga', 'doc. Ing.', ' PhD.', NULL, NULL, 'A 702', '687', 'OAMM', 'teacher', NULL, '10000'),
-(16, 'Miroslav', 'Gula', 'Ing.', NULL, 'xgulam', 'gula.jpg', 'D 103', '628', 'OIKR', 'doktorand', NULL, '11001'),
-(17, 'Oto', 'Haffner', 'Ing.', ' PhD.', NULL, 'haffner.jpg', 'D 125', '315', 'OIKR ', 'teacher', NULL, '10010'),
-(18, 'Juraj', 'Hrabovský', 'Ing.', ' PhD.', NULL, NULL, 'A 706', '559', 'OAMM', 'teacher', NULL, '10000'),
-(19, 'Mikuláš', 'Huba', 'prof. Ing.', ' PhD.', NULL, 'huba.jpg', 'D 112', '771', 'OEAP', 'teacher', 'riaditeľ ústavu; vedúci oddelenia', '10000'),
-(20, 'Mária', 'Hypiusová', 'Ing.', ' PhD.', NULL, NULL, 'D 122', '193', 'OIKR', 'teacher', NULL, '10000'),
-(21, 'Štefan', 'Chamraz', 'Ing.', ' PhD.', NULL, NULL, 'D 107', '848', 'OEMP', 'teacher', NULL, '10000'),
-(22, 'Jakub', 'Jakubec', 'Ing.', ' PhD.', NULL, NULL, 'A 707', '452', 'OAMM ', 'researcher', NULL, '10000'),
-(23, 'Igor', 'Jakubička', 'Ing.', NULL, NULL, 'jakubicka.jpg', 'T005', '264', 'OEMP', 'doktorand', NULL, '10000'),
-(24, 'Katarína', 'Kermietová', NULL, NULL, NULL, NULL, 'D 116', '598', 'AHU', 'teacher', 'zástupca vedúceho oddelenia', '10000'),
-(25, 'Ivan', 'Klimo', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', NULL, '10000'),
-(26, 'Michal', 'Kocúr', 'Ing.', ' PhD.', 'xkocurm2', 'kocur.jpg', 'D 104', '686', 'OIKR ', 'teacher', NULL, '10000'),
-(27, 'Štefan', 'Kozák', 'prof. Ing.', ' PhD.', NULL, 'kozak.jpg', 'D 115', '281', 'OEMP', 'teacher', 'zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia', '10000'),
-(28, 'Alena', 'Kozáková', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 111', '563', 'OIKR', 'teacher', NULL, '10000'),
-(29, 'Erik', 'Kučera', 'Ing.', ' PhD.', NULL, NULL, 'D 125', '315', 'OIKR ', 'teacher', NULL, '11000'),
-(30, 'Vladimír', 'Kutiš', 'doc. Ing.', ' PhD.', NULL, 'kutis.jpg', 'A 701', '562', 'OAMM ', 'teacher', 'zástupca vedúceho oddelenia', '10000'),
-(31, 'Alek', 'Lichtman', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', NULL, '10000'),
-(32, 'Justín', 'Murín', 'prof. Ing.', ' DrSc.', NULL, 'murin.jpg', 'A 704', '611', 'OAMM', 'teacher', 'zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia', '10000'),
-(33, 'Jakub', 'Osuský', 'Ing.', ' PhD.', NULL, 'osusky.jpg', 'D 123', '356', 'OIKR ', 'teacher', NULL, '10000'),
-(34, 'Tomáš', 'Paciga', 'Ing.', NULL, NULL, NULL, 'A 707', '452', 'OAMM', 'doktorand', NULL, '10000'),
-(35, 'Juraj', 'Paulech', 'Ing.', ' PhD.', NULL, 'paulech.jpg', 'A 701', '562', 'OAMM', 'teacher', NULL, '10100'),
-(36, 'Matej', 'Rábek', 'Ing.', NULL, 'xrabek', 'rabek.jpg', 'D 103', '628', 'OIKR', 'doktorand', NULL, '11001'),
-(37, 'Tibor', 'Sedlár', 'Ing. ', NULL, NULL, NULL, 'A 803', '399', 'OAMM', 'teacher', NULL, '10000'),
-(38, 'Erich', 'Stark', 'Ing.', NULL, NULL, 'stark.jpg', 'C 014', '', 'OIKR', 'doktorand', NULL, '10000'),
-(39, 'Peter', 'Ťapák', 'Ing.', ' PhD.', NULL, NULL, 'D 121', '569', 'OEAP', 'teacher', NULL, '10000'),
-(40, 'Katarína', 'Žáková', 'doc. Ing.', ' PhD.', 'zakova', 'zakova.jpg', 'D 119', '742', 'OIKR', 'teacher', 'zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia', '10001'),
-(41, 'Danica', 'Rosinová', 'doc. Ing.', ' PhD.', NULL, 'rosinova.jpg', 'D 111', '563', 'OIKR', 'teacher', 'vedúci oddelenia\r\n', '10000'),
-(42, 'Admin', 'Admin', NULL, NULL, 'xdzacovsky', NULL, '', NULL, '', '', NULL, '10001');
+INSERT INTO `staff` (`id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`, `photo`, `room`, `phone`, `department`, `staffRole`, `function`, `role`, `email`, `web`) VALUES
+(1, 'Vladislav', 'Bača', 'Ing.', NULL, NULL, 'baca.jpg', 'T005', '264', 'OEMP', 'doktorand', NULL, '10000', '', ''),
+(2, 'Peter', 'Balko', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', NULL, '10000', '', ''),
+(3, 'Richard', 'Balogh', 'Ing.', ' PhD.', NULL, 'balogh.jpg', 'D110', '411', 'OEMP', 'teacher', 'zástupca vedúceho oddelenia', '10000', '', ''),
+(4, 'Igor', 'Bélai', 'Ing.', ' PhD.', NULL, NULL, 'D 126', '478', 'OEMP', 'teacher', NULL, '10000', '', ''),
+(5, 'Katarína', 'Beringerová', NULL, NULL, NULL, NULL, 'A 705', '672', 'AHU', 'teacher', NULL, '10000', '', ''),
+(6, 'Pavol', 'Bisták', 'Ing.', ' PhD.', 'bistak', 'bistak.jpg', 'D 120', '695', 'OEAP', 'teacher', NULL, '10011', '', ''),
+(7, 'Dmitrii', 'Borkin', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', NULL, '10000', '', ''),
+(8, 'Martin', 'Bugár', 'Ing.', ' PhD.', NULL, NULL, 'A 708', '579', 'OEAP', 'teacher', NULL, '10000', '', ''),
+(9, 'Ján', 'Cigánek', 'Ing.', ' PhD.', NULL, NULL, 'D 104', '686', 'OIKR', 'teacher', NULL, '10000', '', ''),
+(10, 'Peter', 'Drahoš', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 118', '669', 'OEMP', 'teacher', NULL, '10000', '', ''),
+(11, 'František', 'Erdödy', NULL, NULL, NULL, 'erdody.jpg', 'A S39', '818', 'AHU', 'teacher', NULL, '10000', '', ''),
+(12, 'Viktor', 'Ferencey', 'prof. Ing.', ' PhD.', NULL, 'ferencey.jpg', 'A 802', '438', 'OEAP', 'teacher', 'zástupca vedúceho oddelenia', '10000', '', ''),
+(13, 'Peter', 'Fuchs', 'doc. Ing.', ' PhD.', NULL, NULL, 'B S05', '826', 'OEMP', 'researcher', NULL, '10000', '', ''),
+(14, 'Gabriel', 'Gálik', 'Ing.', NULL, NULL, NULL, 'A 706', '559', 'OAMM', 'researcher', NULL, '11000', '', ''),
+(15, 'Vladimír', 'Goga', 'doc. Ing.', ' PhD.', NULL, NULL, 'A 702', '687', 'OAMM', 'teacher', NULL, '10000', '', ''),
+(16, 'Miroslav', 'Gula', 'Ing.', NULL, 'xgulam', 'gula.jpg', 'D 103', '628', 'OIKR', 'doktorand', NULL, '11001', '', ''),
+(17, 'Oto', 'Haffner', 'Ing.', ' PhD.', NULL, 'haffner.jpg', 'D 125', '315', 'OIKR ', 'teacher', NULL, '10010', '', ''),
+(18, 'Juraj', 'Hrabovský', 'Ing.', ' PhD.', NULL, NULL, 'A 706', '559', 'OAMM', 'teacher', NULL, '10000', '', ''),
+(19, 'Mikuláš', 'Huba', 'prof. Ing.', ' PhD.', NULL, 'huba.jpg', 'D 112', '771', 'OEAP', 'teacher', 'riaditeľ ústavu; vedúci oddelenia', '10000', '', ''),
+(20, 'Mária', 'Hypiusová', 'Ing.', ' PhD.', NULL, NULL, 'D 122', '193', 'OIKR', 'teacher', NULL, '10000', '', ''),
+(21, 'Štefan', 'Chamraz', 'Ing.', ' PhD.', NULL, NULL, 'D 107', '848', 'OEMP', 'teacher', NULL, '10000', '', ''),
+(22, 'Jakub', 'Jakubec', 'Ing.', ' PhD.', NULL, NULL, 'A 707', '452', 'OAMM ', 'researcher', NULL, '10000', '', ''),
+(23, 'Igor', 'Jakubička', 'Ing.', NULL, NULL, 'jakubicka.jpg', 'T005', '264', 'OEMP', 'doktorand', NULL, '10000', '', ''),
+(24, 'Katarína', 'Kermietová', NULL, NULL, NULL, NULL, 'D 116', '598', 'AHU', 'teacher', 'zástupca vedúceho oddelenia', '10000', '', ''),
+(25, 'Ivan', 'Klimo', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', NULL, '10000', '', ''),
+(26, 'Michal', 'Kocúr', 'Ing.', ' PhD.', 'xkocurm2', 'kocur.jpg', 'D 104', '686', 'OIKR ', 'teacher', NULL, '10000', '', ''),
+(27, 'Štefan', 'Kozák', 'prof. Ing.', ' PhD.', NULL, 'kozak.jpg', 'D 115', '281', 'OEMP', 'teacher', 'zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia', '10000', '', ''),
+(28, 'Alena', 'Kozáková', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 111', '563', 'OIKR', 'teacher', NULL, '10000', '', ''),
+(29, 'Erik', 'Kučera', 'Ing.', ' PhD.', NULL, NULL, 'D 125', '315', 'OIKR ', 'teacher', NULL, '11000', '', ''),
+(30, 'Vladimír', 'Kutiš', 'doc. Ing.', ' PhD.', NULL, 'kutis.jpg', 'A 701', '562', 'OAMM ', 'teacher', 'zástupca vedúceho oddelenia', '10000', '', ''),
+(31, 'Alek', 'Lichtman', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', NULL, '10000', '', ''),
+(32, 'Justín', 'Murín', 'prof. Ing.', ' DrSc.', NULL, 'murin.jpg', 'A 704', '611', 'OAMM', 'teacher', 'zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia', '10000', '', ''),
+(33, 'Jakub', 'Osuský', 'Ing.', ' PhD.', NULL, 'osusky.jpg', 'D 123', '356', 'OIKR ', 'teacher', NULL, '10000', '', ''),
+(34, 'Tomáš', 'Paciga', 'Ing.', NULL, NULL, NULL, 'A 707', '452', 'OAMM', 'doktorand', NULL, '10000', '', ''),
+(35, 'Juraj', 'Paulech', 'Ing.', ' PhD.', NULL, 'paulech.jpg', 'A 701', '562', 'OAMM', 'teacher', NULL, '10100', '', ''),
+(36, 'Matej', 'Rábek', 'Ing.', NULL, 'xrabek', 'rabek.jpg', 'D 103', '628', 'OIKR', 'doktorand', NULL, '11001', '', ''),
+(37, 'Tibor', 'Sedlár', 'Ing. ', NULL, NULL, NULL, 'A 803', '399', 'OAMM', 'teacher', NULL, '10000', '', ''),
+(38, 'Erich', 'Stark', 'Ing.', NULL, NULL, 'stark.jpg', 'C 014', '', 'OIKR', 'doktorand', NULL, '10000', '', ''),
+(39, 'Peter', 'Ťapák', 'Ing.', ' PhD.', NULL, NULL, 'D 121', '569', 'OEAP', 'teacher', NULL, '10000', '', ''),
+(40, 'Katarína', 'Žáková', 'doc. Ing.', ' PhD.', 'zakova', 'zakova.jpg', 'D 119', '742', 'OIKR', 'teacher', 'zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia', '10001', '', ''),
+(41, 'Danica', 'Rosinová', 'doc. Ing.', ' PhD.', NULL, 'rosinova.jpg', 'D 111', '563', 'OIKR', 'teacher', 'vedúci oddelenia\r\n', '10000', '', ''),
+(42, 'Admin', 'Admin', NULL, NULL, 'xdzacovsky', NULL, '', NULL, '', '', NULL, '10001', '', ''),
+(43, 'Laravel', 'Laravel', 'Prof.', 'PhD.', 'xtrocha', NULL, '456', '123', 'ABC', 'developer', 'develop', '10001', '', '');
 
 -- --------------------------------------------------------
 
@@ -520,6 +532,12 @@ ALTER TABLE `project`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexy pre tabuľku `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`settings_id`);
+
+--
 -- Indexy pre tabuľku `staff`
 --
 ALTER TABLE `staff`
@@ -551,52 +569,74 @@ ALTER TABLE `video_gallery`
 -- AUTO_INCREMENT pre tabuľku `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT pre tabuľku `nakupy`
 --
 ALTER TABLE `nakupy`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT pre tabuľku `nepritomnosti`
 --
 ALTER TABLE `nepritomnosti`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
 --
 -- AUTO_INCREMENT pre tabuľku `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
 --
 -- AUTO_INCREMENT pre tabuľku `newsletter`
 --
 ALTER TABLE `newsletter`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
 --
 -- AUTO_INCREMENT pre tabuľku `photo_gallery`
 --
 ALTER TABLE `photo_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT pre tabuľku `project`
+--
+ALTER TABLE `project`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT pre tabuľku `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT pre tabuľku `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
 --
 -- AUTO_INCREMENT pre tabuľku `typ_nepritomnosti`
 --
 ALTER TABLE `typ_nepritomnosti`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT pre tabuľku `url`
 --
 ALTER TABLE `url`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT pre tabuľku `video_gallery`
 --
 ALTER TABLE `video_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

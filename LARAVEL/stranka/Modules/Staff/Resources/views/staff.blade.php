@@ -51,10 +51,10 @@ $(document).ready(function() {
 			var dep = 3;
 			this.api().columns().every( function (i) {
 				if(i == roles){
-					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em"></div></label>').prependTo($('#staff_filter'));
+					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em 20px 0.5em 0.5em"></div></label>').prependTo($('#staff_filter'));
 					$('<label>@lang("staff::staff.role")</label>').prependTo($('#staff_filter'));
 					var column = this;
-					var select = $('<select class="form-control input-sm"><option value=""></option></select>')
+					var select = $('<select class="form-control input-sm"><option value="">Žiadne</option></select>')
 						.prependTo( $('#filterbox').empty() )
 						.on( 'change', function () {
 							var val = $.fn.dataTable.util.escapeRegex(
@@ -75,10 +75,10 @@ $(document).ready(function() {
 				}
 				
 				if(i == dep){
-					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em"></div></label>').prependTo($('#staff_filter'));
+					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em 20px 0.5em 0.5em"></div></label>').prependTo($('#staff_filter'));
 					$('<label>@lang("staff::staff.department")</label>').prependTo($('#staff_filter'));
 					var column = this;
-					var select = $('<select class="form-control input-sm"><option value=""></option></select>')
+					var select = $('<select class="form-control input-sm"><option value="">Žiadne</option></select>')
 						.prependTo( $('#filterbox').empty() )
 						.on( 'change', function () {
 							var val = $.fn.dataTable.util.escapeRegex(
@@ -115,52 +115,54 @@ $(document).ready(function() {
 <section class="staff">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6" >
-				
+			<div class="table table-responsive">
+				<table id="staff" class="staff__table">
+					<thead>
+						<tr class="staff__table-title">
+							<th>@lang('staff::staff.name')</th>
+							<th>@lang('staff::staff.room')</th>
+							<th>@lang('staff::staff.phone') +421&nbsp;60291&nbsp;xxx</th>
+							<th>@lang('staff::staff.department')</th>
+							<th>@lang('staff::staff.role')</th>
+							<th>@lang('staff::staff.function')</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach($staff as $s)
+						<tr class="staff__table-row" data-href="{{ url('/staff') }}/{{ $s->id }}">
+							<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;{{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2) ,{{ $s->title2 }} @endif</td>
+							<td>{{ $s->room }}</td>
+							<td>{{ $s->phone }}</td>
+							<td>{{ $s->department }}</td>
+							<td>{{ $s->staffRole }}</td>
+							<td>{{ $s->function }}</td>						
+						</tr>
+						@endforeach
+					</tbody>
+					<tfoot>
+						<tr class="staff__table-title">
+							<th>@lang('staff::staff.name')</th>
+							<th>@lang('staff::staff.room')</th>
+							<th>@lang('staff::staff.phone')</th>
+							<th>@lang('staff::staff.department')</th>
+							<th>@lang('staff::staff.role')</th>
+							<th>@lang('staff::staff.function')</th>
+						</tr>
+					</tfoot>
+				</table>
 			</div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="table table-responsive">
-					<table id="staff" class="staff__table">
-						<thead>
-							<tr class="staff__table-title">
-								<th>@lang('staff::staff.name')</th>
-								<th>@lang('staff::staff.room')</th>
-								<th>@lang('staff::staff.phone') +421&nbsp;60291&nbsp;xxx</th>
-								<th>@lang('staff::staff.department')</th>
-								<th>@lang('staff::staff.role')</th>
-								<th>@lang('staff::staff.function')</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach($staff as $s)
-							<tr class="staff__table-row" data-href="{{ url('/staff') }}/{{ $s->id }}">
-								<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;{{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2) ,{{ $s->title2 }} @endif</td>
-								<td>{{ $s->room }}</td>
-								<td>{{ $s->phone }}</td>
-								<td>{{ $s->department }}</td>
-								<td>{{ $s->staffRole }}</td>
-								<td>{{ $s->function }}</td>						
-							</tr>
-							@endforeach
-						</tbody>
-						<tfoot>
-							<tr class="staff__table-title">
-								<th>@lang('staff::staff.name')</th>
-								<th>@lang('staff::staff.room')</th>
-								<th>@lang('staff::staff.phone')</th>
-								<th>@lang('staff::staff.department')</th>
-								<th>@lang('staff::staff.role')</th>
-								<th>@lang('staff::staff.function')</th>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
+			<div class="staff__notes">
+				<h5>Vyvetlivky pre oddelenia:</h5>
+				<p><b>AHU</b> - Administratívno - hospodársky úsek</p>
+				<p><b>OAMM</b> - Oddelenie aplikovanej mechaniky a mechatroniky</p>
+				<p><b>OEAP</b> - Oddelenie E-mobility, automatizácie a pohonov</p>
+				<p><b>OEMP</b> - Oddelenie elektroniky, mikropočítačov a PLC systémov</p>
+				<p><b>OIKR</b> - Oddelenie informačných, komunikačných a riadiacich systémov</p>
 			</div>
 		</div>
 	</div>
 </section>
 
 @stop
+
+
