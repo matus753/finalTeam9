@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Intranet'
+    'name' => 'Intranet',
+   
 ];

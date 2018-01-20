@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">    
 
-        <script src=" {{ URL::asset('js/scripty_upButton.js') }}"></script>
+      
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
@@ -112,7 +112,6 @@
 
 	
 	@yield('content')
-
 	<div class="push"></div>
     <footer class="nb-footer">
         <div class="container">
