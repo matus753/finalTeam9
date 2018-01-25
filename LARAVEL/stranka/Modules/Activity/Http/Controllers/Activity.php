@@ -14,10 +14,10 @@ class Activity extends Controller
 		$module_name = config('activity.name');
 		
 		$photos_db_previews = [];
-		$photos_cats = DB::table('photo_gallery')->select('folder')->groupBy('folder')->orderBy('date', 'desc')->get();
+		$photos_cats = DB::table('photo_gallery')->select('folder', 'title_SK', 'title_EN')->groupBy('folder')->orderBy('date', 'desc')->get();
 
 		foreach($photos_cats as $p){
-			$tmp = DB::table('photo_gallery')->limit(4)->get();
+			$tmp = DB::table('photo_gallery')->where('folder', $p->folder)->get();
 			$photos_db_previews[] = [ $p->folder => $tmp ];
 		}
 		
@@ -26,7 +26,8 @@ class Activity extends Controller
 			'categories' => $photos_cats,
 			'previews' => $photos_db_previews
 		];
-		debug($data);
+
+        //debug($data);
         return view('activity::photos_previews', $data);
     }
 	
@@ -42,7 +43,7 @@ class Activity extends Controller
 			'photos' => $photos
 		];
 		
-		debug($data);
+		//debug($data);
         return view('activity::photos', $data);
 	}
 	
@@ -81,7 +82,7 @@ class Activity extends Controller
 			'title' => $module_name,
 			'media' => $media_db
 		];
-		debug($data);
+		//debug($data);
         return view('activity::media', $data);
     }
 

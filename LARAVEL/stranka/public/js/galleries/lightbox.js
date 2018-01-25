@@ -1,9 +1,29 @@
+/*!
+ * Lightbox v2.10.0
+ * by Lokesh Dhakar
+ *
+ * More info:
+ * http://lokeshdhakar.com/projects/lightbox2/
+ *
+ * Copyright 2007, 2018 Lokesh Dhakar
+ * Released under the MIT license
+ * https://github.com/lokesh/lightbox2/blob/master/LICENSE
+ *
+ * @preserve
+ */
+
+// Uses Node, AMD or browser globals to create a module.
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
         define(['jquery'], factory);
     } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
         module.exports = factory(require('jquery'));
     } else {
+        // Browser globals (root is window)
         root.lightbox = factory(root.jQuery);
     }
 }(this, function ($) {
@@ -13,10 +33,13 @@
     this.currentImageIndex = void 0;
     this.init();
 
+    // options
     this.options = $.extend({}, this.constructor.defaults);
     this.option(options);
   }
 
+  // Descriptions of all options available on the demo site:
+  // http://lokeshdhakar.com/projects/lightbox2/index.html#options
   Lightbox.defaults = {
     albumLabel: 'Image %1 of %2',
     alwaysShowNavOnTouchDevices: false,
@@ -30,7 +53,14 @@
     showImageNumberLabel: true,
     wrapAround: false,
     disableScrolling: false,
+    /*
+    Sanitize Title
+    If the caption data is trusted, for example you are hardcoding it in, then leave this to false.
+    This will free you to add html tags, such as links, in the caption.
 
+    If the caption data is user submitted or from some other untrusted source, then set this to true
+    to prevent xss and other injection attacks.
+     */
     sanitizeTitle: false
   };
 
@@ -44,13 +74,15 @@
 
   Lightbox.prototype.init = function() {
     var self = this;
-
+    // Both enable and build methods require the body tag to be in the DOM.
     $(document).ready(function() {
       self.enable();
       self.build();
     });
   };
 
+  // Loop through anchors and areamaps looking for either data-lightbox attributes or rel attributes
+  // that contain 'lightbox'. When these are clicked, start lightbox.
   Lightbox.prototype.enable = function() {
     var self = this;
     $('body').on('click', 'a[rel^=lightbox], area[rel^=lightbox], a[data-lightbox], area[data-lightbox]', function(event) {
@@ -59,10 +91,17 @@
     });
   };
 
+  // Build html for the lightbox and the overlay.
+  // Attach event handlers to the new DOM elements. click click click
   Lightbox.prototype.build = function() {
+    if ($('#lightbox').length > 0) {
+        return;
+    }
+
     var self = this;
     $('<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><a class="lb-prev" href="" ></a><a class="lb-next" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>').appendTo($('body'));
 
+    // Cache jQuery objects
     this.$lightbox       = $('#lightbox');
     this.$overlay        = $('#lightboxOverlay');
     this.$outerContainer = this.$lightbox.find('.lb-outerContainer');
@@ -70,6 +109,7 @@
     this.$image          = this.$lightbox.find('.lb-image');
     this.$nav            = this.$lightbox.find('.lb-nav');
 
+    // Store css values for future lookup
     this.containerPadding = {
       top: parseInt(this.$container.css('padding-top'), 10),
       right: parseInt(this.$container.css('padding-right'), 10),
@@ -84,6 +124,7 @@
       left: parseInt(this.$image.css('border-left-width'), 10)
     };
 
+    // Attach event handlers to the newly minted DOM elements
     this.$overlay.hide().on('click', function() {
       self.end();
       return false;
@@ -121,6 +162,19 @@
       return false;
     });
 
+    /*
+      Show context menu for image on right-click
+
+      There is a div containing the navigation that spans the entire image and lives above of it. If
+      you right-click, you are right clicking this div and not the image. This prevents users from
+      saving the image or using other context menu actions with the image.
+
+      To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
+      set pointer-events to none on the nav div. This is so that the upcoming right-click event on
+      the next mouseup will bubble down to the image. Once the right-click/contextmenu event occurs
+      we set the pointer events back to auto for the nav div so it can capture hover and left-click
+      events as usual.
+     */
     this.$nav.on('mousedown', function(event) {
       if (event.which === 3) {
         self.$nav.css('pointer-events', 'none');
@@ -140,6 +194,7 @@
     });
   };
 
+  // Show overlay and lightbox. If the image is part of a set, add siblings to album array.
   Lightbox.prototype.start = function($link) {
     var self    = this;
     var $window = $(window);
@@ -157,11 +212,13 @@
 
     function addToAlbum($link) {
       self.album.push({
+        alt: $link.attr('data-alt'),
         link: $link.attr('href'),
         title: $link.attr('data-title') || $link.attr('title')
       });
     }
 
+    // Support both data-lightbox attribute and rel attribute implementations
     var dataLightboxValue = $link.attr('data-lightbox');
     var $links;
 
@@ -175,8 +232,10 @@
       }
     } else {
       if ($link.attr('rel') === 'lightbox') {
+        // If image is not part of a set
         addToAlbum($link);
       } else {
+        // If image is part of a set
         $links = $($link.prop('tagName') + '[rel="' + $link.attr('rel') + '"]');
         for (var j = 0; j < $links.length; j = ++j) {
           addToAlbum($($links[j]));
@@ -187,6 +246,7 @@
       }
     }
 
+    // Position Lightbox
     var top  = $window.scrollTop() + this.options.positionFromTop;
     var left = $window.scrollLeft();
     this.$lightbox.css({
@@ -194,13 +254,15 @@
       left: left + 'px'
     }).fadeIn(this.options.fadeDuration);
 
+    // Disable scrolling of the page while open
     if (this.options.disableScrolling) {
-      $('body').addClass('lb-disable-scrolling');
+      $('html').addClass('lb-disable-scrolling');
     }
 
     this.changeImage(imageNumber);
   };
 
+  // Hide most UI elements in preparation for the animated resizing of the lightbox.
   Lightbox.prototype.changeImage = function(imageNumber) {
     var self = this;
 
@@ -214,6 +276,7 @@
 
     this.$outerContainer.addClass('animating');
 
+    // When image to show is preloaded, we send the width and height to sizeContainer()
     var preloader = new Image();
     preloader.onload = function() {
       var $preloader;
@@ -224,7 +287,10 @@
       var windowHeight;
       var windowWidth;
 
-      $image.attr('src', self.album[imageNumber].link);
+      $image.attr({
+        'alt': self.album[imageNumber].alt,
+        'src': self.album[imageNumber].link
+      });
 
       $preloader = $(preloader);
 
@@ -232,11 +298,15 @@
       $image.height(preloader.height);
 
       if (self.options.fitImagesInViewport) {
+        // Fit image inside the viewport.
+        // Take into account the border around the image and an additional 10px gutter on each side.
+
         windowWidth    = $(window).width();
         windowHeight   = $(window).height();
         maxImageWidth  = windowWidth - self.containerPadding.left - self.containerPadding.right - self.imageBorderWidth.left - self.imageBorderWidth.right - 20;
         maxImageHeight = windowHeight - self.containerPadding.top - self.containerPadding.bottom - self.imageBorderWidth.top - self.imageBorderWidth.bottom - 120;
 
+        // Check if image size is larger then maxWidth|maxHeight in settings
         if (self.options.maxWidth && self.options.maxWidth < maxImageWidth) {
           maxImageWidth = self.options.maxWidth;
         }
@@ -244,6 +314,8 @@
           maxImageHeight = self.options.maxHeight;
         }
 
+        // Is the current image's width or height is greater than the maxImageWidth or maxImageHeight
+        // option than we need to size down while maintaining the aspect ratio.
         if ((preloader.width > maxImageWidth) || (preloader.height > maxImageHeight)) {
           if ((preloader.width / maxImageWidth) > (preloader.height / maxImageHeight)) {
             imageWidth  = maxImageWidth;
@@ -265,12 +337,14 @@
     this.currentImageIndex = imageNumber;
   };
 
+  // Stretch overlay to fit the viewport
   Lightbox.prototype.sizeOverlay = function() {
     this.$overlay
       .width($(document).width())
       .height($(document).height());
   };
 
+  // Animate the size of the lightbox to fit the image we are showing
   Lightbox.prototype.sizeContainer = function(imageWidth, imageHeight) {
     var self = this;
 
@@ -298,6 +372,7 @@
     }
   };
 
+  // Display the image and its details and begin preload neighboring images.
   Lightbox.prototype.showImage = function() {
     this.$lightbox.find('.lb-loader').stop(true).hide();
     this.$lightbox.find('.lb-image').fadeIn(this.options.imageFadeDuration);
@@ -308,7 +383,11 @@
     this.enableKeyboardNav();
   };
 
+  // Display previous and next navigation if appropriate.
   Lightbox.prototype.updateNav = function() {
+    // Check to see if the browser supports touch events. If so, we take the conservative approach
+    // and assume that mouse hover events are not supported and always show prev/next navigation
+    // arrows in image sets.
     var alwaysShowNav = false;
     try {
       document.createEvent('TouchEvent');
@@ -340,9 +419,12 @@
     }
   };
 
+  // Display caption, image number, and closing button.
   Lightbox.prototype.updateDetails = function() {
     var self = this;
 
+    // Enable anchor clicks in the injected caption html.
+    // Thanks Nate Wright for the fix. @https://github.com/NateWr
     if (typeof this.album[this.currentImageIndex].title !== 'undefined' &&
       this.album[this.currentImageIndex].title !== '') {
       var $caption = this.$lightbox.find('.lb-caption');
@@ -375,6 +457,7 @@
     });
   };
 
+  // Preload previous and next images in set.
   Lightbox.prototype.preloadNeighboringImages = function() {
     if (this.album.length > this.currentImageIndex + 1) {
       var preloadNext = new Image();
@@ -418,6 +501,7 @@
     }
   };
 
+  // Closing time. :-(
   Lightbox.prototype.end = function() {
     this.disableKeyboardNav();
     $(window).off('resize', this.sizeOverlay);
@@ -427,7 +511,7 @@
       visibility: 'visible'
     });
     if (this.options.disableScrolling) {
-      $('body').removeClass('lb-disable-scrolling');
+      $('html').removeClass('lb-disable-scrolling');
     }
   };
 
