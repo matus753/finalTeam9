@@ -16,10 +16,10 @@
             @if($m->type == 'link')
                 <p><a target="_blank" href="{{$m->url}}">Klikni pre pokračovanie</a></p>
             @elseif($m->type == 'server')
-                <p><a target="_blank" href="{{URL::asset('docs/' . $m->file)}}">Pokračuj na PDF</a></p>
+                <p><a target="_blank" href="{{URL::asset('docs/' . $m->filename)}}">Pokračuj na PDF</a></p>
             @else
                 <p><a target="_blank" href="{{$m->url}}">Klikni pre pokračovanie</a></p>
-                <p><a target="_blank" href="{{URL::asset('docs/' . $m->file)}}">Pokračuj na PDF</a></p>
+                <p><a target="_blank" href="{{URL::asset('docs/' . $m->filename)}}">Pokračuj na PDF</a></p>
             @endif
         </div>
 @endforeach

@@ -11,6 +11,7 @@ class Activity extends Controller
 {
     public function photos_previews()
     {
+		// TO DO MULTILANG
 		$module_name = config('activity.name');
 		
 		$photos_db_previews = [];
@@ -35,6 +36,7 @@ class Activity extends Controller
 		if($event == ''){
 			return false;
 		}
+		// TO DO MULTILANG
 		//to do remove bad string
 		$module_name = config('activity.name');
 		$photos = DB::table('photo_gallery')->where('folder', $event)->get();
@@ -49,6 +51,7 @@ class Activity extends Controller
 	
     public function videos()
     {
+		// TO DO MULTILANG
 		$module_name = config('activity.name');
 		$videos_db_cats = DB::table('video_gallery')->select('type')->groupBy('type')->get();
 		
@@ -74,6 +77,7 @@ class Activity extends Controller
 	
     public function media()
     {
+		// TO DO MULTILANG
 		$module_name = config('activity.name');
 		
 		$media_db = DB::table('media')->get();

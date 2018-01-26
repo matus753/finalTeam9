@@ -38,10 +38,10 @@
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
 					<li><a href="{{ url('/news-admin') }}" class="navbarItem">Aktuality</a></li>
                     <li><a href="{{ url('/projects-admin') }}" class="navbarItem">Projekty</a></li>
-                    <li><a href="{{ url('/staff-admin') }}" class="navbarItem">Pracovníci</a></li>
+                    <li><a href="#TODO" class="navbarItem">Pracovníci</a></li>
                     <li><a href="{{ url('/media-admin') }}" class="navbarItem">Médiá</a></li>
-                    <li><a href="{{ url('/videos-admin') }}" class="navbarItem">Videá</a></li>
-                    <li><a href="{{ url('/photos-admin') }}" class="navbarItem">Fotky</a></li>
+                    <li><a href="#TODO" class="navbarItem">Videá</a></li>
+                    <li><a href="#TODO" class="navbarItem">Fotky</a></li>
 				</ul>
 				</ul>
             </div>
