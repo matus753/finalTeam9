@@ -45,13 +45,13 @@ class News extends Controller
 			if($expired){
 				$res = DB::table('news')->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}else{
-				$res = DB::table('news')->where('date_expiration', '>=', time())->orderBy('date_expiration', 'desc')->paginate($pages_count);
+				$res = DB::table('news')->where('date_expiration', '>=', time()-86400)->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}
 		}else{ // podla typu
 			if($expired){
 				$res = DB::table('news')->where('type', $filter)->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}else{
-				$res = DB::table('news')->where('date_expiration', '>=', time())->where('type', $filter)->orderBy('date_expiration', 'desc')->paginate($pages_count);
+				$res = DB::table('news')->where('date_expiration', '>', time())->where('type', $filter)->orderBy('date_expiration', 'desc')->paginate($pages_count);
 			}
 		}
 		

@@ -179,11 +179,13 @@ class Intranet extends Controller
 
         $item = DB::table('news')->where('id', $id)->first();
         $types = config('news_admin.types');
+        $file_max_size = DB::table('settings')->value('file_max_size');
 
         $data = [
             'title' => $this->module_name,
             'item' => $item,
-            'types' => $types
+            'types' => $types,
+            'file_max_size' => $file_max_size
         ];
        
         return view('intranet::news/news_edit', $data);

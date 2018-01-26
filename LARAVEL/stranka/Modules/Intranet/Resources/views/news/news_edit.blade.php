@@ -39,13 +39,13 @@
             // images upload
             imageUploadParam: 'image',
             imageUploadURL: '{{ url("/news-admin/news_image_upload") }}',
-            imageUploadParams: { news_id_hash: '{{ $hash_id }}' },
+            imageUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
             imageUploadMethod: 'POST',
             imageAllowedTypes: ['jpeg', 'jpg', 'png', 'giff'],
             // file upload
             fileUploadParam: 'attachment',
             fileUploadURL: '{{ url("/news-admin/news_file_upload") }}',
-            fileUploadParams: { news_id_hash: '{{ $hash_id }}' },
+            fileUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
             fileUploadMethod: 'POST',
             fileMaxSize: {{ $file_max_size }},
             fileAllowedTypes: ['*']
@@ -59,13 +59,13 @@
             imageUploadParam: 'image',
             imageUploadURL: '{{ url("/news-admin/news_image_upload") }}',
             requestHeaders: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            imageUploadParams: { news_id_hash: '{{ $hash_id }}' },
+            imageUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
             imageUploadMethod: 'POST',
             imageAllowedTypes: ['jpeg', 'jpg', 'png', 'giff'],
             // file upload
             fileUploadParam: 'attachment',
             fileUploadURL: '{{ url("/news-admin/news_file_upload") }}',
-            fileUploadParams: { news_id_hash: '{{ $hash_id }}' },
+            fileUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
             fileUploadMethod: 'POST',
             fileMaxSize: {{ $file_max_size }},
             fileAllowedTypes: ['*']

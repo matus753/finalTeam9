@@ -49,12 +49,9 @@ function check(){
 	<div class="row" style="margin-bottom: 10px">
 		<div class="ib-inline ib-left">
 			<div class="ib-in">
-				<h3>Aktuality</h3>
-				<p>Q: to do neverending expiration?</p>
-			</div>
-			<div class="ib-in">
 				<button type='button' class='btn  ib-add' data-toggle='modal' data-target='#newsletter'>Newsletter TODO</button>
 			</div>
+			<p>Q: to do neverending expiration?</p>
 		</div>
 		
 		<div class="ib-inline ib-right">
@@ -74,24 +71,31 @@ function check(){
 
     <div class="row" >
         <div class="col-md-12" id="news-content">
-			{!! $news->appends(Request::input())->render() !!}
-			@foreach($news as $n)
-				<div class="row" style="margin: 1em; background-color: grey;">
-					<div class="col-md-12">
-						<div class="col-md-2">
-							<img src="{{ get_news_image($n->image_hash_name) }}" alt="image" height="120">
-						</div>
-						<div class="col-md-10">
-							<h4>{{ $n->title_sk }}</h4>
-							<p>{{ $n->preview_sk }}</p>
-							@if($n->editor_content_sk)
-								<a href="{{ url('/news/content/'.$n->id) }}" class="btn btn-primary">Read more</a>
-							@endif
-							<h5>Expirácia: {{ $n->date_expiration }}</h5>
+			@if($news)
+				{!! $news->appends(Request::input())->render() !!}
+				@foreach($news as $n)
+					<div class="row" style="margin: 1em; background-color: grey;">
+						<div class="col-md-12">
+							<div class="col-md-3">
+								<img src="{{ get_news_image($n->image_hash_name) }}" alt="image" height="120">
+							</div>
+							<div class="col-md-9">
+								<h4>{{ $n->title_sk }}</h4>
+								<p>{{ $n->preview_sk }}</p>
+								@if($n->editor_content_sk)
+									<a href="{{ url('/news/content/'.$n->id) }}" class="btn btn-primary">Read more</a>
+								@endif
+								<h5>Expirácia: {{ $n->date_expiration }}</h5>
+							</div>
 						</div>
 					</div>
+				@endforeach
+				{!! $news->appends(Request::input())->render() !!}
+			@else
+				<div class="text-center">
+					<h3>Žiadne aktuality</h3>
 				</div>
-			@endforeach
+			@endif
         </div>
 	</div>
 </div>   
