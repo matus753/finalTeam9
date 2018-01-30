@@ -15,7 +15,14 @@ class Activity extends Controller
 		$module_name = config('activity.name');
 		
 		$photos_db_previews = [];
-		$photos_cats = DB::table('photo_gallery')->select('folder', 'title_SK', 'title_EN')->groupBy('folder')->orderBy('date', 'desc')->get();
+
+		$locale = session()->get('locale');
+	
+		if($locale == 'sk'){
+			$photos_cats = DB::table('photo_gallery')->select('folder', 'title_SK as title')->groupBy('folder')->orderBy('date', 'desc')->get();
+		}else{
+			$photos_cats = DB::table('photo_gallery')->select('folder', 'title_EN as title')->groupBy('folder')->orderBy('date', 'desc')->get();
+		}
 
 		foreach($photos_cats as $p){
 			$tmp = DB::table('photo_gallery')->where('folder', $p->folder)->get();
@@ -66,11 +73,20 @@ class Activity extends Controller
 		$filter = $request->input('category');
 		
 		$videos_db = null;
+		$locale = session()->get('locale');
 		
 		if($filter == 'all'){
-			$videos_db = DB::table('video_gallery')->get();
+			if($locale == 'sk'){
+				$videos_db = DB::table('video_gallery')->select('title_SK as title', 'url', 'type')->get();
+			}else{
+				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type')->get();
+			}
 		}else{
-			$videos_db = DB::table('video_gallery')->where('type', $filter)->get();
+			if($locale == 'sk'){
+				$videos_db = DB::table('video_gallery')->select('title_SK as title', 'url', 'type')->where('type', $filter)->get();
+			}else{
+				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type')->where('type', $filter)->get();
+			}
 		}
 		return json_encode($videos_db);
 	}

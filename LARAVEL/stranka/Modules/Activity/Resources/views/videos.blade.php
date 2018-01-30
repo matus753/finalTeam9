@@ -36,11 +36,11 @@
 	}
 
 	function showData(data) {
-        var videos = JSON.parse(data);
+		var videos = JSON.parse(data);
         var content = document.getElementById('links');
         content.innerHTML = '';
         for(v in videos){
-            content.innerHTML += '<p><i class="fa fa-youtube-play" aria-hidden="true"></i><a href="' + videos[v].url + '">' + videos[v].title_SK + '</a></p>';
+            content.innerHTML += '<p><i class="fa fa-youtube-play" aria-hidden="true"></i><a href="' + videos[v].url + '">' + videos[v].title + '</a></p>';
         }
     }
 	
@@ -56,7 +56,7 @@
 		@endforeach
 	</select>
 	
-	<div class="video-content" id="links">
+	<div class="video-content" id="links" style="padding: 2em;">
 
 	</div>
 </div>    

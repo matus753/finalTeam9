@@ -15,7 +15,7 @@
     <div class="gallery">
 
         @foreach($categories as $i => $c)
-            <h2>{{ $c->title_SK }}</h2>
+            <h2>{{ $c->title }}</h2>
             <div class="gallery-row style-13" id="gallery-line-{{$i}}" onwheel="onScrollMove(event,'gallery-line-{{$i}}')">
                 @foreach($previews[$i] as $j => $data)
                     @foreach($data as $d)
