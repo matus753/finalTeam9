@@ -44,7 +44,7 @@ hr {
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
-    color: #3CDAB2;
+    color: rgb(10, 97, 188);
 }
 
 .modal-project-text {
@@ -105,4 +105,7 @@ th{
 }
 .table-responsive{
     margin-bottom: 30px;
+}
+.defHide{
+    display: none;
 }

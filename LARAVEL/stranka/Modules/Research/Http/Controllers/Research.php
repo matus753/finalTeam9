@@ -36,7 +36,18 @@ class Research extends Controller
 		//debug($data, true);
         return view('research::projects', $data);
     }
-	
+
+    public function show($id){
+
+        if(!is_numeric($id)){
+            return false;
+        }
+        $project = DB::table('project')->where('id',$id )->get();
+
+        return json_encode($project[0]);
+
+    }
+
 	public function ekart()
     {
 		$module_name = config('research.name');
