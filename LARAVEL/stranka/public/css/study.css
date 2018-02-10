@@ -135,3 +135,63 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 .showInline{
     display: inline;
 }
+/*/--------------------------------------------------------/*/
+.category{
+    color: white;
+    background-color: rgba(10, 97, 188, 0.8);
+}
+.fa.fa-search-plus.themes-icon-plus{
+    color: rgb(10,87,188);
+    margin-right: 10px;
+}
+.fa.fa-arrow-left{
+    color: white;
+    margin-right: 10px;
+}
+#goBackBtn{
+    color: white;
+    background-color: rgba(10, 97, 188, 0.8);
+}
+#goBackBtn:hover{
+    background-color: rgb(10, 97, 188);
+}
+/*#emPAGEcontent{*/
+    /*margin-bottom: 300px;*/
+/*}*/
+.filterLabel {
+    color: #bbbbbb;
+    font-weight: 100;
+    font-size: 12px;
+    margin-left: 20px;
+}
+#ustavSelect, #programSelect, #inputFind{
+    margin-left: 5px;
+}
+#thesisFilter{
+    margin-top: 20px;
+}
+#thesisBtn{
+    margin-bottom: 100px;
+}
+.anotacia{
+    padding: 20px 0 20px 20px;
+    text-align: justify;
+    font-style: italic;
+}
+.m{
+    cursor: pointer;
+}
+.loaded{
+    display: none;
+}
+.loading{
+    margin-top: 50px;
+}
+.nothing{
+    display: none;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.thesisTitle{
+    display: inline;
+}

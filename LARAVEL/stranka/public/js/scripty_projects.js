@@ -1,4 +1,5 @@
 $('.m').on("click",function(){
+    // console.log($(this).data('href'));
     $.ajax({
         // type: 'GET',
         url: $(this).data('href'),

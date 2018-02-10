@@ -42,6 +42,9 @@ Route::post('/news/optin', '\Modules\News\Http\Controllers\News@optin');
 Route::get('/news/content/{id}', '\Modules\News\Http\Controllers\News@show_content_news');
 
 /* Study */
+Route::get('/thesis/anotation', '\Modules\Study\Http\Controllers\Study@getThesisAnot');
+Route::get('/thesis/filter', '\Modules\Study\Http\Controllers\Study@getFilterThesis');
+Route::get('/thesis/{id}', '\Modules\Study\Http\Controllers\Study@getAvailableThesis');
 Route::get('/admission', '\Modules\Study\Http\Controllers\Study@admission');
 Route::get('/bachelor', '\Modules\Study\Http\Controllers\Study@bachelor');
 Route::get('/master', '\Modules\Study\Http\Controllers\Study@master');

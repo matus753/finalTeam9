@@ -101,7 +101,7 @@
                             </div>
                             <div class="freeTopics">
                                 <h4 class="bold showInline">@lang('study::study.freeThesis')</h4>
-                                <a href="themesDP.php" target="_blank" class="themes-here showInline"><span id="freeTopicsArrow" class="fa fa-arrow-circle-o-right" aria-hidden="true"></span></a>
+                                <a href="{{ url('/thesis') }}/{{ 2 }}" target="_self" class="themes-here showInline"><span id="freeTopicsArrow" class="fa fa-arrow-circle-o-right" aria-hidden="true"></span></a>
                             </div>
                         </div>
                     </div>
