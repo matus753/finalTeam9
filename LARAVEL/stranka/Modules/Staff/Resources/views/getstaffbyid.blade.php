@@ -48,7 +48,7 @@ function showPubs(){
 				<div class="row">
 					@if( $ais->photo )
 					<div class="col-sm-4 staff-profile__img">
-						<img src="{{ URL::asset('images/staffPhoto') }}/{{ $ais->photo }}" alt="{{ $ais->photo }}">
+						<img src="{{ get_profile_photo($ais->photo) }}" alt="{{ $ais->photo }}">
 					</div>
 					<div class="col-sm-offset-1 col-sm-7">
 					@else

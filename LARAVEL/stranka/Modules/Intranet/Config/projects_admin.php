@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+    'activation' => true,
     'types' => [
             'vega' => 'VEGA',
             'kega' => 'KEGA',

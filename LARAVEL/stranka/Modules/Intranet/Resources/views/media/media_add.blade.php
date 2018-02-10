@@ -82,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <label for="date">Dátum:</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" required />
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" />
                 </div>
                 <div id="div_link" class="form-group hidden">
                     <label for="link">Link:</label>
@@ -90,7 +90,7 @@
                 </div>
                 <div id="div_file" class="form-group hidden">
                     <label for="file">Súbor:</label>
-                    <input type="file" class="form-control" id="file" name="file" placeholder="Súbor" />
+                    <input type="file" class="form-control" id="file" name="files[]" placeholder="Súbor" multiple/>
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
             </form>

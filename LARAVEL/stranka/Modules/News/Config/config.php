@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'News'
+    'name' => 'News',
+    'items_per_page' => 5,
 ];

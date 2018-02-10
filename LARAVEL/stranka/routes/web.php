@@ -59,7 +59,7 @@ Route::get('/biomechatronic', '\Modules\Research\Http\Controllers\Research@biome
 Route::get('/videos', '\Modules\Activity\Http\Controllers\Activity@videos');
 Route::post('/videos/filter', '\Modules\Activity\Http\Controllers\Activity@ajax_get_videos_by_type');
 Route::get('/media', '\Modules\Activity\Http\Controllers\Activity@media');
-Route::get('/photo-gallery', '\Modules\Activity\Http\Controllers\Activity@photos_previews');
+Route::get('/photo-gallery', '\Modules\Activity\Http\Controllers\Activity@photos');
 
 /* Contact */
 Route::get('/contact', '\Modules\Contact\Http\Controllers\Contact@index');
@@ -74,36 +74,58 @@ Route::post('/login-action', '\Modules\Login\Http\Controllers\Login@login_action
 /* Intranet */
 Route::get('/intranet', '\Modules\Intranet\Http\Controllers\Intranet@intranet');
 /* Intranet news */
-Route::get('/news-admin', '\Modules\Intranet\Http\Controllers\Intranet@news_all');
-Route::get('/news-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet@news_delete_action');
-Route::get('/news-admin-add', '\Modules\Intranet\Http\Controllers\Intranet@news_add');
-Route::post('/news-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet@news_add_action');
-Route::get('/news-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet@news_edit');
-Route::post('/news-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet@news_edit_action');
-Route::post('/news-admin/news_image_upload', '\Modules\Intranet\Http\Controllers\Intranet@news_images_upload');
-Route::post('/news-admin/news_file_upload', '\Modules\Intranet\Http\Controllers\Intranet@news_file_upload');
-Route::post('/news-admin/news-set-pagination', '\Modules\Intranet\Http\Controllers\Intranet@news_set_pagination_action');
+Route::get('/news-admin', '\Modules\Intranet\Http\Controllers\Intranet_news@news_all');
+Route::get('/news-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_delete_action');
+Route::get('/news-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_news@news_add');
+Route::post('/news-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_news@news_add_action');
+Route::get('/news-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_edit');
+Route::post('/news-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_edit_action');
+Route::post('/news-admin/news_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_images_upload');
+Route::post('/news-admin/news_file_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_file_upload');
+Route::post('/news-admin/news-set-pagination', '\Modules\Intranet\Http\Controllers\Intranet_news@news_set_pagination_action');
 
 /* Intranet projects */
-Route::get('/projects-admin', '\Modules\Intranet\Http\Controllers\Intranet@projects_all');
-Route::get('/projects-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet@projects_delete_action');
-Route::get('/projects-admin-add', '\Modules\Intranet\Http\Controllers\Intranet@projects_add');
-Route::post('/projects-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet@projects_add_action');
-Route::get('/projects-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet@projects_edit');
-Route::post('/projects-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet@projects_edit_action');
+Route::get('/projects-admin', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_all');
+Route::get('/projects-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_delete_action');
+Route::get('/projects-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_add');
+Route::post('/projects-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_add_action');
+Route::get('/projects-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_edit');
+Route::post('/projects-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_edit_action');
+Route::get('/photos-admin-activate-project/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@project_activate_action');
 
 /* Intranet media */
-Route::get('/media-admin', '\Modules\Intranet\Http\Controllers\Intranet@media_all');
-Route::get('/media-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet@media_delete_action');
-Route::get('/media-admin-add', '\Modules\Intranet\Http\Controllers\Intranet@media_add');
-Route::post('/media-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet@media_add_action');
-Route::get('/media-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet@media_edit');
-Route::post('/media-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet@media_edit_action');
+Route::get('/media-admin', '\Modules\Intranet\Http\Controllers\Intranet_media@media_all');
+Route::get('/media-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_media@media_delete_action');
+Route::get('/media-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_media@media_add');
+Route::post('/media-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_media@media_add_action');
+Route::get('/media-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_media@media_edit');
+Route::post('/media-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_media@media_edit_action');
 
 /* Intranet videos */
-Route::get('/videos-admin', '\Modules\Intranet\Http\Controllers\Intranet@videos_all');
-Route::get('/videos-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet@videos_delete_action');
-Route::get('/videos-admin-add', '\Modules\Intranet\Http\Controllers\Intranet@videos_add');
-Route::post('/videos-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet@videos_add_action');
-Route::get('/videos-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet@videos_edit');
-Route::post('/videos-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet@videos_edit_action');
+Route::get('/videos-admin', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_all');
+Route::get('/videos-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_delete_action');
+Route::get('/videos-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_add');
+Route::post('/videos-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_add_action');
+Route::get('/videos-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_edit');
+Route::post('/videos-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_edit_action');
+
+/* Intranet photos */
+Route::get('/photos-admin', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_all');
+Route::get('/photos-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_delete_action');
+Route::get('/photos-admin-delete-item-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_single_delete_action');
+Route::get('/photos-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_add');
+Route::post('/photos-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_add_action');
+Route::get('/photos-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_edit');
+Route::post('/photos-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_edit_action');
+Route::get('/photos-admin-upload/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_upload');
+Route::post('/photos-admin-upload-action', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_upload_action');
+Route::get('/photos-admin-activate-gallery/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_activate_action');
+
+/* Intranet staff */
+Route::get('/staff-admin', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_all');
+Route::get('/staff-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_delete_action');
+Route::get('/staff-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_add');
+Route::post('/staff-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_add_action');
+Route::get('/staff-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_edit');
+Route::post('/staff-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_edit_action');
+Route::get('/staff-admin-show-profile/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_show_profile');

@@ -11,67 +11,42 @@
 <link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/froala_editor.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/plugins/image.min.css') }}">
 
-<script src="{{ URL::asset('plugins/froala/js/froala_editor.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/froala/js/plugins/image.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/froala/js/plugins/link.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/summernote/dist/summernote.js') }}"></script>
+<link href="{{ URL::asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
 <script>
     $(document).ready(function(){
-        $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
-        $.FroalaEditor.RegisterCommand('imageInfo', {
-            title: 'Info',
-            focus: false,
-            undo: false,
-            refreshAfterCallback: false,
-            callback: function () {
-                var $img = this.image.get();
-                alert($img.attr('src'));
-            }
+        $('#sk-editor').summernote({
+            callbacks: {
+                onImageUpload: function(files, editor, welEditable) {
+                    sendFile(files[0], this, welEditable);
+                }
+            },
+        
         });
-
-        $('#froala-editor').froalaEditor({
-            toolbarInline: false,
-            useClasses: false,
-            requestHeaders: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
-            // images upload
-            imageUploadParam: 'image',
-            imageUploadURL: '{{ url("/news-admin/news_image_upload") }}',
-            imageUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
-            imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'giff'],
-            // file upload
-            fileUploadParam: 'attachment',
-            fileUploadURL: '{{ url("/news-admin/news_file_upload") }}',
-            fileUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
-            fileUploadMethod: 'POST',
-            fileMaxSize: {{ $file_max_size }},
-            fileAllowedTypes: ['*']
-        });
-
-        $('#froala-editor-en').froalaEditor({
-            toolbarInline: false,
-            useClasses: false,
-            imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
-            // images upload
-            imageUploadParam: 'image',
-            imageUploadURL: '{{ url("/news-admin/news_image_upload") }}',
-            requestHeaders: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            imageUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
-            imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'giff'],
-            // file upload
-            fileUploadParam: 'attachment',
-            fileUploadURL: '{{ url("/news-admin/news_file_upload") }}',
-            fileUploadParams: { news_id_hash: '{{ $item->hash_id }}' },
-            fileUploadMethod: 'POST',
-            fileMaxSize: {{ $file_max_size }},
-            fileAllowedTypes: ['*']
-        });
+        function sendFile(file, editor, welEditable) {
+            data = new FormData();
+            data.append("image", file);
+            data.append("news_id_hash", '{{ $item->hash_id }}');
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: '{{ url("/news-admin/news_image_upload") }}',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    $(editor).summernote("insertImage", JSON.parse(url));
+                }
+            }); 
+        }
     });    
-    
+
 </script>
 <div id="emPAGEcontent" class="container">
     <br>
@@ -117,28 +92,12 @@
                     <label for="preview_en">Ukážkový text EN:</label>
                     <input type="text" class="form-control" id="preview_en" name="preview_en" value="{{ $item->preview_en }}" placeholder="Anglický preview text" required />
                 </div>
-                @if($item->editor_content_sk)
+                
                 <div class="form-group">
-                    <label for="froala-editor">Dlhý text:</label>
-                    <textarea id="froala-editor"  class="fr-view" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
+                    <label for="sk-editor">Dlhý text:</label>
+                    <textarea id="sk-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
                 </div>
-                @else
-                <div class="form-group">
-                    <label for="froala-editor">Dlhý text:</label>
-                    <textarea id="froala-editor"  class="fr-view" name="editor_content_sk"></textarea>
-                </div>
-                @endif
-                @if($item->editor_content_en)
-                    <div class="form-group">
-                        <label for="froala-editor_en">Long text:</label>
-                        <textarea id="froala-editor-en" name="editor_content_en">{{ $item->editor_content_en }}</textarea>
-                    </div>
-                @else
-                    <div class="form-group">
-                        <label for="froala-editor_en">Long text:</label>
-                        <textarea id="froala-editor-en" name="editor_content_en"></textarea>
-                    </div>
-                @endif
+                
                 @if($item->image_hash_name)
                     TO DO REMOVE AFTER IMAGE CHANGE
                     <div class="form-group">

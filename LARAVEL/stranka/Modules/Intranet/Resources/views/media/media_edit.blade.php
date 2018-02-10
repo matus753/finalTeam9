@@ -46,7 +46,7 @@
                 </div>
             </div>
             <br>
-            <form action="{{ url('/media-admin-edit-action/') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/media-admin-edit-action/'.$media->m_id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <select class="form-control" id="type" name="type" onchange="type_change()" >
@@ -69,25 +69,27 @@
                 </div>
                 <div class="form-group">
                     <label for="date">Dátum:</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" value="{{ $media->date }}" required />
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" value="{{ format_time($media->date, true) }}" required />
                 </div>
                 <div id="div_link" class="form-group @if($media->type == 'server' || $media->type == 'both') {{ 'hidden' }} @endif">
                     <label for="link">Link:</label>
                     <input type="text" class="form-control" id="link" name="link" value="{{ $media->url }}" placeholder="Link" />
                 </div>
                 <div id="div_file" class="form-group @if($media->type == 'link' || $media->type == 'both') {{ 'hidden' }} @endif">
-                    <label for="file">@if($media->filename){{ 'Nahradenie súboru:' }} @else {{ 'Súbor:' }} @endif </label>
-                    <input type="file" class="form-control" id="file" name="file" value="{{ $media->filename }}" placeholder="Súbor" />
+                    <label for="file">{{ 'Súbor(y):' }}</label>
+                    <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" />
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Ulož" />
             </form>
-            ak viacero suborov tak spravcu ?
-            @if($media->filename != null)
+            @if($files)
+                Súbory pri uploadnutí nových budú zmazané.
+                @foreach($files as $f)
                 <div class="row">
                     <div class="pull-left">
-                        <h4>Tento záznam už obsahuje súbors názvom: <small>{{ $media->filename }}</small></h4>
+                        <h4>Tento záznam už obsahuje súbors názvom: <small>{{ $f->file_name }}</small></h4>
                     </div>
                 </div>
+                @endforeach
             @endif
 		</div>
 	</div>

@@ -63,11 +63,11 @@ class Staff extends Controller
 		$module_name = config('staff.name');
 		$ais = DB::table('staff')->where( 'id', $id )->first();
 
-		$ais_id = null;
+		/*$ais_id = null;
 		if($ais->ldapLogin){
 			$ais_id = $this->getAisId($ais->ldapLogin);
-		}
-		
+		}*/
+		$ais_id = "lala";
 		$data = [
 			'title' => $module_name,
 			'ais' => $ais,

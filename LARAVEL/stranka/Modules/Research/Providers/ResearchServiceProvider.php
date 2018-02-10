@@ -51,6 +51,9 @@ class ResearchServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/config.php', 'research'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../../Intranet/Config/projects_admin.php', 'projects_admin'
+        );
     }
 
     /**

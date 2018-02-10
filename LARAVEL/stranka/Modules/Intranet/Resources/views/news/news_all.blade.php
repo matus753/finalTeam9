@@ -71,14 +71,6 @@
                     </table>
                 </div>
             </div>
-            <form action="{{ url('/news-admin/news-set-pagination') }}" method="POST">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="pagination_items">Počet položiek na stránku (na hlavnej stranke):</label>
-                    <input type="number" class="form-control" id="pagination_items" name="pagination_items" value="{{ $pagination_items }}">
-                </div>
-                <input type="submit" class="btn btn-primary" value="Ulož">
-            </form>
 		</div>
 	</div>
 

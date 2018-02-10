@@ -27,9 +27,9 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <br>
+            <h2>FUNKCIONALITA OK - treba test + remove bad string. AKTIVACIA POLOZKY ?? </h2>
             <br>
-            <br>
-            pri delete so soborom delete aj subor ? 
+            <br> 
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="projects-table" class="table table-stripped table-bordered" >
@@ -48,10 +48,10 @@
                                 <td>{{ $m->title }}</td>  
                                 <td>{{ $m->type }}</td>  
                                 <td>{{ $m->media }}</td> 
-                                <td>{{ $m->date }}</td> 
+                                <td><span class="hidden">{{ $m->date }}</span>{{ format_time($m->date) }}</td> 
                                 <td>
-                                    <a href="{{ url('/media-admin-edit/'.$m->id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
-                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $m->title }} ', '{{ url('/media-admin-delete/'.$m->id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
+                                    <a href="{{ url('/media-admin-edit/'.$m->m_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
+                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $m->title }} ', '{{ url('/media-admin-delete/'.$m->m_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
                                 </td> 
                             </tr>   
                             @endforeach

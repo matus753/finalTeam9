@@ -51,6 +51,9 @@ class ActivityServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/config.php', 'activity'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../../Intranet/Config/photos_admin.php', 'photos_admin'
+        );
     }
 
     /**

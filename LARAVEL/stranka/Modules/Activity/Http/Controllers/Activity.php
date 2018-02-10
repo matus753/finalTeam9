@@ -9,52 +9,41 @@ use Illuminate\Support\Facades\DB;
 
 class Activity extends Controller
 {
-    public function photos_previews()
+    public function photos()
     {
 		// TO DO MULTILANG
 		$module_name = config('activity.name');
-		
-		$photos_db_previews = [];
+		$activation = config('photos_admin.activation');
 
 		$locale = session()->get('locale');
-	
 		if($locale == 'sk'){
-			$photos_cats = DB::table('photo_gallery')->select('folder', 'title_SK as title')->groupBy('folder')->orderBy('date', 'desc')->get();
+			if($activation){
+				$photos_cats = DB::table('photo_gallery')->select('pg_id', 'folder', 'title_SK as title', 'date')->where('activated', 1)->groupBy('folder')->orderBy('date', 'desc')->get();
+			}else{
+				$photos_cats = DB::table('photo_gallery')->select('pg_id', 'folder', 'title_SK as title', 'date')->groupBy('folder')->orderBy('date', 'desc')->get();
+
+			}
 		}else{
-			$photos_cats = DB::table('photo_gallery')->select('folder', 'title_EN as title')->groupBy('folder')->orderBy('date', 'desc')->get();
+			if($activation){
+				$photos_cats = DB::table('photo_gallery')->select('pg_id', 'folder', 'title_EN as title', 'date')->where('activated', 1)->groupBy('folder')->orderBy('date', 'desc')->get();
+			}else{
+				$photos_cats = DB::table('photo_gallery')->select('pg_id', 'folder', 'title_EN as title', 'date')->groupBy('folder')->orderBy('date', 'desc')->get();
+			}
 		}
 
 		foreach($photos_cats as $p){
-			$tmp = DB::table('photo_gallery')->where('folder', $p->folder)->get();
-			$photos_db_previews[] = [ $p->folder => $tmp ];
+			$tmp = DB::table('photos')->where('pg_id', $p->pg_id)->get();
+			$photos[] = [ $p->pg_id => $tmp ];
 		}
 		
 		$data = [
 			'title' => $module_name,
 			'categories' => $photos_cats,
-			'previews' => $photos_db_previews
-		];
-
-        //debug($data);
-        return view('activity::photos_previews', $data);
-    }
-	
-	public function photos_event($event = ''){
-		if($event == ''){
-			return false;
-		}
-		// TO DO MULTILANG
-		//to do remove bad string
-		$module_name = config('activity.name');
-		$photos = DB::table('photo_gallery')->where('folder', $event)->get();
-		$data = [
-			'title' => $module_name,
 			'photos' => $photos
 		];
-		
-		//debug($data);
+		//debug($data, true);
         return view('activity::photos', $data);
-	}
+    }
 	
     public function videos()
     {
@@ -97,12 +86,18 @@ class Activity extends Controller
 		$module_name = config('activity.name');
 		
 		$media_db = DB::table('media')->get();
-		
+
+		foreach($media_db as $m){
+			$files = DB::table('media_files')->where('m_id', $m->m_id)->get();
+			$files = (!$files) ? [] : $files;
+			$m->files['files'] = $files;
+		}
+
 		$data = [
 			'title' => $module_name,
 			'media' => $media_db
 		];
-		//debug($data);
+		//debug($data['media'][0]->files,true);
         return view('activity::media', $data);
     }
 

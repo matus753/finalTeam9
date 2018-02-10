@@ -27,6 +27,7 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <br>
+            <h2>FUNKCIONALITA OK - treba test + remove bad string</h2>
             <br>
             <br>
 			<div class="text-center">
@@ -47,8 +48,11 @@
                                 <td>{{ $p->projectType }}</td>  
                                 <td>{{ $p->number }}</td> 
                                 <td>
-                                    <a href="{{ url('/projects-admin-edit/'.$p->id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
-                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $p->titleSK }} ', '{{ url('/projects-admin-delete/'.$p->id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
+                                    <a href="{{ url('/projects-admin-edit/'.$p->pr_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
+                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $p->titleSK }} ', '{{ url('/projects-admin-delete/'.$p->pr_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
+                                    @if($activation)
+                                    <a href="{{ url('/photos-admin-activate-project/'.$p->pr_id) }}" class="btn @if($p->activated)  btn-warning @else btn-primary @endif btn-sm" title="@if($p->activated) Deactivate @else Activate @endif" >@if($p->activated) <span class="fa fa-thumbs-down "> @else <span class="fa fa-thumbs-up ">@endif</span></a>
+                                    @endif
                                 </td> 
                             </tr>   
                             @endforeach

@@ -18,7 +18,7 @@ class News extends Controller
     public function index(Request $request)
     {
 		$module_name = config('news.name');
-		$pages_count = DB::table('settings')->value('pagination_count');
+		$pages_count = config('news.items_per_page');
 		
 		// skontrolovat a osetrit vstupy
 		$filter = -1;

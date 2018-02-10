@@ -8,72 +8,49 @@
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
 
-<link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/froala_editor.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/plugins/image.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/plugins/file.min.css') }}">
-
-<script src="{{ URL::asset('plugins/froala/js/froala_editor.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/froala/js/plugins/image.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/froala/js/plugins/link.min.js') }}"></script>
-<script src="{{ URL::asset('plugins/froala/js/plugins/file.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/summernote/dist/summernote.js') }}"></script>
+<link href="{{ URL::asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
 
 @stop
 
 @section('content_admin')
 <script>
+    
     $(document).ready(function(){
-        
-        $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
-        $.FroalaEditor.RegisterCommand('imageInfo', {
-            title: 'Info',
-            focus: false,
-            undo: false,
-            refreshAfterCallback: false,
-            callback: function () {
-                var $img = this.image.get();
-                alert($img.attr('src'));
+        $('#sk-editor').summernote({
+            callbacks: {
+                onImageUpload: function(files, editor, welEditable) {
+                    sendFile(files[0], this, welEditable);
+                }
+            }
+        });
+        $('#en-editor').summernote({
+            callbacks: {
+                onImageUpload: function(files, editor, welEditable) {
+                    sendFile(files[0], this, welEditable);
+                }
             }
         });
 
-        $('#froala-editor').froalaEditor({
-            toolbarInline: false,
-            useClasses: false,
-            requestHeaders: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
-            // images upload
-            imageUploadParam: 'image',
-            imageUploadURL: '{{ url("/news-admin/news_image_upload") }}',
-            imageUploadParams: { news_id_hash: '{{ $hash_id }}' },
-            imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'giff'],
-            // file upload
-            fileUploadParam: 'attachment',
-            fileUploadURL: '{{ url("/news-admin/news_file_upload") }}',
-            fileUploadParams: { news_id_hash: '{{ $hash_id }}' },
-            fileUploadMethod: 'POST',
-            fileMaxSize: {{ $file_max_size }},
-            fileAllowedTypes: ['*']
-        });
-
-        $('#froala-editor-en').froalaEditor({
-            toolbarInline: false,
-            useClasses: false,
-            imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
-            // images upload
-            imageUploadParam: 'image',
-            imageUploadURL: '{{ url("/news-admin/news_image_upload") }}',
-            requestHeaders: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            imageUploadParams: { news_id_hash: '{{ $hash_id }}' },
-            imageUploadMethod: 'POST',
-            imageAllowedTypes: ['jpeg', 'jpg', 'png', 'giff'],
-            // file upload
-            fileUploadParam: 'attachment',
-            fileUploadURL: '{{ url("/news-admin/news_file_upload") }}',
-            fileUploadParams: { news_id_hash: '{{ $hash_id }}' },
-            fileUploadMethod: 'POST',
-            fileMaxSize: {{ $file_max_size }},
-            fileAllowedTypes: ['*']
-        });
+        function sendFile(file, editor, welEditable) {
+            data = new FormData();
+            data.append("image", file);
+            data.append("news_id_hash", '{{ $hash_id }}');
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: '{{ url("/news-admin/news_image_upload") }}',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    $(editor).summernote("insertImage", JSON.parse(url));
+                }
+            }); 
+        }
     });    
 
 </script>
@@ -97,7 +74,8 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="news_id_hash" value="{{ $hash_id }}"/>
                 <div class="form-group">
-                    <select class="form-control" name="type">
+                    <label for="type">Typ:</label>
+                    <select class="form-control" name="type" id="type">
                         @foreach($types as $key => $t)
                             <option value="{{ $key }}">{{ $t }}</option>
                         @endforeach
@@ -127,18 +105,19 @@
                     <label for="image">Ukážkový obrázok:</label>
                     <input type="file" class="form-control" id="image" name="image" />
                 </div>
+                <h2>Dat upload suborov ?</h2>
                 <div class="form-group">
-                    <label for="froala-editor">Dlhý text:</label>
-                    <textarea id="froala-editor"  class="froala_edit" name="editor_content_sk"></textarea>
+                    <label for="sk-editor">Dlhý text:</label>
+                    <textarea id="sk-editor" name="editor_content_sk"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="froala-editor_en">Long text:</label>
-                    <textarea id="froala-editor-en"  class="froala_edit" name="editor_content_en"></textarea>
+                    <label for="en-editor">Long text:</label>
+                    <textarea id="en-editor"  name="en-editor"></textarea>
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
             </form>
 		</div>
 	</div>
+</div>  
 
-</div>   
 @stop

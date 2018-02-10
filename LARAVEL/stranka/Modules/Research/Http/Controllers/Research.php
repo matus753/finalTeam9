@@ -16,14 +16,25 @@ class Research extends Controller
     public function projects()
     {
 		$module_name = config('research.name');
+		$activation = config('projects_admin.activation');
+	
 		$projects_db = DB::table('project')->get();
-		
 		// pre medzinarodne pouzivat International type
-		$projects_db_international = DB::table('project')->where('projectType', config('research.db_international') )->get();
-		$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->get();
-		$projects_db_vega = DB::table('project')->where('projectType', config('research.db_vega') )->get();
-		$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->get();
-		$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->get();
+		if($activation){
+			$projects_db_international = DB::table('project')->where('projectType', config('research.db_international') )->where('activated', 1)->get();
+			$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->where('activated', 1)->get();
+			$projects_db_vega = DB::table('project')->where('projectType', config('research.db_vega') )->where('activated', 1)->get();
+			$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->where('activated', 1)->get();
+			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->where('activated', 1)->get();
+		}else{
+			$projects_db_international = DB::table('project')->where('projectType', config('research.db_international') )->get();
+			$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->get();
+			$projects_db_vega = DB::table('project')->where('projectType', config('research.db_vega') )->get();
+			$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->get();
+			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->get();
+		}
+		
+		
 		
 		$data = [
 			'title' => $module_name,
