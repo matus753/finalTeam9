@@ -32,9 +32,9 @@
             <br> 
 			<div class="text-center">
                 <div class="table-responsive">
-                    <table id="projects-table" class="table table-stripped table-bordered" >
+                    <table id="projects-table" class="table table-stripped table-bordered intranet-table">
                         <thead>
-                            <tr>
+                            <tr class="intranet-table__table-title">
                                 <th>Nadpis</th>
                                 <th>Typ</th>
                                 <th>Zdroj</th>
@@ -44,7 +44,7 @@
                         </thead>
                         <tbody>
                             @foreach($media as $m)
-                            <tr>  
+                            <tr class="intranet-table__table-title">  
                                 <td>{{ $m->title }}</td>  
                                 <td>{{ $m->type }}</td>  
                                 <td>{{ $m->media }}</td> 
@@ -57,7 +57,7 @@
                             @endforeach
                         </tbody>
                         <tfoot>
-                            <tr>
+                            <tr class="intranet-table__table-title">
                                 <th>Nadpis</th>
                                 <th>Typ</th>
                                 <th>Zdroj</th>

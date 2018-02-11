@@ -1,0 +1,29 @@
+.intranet-table {
+	color: #777777;
+	text-align: center;
+	margin-top: 30px !important;
+	margin-bottom: 30px !important;
+	@media screen and (min-width: 1200px) {
+	    width: 100% !important;
+	}
+	thead, tfoot {
+		th {
+			border: none;
+			&:after {
+				display: none !important;
+			}
+		}
+	}
+	&__table-title {
+		border-color: #ddd !important;
+		>th {
+			text-align: center;
+			color: #333333;
+			border-color: #ddd !important;
+			border-bottom: none !important;
+		}
+	}
+	.table-bordered > tfoot > tr > th {
+		border: none !important;
+	}
+}

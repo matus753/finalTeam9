@@ -53,7 +53,7 @@
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="{{ url('/') }}">
                     <div class="navbarItem">
-                        <p class="navbarItem">Hlavná stránka (prerobiť odkaz)</p>
+                        <img id="logoIMG" class="logo-lg" src="{{ URL::asset('images/logo/logo_skratkove_transparentne_na_modre_pozadie.png') }}" alt="logo">
                     </div>
                 </a>
             </div>

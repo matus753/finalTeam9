@@ -31,9 +31,9 @@
             <br> 
 			<div class="text-center">
                 <div class="table-responsive">
-                    <table id="projects-table" class="table table-stripped table-bordered" >
+                    <table id="projects-table" class="table table-stripped table-bordered intranet-table">
                         <thead>
-                            <tr>
+                            <tr class="intranet-table__table-title">
                                 <th>Nadpis</th>
                                 <th>Type</th>
                                 <th></th>
@@ -52,7 +52,7 @@
                             @endforeach
                         </tbody>
                         <tfoot>
-                            <tr>
+                            <tr class="intranet-table__table-title">
                                 <th>Nadpis</th>
                                 <th>Type</th>
                                 <th></th>
