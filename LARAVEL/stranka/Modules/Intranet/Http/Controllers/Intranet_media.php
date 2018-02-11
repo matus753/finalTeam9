@@ -263,7 +263,7 @@ class Intranet_media extends Controller
             unlink($path.$f->hash_name);
         }
 
-        if($res && $delete){
+        if($res){
             return redirect('/media-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly deleted!']);
         }
 

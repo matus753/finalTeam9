@@ -16,11 +16,6 @@
 	<?php debug(session()->all()); ?>
 	<div class="row">
 		<div class="col-md-12">
-			TO DO FLASHES			
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
 			<form method="POST" action="{{ url('/login-action') }}">
 				{{ csrf_field() }}
 				<div class="form-group">

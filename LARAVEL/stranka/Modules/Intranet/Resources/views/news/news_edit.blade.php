@@ -8,46 +8,52 @@
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
 
-<link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/froala_editor.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset('plugins/froala/css/plugins/image.min.css') }}">
-
 <script src="{{ URL::asset('plugins/summernote/dist/summernote.js') }}"></script>
 <link href="{{ URL::asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
 <script>
-    $(document).ready(function(){
-        $('#sk-editor').summernote({
-            callbacks: {
-                onImageUpload: function(files, editor, welEditable) {
-                    sendFile(files[0], this, welEditable);
+    
+        $(document).ready(function(){
+            $('#sk-editor').summernote({
+                callbacks: {
+                    onImageUpload: function(files, editor, welEditable) {
+                        sendFile(files[0], this, welEditable);
+                    }
                 }
-            },
-        
-        });
-        function sendFile(file, editor, welEditable) {
-            data = new FormData();
-            data.append("image", file);
-            data.append("news_id_hash", '{{ $item->hash_id }}');
-            $.ajax({
-                data: data,
-                type: "POST",
-                url: '{{ url("/news-admin/news_image_upload") }}',
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                },
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(url) {
-                    $(editor).summernote("insertImage", JSON.parse(url));
-                }
-            }); 
-        }
-    });    
+            });
 
-</script>
+            $('#en-editor').summernote({
+                callbacks: {
+                    onImageUpload: function(files, editor, welEditable) {
+                        sendFile(files[0], this, welEditable);
+                    }
+                }
+            });
+    
+            function sendFile(file, editor, welEditable) {
+                data = new FormData();
+                data.append("image", file);
+                data.append("news_id_hash", '{{ $item->hash_id }}');
+                $.ajax({
+                    data: data,
+                    type: "POST",
+                    url: '{{ url("/news-admin/news_image_upload") }}',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        $(editor).summernote("insertImage", JSON.parse(url));
+                    }
+                }); 
+            }
+        });    
+    
+    </script>
 <div id="emPAGEcontent" class="container">
     <br>
 	<div class="row">
@@ -92,12 +98,14 @@
                     <label for="preview_en">Ukážkový text EN:</label>
                     <input type="text" class="form-control" id="preview_en" name="preview_en" value="{{ $item->preview_en }}" placeholder="Anglický preview text" required />
                 </div>
-                
                 <div class="form-group">
                     <label for="sk-editor">Dlhý text:</label>
                     <textarea id="sk-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
                 </div>
-                
+                <div class="form-group">
+                    <label for="en-editor">Long text:</label>
+                    <textarea id="en-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
+                </div>
                 @if($item->image_hash_name)
                     TO DO REMOVE AFTER IMAGE CHANGE
                     <div class="form-group">

@@ -48,14 +48,14 @@ class Research extends Controller
         return view('research::projects', $data);
     }
 
-    public function show($id){
-
-        if(!is_numeric($id)){
+    public function show($pr_id = 0){
+        if(!is_numeric($pr_id) || $pr_id == 0){
             return false;
-        }
-        $project = DB::table('project')->where('id',$id )->get();
+		}
+		
+        $project = DB::table('project')->where('pr_id',$pr_id )->first();
 
-        return json_encode($project[0]);
+        return json_encode($project);
 
     }
 

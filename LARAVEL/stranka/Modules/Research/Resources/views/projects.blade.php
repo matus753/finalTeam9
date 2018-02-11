@@ -29,7 +29,7 @@
 						</thead>
 						<tbody>
 							@foreach($international as $i)
-							<tr data-href="{{ url('/projects') }}/{{ $i->id }}" data-id="{{$i->id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
+							<tr data-href="{{ url('/projects') }}/{{ $i->pr_id }}" data-id="{{$i->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $i->number }}</td>
 								<td class="column2">{{ $i->titleSK }}</td>
 								<td class="column3">{{ $i->duration }}</td>
@@ -53,7 +53,7 @@
 						</thead>
 						<tbody>
 							@foreach($kega as $k)
-							<tr data-href="{{ url('/projects') }}/{{ $k->id }}" data-id="{{$k->id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
+							<tr data-href="{{ url('/projects') }}/{{ $k->pr_id }}" data-id="{{$k->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $k->number }}</td>
 								<td class="column2">{{ $k->titleSK }}</td>
 								<td class="column3">{{ $k->duration }}</td>
@@ -76,7 +76,7 @@
 						</thead>
 						<tbody>
 							@foreach($vega as $v)
-							<tr data-href="{{ url('/projects') }}/{{ $v->id }}" data-id="{{$v->id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
+							<tr data-href="{{ url('/projects') }}/{{ $v->pr_id }}" data-id="{{$v->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $v->number }}</td>
 								<td class="column2">{{ $v->titleSK }}</td>
 								<td class="column3">{{ $v->duration }}</td>
@@ -100,7 +100,7 @@
 						</thead>
 						<tbody>
 							@foreach($apvv as $a)
-							<tr data-href="{{ url('/projects') }}/{{ $a->id }}" data-id="{{$a->id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
+							<tr data-href="{{ url('/projects') }}/{{ $a->pr_id }}" data-id="{{$a->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $a->number }}</td>
 								<td class="column2">{{ $a->titleSK }}</td>
 								<td class="column3">{{ $a->duration }}</td>
@@ -124,7 +124,7 @@
 						</thead>
 						<tbody>
 							@foreach($other as $o)
-							<tr data-href="{{ url('/projects') }}/{{ $o->id }}" data-id="{{$o->id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
+							<tr data-href="{{ url('/projects') }}/{{ $o->pr_id }}" data-id="{{$o->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $o->number }}</td>
 								<td class="column2">{{ $o->titleSK }}</td>
 								<td class="column3">{{ $o->duration }}</td>

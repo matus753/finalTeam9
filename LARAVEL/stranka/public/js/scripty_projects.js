@@ -1,8 +1,11 @@
 $('.m').on("click",function(){
     // console.log($(this).data('href'));
     $.ajax({
-        // type: 'GET',
+        type: 'POST',
         url: $(this).data('href'),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         success: function(msg){
             var obj = JSON.parse(msg);
             $("#modalTitle").html(obj.titleSK);
