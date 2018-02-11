@@ -2,7 +2,6 @@ $(document).ready(function(){
     getThesis("642");
 });
 
-
 $('#ustavSelect').on('change', function(){
     var ustav = $( "#ustavSelect option:selected" ).val();
     getThesis(ustav);
@@ -13,16 +12,34 @@ function getThesis(ustav) {
     $('#programSelect').find('option').not(':first').remove();
 
     var id = $(".loaded").data('type');
-        $('.loading').css("display", "block");
+    var lang = $("#lang").html();
+    if (id == 1){
+        if (lang == 'sk'){
+            $(".thesisType").html('bakalárske');
+            $(".studyType").html('bakalárske');
+        } else {
+            $(".thesisType").html('bachelor');
+            $(".studyType").html('bachelor');
+        }
+    } else {
+        if ($("#lang").html() == 'sk'){
+            $(".thesisType").html('diplomové');
+            $(".studyType").html('inžinierske');
+        } else {
+            $(".thesisType").html('master');
+            $(".studyType").html('master');
+        }
+    }
+
+    $('.loading').css("display", "block");
     $('.loaded').css("display", "none");
     $.ajax ({
         type: 'GET',
         url: $(".loaded").data('href'),
-        data: { 'ustav':ustav, 'id': id },
+        data: { 'ustav':ustav, 'id': id, 'lang': lang},
         success: function(response) {
             if (response.hodnoty.length == 0){
                 $('.nothing').css("display", "block");
-                $('.tableDiv').css("display", "none");
             } else {
                 $("#selectUstav").val(response.ustav);
                 $('.loading').css("display", "none");
@@ -182,39 +199,3 @@ function removeAccents(str) {
     }
     return str;
 }
-
-// function filterSkolitel() {
-//   var input, filter, table, tr, td, i;
-//   input = document.getElementById("SS-input-skolitel");
-//   filter = input.value.toUpperCase();
-//   table = document.getElementById("SS-table-themes-BP");
-//   tr = table.getElementsByTagName("tr");
-//   for (i = 0; i < tr.length; i++) {
-//     td = tr[i].getElementsByTagName("td")[1];
-//     if (td) {
-//       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-//         tr[i].style.display = "";
-//       } else {
-//         tr[i].style.display = "none";
-//       }
-//     }
-//   }
-// }
-//
-// function filterProgram() {
-//   var input, filter, table, tr, td, i;
-//   input = document.getElementById("SS-input-program");
-//   filter = input.value.toUpperCase();
-//   table = document.getElementById("SS-table-themes-BP");
-//   tr = table.getElementsByTagName("tr");
-//   for (i = 0; i < tr.length; i++) {
-//     td = tr[i].getElementsByTagName("td")[2];
-//     if (td) {
-//       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-//         tr[i].style.display = "";
-//       } else {
-//         tr[i].style.display = "none";
-//       }
-//     }
-//   }
-// }
