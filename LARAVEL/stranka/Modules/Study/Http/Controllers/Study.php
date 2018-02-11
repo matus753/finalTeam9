@@ -17,12 +17,13 @@ class Study extends Controller
 
         $module_name = config('study.name');
 
-        list($thesisType, $thesisTypeId, $urlBack) = $this->getThesisType($id);
+        list($thesisType, $thesisTypeId, $urlBack, $studyType) = $this->getThesisType($id);
             $data = [
-            'title' => $module_name,
-            'typ' => $thesisType,
-            'urlBack' => $urlBack,
-            'typId' => $thesisTypeId
+                'title' => $module_name,
+                'typ' => $thesisType,
+                'urlBack' => $urlBack,
+                'typId' => $thesisTypeId,
+                'studyType' => $studyType
         ];
 
         return view('study::getAvailableThesis', $data);
@@ -56,14 +57,16 @@ class Study extends Controller
     public function getThesisType($id){
         if ($id == 1){
             $thesisType = 'bakalárske';
+            $studyType = 'bakalárske';
             $thesisTypeId = 1;
             $urlBack = 'bachelor';
         } else {
             $thesisType = 'diplomové';
+            $studyType = 'inžinierske';
             $urlBack = 'master';
             $thesisTypeId = 2;
         }
-        return array($thesisType, $thesisTypeId, $urlBack);
+        return array($thesisType, $thesisTypeId, $urlBack, $studyType);
 }
 
     public function getThesisAnot(Request $request){
@@ -79,7 +82,6 @@ class Study extends Controller
         libxml_use_internal_errors(true);
         $doc->loadHTML($returndata);
         $xPath = new \DOMXPath($doc);
-        //$annotation = $xPath->query('*[@id="base-right"]/div/table[1]/tbody/tr[10]/td[2]/small');
         $annotation = $xPath->query('//html/body/div/div/div/table[1]/tbody/tr[last()]/td[last()]')[0]->textContent;
         return $annotation;
     }
@@ -87,10 +89,11 @@ class Study extends Controller
     public function getFilterThesis(Request $request){
         $ustav = $request->input('ustav');
         $id = $request->input('id');
+        $lang = $request->input('lang');
 
         $urltopost = "http://is.stuba.sk/pracoviste/prehled_temat.pl";
         $datatopost = array (
-            "lang" => "sk",
+            "lang" => $lang,
             "filtr_typtemata2" => $id,
             "filtr_programtemata2" => "1",
             "filtr_vedtemata2" => "0",

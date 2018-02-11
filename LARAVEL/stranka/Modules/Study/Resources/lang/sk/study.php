@@ -108,5 +108,26 @@ return [
 	'finalExam' => 'skúška',
     'infoDZP' => 'Pre získanie skúšky musí študent obhájiť tému svojej diplomovej práce pred štátnicovou komisiou, ktorá zároveň udeľuje známku za obhajobu.',
 
-    'titleDS' => 'Doktorandské štúdium'
+    'titleDS' => 'Doktorandské štúdium',
+
+    'available' => 'voľné',
+    'thesis' => 'témy',
+    'department' => 'Ústav',
+    'uamt' => 'Ústav automobilovej mechatroniky',
+    'ueae' => 'Ústav elektroenergetiky a aplikovanej elektrotechniky',
+    'uef' => 'Ústav elektroniky a fotoniky',
+    'ue' => 'Ústav elektrotechniky',
+    'uim' => 'Ústav informatiky a matematiky',
+    'ujfi' => 'Ústav jadrového a fyzikálneho inžinierstva',
+    'umikt' => 'Ústav multimediálnych informačných a komunikačných technológií',
+    'urk' => 'Ústav robotiky a kybernetiky',
+    'all' => 'všetky',
+    'find' => 'Hľadať v názvoch',
+    'thesisTitle' => 'Názov projektu',
+    'skolitel' => 'Školiteľ',
+    'nothing' => 'Nenašli sa žiadne vyhovujúce záznamy.',
+    'back' => 'Naspäť na ',
+    'study' => 'štúdium',
+
+    'lang' => 'sk'
 ];
