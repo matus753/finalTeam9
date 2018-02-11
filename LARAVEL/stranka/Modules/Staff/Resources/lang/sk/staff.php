@@ -10,7 +10,6 @@ return [
 	'role' => 'Pracovná pozícia',
 	'function' => 'Funkcia',
 	'back' => 'Späť na všetkých zamestnancov',
-	'show_publications' => 'Zobraziť publikácie',
 
 	'sEmptyTable' => 'Nie sú k dispozícii žiadne dáta',
 	'sInfo' => 'Záznamy _START_ až _END_ z celkom _TOTAL_',
@@ -40,5 +39,10 @@ return [
 	'teacher' => 'Učiteľ',
 	'doktorand' => 'Doktorant',
 	'researcher' => 'Výskumník',
-	'role' => 'Rola'
+	'role' => 'Rola',
+
+	'show_publications' => 'Zobraziť publikácie',
+	'tbl-title' => 'Názov publikácie',
+	'type' => 'Typ',
+	'year' => 'Rok'
 ];

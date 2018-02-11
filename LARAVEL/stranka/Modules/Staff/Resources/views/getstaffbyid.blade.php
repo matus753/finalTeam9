@@ -15,6 +15,7 @@ var table_content;
 
 function showPubs(){
 	var data = { 'ais_id' : {{ $ais_id }} };
+	$('#modal-staff-more-content').html('<img src="../images/loading.gif" class="img-loading">');
 	$.ajax({
 		url:"{{ url('/staff/ajax_publications') }}", 
 		type: 'POST' , 
@@ -22,6 +23,9 @@ function showPubs(){
 		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 		success : function(data){
 			var jsonObject = JSON.parse(data);
+			setTimeout(function () {
+                $("#modal-staff-more-content").html(msg);
+            }, 2000);
 			if(data){
 				$('#publications_table').removeClass('hidden');
 			}
@@ -100,6 +104,8 @@ function showPubs(){
 		@endif
 	</div>
 </section>
+<section id="modal-staff-more-content">
+	</section>
 
 <section class="staff"  >
 	<div class="container">

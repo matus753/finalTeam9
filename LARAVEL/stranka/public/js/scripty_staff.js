@@ -15,7 +15,7 @@ $(document).on('click', '.m', function(){
 $(document).on('click', '#modal-staff-more', function(){
     var val = $(this).attr('data-id');
     
-    $('#modal-staff-more-content').html('<img src="../images/loading_car.gif" class="img-loading">');
+    $('#modal-staff-more-content').html('<img src="../images/loading.gif" class="img-loading">');
      
     $.ajax({
         type: 'GET',
