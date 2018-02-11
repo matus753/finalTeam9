@@ -51,7 +51,7 @@ Route::get('/master', '\Modules\Study\Http\Controllers\Study@master');
 Route::get('/doctoral', '\Modules\Study\Http\Controllers\Study@doctoral');
 
 /* Research */
-Route::get('/projects/{id}', '\Modules\Research\Http\Controllers\Research@show');
+Route::post('/projects/{id}', '\Modules\Research\Http\Controllers\Research@show');
 Route::get('/projects', '\Modules\Research\Http\Controllers\Research@projects');
 Route::get('/ekart', '\Modules\Research\Http\Controllers\Research@ekart');
 Route::get('/autonom-vehicle', '\Modules\Research\Http\Controllers\Research@autonom_vehicle');

@@ -73,10 +73,11 @@ class Intranet_news extends Controller
             $exp = time();
         }
 
+        news_create_folder($hash_id);
         $image = $request->file('image');
         $image_hash_name = null;
         if($image){
-            $image->store('public/news');
+            $image->store('public/news/'.$hash_id);
             $image_hash_name = $image->hashName();
         }else{
             $image_hash_name = config('news_admin.default_image');
@@ -99,10 +100,10 @@ class Intranet_news extends Controller
         $res = (bool) DB::table('news')->insert($data);
 
         if($res){
-            return redirect('/news-admin')->with('return_msg', 'success');
+            return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
 
-        return redirect('/news-admin')->with('return_msg', 'error_bad_insertion');
+        return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
     public function news_images_upload( Request $request, Response $response ){
@@ -120,31 +121,9 @@ class Intranet_news extends Controller
         }
     }
 
-    public function news_file_upload( Request $request, Response $response ){
-        // to do remove bad string
-        $hash_name = $request->input('news_id_hash');
-        $image = $request->file('attachment');
-
-        if(news_create_folder($hash_name) && $image){
-            $image->store('/public/news/'.$hash_name);
-            $response->link = asset('/storage/news/'.$hash_name.'/'.$image->hashName());
-            return stripslashes(json_encode($response));
-        }
-        else{
-            echo json_encode('UPLOAD ERROR');
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////               NEWS EDIT           /////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
     public function news_edit( $id = 0 ){
         if(!is_numeric($id)){
-            return redirect('/news-admin')->with('return_msg', 'error_bad_item');
+            return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
         $item = DB::table('news')->where('id', $id)->first();
@@ -163,7 +142,7 @@ class Intranet_news extends Controller
 
     public function news_edit_action( $id = 0, Request $request ){
         if(!is_numeric($id)){
-            return redirect('/news-admin')->with('return_msg', 'error_bad_item');
+            return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
         $hash_id = $request->input('news_id_hash');
@@ -209,23 +188,28 @@ class Intranet_news extends Controller
         $res = (bool) DB::table('news')->where('id', $id)->update($data);
 
         if($res){
-            return redirect('/news-admin')->with('return_msg', 'success');
+            return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
 
-        return redirect('/news-admin')->with('return_msg', 'error_bad_insertion');
+        return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
 
     }
 
     public function news_delete_action( $id = 0 ){
         if(!is_numeric($id)){
-            return redirect('/news-admin')->with('return_msg', 'error_bad_item');
+            return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
+        $item = DB::table('news')->where('id', $id)->first();
+        $path = base_path('storage/app/public/news/').$item->hash_id;
+        
         $res = (bool) DB::table('news')->where('id', $id)->delete();
         if($res){
-           return redirect('/news-admin')->with('return_msg', 'success');
+            array_map('unlink', glob("$path/*.*"));
+            rmdir($path);
+            return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
         }
-        return redirect('/news-admin')->with('return_msg', 'error_bad_query');
+        return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
 }
