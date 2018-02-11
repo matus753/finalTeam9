@@ -71,15 +71,16 @@
 			font-size: 12px;
 		}
 	}
-}
+	table.dataTable.no-footer {
+		border-bottom-color: #ddd
+	}
 
-.pagination {
-	>li {
-		>a,  >span {
-			&:focus, &:hover {
-				border: none !important;
-			}
-		}
+	&--publications {
+		padding-bottom: 100px;
+		padding-top: 160px;
+	}
+	&--hidden {
+		display: none;
 	}
 }
 
@@ -87,8 +88,8 @@
 	.dataTables_paginate {
 		.paginate_button {
 			&:hover {
-				background: none !important;
-				border: none !important;
+				background: transparent !important;
+				border-color: transparent !important;
 			}
 		}
 	}
@@ -96,3 +97,12 @@
 		color: #bbbbbb !important;
 	}
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	&:active {
+		background-color: transparent;
+		box-shadow: unset !important;
+	}
+
+}
+

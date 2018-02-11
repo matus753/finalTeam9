@@ -150,5 +150,18 @@ function isLogged(){
 	return false;
 }
 
+function fullDepartmentName($string) {
+    $departments = array(
+	    'AHU' => 'Administratívno - hospodársky úsek',
+	    'OAMM' => 'Oddelenie aplikovanej mechaniky a mechatroniky', 
+	    'OEAP' => 'Oddelenie E-mobility, automatizácie a pohonov', 
+	    'OEMP' => 'Oddelenie elektroniky, mikropočítačov a PLC systémov', 
+	    'OIKR' => 'Oddelenie informačných, komunikačných a riadiacich systémov' 
+    );
+	$string = strtr($string, $departments);
+
+    return $string;
+}
+
 
 

@@ -15,19 +15,23 @@ var table_content;
 
 function showPubs(){
 	var data = { 'ais_id' : {{ $ais_id }} };
-	$('#modal-staff-more-content').html('<img src="../images/loading.gif" class="img-loading">');
+	$('.staff-publications__loading').html('<img src="../images/loading.gif" class="img-loading">');
+	$('.staff-publications__button').hide();
 	$.ajax({
 		url:"{{ url('/staff/ajax_publications') }}", 
 		type: 'POST' , 
 		data : data, 
 		headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+		beforeSend : function(msg){
+            setTimeout(function () {
+                $(".staff-publications__loading").html(msg);
+            }, 2000);
+        },
 		success : function(data){
 			var jsonObject = JSON.parse(data);
-			setTimeout(function () {
-                $("#modal-staff-more-content").html(msg);
-            }, 2000);
+			
 			if(data){
-				$('#publications_table').removeClass('hidden');
+				$('#publications_table').removeClass('hidden'); 			
 			}
 			$('#publications_table').DataTable({
 				data: jsonObject,
@@ -37,7 +41,11 @@ function showPubs(){
 						{"data" : "year"}        
 				]
 			});
-		}
+		},
+		complete : function() {
+           $('.staff').removeClass('staff--hidden'); 
+		   $('.staff-publications').fadeOut();	
+        }
 	});
 }
 
@@ -82,7 +90,7 @@ function showPubs(){
 						else {
 							$staffEmail = $ais->email;
 						}
-						$staffEmail = remove_accents($staffEmail);
+						$staffEmail = removeAccents($staffEmail);
 						$staffEmail = strtolower($staffEmail);
 					?>
 					<a href="mailto:{{ $staffEmail }}"><i class="fa fa-envelope" aria-hidden="true"></i> {{ $staffEmail }}</a>
@@ -103,18 +111,16 @@ function showPubs(){
 		<br>
 		@endif
 	</div>
+	<div class="staff-publications__loading"></div>
 </section>
-<section id="modal-staff-more-content">
-	</section>
-
-<section class="staff"  >
+<section class="staff staff--publications staff--hidden">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="table-responsive">
-					<table id="publications_table" class="table table-stripped table-bordered hidden" id="staff">
+					<table id="publications_table" class="table table-stripped table-bordered hidden">
 						<thead>
-							<tr>
+							<tr class="staff__table-title">
 								<th>@lang('staff::staff.tbl-title')</th>
 								<th>@lang('staff::staff.type')</th>
 								<th>@lang('staff::staff.year')</th>
@@ -128,20 +134,7 @@ function showPubs(){
 </section>
 
 <?php 
-	function fullDepartmentName($string) {
-	    $departments = array(
-		    'AHU' => 'Administratívno - hospodársky úsek',
-		    'OAMM' => 'Oddelenie aplikovanej mechaniky a mechatroniky', 
-		    'OEAP' => 'Oddelenie E-mobility, automatizácie a pohonov', 
-		    'OEMP' => 'Oddelenie elektroniky, mikropočítačov a PLC systémov', 
-		    'OIKR' => 'Oddelenie informačných, komunikačných a riadiacich systémov' 
-	    );
-		$string = strtr($string, $departments);
-
-	    return $string;
-	}
-
-	function remove_accents($string) {
+	function removeAccents($string) {
 	    if ( !preg_match('/[\x80-\xff]/', $string) )
 	        return $string;
 

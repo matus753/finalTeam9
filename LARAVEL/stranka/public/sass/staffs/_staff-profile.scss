@@ -34,9 +34,14 @@
 		transition: color 0.2s ease;
 		>i {
 			margin-right: 10px;
+			transition: margin-left 0.2s ease;
 		}
 		&:hover {
 			text-decoration: unset;
+			color: #063c73;
+			>i {
+				margin-left: -5px;
+			}
 		}
 	}
 	&__contact {
