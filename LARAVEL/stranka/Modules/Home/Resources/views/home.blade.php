@@ -38,7 +38,7 @@
 					<img src="{{ URL::asset('images/indexPhoto/slider1.jpg') }}" alt="UAMT" width="100%">
 					<div class="carousel-caption">
 					<h3 class="slider-h3 slider-bg-black">@lang('home::home.slider3_highlighted')</h3>
-					<p class="slider-text">@lang('home::home.slider3')<a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a">@lang('home::home.slider3_link')</a></p>
+					<p class="slider-text"><a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a" target="_blank">@lang('home::home.slider3')<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a></p>
 					</div>      
 				</div>
 			</div>
@@ -54,40 +54,43 @@
 		</div>
 		
 		<div class="container">
-			<div class="row">
+			<div class="row"> 
 				<div class="col-lg-12">
-					<div class="row thumb-fb-row">
+					<div class="row thumb-fb-row hp-thumbnail">
 						<div class="col-sm-6 col-md-3">
-						  <div class="thumbnail thumbfb">
-							<img src="{{ URL::asset('images/indexPhoto/t1.JPG') }}" alt="...">
-							<div class="caption">
-							  <h3>@lang('home::home.about_us')</h3>
-							  <p>@lang('home::home.about_us_section_preview')</p>
-							  <p><a href="aboutUs.php" class="btn btn-default btn-dark-blue" role="button">@lang('home::home.about_us')</a> <a href="staff.php" class="btn btn-default btn-blue" role="button">@lang('home::home.staff')</a></p>
-							</div>
-						  </div> 
+						  <div class="hp-thumbnail__wrapper">
+							  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t1.JPG') }})" href="aboutUs.php">
+							  	<div class="hp-thumbnail__item-content">
+							  		<h3>@lang('home::home.about_us')</h3>
+							  		<p>@lang('home::home.about_us_section_preview')</p>
+							  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+							  	</div>
+							  </a>
 						</div>
-						  <div class="col-sm-6 col-md-3">
-						  <div class="thumbnail thumbfb">
-							<img src="{{ URL::asset('images/indexPhoto/t2.JPG') }}" alt="...">
-							<div class="caption">
-							  <h3>@lang('home::home.news')</h3>
-							  <p>@lang('home::home.news_section_preview')<p>
-							  <p><a href="news.php" class="btn btn-default btn-dark-blue" role="button">@lang('home::home.news')</a>
-							</div>
+					  </div>
+					  <div class="col-sm-6 col-md-3">
+						  <div class="hp-thumbnail__wrapper">
+							  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t2.JPG') }})" href="news.php">
+							  	<div class="hp-thumbnail__item-content">
+							  		<h3>@lang('home::home.news')</h3>
+							  		<p>@lang('home::home.news_section_preview')</p>
+							  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+							  	</div>
+							  </a>
 						  </div>
-						</div>
-						<div class="col-sm-6 col-md-3">
-						  <div class="thumbnail thumbfb">
-							<img src="{{ URL::asset('images/indexPhoto/t3.JPG') }}" alt="...">
-							<div class="caption">
-							  <h3>@lang('home::home.photo_gallery')</h3>
-							  <p>@lang('home::home.photo_gallery_section_preview')</p>
-							  <p><a href="photo.php" class="btn btn-default btn-dark-blue" role="button">@lang('home::home.photo_gallery')</a> <a href="video.php" class="btn btn-default btn-blue" role="button">@lang('home::home.videos')</a></p>
-							</div>
+					  </div>
+					  <div class="col-sm-6 col-md-3">
+						  <div class="hp-thumbnail__wrapper">
+							  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t3.JPG') }})" href="photo.php">
+							  	<div class="hp-thumbnail__item-content">
+							  		<h3>@lang('home::home.photo_gallery')</h3>
+							  		<p>@lang('home::home.photo_gallery_section_preview')</p>
+							  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+							  	</div>
+							  </a>
 						  </div>
-						</div>
-						<div class="col-sm-6 col-md-3">                          
+					  </div>
+					  <div class="col-sm-6 col-md-3">                          
 							<div id="fb-root"></div>
 								<script>(function(d, s, id) {
 								  var js, fjs = d.getElementsByTagName(s)[0];
@@ -105,22 +108,22 @@
 					   </div>
 					</div>
 					<!-- Container (Services Section) -->
-					<div class="container-fluid text-center">
+					<div class="container-fluid text-center hp-benefits">
 					  <h2 class="bold">@lang('home::home.offering')</h2>
 					  <br>
 					  <div class="row">                        
 						<div class="col-sm-4">
-						  <span class="fa fa-graduation-cap fa-3x" style="color: #4da6ff;"></span>
+						  <span class="fa fa-graduation-cap hp-benefits__icon" style="color: #4da6ff;"></span>
 						  <h4>@lang('home::home.dis_master_study')</h4>
 						  <p class="con-text">@lang('home::home.dis_master_study_text')</p>
 						</div>
 						<div class="col-sm-4">
-						  <span class="fa fa-certificate fa-3x" style="color: #4da6ff;"></span>
+						  <span class="fa fa-certificate hp-benefits__icon" style="color: #4da6ff;"></span>
 						  <h4>@lang('home::home.quality_of_studies')</h4>
 						  <p class="con-text">@lang('home::home.quality_of_studies_text')</p>
 						</div>
 						<div class="col-sm-4">
-						  <span class="fa fa-cog fa-3x" style="color: #4da6ff;"></span>
+						  <span class="fa fa-cog hp-benefits__icon" style="color: #4da6ff;"></span>
 						  <h4>@lang('home::home.interesting_projects')</h4>
 						  <p class="con-text">@lang('home::home.interesting_projects_text')</p>
 						</div>

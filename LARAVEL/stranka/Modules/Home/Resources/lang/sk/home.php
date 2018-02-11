@@ -13,7 +13,7 @@ return [
 	'slider3_link' => 'TU',
 	
 	'about_us' => 'O nás',
-	'about_us_section_preview' => 'Chcete sa o nás dozvedieť čosi viac? Prejdite na podstránky "O nás" a "Pracovníci" a zistite niečo viac z našej histórie, dozviete sa bližšie informácie o jednotlivých oddeleniach a pracovníkoch.',
+	'about_us_section_preview' => 'Chcete sa o nás dozvedieť čosi viac? Prejdite na podstránku "O nás" a zistite niečo viac z našej histórie.',
 	'staff' => 'Pracovníci',
 	
 	'news' => 'Aktuality',

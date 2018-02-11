@@ -1,0 +1,11 @@
+.hp-benefits {
+	padding-top: 30px;
+	h2 {
+		margin-top: 30px;
+	}
+	&__icon {
+		font-size: 32px !important;
+    	padding-bottom: 6px;
+    	transition: font-size 0.2s, padding-bottom 0.2s;
+	}
+}
