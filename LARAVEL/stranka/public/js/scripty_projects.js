@@ -8,7 +8,11 @@ $('.m').on("click",function(){
         },
         success: function(msg){
             var obj = JSON.parse(msg);
-            $("#modalTitle").html(obj.titleSK);
+            if ($('#lang').html() === 'sk') {
+                $("#modalTitle").html(obj.titleSK);
+            } else {
+                $("#modalTitle").html(obj.titleEN);
+            }
             $("#modalType").html(obj.projectType);
             $("#modalNumber").html(obj.number);
             $("#modalDuration").html(obj.duration);
@@ -25,9 +29,13 @@ $('.m').on("click",function(){
                 $( "#modalCodeDiv" ).removeClass( "defHide" );
                 $("#modalCode").html(obj.internalCode);
             }
-            if (obj.annotationSK){
+            if (obj.annotationSK && $('#lang').html() === 'sk' ){
                 $( "#modalAnotDiv" ).removeClass( "defHide" );
                 $("#modalAnot").html(obj.annotationSK);
+            }
+            if (obj.annotationEN && $('#lang').html() === 'en' ){
+                $( "#modalAnotDiv" ).removeClass( "defHide" );
+                $("#modalAnot").html(obj.annotationEN);
             }
 
         }

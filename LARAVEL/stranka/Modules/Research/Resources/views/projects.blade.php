@@ -10,8 +10,9 @@
 @section('content')
 
 <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner2.jpg') }}')">
-	<h1>Projekty</h1>
+	<h1>@lang('research::research.projects')</h1>
 </section>
+<p id='lang' style="display: none">@lang('research::research.lang')</p>
 <div id="emPAGEcontent" class="container">
     <div class="container">
 		<div class="row">
@@ -21,17 +22,21 @@
 						<thead class="category"><tr><th colspan="4">INTERNATIONAL</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th class="column1">Číslo projektu</th>
-								<th class="column2">Názov projektu</th>
-								<th class="column3">Doba riešenia</th>
-								<th class="column4">Zodpovedný riešiteľ</th>
+								<th class="column1">@lang('research::research.projectNumber')</th>
+								<th class="column2">@lang('research::research.projectTitle')</th>
+								<th class="column3">@lang('research::research.projectDuration')</th>
+								<th class="column4">@lang('research::research.projectCoordinator')</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($international as $i)
 							<tr data-href="{{ url('/projects') }}/{{ $i->pr_id }}" data-id="{{$i->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $i->number }}</td>
-								<td class="column2">{{ $i->titleSK }}</td>
+								@if(session()->get('locale') === 'sk')
+									<td class="column2">{{ $i->titleSK }}</td>
+								@else
+									<td class="column2">{{ $i->titleEN }}</td>
+								@endif
 								<td class="column3">{{ $i->duration }}</td>
 								<td class="column4">{{ $i->coordinator }}</td>
 							</tr>
@@ -45,17 +50,21 @@
                         <thead class="category"><tr><th colspan="4">KEGA</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th class="column1">Číslo projektu</th>
-								<th class="column2">Názov projektu</th>
-								<th class="column3">Doba riešenia</th>
-								<th class="column4">Zodpovedný riešiteľ</th>
+								<th class="column1">@lang('research::research.projectNumber')</th>
+								<th class="column2">@lang('research::research.projectTitle')</th>
+								<th class="column3">@lang('research::research.projectDuration')</th>
+								<th class="column4">@lang('research::research.projectCoordinator')</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($kega as $k)
 							<tr data-href="{{ url('/projects') }}/{{ $k->pr_id }}" data-id="{{$k->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $k->number }}</td>
-								<td class="column2">{{ $k->titleSK }}</td>
+								@if(session()->get('locale') === 'sk')
+									<td class="column2">{{ $k->titleSK }}</td>
+								@else
+									<td class="column2">{{ $k->titleEN }}</td>
+								@endif
 								<td class="column3">{{ $k->duration }}</td>
 								<td class="column4">{{ $k->coordinator }}</td>
 							</tr>
@@ -68,17 +77,21 @@
                         <thead class="category"><tr><th colspan="4">VEGA</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th class="column1">Číslo projektu</th>
-								<th class="column2">Názov projektu</th>
-								<th class="column3">Doba riešenia</th>
-								<th class="column4">Zodpovedný riešiteľ</th>
+								<th class="column1">@lang('research::research.projectNumber')</th>
+								<th class="column2">@lang('research::research.projectTitle')</th>
+								<th class="column3">@lang('research::research.projectDuration')</th>
+								<th class="column4">@lang('research::research.projectCoordinator')</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($vega as $v)
 							<tr data-href="{{ url('/projects') }}/{{ $v->pr_id }}" data-id="{{$v->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $v->number }}</td>
-								<td class="column2">{{ $v->titleSK }}</td>
+								@if(session()->get('locale') === 'sk')
+									<td class="column2">{{ $v->titleSK }}</td>
+								@else
+									<td class="column2">{{ $v->titleEN }}</td>
+								@endif
 								<td class="column3">{{ $v->duration }}</td>
 								<td class="column4">{{ $v->coordinator }}</td>
 							</tr>
@@ -92,17 +105,21 @@
                         <thead class="category"><tr><th colspan="4">APVV</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th class="column1">Číslo projektu</th>
-								<th class="column2">Názov projektu</th>
-								<th class="column3">Doba riešenia</th>
-								<th class="column4">Zodpovedný riešiteľ</th>
+								<th class="column1">@lang('research::research.projectNumber')</th>
+								<th class="column2">@lang('research::research.projectTitle')</th>
+								<th class="column3">@lang('research::research.projectDuration')</th>
+								<th class="column4">@lang('research::research.projectCoordinator')</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($apvv as $a)
 							<tr data-href="{{ url('/projects') }}/{{ $a->pr_id }}" data-id="{{$a->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $a->number }}</td>
-								<td class="column2">{{ $a->titleSK }}</td>
+								@if(session()->get('locale') === 'sk')
+									<td class="column2">{{ $a->titleSK }}</td>
+								@else
+									<td class="column2">{{ $a->titleEN }}</td>
+								@endif
 								<td class="column3">{{ $a->duration }}</td>
 								<td class="column4">{{ $a->coordinator }}</td>
 							</tr>
@@ -116,17 +133,21 @@
                         <thead class="category"><tr><th colspan="4">OTHER</th></tr></thead>
 						<thead>
 							<tr class="staff__table-title">
-								<th class="column1">Číslo projektu</th>
-								<th class="column2">Názov projektu</th>
-								<th class="column3">Doba riešenia</th>
-								<th class="column4">Zodpovedný riešiteľ</th>
+								<th class="column1">@lang('research::research.projectNumber')</th>
+								<th class="column2">@lang('research::research.projectTitle')</th>
+								<th class="column3">@lang('research::research.projectDuration')</th>
+								<th class="column4">@lang('research::research.projectCoordinator')</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($other as $o)
 							<tr data-href="{{ url('/projects') }}/{{ $o->pr_id }}" data-id="{{$o->pr_id}}" class="m" data-toggle="modal" data-target="#myModalProjects">
 								<td class="column1">{{ $o->number }}</td>
-								<td class="column2">{{ $o->titleSK }}</td>
+								@if(session()->get('locale') === 'sk')
+									<td class="column2">{{ $o->titleSK }}</td>
+								@else
+									<td class="column2">{{ $o->titleEN }}</td>
+								@endif
 								<td class="column3">{{ $o->duration }}</td>
 								<td class="column4">{{ $o->coordinator }}</td>
 							</tr>
@@ -137,8 +158,8 @@
 			</div>
 		</div>
 	</div>
-	   
-	   
+
+
 </div>
 
 <div class="modal fade" id="myModalProjects" role="dialog">
@@ -151,37 +172,37 @@
                 <div class='modal-projects'>
                     <p id="modalTitle" class='modal-project-title grey bold'></p>
                     <hr>
-                    <p class='modal-project-subtitle'>Typ projektu</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectType')</p>
                     <p id="modalType" class='modal-project-text'></p>
                     <hr>
-                    <p class='modal-project-subtitle'>Číslo projektu</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectNumber')</p>
                     <p id="modalNumber" class='modal-project-text'></p>
                     <hr>
-                    <p class='modal-project-subtitle'>Doba trvania</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectDuration')</p>
                     <p id="modalDuration" class='modal-project-text'></p>
                     <hr>
-                    <p class='modal-project-subtitle'>Vedúci projektu</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectCoordinator')</p>
                     <p id="modalCoordinator" class='modal-project-text'></p>
                     <hr>
 
                     <div id="modalPartnersDiv" class="defHide">
-                    <p class='modal-project-subtitle'>Partneri</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectPartners')</p>
                         <p id="modalPartners" class='modal-project-text'></p>
                     <hr>
                     </div>
                     <div id="modalWebDiv" class="defHide">
-                    <p class='modal-project-subtitle'>Webová stránka</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectWeb')</p>
                         <p id="modalWeb" class='modal-project-text'></p>
 
                     <hr>
                     </div>
                     <div id="modalCodeDiv" class="defHide">
-                    <p class='modal-project-subtitle'>Interný kód</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectCode')</p>
                         <p id="modalCode" class='modal-project-text'></p>
                     <hr>
                     </div>
                      <div id="modalAnotDiv" class="defHide">
-                    <p class='modal-project-subtitle'>Anotácia</p>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectAnot')</p>
                          <p id="modalAnot" class='modal-project-text modal-project-annotation'></p>
                          </div>
 			</div>
