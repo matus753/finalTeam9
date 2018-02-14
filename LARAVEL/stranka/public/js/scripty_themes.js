@@ -13,23 +13,6 @@ function getThesis(ustav) {
 
     var id = $(".loaded").data('type');
     var lang = $("#lang").html();
-    if (id == 1){
-        if (lang == 'sk'){
-            $(".thesisType").html('bakalárske');
-            $(".studyType").html('bakalárske');
-        } else {
-            $(".thesisType").html('bachelor');
-            $(".studyType").html('bachelor');
-        }
-    } else {
-        if ($("#lang").html() == 'sk'){
-            $(".thesisType").html('diplomové');
-            $(".studyType").html('inžinierske');
-        } else {
-            $(".thesisType").html('master');
-            $(".studyType").html('master');
-        }
-    }
 
     $('.loading').css("display", "block");
     $('.loaded').css("display", "none");

@@ -7,7 +7,11 @@
 @section('content')
     <link rel="stylesheet" href="{{ URL::asset('css/study.css') }}">
     <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner_study3.jpeg') }}')">
-        <h1 >@lang('study::study.available') <span class="thesisType"></span> @lang('study::study.thesis')</h1>
+        @if(session()->get('locale') === 'sk')
+            <h1 >@lang('study::study.available') {{$typ}} @lang('study::study.thesis')</h1>
+        @else
+            <h1 >@lang('study::study.available') {{$urlBack}} @lang('study::study.thesis')</h1>
+        @endif
     </section>
     <p id="lang" style="display: none;">@lang('study::study.lang')</p>
     <div id="emPAGEcontent">
@@ -59,7 +63,11 @@
 
 
                             <div id="thesisBtn">
-                                <a href="{{ url('/') }}/{{$urlBack}}" id="goBackBtn" class="btn btn-default" role="button"><i class="fa fa-arrow-left" aria-hidden="true"></i> @lang('study::study.back') <span class="studyType"></span> @lang('study::study.study')</a>
+                                @if(session()->get('locale') === 'sk')
+                                    <a href="{{ url('/') }}/{{$urlBack}}" id="goBackBtn" class="btn btn-default" role="button"><i class="fa fa-arrow-left" aria-hidden="true"></i> @lang('study::study.back') {{$studyType}} @lang('study::study.study')</a>
+                                @else
+                                    <a href="{{ url('/') }}/{{$urlBack}}" id="goBackBtn" class="btn btn-default" role="button"><i class="fa fa-arrow-left" aria-hidden="true"></i> @lang('study::study.back') {{$urlBack}} @lang('study::study.study')</a>
+                                @endif
                             </div>
                     </div>
                 </div>
