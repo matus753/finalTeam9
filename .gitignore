@@ -7,3 +7,4 @@
 /LARAVEL/stranka/vendor/
 /LARAVEL/stranka/storage/logs/
 /LARAVEL/stranka/config/database.php
+/LARAVEL/stranka/storage/logs/laravel.log
