@@ -22,41 +22,6 @@ hr {
     border-bottom: 1px dashed #fff;
 }
 
-.modal-projects{
-    font-family: 'Open Sans', sans-serif;
-    margin: 20px;
-}
-
-.modal-project-title {
-    text-align: center;
-    text-transform: uppercase;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    font-size: 22px;
-    color: rgba(0,0,0,0.6);
-    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
-                 0px -5px 35px rgba(255,255,255,0.3);
-}
-
-.modal-project-subtitle {
-    text-align: left;
-    margin: 15px 60px 20px;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-    color: rgb(10, 97, 188);
-}
-
-.modal-project-text {
-    text-align: center;
-    margin: 0px;
-    font-size: 14px;    
-}
-
-.modal-project-annotation {
-    text-align: justify;
-}
-
 .projects-table-th1 {
     width: 10%;
 }
@@ -111,4 +76,20 @@ th{
 }
 .m:hover{
     cursor: pointer;
+}
+.projectSubtitle{
+    font-weight: bold;
+    /*color: rgb(10, 97, 168);*/
+    /*text-transform: uppercase;*/
+    margin: 0;
+    margin-top: 10px;
+}
+.projectText{
+    margin-bottom: 20px;
+}
+.tableHead{
+    font-size: 12px;
+}
+.projectTitle{
+    font-weight: bold;
 }
