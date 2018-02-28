@@ -76,6 +76,7 @@ Route::post('/login-action', '\Modules\Login\Http\Controllers\Login@login_action
 
 /* Intranet */
 Route::get('/intranet', '\Modules\Intranet\Http\Controllers\Intranet@intranet');
+
 /* Intranet news */
 Route::get('/news-admin', '\Modules\Intranet\Http\Controllers\Intranet_news@news_all');
 Route::get('/news-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_delete_action');
@@ -85,7 +86,8 @@ Route::get('/news-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet
 Route::post('/news-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_edit_action');
 Route::post('/news-admin/news_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_images_upload');
 Route::post('/news-admin/news_file_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_file_upload');
-Route::post('/news-admin/news-set-pagination', '\Modules\Intranet\Http\Controllers\Intranet_news@news_set_pagination_action');
+//Route::post('/news-admin/news-set-pagination', '\Modules\Intranet\Http\Controllers\Intranet_news@news_set_pagination_action');
+Route::get('/news-admin-delete-added/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_delete_single_action');
 
 /* Intranet projects */
 Route::get('/projects-admin', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_all');
@@ -132,3 +134,36 @@ Route::post('/staff-admin-add-action', '\Modules\Intranet\Http\Controllers\Intra
 Route::get('/staff-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_edit');
 Route::post('/staff-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_edit_action');
 Route::get('/staff-admin-show-profile/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_show_profile');
+Route::get('/staff-admin-activate-user/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_activate_user');
+
+/* Intranet attendance */
+Route::get('/attendance-admin/{year?}/{month?}', '\Modules\Intranet\Http\Controllers\Intranet_attendance@attendance');
+Route::get('/attendance-admin-ajax', '\Modules\Intranet\Http\Controllers\Intranet_attendance@attendance_ajax');
+
+/* Intranet events */
+Route::get('/events-admin', '\Modules\Intranet\Http\Controllers\Intranet_events@events_all');
+Route::get('/events-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_delete_action');
+Route::get('/events-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_events@events_add');
+Route::post('/events-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_events@events_add_action');
+Route::get('/events-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_edit');
+Route::post('/events-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_edit_action');
+
+
+/* Intranet documents */ 
+Route::get('/documents-admin', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_all');
+Route::post('/documents-admin-get-content', '\Modules\Intranet\Http\Controllers\Intranet_documents@ajax_get_category_content');
+
+Route::get('/documents-admin-add-category', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_category');
+Route::post('/documents-admin-add-category-action', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_category_action');
+Route::get('/documents-admin-add-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_item');
+Route::post('/documents-admin-add-item-action', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_item_action');
+
+Route::post('/documents-admin/documents_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_image_upload');
+Route::post('/documents-files-admin-upload-action', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_file_upload');
+
+Route::get('/documents-admin-edit-category/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_edit_category');
+Route::post('/documents-admin-edit-category-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_edit_category_action');
+
+
+Route::get('/documents-admin-delete-category/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_category_action');
+Route::get('//documents-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_action');

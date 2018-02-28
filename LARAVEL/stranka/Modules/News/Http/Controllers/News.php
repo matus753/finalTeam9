@@ -11,16 +11,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class News extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
     public function index(Request $request)
     {
 		$module_name = config('news.name');
 		$pages_count = config('news.items_per_page');
 		
-		// skontrolovat a osetrit vstupy
 		$filter = -1;
 		if(isset($_GET['type'])){
 			$filter = $_GET['type'];
@@ -60,13 +55,14 @@ class News extends Controller
 				$r->date_expiration = format_time($r->date_expiration);
 			}
 		}
-		
+
 		$data = [
 			'news' => $res,
 			'title' => $module_name,
 			'type' => $filter,
 			'expired' => $expired
 		];
+
 		//debug($data);
         return view('news::news', $data);
     }
@@ -75,15 +71,17 @@ class News extends Controller
 		if( !is_numeric($id) ){
 			return false;
 		}
-		// kotrola ma id content ?
 
 		$content = DB::table('news')->where('id', $id)->first();
-		
+		$added_files = DB::table('news_dl_files')->where('n_id', $content->id)->get();
+		$added_files = (!$added_files) ? [] : $added_files;
+
 		$data = [
 			'title' => $content->title_sk,
-			'content' => $content
+			'content' => $content,
+			'added_files' => $added_files
 		];
-		
+		//debug($data, true);
 		return view('news::show_content_news', $data);
 	}
 	

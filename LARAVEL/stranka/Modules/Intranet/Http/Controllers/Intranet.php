@@ -17,6 +17,9 @@ class Intranet extends Controller
     }
 
     public function intranet(){
+        /*if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }*/
 		$data = [ 'title' => $this->module_name ];
 		
         return view('intranet::intranet', $data);

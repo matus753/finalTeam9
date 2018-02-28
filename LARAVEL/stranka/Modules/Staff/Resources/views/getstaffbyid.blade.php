@@ -73,7 +73,7 @@ function showPubs(){
 						<div class="staff-profile__description">
 							<p><span>@lang('staff::staff.room'): </span>{{ $ais->room }}</p>
 							<p><span>@lang('staff::staff.phone'): </span>+421 60291 {{ $ais->phone }}</p>
-							<p><span>@lang('staff::staff.department'): </span><?php echo fullDepartmentName($ais->department); ?></p>
+							<p><span>@lang('staff::staff.department'): </span>{{ $ais->department }}</p>
 							@if( $ais->function ) 
 								<p><span>@lang('staff::staff.function'): </span>{{ $ais->function }}</p>
 							@endif

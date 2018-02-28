@@ -51,6 +51,9 @@ class StaffServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/config.php', 'staff'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../../Intranet/Config/staff_admin.php', 'staff_admin'
+        );
     }
 
     /**

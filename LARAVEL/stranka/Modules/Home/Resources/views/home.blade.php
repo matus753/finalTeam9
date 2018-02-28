@@ -18,6 +18,7 @@
 
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
+				
 				<div class="item active">
 					<img src="{{ URL::asset('images/indexPhoto/slider2.jpg') }}" alt="UAMT" width="100%">
 					<div class="carousel-caption">

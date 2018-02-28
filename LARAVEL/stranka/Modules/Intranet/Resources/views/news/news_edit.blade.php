@@ -78,6 +78,7 @@
                         @endforeach
                     </select>
                 </div>
+                <input type="hidden" name="news_id_hash" value="{{ $item->hash_id }}">
                 <div class="form-group">
                     <label for="expiration">Expirácia:</label>
                     <input type="date" class="form-control" id="expiration" name="expiration" value="{{ format_time($item->date_expiration, true) }}" placeholder="Expiration">
@@ -104,20 +105,36 @@
                 </div>
                 <div class="form-group">
                     <label for="en-editor">Long text:</label>
-                    <textarea id="en-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
+                    <textarea id="en-editor" name="editor_content_en">{{ $item->editor_content_en }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="add_files">Additional files:</label>
+                    <input type="file" id="add_files" name="add_files[]" multiple />
+                </div>
+                <div class="form-group">
+                    <label for="orig_img">Ponechat obrazok:</label>
+                    <input type="checkbox" id="orig_img" name="orig_img" value="set" checked />
                 </div>
                 @if($item->image_hash_name)
-                    TO DO REMOVE AFTER IMAGE CHANGE
                     <div class="form-group">
                         <label for="image">Ukážkový obrázok reupload:</label>
                         <input type="file" class="form-control" id="image" name="image" />
                     </div>
-                    <img src="{{ get_news_image($item->image_hash_name) }}" class="img-responsive" alt="news_image" width="300" height="300">
+                    <img src="{{ get_news_image($item->hash_id, $item->image_hash_name) }}" class="img-responsive" alt="news_image" width="300" height="300">
                 @else
                     <div class="form-group">
                         <label for="image">Ukážkový obrázok:</label>
                         <input type="file" class="form-control" id="image" name="image" />
                     </div>
+                @endif
+
+                @if($add_files)
+                    @foreach($add_files as $added)
+                    <div>
+                        <p>{{ $added->file_name }}</p>
+                        <a href="{{ url('/news-admin-delete-added/'.$added->nf_id) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                    @endforeach
                 @endif
                 <input type="submit" class="btn btn-success pull-right" value="Ulož" />
             </form>

@@ -45,12 +45,15 @@
                         <tbody>
                             @foreach($staff as $s)
                             <tr>  
-                                <td> <a href="{{ url('/staff-admin-show-profile/'.$s->id) }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</a></td>
+                                <td> <a href="{{ url('/staff-admin-show-profile/'.$s->s_id) }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</a></td>
                                 <td>{{ $s->department }}</td>  
                                 <td>{{ $s->staffRole }}</td> 
                                 <td>
-                                    <a href="{{ url('/staff-admin-edit/'.$s->id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
-                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }} ', '{{ url('/staff-admin-delete/'.$s->id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
+                                    <a href="{{ url('/staff-admin-edit/'.$s->s_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
+                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }} ', '{{ url('/staff-admin-delete/'.$s->s_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
+                                    @if($activation)
+                                    <a href="{{ url('/staff-admin-activate-user/'.$s->s_id) }}" class="btn @if($s->activated)  btn-warning @else btn-primary @endif btn-sm" title="@if($s->activated) Deactivate @else Activate @endif" >@if($s->activated) <span class="fa fa-thumbs-down "> @else <span class="fa fa-thumbs-up ">@endif</span></a>
+                                    @endif
                                 </td> 
                             </tr>   
                             @endforeach

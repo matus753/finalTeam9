@@ -37,7 +37,6 @@ class Intranet_media extends Controller
     }
 
     public function media_add_action( Request $request ){
-        // TODO remove bad string
         $titleSK = $request->input('title_sk');
         $titleEN = $request->input('title_en');
         $media = $request->input('media');

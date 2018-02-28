@@ -25,7 +25,11 @@ class Home extends Controller
     public function index()
     {	
 		$module_name = config('home.name');
-		
-		return view('home::home')->with('title', $module_name);
+	
+		$data = [
+			'title' => $module_name,
+
+		];
+		return view('home::home', $data);
     }
 }

@@ -27,7 +27,7 @@
             </div>
             <h2>premenovat db IDcka</h2>
             <br>
-            <form action="{{ url('/staff-admin-edit-action/'.$item->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/staff-admin-edit-action/'.$item->s_id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name">Meno:</label>
@@ -98,15 +98,16 @@
                     <div id="perms">
                         @foreach($permission_roles as $key => $pr) 
                             {{ $pr }}
-                            <input type="checkbox" name="perm[]" value="{{ $key }}" @foreach($item->roles as $r) @if($r == $key) {{ 'checked' }} @endif  @endforeach/>
+                            <input type="checkbox" name="perm[]" value="{{ $key }}" @if($item->roles) @foreach($item->roles as $r) @if($r == $key) {{ 'checked' }} @endif  @endforeach @endif/>
                         @endforeach
                     </div>
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
             </form>
-            <p>Aktuálna profilofka</p>
-            <img src="{{ get_profile_photo($item->photo) }}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
-
+            @if($item->photo)
+                <p>Aktuálna profilofka</p>
+                <img src="{{ get_profile_photo($item->photo) }}" class="img-responsive" style="max-width: 300px; max-height: 300px;">
+            @endif
 		</div>
 	</div>
 </div>   

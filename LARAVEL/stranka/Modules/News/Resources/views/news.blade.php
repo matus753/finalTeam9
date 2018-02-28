@@ -77,7 +77,7 @@ function check(){
 					<div class="row" style="margin: 1em; background-color: grey;">
 						<div class="col-md-12">
 							<div class="col-md-3">
-								<img src="{{ get_news_image($n->image_hash_name) }}" alt="image" height="120">
+								<img src="{{ get_news_image($n->hash_id, $n->image_hash_name) }}" alt="image" height="120">
 							</div>
 							<div class="col-md-9">
 								<h4>{{ $n->title_sk }}</h4>

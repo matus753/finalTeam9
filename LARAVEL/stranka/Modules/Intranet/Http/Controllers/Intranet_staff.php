@@ -23,7 +23,7 @@ class Intranet_staff extends Controller
         $data = [ 
                 'title' => $this->module_name, 
                 'staff' => $staff,
-                //'activation' => config('projects_admin.activation')
+                'activation' => config('staff_admin.activation')
             ];
 
         return view('intranet::staff/staff_all', $data);
@@ -34,7 +34,7 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
 
-        $staff = DB::table('staff')->where('id', $s_id)->first();
+        $staff = DB::table('staff')->where('s_id', $s_id)->first();
         $ais = (!$staff) ? [] : $staff;
 
         $data = [ 
@@ -55,6 +55,7 @@ class Intranet_staff extends Controller
         }else{
             $roles = config('staff_admin.rolesEN');
         }
+
         $departments = config('staff_admin.departments');
         $permission_roles = config('staff_admin.permission_roles');
 
@@ -154,7 +155,7 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
 
-        $item = DB::table('staff')->where('id', $s_id)->first();
+        $item = DB::table('staff')->where('s_id', $s_id)->first();
         $item->roles = json_decode($item->roles);
         /*$departments = DB::table('staff')->select('department')->groupBy('department')->get();
         $roles = DB::table('staff')->select('staffRole')->groupBy('staffRole')->get();*/
@@ -227,7 +228,7 @@ class Intranet_staff extends Controller
 
         $gender_rule = config('staff_admin.gender_rule');
         if($img && !$default_photo){
-            $original_img = DB::table('staff')->select('photo')->where('id', $s_id)->first();
+            $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
             if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
                 $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
                 unlink($path);
@@ -235,7 +236,7 @@ class Intranet_staff extends Controller
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
-            $original_img = DB::table('staff')->select('photo')->where('id', $s_id)->first();
+            $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
             if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
                 $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
                 unlink($path);
@@ -268,7 +269,7 @@ class Intranet_staff extends Controller
             'web' => $url
         ];
 
-        $res = DB::table('staff')->where('id', $s_id)->update($data);
+        $res = DB::table('staff')->where('s_id', $s_id)->update($data);
         if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated successfuly!']);
         }
@@ -280,33 +281,33 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
         
-        $original_img = DB::table('staff')->select('photo')->where('id', $s_id)->first();
+        $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
         if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
             $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
             unlink($path);
         }
 
-        $res = (bool) DB::table('staff')->where('id', $s_id)->delete();
+        $res = (bool) DB::table('staff')->where('s_id', $s_id)->delete();
         if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted successfuly!']);
         }
         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
-    /*public function project_activate_action($pr_id = 0){
-        if(!is_numeric($pr_id) || $pr_id == 0){
-            return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
+    public function staff_activate_user($s_id = 0){
+        if(!is_numeric($s_id) || $s_id == 0){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
         // ak je aktivne tak deaktivuj inak aktivuj
-        $item = DB::table('project')->where('pr_id', $pr_id)->select('activated')->first();
+        $item = DB::table('staff')->where('s_id', $s_id)->select('activated')->first();
 
         if($item->activated){
-            DB::table('project')->where('pr_id', $pr_id)->update(['activated' => 0]);
-            return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deactivated!']);
+            DB::table('staff')->where('s_id', $s_id)->update(['activated' => 0]);
+            return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deactivated!']);
         }else{
-            DB::table('project')->where('pr_id', $pr_id)->update(['activated' => 1]);
-            return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item activated!']);
+            DB::table('staff')->where('s_id', $s_id)->update(['activated' => 1]);
+            return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item activated!']);
         }
-        return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
-    }*/
+        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+    }
 }

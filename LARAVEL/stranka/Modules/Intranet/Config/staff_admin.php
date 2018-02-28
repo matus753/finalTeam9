@@ -4,6 +4,7 @@ return [
     'name' => 'Staff',
     'x_rule' => true,
     'gender_rule' => true,
+    'activation' => true,
     'default_imgs' => [
         'default_img' => 'default_img.png',
         'default_female_img' => 'default_female_img.png',

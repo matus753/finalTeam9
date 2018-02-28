@@ -26,7 +26,7 @@
                 </div>
             </div>
             <br>
-            <form action="{{ url('/projects-admin-edit-action/'.$item->id) }}" method="post">
+            <form action="{{ url('/projects-admin-edit-action/'.$item->pr_id) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <select class="form-control" name="type">

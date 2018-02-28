@@ -12,7 +12,13 @@ class Staff extends Controller
     public function index()
     {
 		$module_name = config('staff.name');
-		$staff_db = DB::table('staff')->get();
+		$activation = config('staff_admin.activation');
+		if($activation){
+			$staff_db = DB::table('staff')->where('activated', 1)->get();
+		}else{
+			$staff_db = DB::table('staff')->get();
+		}
+		
 		
 		foreach($staff_db as $s){
 			if($s->function != null){
@@ -53,6 +59,7 @@ class Staff extends Controller
 			'title' => $module_name,
 			'staff' => $staff_db
 		];
+		//debug($data, true);
         return view('staff::staff', $data);
     }
 	
@@ -61,20 +68,30 @@ class Staff extends Controller
 			return false;
 		}
 		$module_name = config('staff.name');
-		$ais = DB::table('staff')->where( 'id', $id )->first();
-
-		/*$ais_id = null;
-		if($ais->ldapLogin){
-			$ais_id = $this->getAisId($ais->ldapLogin);
-		}*/
-		$ais_id = "lala";
-		$data = [
-			'title' => $module_name,
-			'ais' => $ais,
-			'ais_id' => $ais_id
-		];
+		$activation = config('staff_admin.activation');
+		if($activation){
+			$ais = DB::table('staff')->where( 's_id', $id )->where('activated', 1)->first();
+		}else{
+			$ais = DB::table('staff')->where( 's_id', $id )->first();
+		}
 		
-		return view('staff::getstaffbyid', $data);
+		if($ais){
+			/*$ais_id = null;
+			if($ais->ldapLogin){
+				$ais_id = $this->getAisId($ais->ldapLogin);
+			}*/
+			$ais_id = "lala";
+			$data = [
+				'title' => $module_name,
+				'ais' => $ais,
+				'ais_id' => $ais_id
+			];
+			
+			return view('staff::getstaffbyid', $data);
+		}else{
+			return redirect('/');
+		}
+		return redirect('/');
 	}
 	
 	private function getAisId( $ais_login = '' ){
