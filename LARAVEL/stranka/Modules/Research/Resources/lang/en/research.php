@@ -8,8 +8,8 @@ return [
     'projectType' => 'Project type',
     'projectPartners' => 'Partners',
     'projectAnot' => 'Annotation',
-    'projectWeb' => 'web',
-    'projectCode' => 'internal code',
+    'projectWeb' => 'Web',
+    'projectCode' => 'Internal code',
     'lang' => 'en',
 
     'auto' => 'Autonomus vehicle 6×6',
