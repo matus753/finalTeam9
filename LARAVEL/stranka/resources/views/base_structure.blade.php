@@ -128,7 +128,6 @@
 							@endforeach
                         </ul>
                     </li>
-					<li><a href ="#USER_Profile_show_this_icon_after_login" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>   
 					<li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
 				</ul>
             </div>

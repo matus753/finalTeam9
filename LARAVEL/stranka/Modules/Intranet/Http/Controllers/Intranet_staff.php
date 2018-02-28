@@ -115,15 +115,7 @@ class Intranet_staff extends Controller
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
-            if($gender_rule && strlen($surname) > 2 ){
-                if(substr($surname, -4) == 'ová'){
-                    $photo = config('staff_admin.default_imgs')['default_female_img'];
-                }else{
-                    $photo = config('staff_admin.default_imgs')['default_male_img'];
-                }
-            }else{
-                $photo = config('staff_admin.default_imgs')['default_img'];
-            }
+            $photo = config('staff_admin.default_imgs')['default_male_img'];
         }
 
         $data = [

@@ -1,0 +1,32 @@
+.staff-intra {
+	h2 {
+		text-align: center;
+    	font-weight: bold;
+    	margin-top: 60px;
+    	margin-bottom: 60px;
+	}
+	&__add {
+		display: block;
+		margin: 20px auto 0 auto;
+	}
+	.btn-back {
+		position: absolute;
+    	top: 60px;
+	}
+	&__photo {
+		text-align: center;
+		h3 {
+			font-size: 16px;
+		}
+		img {
+			max-height: 250px;
+			margin: 0 auto 30px auto;
+		} 
+	}
+	#perms {
+		input {
+			margin-right: 20px;
+			margin-left: 5px;
+		}
+	}
+}
