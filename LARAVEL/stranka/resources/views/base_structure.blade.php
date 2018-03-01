@@ -136,7 +136,6 @@
 
 	
 	@yield('content')
-	<div class="push"></div>
     <footer class="nb-footer">
         <div class="container">
             <div class="row">

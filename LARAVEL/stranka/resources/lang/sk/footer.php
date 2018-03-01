@@ -4,6 +4,6 @@ return [
     'evidence' => 'Evidencia publikácií STU',
     'canteen' => 'Jedáleň',
     'timetable' => 'Rozvrh hodín FEI',
-    'magazien' => 'Časopis OKO',
+    'magazine' => 'Časopis OKO',
     'copyright' => 'Tímový projekt'
 ];

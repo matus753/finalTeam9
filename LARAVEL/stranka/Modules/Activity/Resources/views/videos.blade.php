@@ -40,18 +40,17 @@
         var content = document.getElementById('links');
         content.innerHTML = '';
         for(v in videos){
-            content.innerHTML += '<p><i class="fa fa-youtube-play" aria-hidden="true"></i><a target="_blank" href="' + videos[v].url + '">' + videos[v].title + '</a></p>';
+            content.innerHTML += '<p class="video"><a target="_blank" href="' + videos[v].url + '"><i class="fa fa-youtube-play" aria-hidden="true"></i>YouTube</a>' + videos[v].title + '</p>';
         }
     }
 	
 </script>
 <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner12.png') }}')">
-    <h1>Videá</h1>
+    <h1>@lang('activity::activity.videos')</h1>
 </section>
 <div id="emPAGEcontent" class="container">
-	<h2>LEN PRELINKOVANIE ALEBO VIDEO TU NA TEJTO STRANKE ??</h2>
 	<select id="videos_cats" class="soflow" onchange="change_videos_cats(this)">
-		<option value="all">Všetky</option>
+		<option value="all">@lang('activity::activity.all')</option>
 		@foreach($videos_cats as $v)
 			<option value="{{ $v->type }}">{{ $v->type }}</option>
 		@endforeach

@@ -4,6 +4,6 @@ return [
     'evidence' => 'STU publication registry',
     'canteen' => 'Canteen',
     'timetable' => 'FEI timetable',
-    'magazien' => 'OKO magazine',
+    'magazine' => 'OKO magazine',
     'copyright' => 'Team project'
 ];
