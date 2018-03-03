@@ -16,21 +16,16 @@
     });
 </script>
 
-<div id="emPAGEcontent" class="container">
-    <br>
+<div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="staff-intra">
             <div class="pull-right">
                 <a href="{{ url('/staff-admin-add') }}" class="btn btn-primary">Pridaj ľuď</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <h2>FUNKCIONALITA OK - treba test + remove bad string</h2>
-            <h2>Q: profile staci ? klik na meno</h2>
-            <br>
-            <br>
+            <h2>Zamestnanci ústavu</h2>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="projects-table" class="table table-stripped table-bordered intranet-table">
@@ -52,7 +47,7 @@
                                     <a href="{{ url('/staff-admin-edit/'.$s->s_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
                                     <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }} ', '{{ url('/staff-admin-delete/'.$s->s_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
                                     @if($activation)
-                                    <a href="{{ url('/staff-admin-activate-user/'.$s->s_id) }}" class="btn @if($s->activated)  btn-warning @else btn-primary @endif btn-sm" title="@if($s->activated) Deactivate @else Activate @endif" >@if($s->activated) <span class="fa fa-thumbs-down "> @else <span class="fa fa-thumbs-up ">@endif</span></a>
+                                    <a href="{{ url('/staff-admin-activate-user/'.$s->s_id) }}" class="btn @if($s->activated)  btn-warning @else btn-primary @endif btn-sm" title="@if($s->activated) Active @else Deactive @endif" >@if($s->activated) <span class="fa fa-thumbs-up "> @else <span class="fa fa-thumbs-down ">@endif</span></a>
                                     @endif
                                 </td> 
                             </tr>   
@@ -69,8 +64,11 @@
                     </table>
                 </div>
 			</div>
+            <div class="staff__notes">
+                <h5>Poznámky:</h5>
+                <p>- kliknutím na tlačidlo Aktívny profil, profil deaktivujete a naopak</p>
+            </div>
 		</div>
 	</div>
-
 </div>   
 @stop

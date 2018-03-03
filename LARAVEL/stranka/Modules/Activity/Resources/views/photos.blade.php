@@ -10,7 +10,7 @@
 
 @section('content')
 <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner14.jpg') }}')">
-    <h1>Fotogaléria</h1>
+    <h1>@lang('activity::activity.photogallery')</h1>
 </section>
 <div id="emPAGEcontent" class="container">
     <div class="gallery">

@@ -286,5 +286,59 @@
 
 
 </div>
+
+<div class="modal fade" id="myModalProjects" role="dialog">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" id="modalProjects">
+                <div class='modal-projects'>
+                    <p id="modalTitle" class='modal-project-title grey bold'></p>
+                    <hr>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectType')</p>
+                    <p id="modalType" class='modal-project-text'></p>
+                    <hr>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectNumber')</p>
+                    <p id="modalNumber" class='modal-project-text'></p>
+                    <hr>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectDuration')</p>
+                    <p id="modalDuration" class='modal-project-text'></p>
+                    <hr>
+                    <p class='modal-project-subtitle'>@lang('research::research.projectCoordinator')</p>
+                    <p id="modalCoordinator" class='modal-project-text'></p>
+                    <hr>
+
+                    <div id="modalPartnersDiv" class="defHide">
+                    <p class='modal-project-subtitle'>@lang('research::research.projectPartners')</p>
+                        <p id="modalPartners" class='modal-project-text'></p>
+                    <hr>
+                    </div>
+                    <div id="modalWebDiv" class="defHide">
+                    <p class='modal-project-subtitle'>@lang('research::research.projectWeb')</p>
+                        <p id="modalWeb" class='modal-project-text'></p>
+
+                    <hr>
+                    </div>
+                    <div id="modalCodeDiv" class="defHide">
+                    <p class='modal-project-subtitle'>@lang('research::research.projectCode')</p>
+                        <p id="modalCode" class='modal-project-text'></p>
+                    <hr>
+                    </div>
+                     <div id="modalAnotDiv" class="defHide">
+                    <p class='modal-project-subtitle'>@lang('research::research.projectAnot')</p>
+                         <p id="modalAnot" class='modal-project-text modal-project-annotation'></p>
+                         </div>
+				</div>
+				<!-- <div class="modal-footer">
+				  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div> -->
+			</div>
+
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript" src="{{ URL::asset('js/scripty_projects.js') }}" ></script>
 @stop

@@ -11,7 +11,6 @@ class Activity extends Controller
 {
     public function photos()
     {
-		// TO DO MULTILANG
 		$module_name = config('activity.name');
 		$activation = config('photos_admin.activation');
 
@@ -47,10 +46,16 @@ class Activity extends Controller
 	
     public function videos()
     {
-		// TO DO MULTILANG
+        $locale = session()->get('locale');
 		$module_name = config('activity.name');
-		$videos_db_cats = DB::table('video_gallery')->select('type')->groupBy('type')->get();
-		
+
+        if($locale == 'sk') {
+            $videos_db_cats = DB::table('video_gallery')->select('type_sk as type')->groupBy('type_sk')->get();
+        } else {
+            $videos_db_cats = DB::table('video_gallery')->select('type_en as type')->groupBy('type_en')->get();
+        }
+
+
 		$data = [
 			'title' => $module_name,
 			'videos_cats' => $videos_db_cats
@@ -66,15 +71,15 @@ class Activity extends Controller
 		
 		if($filter == 'all'){
 			if($locale == 'sk'){
-				$videos_db = DB::table('video_gallery')->select('title_SK as title', 'url', 'type')->get();
+				$videos_db = DB::table('video_gallery')->select('title_SK as title', 'url', 'type_sk as type')->get();
 			}else{
-				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type')->get();
+				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type_en as type')->get();
 			}
 		}else{
 			if($locale == 'sk'){
-				$videos_db = DB::table('video_gallery')->select('title_SK as title', 'url', 'type')->where('type', $filter)->get();
+				$videos_db = DB::table('video_gallery')->select('title_SK as title', 'url', 'type_sk as type')->where('type_sk', $filter)->get();
 			}else{
-				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type')->where('type', $filter)->get();
+				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type_en as type')->where('type_en', $filter)->get();
 			}
 		}
 		return json_encode($videos_db);

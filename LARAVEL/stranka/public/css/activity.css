@@ -88,14 +88,47 @@ img.hover-shadow {
     width: 300px;
 }
 
-#links .fa{
-    margin: 0 20px;
-}
-
 #links a{
     text-decoration: none;
     cursor: pointer;
+}
 
+.button{
+    text-decoration: none;
+    float: right;
+    background-color: rgb(255, 212, 70);
+    color: #777;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 20px;
+}
+
+.button i{
+    margin-right: 10px;
+}
+
+.panel{
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.video{
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(30,30,30,0.2);
+}
+
+
+.video a{
+    padding: 5px 10px;
+    color: white;
+    background-color: rgba(255,0,0,0.8);
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.video i{
+    margin: 0 5px;
 }
 
 

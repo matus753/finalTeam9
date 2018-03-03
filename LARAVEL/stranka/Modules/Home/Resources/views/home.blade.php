@@ -3,10 +3,13 @@
 @section('additional_headers')
 <link href="{{ URL::asset('css/style_index.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+<script src="{{ URL::asset('js/jquery-ui.js') }}"></script>
+<link href="{{ URL::asset('css/jquery-ui.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
- <div id="emPAGEcontent">        
+ <div class="content-body">        
 	<div class="carousel-item">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
@@ -109,7 +112,7 @@
 					   </div>
 					</div>
 					<!-- Container (Services Section) -->
-					<div class="container-fluid text-center hp-benefits">
+<!-- 					<div class="container-fluid text-center hp-benefits">
 					  <h2 class="bold">@lang('home::home.offering')</h2>
 					  <br>
 					  <div class="row">                        
@@ -138,10 +141,46 @@
 						</div>
 						<div class="col-md-3"> 
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
+		<section class="hp-events">
+			<script>
+			  $( function() {
+			  	$.datepicker.regional['sk'] = {
+                closeText: 'Zavrieť',
+                prevText: '<Predchádzajúci',
+                nextText: 'Nasledujúci>',
+                currentText: 'Dnes',
+                monthNames: ['Január','Február','Marec','Apríl','Máj','Jún',
+                'Júl','August','September','Október','November','December'],
+                monthNamesShort: ['Jan','Feb','Mar','Apr','Máj','Jún',
+                'Júl','Aug','Sep','Okt','Nov','Dec'],
+                dayNames: ['Nedel\'a','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota'],
+                dayNamesShort: ['Ned','Pon','Uto','Str','Štv','Pia','Sob'],
+                dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
+                weekHeader: 'Ty',
+                dateFormat: 'dd.mm.yy',
+                firstDay: 0,             
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+	 
+				$.datepicker.setDefaults($.datepicker.regional['sk']);
+
+			    $( "#datepicker" ).datepicker( {numberOfMonths: 2 } );
+			  } );
+			</script>
+			<div class="container">
+				<div class="row"> 
+					<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+						<h4>Ústavný kalendár akcií</h4>
+						<div id="datepicker" class="hp-events__datepicker"></div>
+					</div>
+				</div>
+			</div>			  
+		</section>
 	</div>
 </div>
 @stop
