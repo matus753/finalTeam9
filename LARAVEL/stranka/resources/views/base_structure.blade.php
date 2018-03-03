@@ -64,17 +64,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/history') }}" id="navSec1" class="navbarItem sectItem">História</a></li>
-                            <li><a href="{{ url('/management') }}" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
-                            <li class="dropdown-submenu dropdown">
-                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem3" >
-                                    <li><a href="{{ url('/institutes') }}" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ url('/history') }}" class="navbarItem sectItem">História ústavu</a></li>
+                            <li><a href="{{ url('/management') }}" class="navbarItem sectItem">Vedenie ústavu</a></li>
+                            <li><a href="{{ url('/institutes') }}" class="navbarItem sectItem">Oddelenia ústavu</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ url('/staff') }}" class="navbarItem">Pracovníci</a></li>

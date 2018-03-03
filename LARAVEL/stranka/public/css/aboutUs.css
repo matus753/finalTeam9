@@ -1,18 +1,22 @@
-#history, #hoi, #departments{
-    padding: 3px 50px 10px 50px;
+.sectContent{
+    text-align: justify;
 }
-#department1, #department2, #department3, #department4{
-    padding: 3px 20px 10px 20px;
+.sectText{
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
-.sectionH2{
-    padding-top: 100px;
+.bold{
+    font-weight: bold;
 }
-#sectContent1, #sectContent2, #sectContent3{
-    padding-bottom: 100px;
+.sectText2{
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-#secH32, #secH33, #secH34{
-    padding-top: 100px;
-}
-#secH31{
-    padding-top: 20px;
+.ustavTitle{
+    width: 100%;
+    color: white;
+    background-color: rgba(10, 97, 188, 0.8);
+    /*font-size: 18px;*/
+    padding: 10px;
+    font-weight: bold;
 }

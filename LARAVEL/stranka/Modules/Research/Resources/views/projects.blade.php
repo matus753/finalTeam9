@@ -35,7 +35,7 @@
                                     @if(session()->get('locale') === 'sk')
                                         <td class="column2"><span class="projectTitle sub{{$i->pr_id}}"> {{ $i->titleSK }}</span>
                                     @else
-                                        <td class="column2"><span class="sub{{$i->pr_id}}"> {{ $i->titleEN }}</span>
+                                        <td class="column2"><span class="projectTitle sub{{$i->pr_id}}"> {{ $i->titleEN }}</span>
                                             @endif
                                             <div class="collapse projectInfo" id="project{{$i->pr_id}}">
                                                 @if($i->partners)
@@ -88,7 +88,7 @@
                                     @if(session()->get('locale') === 'sk')
                                         <td class="column2"><span class="projectTitle sub{{$k->pr_id}}"> {{ $k->titleSK }}</span>
                                     @else
-                                        <td class="column2"><span class="sub{{$k->pr_id}}"> {{ $k->titleEN }}</span>
+                                        <td class="column2"><span class="projectTitle sub{{$k->pr_id}}"> {{ $k->titleEN }}</span>
                                     @endif
                                     <div class="collapse projectInfo" id="project{{$k->pr_id}}">
                                         @if($k->partners)
@@ -140,7 +140,7 @@
                                     @if(session()->get('locale') === 'sk')
                                         <td class="column2"><span class="projectTitle sub{{$v->pr_id}}"> {{ $v->titleSK }}</span>
                                     @else
-                                        <td class="column2"><span class="sub{{$v->pr_id}}"> {{ $v->titleEN }}</span>
+                                        <td class="column2"><span class="projectTitle sub{{$v->pr_id}}"> {{ $v->titleEN }}</span>
                                             @endif
                                             <div class="collapse projectInfo" id="project{{$v->pr_id}}">
                                                 @if($v->partners)
@@ -193,7 +193,7 @@
                                     @if(session()->get('locale') === 'sk')
                                         <td class="column2"><span class="projectTitle sub{{$a->pr_id}}"> {{ $a->titleSK }}</span>
                                     @else
-                                        <td class="column2"><span class="sub{{$a->pr_id}}"> {{ $a->titleEN }}</span>
+                                        <td class="column2"><span class="projectTitle sub{{$a->pr_id}}"> {{ $a->titleEN }}</span>
                                             @endif
                                             <div class="collapse projectInfo" id="project{{$a->pr_id}}">
                                                 @if($a->partners)
@@ -246,7 +246,7 @@
                                     @if(session()->get('locale') === 'sk')
                                         <td class="column2"><span class="projectTitle sub{{$o->pr_id}}"> {{ $o->titleSK }}</span>
                                     @else
-                                        <td class="column2"><span class="sub{{$o->pr_id}}"> {{ $o->titleEN }}</span>
+                                        <td class="column2"><span class="projectTitle sub{{$o->pr_id}}"> {{ $o->titleEN }}</span>
                                             @endif
                                             <div class="collapse projectInfo" id="project{{$o->pr_id}}">
                                                 @if($o->partners)
