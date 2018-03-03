@@ -145,7 +145,7 @@ class Intranet_news extends Controller
         if($valid){
             if(news_create_folder($hash_name) && $image){
                 $image->store('/public/news/'.$hash_name);
-                $response->link = '/storage/news/'.$hash_name.'/'.$image->hashName();
+                $response->link = url('/storage/news/'.$hash_name.'/'.$image->hashName());
                 return stripslashes(json_encode($response->link));
             }
             else{

@@ -99,40 +99,41 @@ class Intranet_attendance extends Controller
         $den = $request->input('day');
         $id_typu = $request->input('type');
 
-        if($id_typu == -1){
-            DB::table('nepritomnosti')
-                    ->where('id_zamestnanca', $id_zamestnanca)
-                    ->where('rok', $rok)
-                    ->where('mesiac', $mesiac)
-                    ->where('den', $den)
-                    ->delete();
-        }else{
-            $data = [
-                'id_zamestnanca' => $id_zamestnanca,
-                'rok' => $rok,
-                'mesiac' => $mesiac,
-                'den' => $den,
-                'id_typu' => $id_typu,
-            ];
-
-            $tmp = DB::table('nepritomnosti')
-                    ->where('id_zamestnanca', $id_zamestnanca)
-                    ->where('rok', $rok)
-                    ->where('mesiac', $mesiac)
-                    ->where('den', $den)
-                    ->get();
-            
-            if(count($tmp) > 0){
-                DB::table('nepritomnosti')->where('id_zamestnanca', $id_zamestnanca)->where('rok', $rok)->where('mesiac', $mesiac)->where('den', $den)->update($data);
-                echo json_encode(['code' => 200, 'message' => 'OK']);
+        if(date('N',strtotime($rok.'-'.$mesiac.'-'.$den)) < 6){
+            if($id_typu == -1){
+                DB::table('nepritomnosti')
+                        ->where('id_zamestnanca', $id_zamestnanca)
+                        ->where('rok', $rok)
+                        ->where('mesiac', $mesiac)
+                        ->where('den', $den)
+                        ->delete();
             }else{
-                if(DB::table('nepritomnosti')->insertGetId($data)){
+                $data = [
+                    'id_zamestnanca' => $id_zamestnanca,
+                    'rok' => $rok,
+                    'mesiac' => $mesiac,
+                    'den' => $den,
+                    'id_typu' => $id_typu,
+                ];
+
+                $tmp = DB::table('nepritomnosti')
+                        ->where('id_zamestnanca', $id_zamestnanca)
+                        ->where('rok', $rok)
+                        ->where('mesiac', $mesiac)
+                        ->where('den', $den)
+                        ->get();
+                
+                if(count($tmp) > 0){
+                    DB::table('nepritomnosti')->where('id_zamestnanca', $id_zamestnanca)->where('rok', $rok)->where('mesiac', $mesiac)->where('den', $den)->update($data);
                     echo json_encode(['code' => 200, 'message' => 'OK']);
                 }else{
-                    echo json_encode(['code' => 400, 'message' => 'ERROR']);
+                    if(DB::table('nepritomnosti')->insertGetId($data)){
+                        echo json_encode(['code' => 200, 'message' => 'OK']);
+                    }else{
+                        echo json_encode(['code' => 400, 'message' => 'ERROR']);
+                    }
                 }
             }
         }
-
     }
 }

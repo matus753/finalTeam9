@@ -176,7 +176,7 @@ class Intranet_documents extends Controller
                         'file_name' => $file->getClientOriginalName()
                     ];
                     $file->store('/public/documents/'.$category.'/'.$hash_id);
-                    //$response->link = '/storage/documents/'.$hash_name.'/'.$file->hashName();
+                    $response->link = url('/storage/documents/'.$hash_name.'/'.$file->hashName());
                     
                     DB::table('documents_files')->insert($data);
                 }

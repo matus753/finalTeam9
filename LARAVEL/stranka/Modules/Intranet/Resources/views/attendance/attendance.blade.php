@@ -61,7 +61,11 @@
 							<tr>
 								<th>Meno</th>
 								@for($i = 1; $i < $num_days+1; $i++ )
-									<th>{{ $i }}</th>
+									@if(date('N',strtotime($curr_year.'-'.$curr_month.'-'.$i)) >= 6)
+										<th style="background-color: lightgray;">{{ $i }}</th>
+									@else
+										<th>{{ $i }}</th>
+									@endif
 								@endfor
 							</tr>
 						</thead>
@@ -71,7 +75,7 @@
 									<td>{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}&nbsp;</td>
 									@for($i = 1; $i < $num_days+1; $i++ )
 										@if(date('N',strtotime($curr_year.'-'.$curr_month.'-'.$i)) >= 6)
-											<td id="{{ $s->s_id }}" data-date-day="{{ $i }}" style="background-color: lightgray;"></td>
+											<td id="{{ $s->s_id }}" style="background-color: lightgray;"></td>
 										@else
 											@if(isset($s->att['skratky'][$i]))
 												<td id="{{ $s->s_id }}" data-date-day="{{ $i }}" class="{{ $s->att['skratky'][$i] }}" >{{ strtoupper($s->att['skratky'][$i]) }}</td>
