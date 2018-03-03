@@ -39,7 +39,7 @@
                                 <p><span class="fa fa-briefcase" aria-hidden="true"></span> @lang('study::study.answer21')</p>
                             </div>
                             <div class="studyProgram jumbotron">
-                                <h3 id="toggle1" class="line">@lang('study::study.studyProgram') – 1. @lang('study::study.year')</h3><span id="btnTogStudProgram" class="fa fa-arrow-circle-o-down" aria-hidden="true"></span>
+                                <h3 id="toggle1" class="line hover">@lang('study::study.studyProgram') – 1. @lang('study::study.year')</h3><span id="btnTogStudProgram" class="fa fa-arrow-circle-o-down hover" aria-hidden="true"></span>
                                 <div class="studyProgramContent">
                                     <div class="winterSem">
                                         <hr class="hrStudy">
@@ -65,24 +65,24 @@
                                     </div>
                                     <hr class="hrStudy">
                                     <div class="pvpElektronika">
-                                        <h3 class="line nazovPVP">@lang('study::study.titlePVP')@lang('study::study.electronics') </h3>
-                                         <span id="btnTogPVPe" class="fa fa-arrow-circle-o-down" aria-hidden="true"></span>
+                                        <h3 id="toggle2" class="line nazovPVP hover">@lang('study::study.titlePVP')@lang('study::study.electronics') </h3>
+                                         <span id="btnTogPVPe" class="fa fa-arrow-circle-o-down hover" aria-hidden="true"></span>
                                         <div class="pvpElektronikaContent answers">
                                             <p><span class="fa fa-microchip"></span> <span class="bold"> @lang('study::study.subject10') </span>@lang('study::study.subject10Info')</p>
                                             <p><span class="fa fa-microchip"></span> <span class="bold"> @lang('study::study.subject11') </span>@lang('study::study.subject11Info')</p>
                                         </div>
                                     </div>
                                     <div class="pvpAutomobily">
-                                        <h3 class="line nazovPVP">@lang('study::study.titlePVP')@lang('study::study.automobil') </h3>
-                                        <span id="btnTogPVPa" class="fa fa-arrow-circle-o-down" aria-hidden="true"></span>
+                                        <h3 id="toggle3" class="line nazovPVP hover">@lang('study::study.titlePVP')@lang('study::study.automobil') </h3>
+                                        <span id="btnTogPVPa" class="fa fa-arrow-circle-o-down hover" aria-hidden="true"></span>
                                         <div class="pvpAutomobilyContent answers">
                                             <p><span class="fa fa-car" aria-hidden="true"></span> <span class="bold"> @lang('study::study.subject12') </span>@lang('study::study.subject12Info')</p>
                                             <p><span class="fa fa-car" aria-hidden="true"></span> <span class="bold"> @lang('study::study.subject13') </span>@lang('study::study.subject13Info')</p>
                                         </div>
                                     </div>
                                     <div class="pvpInformatika">
-                                        <h3 class="line nazovPVP">@lang('study::study.titlePVP')@lang('study::study.informatics') </h3>
-                                        <span id="btnTogPVPi" class="fa fa-arrow-circle-o-down" aria-hidden="true"></span>
+                                        <h3 id="toggle4" class="line nazovPVP hover">@lang('study::study.titlePVP')@lang('study::study.informatics') </h3>
+                                        <span id="btnTogPVPi" class="fa fa-arrow-circle-o-down hover" aria-hidden="true"></span>
                                         <div class="pvpInfoContent answers">
                                             <p><span class="fa fa-desktop" aria-hidden="true"></span> <span class="bold"> @lang('study::study.subject10') </span>@lang('study::study.subject10Info')</p>
                                             <p><span class="fa fa-desktop" aria-hidden="true"></span> <span class="bold"> @lang('study::study.subject14') </span>@lang('study::study.subject14Info')</p>

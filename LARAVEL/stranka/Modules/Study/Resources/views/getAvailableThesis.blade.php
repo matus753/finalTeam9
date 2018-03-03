@@ -45,7 +45,7 @@
 
 
 
-                    <div class="tableDiv">
+                    <div class="tableDiv" style="overflow-x: auto;" >
                         <table id="SS-table-themes-BP" class="table table-hover">
                             <thead>
                             <tr class="category">

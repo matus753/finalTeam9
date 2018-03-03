@@ -131,5 +131,9 @@ return [
     'back' => 'Go back to ',
     'study' => 'study',
 
+    'goTo' => 'Go to',
+    'bachelor' => 'bachelor',
+    'master' => 'master',
+
     'lang' => 'en'
 ];

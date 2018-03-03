@@ -27,21 +27,16 @@ span.fa.fa-microchip, span.fa.fa-desktop{
     float: right;
     margin-top: 20px !important;
 }
-#btnBp1, #btnBp2, #btnBp3, #btnDp1, #btnDp2, #btnDp3, #btnDp4{
+#btnBp1, #btnBp2, #btnBp3, #btnDp1, #btnDp2, #btnDp3, #btnDp4, #btnAvArr{
     color: white;
     font-size: 20px;
     margin-left: 20px;
 }
-#btnTogBP1, #btnTogBP2, #btnTogBZP, #btnTogDZP, #btnTogDP1, #btnTogDP2, #btnTogDP3{
+#btnTogBP1, #btnTogBP2, #btnTogBZP, #btnTogDZP, #btnTogDP1, #btnTogDP2, #btnTogDP3, #btnAv{
     background-color: rgb(10,87,188);
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-/*#btnTogStudProgram, #btnTogPVPe, #btnTogPVPa, #btnTogPVPi, #btnTogBP1, #btnTogBP2, #btnTogBZP, #btnTogDZP, #btnTogDP1, #btnTogDP2, #btnTogDP3{*/
-    /*background-color: rgb(10,87,188);*/
-    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
-    /*color: white;*/
-/*}*/
 .hrStudy{
     background-color: rgb(10,87,188);
 }
@@ -76,10 +71,6 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 .hKoniec{
     margin: 40px;
 }
-/*#btnTogBP1, #btnTogBP2, #btnTogBZP, #btnTogDZP, #btnTogDP1, #btnTogDP2, #btnTogDP3{*/
-    /*margin-top: -20px;*/
-    /*margin-bottom: 20px;*/
-/*}*/
 #SIMKA{
     color: red;
 }
@@ -96,10 +87,6 @@ span.fa.fa-microchip, span.fa.fa-desktop{
     color: rgb(10,87,188);
     text-decoration: underline;
     font-size: 25px;
-}
-
-.themes-here:hover {
-    color: #FFD446;
 }
 @media screen and (max-device-width: 767px) and (orientation: portrait) {
     .jumbotron{
@@ -124,10 +111,6 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 }
 .bold{
     font-weight: bold;
-}
-#freeTopicsArrow{
-    color: rgb(10,87,188);
-    margin-left: 20px;
 }
 .freeTopics{
     margin-top: 20px;
@@ -194,4 +177,7 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 }
 .thesisTitle{
     display: inline;
+}
+.hover:hover{
+    cursor: pointer;
 }

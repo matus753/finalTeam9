@@ -4,6 +4,7 @@ $('.m').on("click",function(){
         $('.'+$isClicked).css("text-transform", "none");
     } else {
         $('.'+$isClicked).css("text-transform", "uppercase");
+        $('.'+$isClicked).css("font-weight", "bold");
     }
 });
 $('.m').hover(function () {

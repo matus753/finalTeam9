@@ -82,8 +82,18 @@
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/admission') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="{{ url('/bachelor') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="{{ url('/master') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li class="dropdown-submenu dropdown">
+                                <a href="{{ url('/bachelor') }}" class="dropdown-toggle" aria-haspopup="false" aria-expanded="true" >Bakalárske štúdium <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem" >
+                                    <li><a href="{{ url('/thesis') }}/{{ 1 }}" >Voľné bakalárske témy</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu dropdown">
+                                <a href="{{ url('/master') }}" class="dropdown-toggle" aria-haspopup="false" aria-expanded="true" >Inžinierske štúdium <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem" >
+                                    <li><a href="{{ url('/thesis') }}/{{ 2 }}" >Voľné diplomové témy</a></li>
+                                </ul>
+                            </li>
                             <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
                         </ul>
                     </li>
