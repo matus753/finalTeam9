@@ -21,4 +21,30 @@
 	    text-align: center;
 	    margin-bottom: 20px;
 	}
+	&__list {
+		margin-top: 50px;
+		h4 {
+			color: #0a61bc;
+			font-size: 16px;
+		    text-align: left;
+		    margin-bottom: 4px;
+		    margin-top: 24px;
+		}
+		i {
+			font-size: 14px;
+    		margin-left: 10px;
+		}
+	}
+	&__day {
+		a {
+			color: #0a61bc;
+		}
+	}
+}
+
+.ui-tooltip, .arrow:after {
+    background: black !important;
+  }
+.ui-tooltip {
+ color: white;
 }

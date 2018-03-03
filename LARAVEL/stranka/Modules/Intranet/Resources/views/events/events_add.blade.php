@@ -29,23 +29,23 @@
                 </div>
                 <div class="form-group">
                     <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" />
                 </div>
                 <div class="form-group">
                     <label for="sk_text">SK text:</label>
-                    <input type="text" class="form-control" id="sk_text" name="sk_text" placeholder="SK text" required />
+                    <input type="text" class="form-control" id="sk_text" name="sk_text" placeholder="SK text" />
                 </div>
                 <div class="form-group">
                     <label for="en_text">EN text:</label>
-                    <input type="text" class="form-control" id="en_text" name="en_text" placeholder="EN text" required />
+                    <input type="text" class="form-control" id="en_text" name="en_text" placeholder="EN text" />
                 </div>
                 <div class="form-group">
                     <label for="place">Miesto:</label>
-                    <input type="text" class="form-control" id="place" name="place" placeholder="place" required />
+                    <input type="text" class="form-control" id="place" name="place" placeholder="place" />
                 </div>
                 <div class="form-group">
                     <label for="date">Dátum:</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="Datum" />
+                    <input type="date" class="form-control" id="date" name="date" placeholder="Datum" required />
                 </div>
                 cas staci ako text ci type time ?
                 <div class="form-group">

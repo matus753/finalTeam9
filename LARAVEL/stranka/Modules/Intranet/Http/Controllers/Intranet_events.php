@@ -59,31 +59,34 @@ class Intranet_events extends Controller
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
         }
         //debug($link, true);
-        $allowed_types = explode(',', config('events_admin.events_allowed_types'));
+        if($file) {
+            $allowed_types = explode(',', config('events_admin.events_allowed_types'));
 
-        $valid = false;
-        foreach($allowed_types as $a){
-            if($a == explode('.', $file->hashName())[1]){
-                $valid = true;
+            $valid = false;
+            foreach($allowed_types as $a){
+                if($a == explode('.', $file->hashName())[1]){
+                    $valid = true;
+                }
             }
+            
+            if($valid == false){
+                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
+            }  
+            $file->store('/public/events/');
+
+            
+            $data = [
+                'name_sk' => $name_sk,
+                'name_en' => $name_en,
+                'text_sk' => $text_sk,
+                'text_en' => $text_en,
+                'place' => $place,
+                'image' => $file->hashName(),
+                'time' => $time,
+                'date' => $date,
+                'url' => $link
+            ];
         }
-        
-        if($valid == false){
-            return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
-        }  
-        $file->store('/public/events/');
-        
-        $data = [
-            'name_sk' => $name_sk,
-            'name_en' => $name_en,
-            'text_sk' => $text_sk,
-            'text_en' => $text_en,
-            'place' => $place,
-            'image' => $file->hashName(),
-            'time' => $time,
-            'date' => $date,
-            'url' => $link
-        ];
         
         $event_id = DB::table('events')->insertGetId($data);
         if($event_id){

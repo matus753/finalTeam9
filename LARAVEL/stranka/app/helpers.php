@@ -217,4 +217,12 @@ function isLogged(){
 	return false;
 }
 
+function getMonth( $date ){
+	return (int)explode(".", $date)[1];
+}
+
+function getYear( $date ){
+	return (int)explode(".", $date)[2];
+}
+
 
