@@ -12,10 +12,14 @@ class Languages
     {
         if (\session()->has('locale')) {
             app()->setLocale(session()->get('locale'));
+            //debug('lala');
         }
         else {
             app()->setLocale(config('app.fallback_locale'));
+            \session()->put('locale',config('app.fallback_locale') );
+            //debug('lala2');
         }
+
         return $next($request);
     }
 }

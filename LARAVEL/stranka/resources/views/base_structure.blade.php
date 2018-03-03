@@ -64,17 +64,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">O nás <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/history') }}" id="navSec1" class="navbarItem sectItem">História</a></li>
-                            <li><a href="{{ url('/management') }}" id="navSec2" class="navbarItem sectItem">Vedenie ústavu</a></li>
-                            <li class="dropdown-submenu dropdown">
-                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oddelenia <b class="caret"></b></a>
-                                <ul class="dropdown-menu submenuItem3" >
-                                    <li><a href="{{ url('/institutes') }}" id="navSec31" class="sectItem">Oddelenie aplikovanej mechaniky a mechatroniky (OAMM)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec32" class="sectItem">Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec33" class="sectItem">Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)</a></li>
-                                    <li><a href="{{ url('/institutes') }}" id="navSec34" class="sectItem">Oddelenie E-mobility, automatizácie a pohonov (OEAP)</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ url('/history') }}" class="navbarItem sectItem">História ústavu</a></li>
+                            <li><a href="{{ url('/management') }}" class="navbarItem sectItem">Vedenie ústavu</a></li>
+                            <li><a href="{{ url('/institutes') }}" class="navbarItem sectItem">Oddelenia ústavu</a></li>
                         </ul>
                     </li>
                     <li><a href="{{ url('/staff') }}" class="navbarItem">Pracovníci</a></li>
@@ -82,8 +74,18 @@
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Štúdium <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/admission') }}" class="navbarItem sectItemS">  Pre uchádzačov o štúdium</a></li>
-                            <li><a href="{{ url('/bachelor') }}" class="navbarItem sectItemS">  Bakalárske štúdium</a></li>
-                            <li><a href="{{ url('/master') }}" class="navbarItem sectItemS">  Inžinierske štúdium</a></li>
+                            <li class="dropdown-submenu dropdown">
+                                <a href="{{ url('/bachelor') }}" class="dropdown-toggle" aria-haspopup="false" aria-expanded="true" >Bakalárske štúdium <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem" >
+                                    <li><a href="{{ url('/thesis') }}/{{ 1 }}" >Voľné bakalárske témy</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu dropdown">
+                                <a href="{{ url('/master') }}" class="dropdown-toggle" aria-haspopup="false" aria-expanded="true" >Inžinierske štúdium <b class="caret"></b></a>
+                                <ul class="dropdown-menu submenuItem" >
+                                    <li><a href="{{ url('/thesis') }}/{{ 2 }}" >Voľné diplomové témy</a></li>
+                                </ul>
+                            </li>
                             <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>
                         </ul>
                     </li>
@@ -133,8 +135,6 @@
             </div>
         </div>
     </nav>
-
-	
 	@yield('content')
     <footer class="nb-footer">
         <div class="container">

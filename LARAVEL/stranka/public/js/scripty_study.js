@@ -24,7 +24,8 @@ var isDP1 = false;
 var isDP2 = false;
 var isDP3 = false;
 var isDP4 = false;
-$("#btnTogStudProgram").click(function(){
+
+function studProgram1() {
     $(".studyProgramContent").slideToggle();
     isDownSP = !isDownSP;
     if (isDownSP == true){
@@ -34,8 +35,15 @@ $("#btnTogStudProgram").click(function(){
         $('#btnTogStudProgram').addClass('fa-arrow-circle-o-down');
         $('#btnTogStudProgram').removeClass('fa-arrow-circle-o-up');
     }
+}
+$("#btnTogStudProgram").click(function(){
+    studProgram1();
 });
-$("#btnTogPVPe").click(function(){
+$("#toggle1").click(function(){
+    studProgram1();
+});
+
+function pvpE() {
     $(".pvpElektronikaContent").slideToggle();
     isPVPe = !isPVPe;
     if (isPVPe == true){
@@ -45,8 +53,15 @@ $("#btnTogPVPe").click(function(){
         $('#btnTogPVPe').addClass('fa-arrow-circle-o-down');
         $('#btnTogPVPe').removeClass('fa-arrow-circle-o-up');
     }
+}
+$("#btnTogPVPe").click(function(){
+    pvpE();
 });
-$("#btnTogPVPa").click(function(){
+$("#toggle2").click(function(){
+    pvpE();
+});
+
+function pvpA() {
     $(".pvpAutomobilyContent").slideToggle();
     isPVPa = !isPVPa;
     if (isPVPa == true){
@@ -56,8 +71,15 @@ $("#btnTogPVPa").click(function(){
         $('#btnTogPVPa').addClass('fa-arrow-circle-o-down');
         $('#btnTogPVPa').removeClass('fa-arrow-circle-o-up');
     }
+}
+$("#btnTogPVPa").click(function(){
+    pvpA();
 });
-$("#btnTogPVPi").click(function(){
+$("#toggle3").click(function(){
+    pvpA();
+});
+
+function pvpI() {
     $(".pvpInfoContent").slideToggle();
     isPVPi = !isPVPi;
     if (isPVPi == true){
@@ -67,7 +89,14 @@ $("#btnTogPVPi").click(function(){
         $('#btnTogPVPi').addClass('fa-arrow-circle-o-down');
         $('#btnTogPVPi').removeClass('fa-arrow-circle-o-up');
     }
+}
+$("#btnTogPVPi").click(function(){
+    pvpI();
 });
+$("#toggle4").click(function(){
+    pvpI();
+});
+
 $("#btnTogBP1").click(function(){
     $("#tableBP1").slideToggle();
     isBP1 = !isBP1;

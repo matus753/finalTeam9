@@ -92,10 +92,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="freeTopics">
-                            <h4 class="bold showInline">@lang('study::study.freeThesis')</h4>
-                                <a href="{{ url('/thesis') }}/{{ 1 }}" target="_self" class="themes-here showInline"><span id="freeTopicsArrow" class="fa fa-arrow-circle-o-right" aria-hidden="true"></span></a>
-                        </div>
+                            <div class="freeTopics hover">
+                                <h4 class="bold">@lang('study::study.freeThesis')</h4>
+                                <a href="{{ url('/thesis') }}/{{ 1 }}" target="_self"><button id="btnAv" type="button" class="btn lg" >@lang('study::study.goTo') @lang('study::study.available') @lang('study::study.bachelor') @lang('study::study.thesis')<span id="btnAvArr" class="fa fa-arrow-circle-o-right" aria-hidden="true"></span></button></a>
+                            </div>
                     </div>
                 </div>
                 </div>

@@ -28,11 +28,6 @@ hr {
     width: 30%;
 }
 
-.modal-header {
-    border: none;
-    padding-bottom: 0;
-}
-
 @media all and (max-width: 767px) {
     .modal-project-title {
         font-size: 18px;
@@ -82,4 +77,15 @@ th{
 }
 .projectTitle{
     font-weight: bold;
+    text-transform: uppercase;
+}
+.projectInfo{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.toggleText{
+    background-color: rgb(242,242,242);
+}
+.nothing{
+    display: none;
 }

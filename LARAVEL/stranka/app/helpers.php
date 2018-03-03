@@ -119,6 +119,14 @@ function documents_create_folder($hash_name_category = '', $hash_name = ''){
 
 }
 
+function get_documents_file($hash_name_folder = '', $hash_file = ''){
+	if ($hash_name_folder != '' && $hash_file != ''){
+		return asset('storage/media/'.$hash_name_folder.'/'.$hash_file);
+	}
+	return false;
+}
+
+
 /**
  * create gallery folder if not exists
  */

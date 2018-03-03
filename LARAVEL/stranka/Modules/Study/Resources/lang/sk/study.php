@@ -129,5 +129,9 @@ return [
     'back' => 'Naspäť na ',
     'study' => 'štúdium',
 
+    'goTo' => 'Prejsť na',
+    'bachelor' => 'bakalárske',
+    'master' => 'diplomové',
+
     'lang' => 'sk'
 ];

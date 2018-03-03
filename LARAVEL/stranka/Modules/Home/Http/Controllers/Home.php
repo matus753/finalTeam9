@@ -31,6 +31,7 @@ class Home extends Controller
 			'title' => $module_name,
 			'events' => $events
 		];
+
 		return view('home::home', $data);
     }
 

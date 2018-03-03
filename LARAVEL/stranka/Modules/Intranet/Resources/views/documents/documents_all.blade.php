@@ -69,7 +69,7 @@
                 for(let i = 0; i < data['docs'].length; i++){
                     $('#items').append('<div class="well well-default"><a>'+data['docs'][i].name_sk+'</a>'+                           
                                 '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
-                                '<a href="{{ url("/documents-edit-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
+                                '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
                                 '</div>');
                 }
             }
@@ -101,7 +101,7 @@
                 for(let i = 0; i < data['docs'].length; i++){
                     $('#items').append('<div class="well well-default"><a>'+data['docs'][i].name_sk+'</a>'+                           
                                 '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
-                                '<a href="{{ url("/documents-edit-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
+                                '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
                                 '</div>');
                 }
             }
