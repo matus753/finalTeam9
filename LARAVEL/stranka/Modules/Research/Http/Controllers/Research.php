@@ -33,9 +33,7 @@ class Research extends Controller
 			$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->get();
 			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->get();
 		}
-		
-		
-		
+
 		$data = [
 			'title' => $module_name,
 			'international' => $projects_db_international,
@@ -44,7 +42,6 @@ class Research extends Controller
 			'apvv' => $projects_db_apvv,
 			'other' => $projects_db_other
 		];
-		//debug($data, true);
         return view('research::projects', $data);
     }
 
