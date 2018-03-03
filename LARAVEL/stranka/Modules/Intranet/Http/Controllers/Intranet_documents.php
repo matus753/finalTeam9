@@ -29,7 +29,6 @@ class Intranet_documents extends Controller
             
             $c->docs = $docs;
         }*/
-
         $data = [ 
                 'title' => $this->module_name, 
                 'categories' => $categories,
@@ -140,8 +139,9 @@ class Intranet_documents extends Controller
                 ];
 
                 $image->store('/public/documents/'.$category.'/'.$hash_id);
-                $response->link = '/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName();
-                DB::table('documents_files')->insert($data);
+                $response->link = url('/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName());
+                // TODO je treba do DB ????
+                //DB::table('documents_files')->insert($data);
                 return stripslashes(json_encode($response->link));
             }
             else{
@@ -176,7 +176,7 @@ class Intranet_documents extends Controller
                         'file_name' => $file->getClientOriginalName()
                     ];
                     $file->store('/public/documents/'.$category.'/'.$hash_id);
-                    $response->link = url('/storage/documents/'.$hash_name.'/'.$file->hashName());
+                    //$response->link = url('/storage/documents/'.$hash_name.'/'.$file->hashName());
                     
                     DB::table('documents_files')->insert($data);
                 }
@@ -229,6 +229,55 @@ class Intranet_documents extends Controller
 
         return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
 
+    }
+
+    public function documents_edit_category_item($d_id = 0){
+        if(!is_numeric($d_id)){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $document = DB::table('documents')->where('d_id', $d_id)->first();
+        $category = DB::table('documents_categories')->where('dc_id', $document->dc_id)->first();
+        $files = DB::table('documents_files')->where('hash_id', $document->hash_name)->get();
+        $data = [
+            'title' => $this->module_name,
+            'document' => $document,
+            'category' => $category,
+            'hash_id' => $document->hash_name,
+            'files' => $files
+        ];
+        
+        return view('intranet::documents/documents_edit_category_item', $data);
+    }
+
+    public function documents_edit_category_item_action($d_id = 0, Request $request){
+        if(!is_numeric($d_id)){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $title_en = $request->input('title_en');
+        $title_sk = $request->input('title_sk');
+        $editor_en = $request->input('editor_content_sk');
+        $editor_sk = $request->input('editor_content_en');
+        $hash_id = $request->input('save_to');
+        $category = $request->input('category');
+        $category_id = $request->input('category_id');
+        
+        if(!documents_create_folder($category, $hash_id)){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+        }
+
+        $data = [
+            'dc_id' => $category_id,
+            'hash_name' => $hash_id,
+            'name_en' => $title_en,
+            'name_sk' => $title_sk,
+            'text_en' => $editor_en,
+            'text_sk' => $editor_sk
+        ];
+  
+        $res = DB::table('documents')->where('d_id', $d_id)->update($data);
+        return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
     }
 
     ///////////////////////////////////////////////////////////////
@@ -303,6 +352,24 @@ class Intranet_documents extends Controller
         return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
+    public function documents_delete_single_file_action($df_id = 0){
+        if(!is_numeric($df_id)){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+        $file_db = DB::table('documents_files')->where('df_id', $df_id)->first();
+        $category_id = DB::table('documents')->where('hash_name', $file_db->hash_id)->select('dc_id')->first()->dc_id;
+        $category_hash = DB::table('documents_categories')->where('dc_id', $category_id)->first()->hash_name;
+        $path = base_path('storage/app/public/documents/').$category_hash.'/'.$file_db->hash_id.'/'.$file_db->file_hash;
+        //debug($path, true);
+        unlink($path);
+
+        $res = (bool)DB::table('documents_files')->where('df_id', $df_id)->delete();
+        if($res){
+            return redirect()->back()->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
+        }
+        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+    }
+
     ///////////////////////////////////////////////////////////////////
     //////////////////////// AJAX /////////////////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -311,16 +378,11 @@ class Intranet_documents extends Controller
         $dc_id = $request->input('id');
     
         $docs = DB::table('documents')->where('dc_id', $dc_id)->get();
-        /*foreach($docs as $d){
-            $docs_files = DB::table('documents_files')->where('hash_id', $d->hash_name)->get();
-            $d->files = $docs_files;
-        }*/
-
         $data = [ 
             'docs' => $docs,
             'tab'  => $dc_id
         ];  
-        //debug($data, true);
+
         return response()->json($data);
     }
     

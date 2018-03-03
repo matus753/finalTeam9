@@ -133,8 +133,7 @@
             </div>
         </div>
     </nav>
-
-	
+    {{ debug(session()->all()) }}
 	@yield('content')
     <footer class="nb-footer">
         <div class="container">
