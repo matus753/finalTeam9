@@ -24,27 +24,22 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			
-			<div class="item active">
-				<img src="{{ URL::asset('images/indexPhoto/slider2.jpg') }}" alt="UAMT" width="100%">
+			<div class="item active" style="background-image: url('{{ URL::asset('images/indexPhoto/slider2.jpg') }}')">
 				<div class="carousel-caption">
 					<p class="slider-text">@lang('home::home.slider1')</p>
-				<h3 class="slider-h3 slider-bg-white">@lang('home::home.slider1_highlighted')</h3>                     
+					<h3 class="slider-h3 slider-bg-white">@lang('home::home.slider1_highlighted')</h3>                     
 				</div>      
 			</div>
-
-			<div class="item">
-				<img src="{{ URL::asset('images/indexPhoto/slider3.jpg') }}" alt="UAMT" width="100%">
+			<div class="item" style="background-image: url('{{ URL::asset('images/indexPhoto/slider3.jpg') }}')">
 				<div class="carousel-caption">
-				<h3 class="slider-h3 slider-bg-white">@lang('home::home.slider2_highlighted')</h3>
-				<p class="slider-text">@lang('home::home.slider2')</p>
+					<h3 class="slider-h3 slider-bg-white">@lang('home::home.slider2_highlighted')</h3>
+					<p class="slider-text">@lang('home::home.slider2')</p>
 				</div>      
 			</div>
-
-			<div class="item">
-				<img src="{{ URL::asset('images/indexPhoto/slider1.jpg') }}" alt="UAMT" width="100%">
+			<div class="item" style="background-image: url('{{ URL::asset('images/indexPhoto/slider1.jpg') }}')">
 				<div class="carousel-caption">
-				<h3 class="slider-h3 slider-bg-black">@lang('home::home.slider3_highlighted')</h3>
-				<p class="slider-text"><a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a" target="_blank">@lang('home::home.slider3')<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a></p>
+					<h3 class="slider-h3 slider-bg-black">@lang('home::home.slider3_highlighted')</h3>
+					<p class="slider-text"><a href="http://www.automobilova-mechatronika.fei.stuba.sk/webstranka/" class="slider-a" target="_blank">@lang('home::home.slider3')<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a></p>
 				</div>      
 			</div>
 		</div>
@@ -58,45 +53,46 @@
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
+</div>
 	
 	<div class="container">
 		<div class="row"> 
 			<div class="col-lg-12">
 				<div class="row thumb-fb-row hp-thumbnail">
-					<div class="col-sm-6 col-md-3">
+					<div class="col-sm-4 col-md-3">
 					  <div class="hp-thumbnail__wrapper">
-						  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t1.JPG') }})" href="aboutUs.php">
+						  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t1.JPG') }})" href="management">
 						  	<div class="hp-thumbnail__item-content">
 						  		<h3>@lang('home::home.about_us')</h3>
-						  		<p>@lang('home::home.about_us_section_preview')</p>
+						  		<p class="hp-thumbnail__text">@lang('home::home.about_us_section_preview')</p>
 						  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
 						  	</div>
 						  </a>
 					</div>
 				  </div>
-				  <div class="col-sm-6 col-md-3">
+				  <div class="col-sm-4 col-md-3">
 					  <div class="hp-thumbnail__wrapper">
-						  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t2.JPG') }})" href="news.php">
+						  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t2.JPG') }})" href="news">
 						  	<div class="hp-thumbnail__item-content">
 						  		<h3>@lang('home::home.news')</h3>
-						  		<p>@lang('home::home.news_section_preview')</p>
+						  		<p class="hp-thumbnail__text">@lang('home::home.news_section_preview')</p>
 						  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
 						  	</div>
 						  </a>
 					  </div>
 				  </div>
-				  <div class="col-sm-6 col-md-3">
+				  <div class="col-sm-4 col-md-3">
 					  <div class="hp-thumbnail__wrapper">
-						  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t3.JPG') }})" href="photo.php">
+						  <a class="hp-thumbnail__item" style="background-image: url({{ URL::asset('images/indexPhoto/t3.JPG') }})" href="photo-gallery">
 						  	<div class="hp-thumbnail__item-content">
 						  		<h3>@lang('home::home.photo_gallery')</h3>
-						  		<p>@lang('home::home.photo_gallery_section_preview')</p>
+						  		<p class="hp-thumbnail__text">@lang('home::home.photo_gallery_section_preview')</p>
 						  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
 						  	</div>
 						  </a>
 					  </div>
 				  </div>
-				  <div class="col-sm-6 col-md-3">                          
+				  <div class="col-sm-12 col-md-3">                          
 						<div id="fb-root"></div>
 							<script>(function(d, s, id) {
 							  var js, fjs = d.getElementsByTagName(s)[0];
@@ -106,7 +102,7 @@
 							  fjs.parentNode.insertBefore(js, fjs);
 							}(document, 'script', 'facebook-jssdk'));
 							</script>
-						<div class="fb-page" data-href="https://www.facebook.com/UAMTFEISTU/?fref=ts" data-tabs="timeline" data-height="430" data-width="320" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
+						<div class="fb-page" data-href="https://www.facebook.com/UAMTFEISTU/?fref=ts" data-tabs="timeline" data-height="430" data-width="1000000000" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
 							<blockquote cite="https://www.facebook.com/UAMTFEISTU/?fref=ts" class="fb-xfbml-parse-ignore">
 								<a href="https://www.facebook.com/UAMTFEISTU/?fref=ts">Ústav automobilovej mechatroniky FEI STU</a>
 							</blockquote>
@@ -178,9 +174,17 @@
 			};
 			var eventsDays = [ "05.03.2018"
 			];
+
+			if ($( window ).width() > 767) {
+      			var displayMonths =  2;
+      		}
+      		else {
+      			var displayMonths =  1;
+      		}
+
 			$.datepicker.setDefaults($.datepicker.regional['sk']);
 		      $( "#datepicker" ).datepicker( {
-		      		numberOfMonths: 2,
+		      		numberOfMonths: displayMonths,
 		      		dateFormat: 'mm.dd.yy',
 		      		beforeShowDay: function (date) {
 	      			 var m = date.getMonth(), 
@@ -200,11 +204,11 @@
 	<section class="hp-events">
 		<div class="container">
 			<div class="row"> 
-				<div class="col-sm-7">
+				<div class="col-md-7 col-sm-8">
 					<h4>Ústavný kalendár akcií</h4>
 					<div id="datepicker" class="hp-events__datepicker"></div>
 				</div>
-				<div class=" col-sm-offset-1 col-sm-4">
+				<div class=" col-md-offset-1 col-sm-4">
 					<div class="hp-events__list">
 						@php	
 							$maxEvents = 0;

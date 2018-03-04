@@ -1,6 +1,6 @@
 .staff-publications {
-	margin-top: 250px;
-	padding-bottom: 100px;
+	margin-top: 220px;
+	padding-bottom: 40px;
 	&__button {
 		text-align: center;		
 		>button {
@@ -19,5 +19,9 @@
 		img {
 			margin-top: 50px;
 		}
+	}
+	@media screen and (max-width: 767px) {
+		margin-top: 380px;
+		padding-bottom: 25px;
 	}
 }

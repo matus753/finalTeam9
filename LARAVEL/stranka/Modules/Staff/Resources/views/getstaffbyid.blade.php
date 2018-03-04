@@ -71,11 +71,11 @@ function showPubs(){
 						<span class="staff-profile__role">{{ $ais->staffRole }}</span>
 						<hr>
 						<div class="staff-profile__description">
-							<p><span>@lang('staff::staff.room'): </span>{{ $ais->room }}</p>
-							<p><span>@lang('staff::staff.phone'): </span>+421 60291 {{ $ais->phone }}</p>
-							<p><span>@lang('staff::staff.department'): </span>{{ $ais->department }}</p>
+							<p><span>@lang('staff::staff.room'): </span> {{ $ais->room }}</p>
+							<p><span>@lang('staff::staff.phone'): </span> +421 60291 {{ $ais->phone }}</p>
+							<p><span>@lang('staff::staff.department'): </span> {{ $ais->department }}</p>
 							@if( $ais->function ) 
-								<p><span>@lang('staff::staff.function'): </span>{{ $ais->function }}</p>
+								<p><span>@lang('staff::staff.function'): </span> {{ $ais->function }}</p>
 							@endif
 						</div>
 					</div>

@@ -73,6 +73,11 @@
      color: white;
 }
 
+#myCarousel .item {
+    height: 360px;
+    background-size: cover;
+}
+
 h4  {
     text-transform: uppercase;
 }
@@ -101,6 +106,16 @@ h4  {
     }
 }
 
+@media all and (max-width: 991px) {
+    #myCarousel .item {
+        height: 300px;
+    }
+    .thumb-fb-row {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+}
+
 @media all and (max-width: 767px) {
     .carousel-item {
         margin-top: 0px;
@@ -108,21 +123,13 @@ h4  {
     
     .slider-h3 {
         text-transform: uppercase;
-        font-size: 10px;   
+        font-size: 16px;   
         padding: 0px;
-        margin: 0px 0px;
-    }
-
-    .slider-bg-white {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .slider-bg-black {
-        background-color: rgba(0, 0, 0, 0.3);
+        margin: 10px 0;
     }
 
     .slider-text {
-        font-size: 0px;
+        font-size: 14px;
     }
 
     .slider-a {
@@ -134,10 +141,22 @@ h4  {
     .carousel-caption {
         padding-top: 0;
         padding-bottom: 5px;
-        bottom: 0px;
+        bottom: 45px;
     }
+    .thumb-fb-row {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    #myCarousel .item {
+        height: 200px;
+    } 
+    .slider-bg-white, .slider-bg-black {
+        background-color: transparent !important;
+    }    
+}
 
-    #myCarousel {
-        display: none;
+@media screen and (min-width: 768px) {
+    .carousel-caption {
+        padding-bottom: 70px !important;
     }
 }

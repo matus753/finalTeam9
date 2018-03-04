@@ -23,7 +23,6 @@
 	>h1 {
 		text-align: center;
 		margin: 0;
-		line-height: 200px;
 		text-transform: uppercase;
 		color: #ffffff !important;
 		font-weight: bold;
@@ -31,12 +30,15 @@
 		font-size: 36px;
 		position: relative;
 		z-index: 1;
+		top: 50%;
+    	transform: translateY(-50%);
 		@media screen and (max-width: 991px) {
 		    font-size: 24px;
 		}
 		@media screen and (max-width: 767px) {
 		    font-size: 18px;
-		}
+		    letter-spacing: 1px !important;
+		}		
 	}
 	&--big {
 		height: 400px;
@@ -50,5 +52,12 @@
 	}
 	&--bottom {
 		background-position: bottom;
+	}
+	@media screen and (max-width: 767px) {
+		margin-bottom: 0px;
+		height: 150px;
+		&::after {
+			height: 150px;
+		}
 	}
 }
