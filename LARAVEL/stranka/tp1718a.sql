@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hostiteľ: 127.0.0.1
--- Čas generovania: So 03.Mar 2018, 20:22
+-- Čas generovania: Ne 04.Mar 2018, 13:37
 -- Verzia serveru: 10.1.30-MariaDB
 -- Verzia PHP: 7.2.1
 
@@ -111,11 +111,11 @@ CREATE TABLE `events` (
 
 INSERT INTO `events` (`e_id`, `name_sk`, `name_en`, `text_sk`, `text_en`, `url`, `place`, `date`, `time`) VALUES
 (2, 'fasdfasd', 'fasdfasdfasdfasdf', 'fdfasdfasfdasfsa', 'dfasdfsadfs', 'http://www.google.com', 'fasdfasdfsad', 1519801728, '15:45'),
-(3, 'Fakultná prehliadka prác ŠVOČ', NULL, 'na FEIke', NULL, 'http://', 'FEI', 1524009600, '8:00'),
-(4, 'Veľký piatok', NULL, NULL, NULL, 'http://', NULL, 1522368000, NULL),
-(5, 'Deň pracovného pokoja', NULL, NULL, NULL, 'http://', NULL, 1525737600, NULL),
-(6, 'Veľkonočný pondelok', NULL, NULL, NULL, 'http://', NULL, 1522627200, NULL),
-(7, 'Deň pracovného pokoja', NULL, 'Deň pracovného pokoja', NULL, 'http://', NULL, 1525132800, NULL);
+(3, 'Fakultná prehliadka prác ŠVOČ', 'Fakultná prehliadka prác ŠVOČ', 'Tu je nejaký popis k udalosti. Môže byť dlhší/kratší ...', 'This is ...', '', 'FEI', 1524009600, '8:00'),
+(4, 'Veľký piatok', NULL, NULL, NULL, 'http://www.gmail.com', NULL, 1522368000, NULL),
+(5, 'Deň pracovného pokoja', 'Day', NULL, NULL, '', NULL, 1525737600, NULL),
+(6, 'Veľkonočný pondelok', NULL, NULL, NULL, '', NULL, 1522627200, NULL),
+(7, 'Deň pracovného pokoja', NULL, 'Deň pracovného pokoja', NULL, '', NULL, 1525132800, NULL);
 
 -- --------------------------------------------------------
 
@@ -663,7 +663,7 @@ ALTER TABLE `media_files`
 -- AUTO_INCREMENT pre tabuľku `nepritomnosti`
 --
 ALTER TABLE `nepritomnosti`
-  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=847;
+  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=526;
 
 --
 -- AUTO_INCREMENT pre tabuľku `news`

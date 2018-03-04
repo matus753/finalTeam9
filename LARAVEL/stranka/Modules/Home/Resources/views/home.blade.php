@@ -211,7 +211,7 @@
 						@endphp
 						@foreach($events as $e)
 							@if ((getMonth(date("d.m.Y")) <= getMonth(format_time($e->date))) && (getYear(date("d.m.Y")) <= getYear(format_time($e->date))))
-							    <h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
+							    <h4>@if ($e->url) <a href="{{ $e->url }}" target="_blank"> @endif {{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	@if ($e->url) </a> @endif</h4> 
 								<p>{{  format_time($e->date) }} 
 									@if ($e->time), {{  $e->time }} @endif 
 									@if ($e->place), {{  $e->place }} @endif

@@ -23,7 +23,7 @@
 	}
 	&__list {
 		margin-top: 50px;
-		h4 {
+		h4, h4>a {
 			color: #0a61bc;
 			font-size: 16px;
 		    text-align: left;
@@ -47,4 +47,10 @@
   }
 .ui-tooltip {
  color: white;
+ font-size: 12px;
+}
+.ui-widget-shadow {
+	opacity: 1;
+	border-radius: 2px;
+	box-shadow: none;
 }

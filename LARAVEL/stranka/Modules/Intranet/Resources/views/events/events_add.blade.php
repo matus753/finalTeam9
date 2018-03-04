@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" />
+                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
                 </div>
                 <div class="form-group">
                     <label for="sk_text">SK text:</label>
@@ -49,7 +49,7 @@
                 </div>
                 cas staci ako text ci type time ?
                 <div class="form-group">
-                    <label for="time">Cas:</label>
+                    <label for="time">Čas:</label>
                     <input type="text" class="form-control" id="time" name="time" placeholder="Time" />
                 </div>
                 <div class="form-group">
@@ -57,10 +57,10 @@
                     <input type="text" class="form-control" id="link" name="link" placeholder="Link" />
                 </div>
                 <div class="form-group">
-                    <label for="file">Obrazok:</label>
+                    <label for="file">Obrázok:</label>
                     <input type="file" class="form-control" id="file" name="file" placeholder="Súbor"/>
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
+                <input type="submit" class="btn btn-success pull-right" value="Pridajte udalosť" />
             </form>
 		</div>
 	</div>
