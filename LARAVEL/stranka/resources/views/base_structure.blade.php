@@ -135,7 +135,9 @@
             </div>
         </div>
     </nav>
-	@yield('content')
+    <div class="general-content">
+	   @yield('content')
+    </div>
     <footer class="nb-footer">
         <div class="container">
             <div class="row">
