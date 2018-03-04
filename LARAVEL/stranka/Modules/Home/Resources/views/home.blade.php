@@ -143,70 +143,13 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		
-		$( function() {
-		      $.datepicker.regional['sk'] = {
-		            closeText: 'Zavrieť',
-		            prevText: '<Predchádzajúci',
-		            nextText: 'Nasledujúci>',
-		            currentText: 'Dnes',
-		            monthNames: ['Január','Február','Marec','Apríl','Máj','Jún',
-		            'Júl','August','September','Október','November','December'],
-		            monthNamesShort: ['Jan','Feb','Mar','Apr','Máj','Jún',
-		            'Júl','Aug','Sep','Okt','Nov','Dec'],
-		            dayNames: ['Nedel\'a','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota'],
-		            dayNamesShort: ['Ned','Pon','Uto','Str','Štv','Pia','Sob'],
-		            dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
-		            weekHeader: 'Ty',
-		            dateFormat: 'dd.mm.yy',
-		            firstDay: 0,             
-		            isRTL: false,
-		            showMonthAfterYear: false,
-		            yearSuffix: ''
-		      };
-		    var $result = $("#special");
-		    var datavalues = {
-		    	"" : ""
-		    	@foreach($events as $e)
-		  			, "{{ format_time($e->date) }}": "{{ $e->name_sk }}"
-		  		@endforeach
-			};
-			var eventsDays = [ "05.03.2018"
-			];
-
-			if ($( window ).width() > 767) {
-      			var displayMonths =  2;
-      		}
-      		else {
-      			var displayMonths =  1;
-      		}
-
-			$.datepicker.setDefaults($.datepicker.regional['sk']);
-		      $( "#datepicker" ).datepicker( {
-		      		numberOfMonths: displayMonths,
-		      		dateFormat: 'mm.dd.yy',
-		      		beforeShowDay: function (date) {
-	      			 var m = date.getMonth(), 
-			             d = date.getDate(), 
-			             y = date.getFullYear();
-			         var a = d+"."+m+"."+y;
-                    if ($.inArray(a, eventsDays) > -1) {
-                        return [true, "event", dayTitle];
-                    }
-                    else {
-                        return [false, '', ""];
-                    }
-                },
-		      } );
-		} );
-	</script>
 	<section class="hp-events">
 		<div class="container">
 			<div class="row"> 
 				<div class="col-md-7 col-sm-8">
 					<h4>Ústavný kalendár akcií</h4>
-					<div id="datepicker" class="hp-events__datepicker"></div>
+					<div id="datepicker" class="hp-events__datepicker">
+					</div>
 				</div>
 				<div class=" col-md-offset-1 col-sm-4">
 					<div class="hp-events__list">
@@ -215,7 +158,7 @@
 						@endphp
 						@foreach($events as $e)
 							@if ((getMonth(date("d.m.Y")) <= getMonth(format_time($e->date))) && (getYear(date("d.m.Y")) <= getYear(format_time($e->date))))
-							    <h4>@if ($e->url) <a href="{{ $e->url }}" target="_blank"> @endif {{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	@if ($e->url) </a> @endif</h4> 
+							    <h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
 								<p>{{  format_time($e->date) }} 
 									@if ($e->time), {{  $e->time }} @endif 
 									@if ($e->place), {{  $e->place }} @endif
@@ -234,4 +177,56 @@
 		</div>			  
 	</section>
 </div>
+
+<script type="text/javascript">
+		
+		$(function() {
+		    $.datepicker.regional['sk'] = {
+				closeText: 'Zavrieť',
+				prevText: '<Predchádzajúci',
+				nextText: 'Nasledujúci>',
+				currentText: 'Dnes',
+				monthNames: ['Január','Február','Marec','Apríl','Máj','Jún',
+				'Júl','August','September','Október','November','December'],
+				monthNamesShort: ['Jan','Feb','Mar','Apr','Máj','Jún',
+				'Júl','Aug','Sep','Okt','Nov','Dec'],
+				dayNames: ['Nedel\'a','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota'],
+				dayNamesShort: ['Ned','Pon','Uto','Str','Štv','Pia','Sob'],
+				dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
+				weekHeader: 'Ty',
+				dateFormat: 'dd.mm.yy',
+				firstDay: 0,             
+				isRTL: false,
+				showMonthAfterYear: false,
+				yearSuffix: '',
+		    };
+
+		    var $result = $("#special");
+		    var datavalues = [
+		    	@foreach($events as $e)
+		  			"{{ format_time_event($e->date) }}",
+		  		@endforeach
+			];
+
+			$.datepicker.setDefaults($.datepicker.regional['sk']);
+		    $( "#datepicker" ).datepicker({
+				numberOfMonths: 2,
+				dateFormat: 'mm.dd.yy',
+				beforeShowDay: function (date) {
+					var m = date.getMonth(), 
+						d = date.getDate(), 
+						y = date.getFullYear();
+					var a = d+"."+m+"."+y; 	
+					
+					if ($.inArray(a,datavalues) > -1) {
+						return [ true, "hp-events__day", "tralala" ];
+					}
+					else {
+						return [false, '', ""];
+					}
+				},
+		    });
+		});
+
+	</script>
 @stop

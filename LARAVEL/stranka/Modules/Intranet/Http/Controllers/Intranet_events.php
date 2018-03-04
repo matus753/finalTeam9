@@ -57,18 +57,37 @@ class Intranet_events extends Controller
         }else{
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
         }
-            
-            $data = [
-                'name_sk' => $name_sk,
-                'name_en' => $name_en,
-                'text_sk' => $text_sk,
-                'text_en' => $text_en,
-                'place' => $place,
-                'time' => $time,
-                'date' => $date,
-                'url' => $link
-            ];
+        //debug($link, true);
+        /*if($file) {
+            $allowed_types = explode(',', config('events_admin.events_allowed_types'));
 
+            $valid = false;
+            foreach($allowed_types as $a){
+                if($a == explode('.', $file->hashName())[1]){
+                    $valid = true;
+                }
+            }
+            
+            if($valid == false){
+                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
+            }  
+            $file->store('/public/events/');
+            $file_name = $file->hashName();
+        }else{
+            $file_name = null;
+        }*/
+            
+        $data = [
+            'name_sk' => $name_sk,
+            'name_en' => $name_en,
+            'text_sk' => $text_sk,
+            'text_en' => $text_en,
+            'place' => $place,
+            'time' => $time,
+            'date' => $date,
+            'url' => $link
+        ];
+    
         
         $event_id = DB::table('events')->insertGetId($data);
         if($event_id){
@@ -183,4 +202,6 @@ class Intranet_events extends Controller
 
         return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB query error!']);
     }
+
+
 }

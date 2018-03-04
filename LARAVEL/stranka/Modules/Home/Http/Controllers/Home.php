@@ -26,12 +26,12 @@ class Home extends Controller
     public function index()
     {	
 		$module_name = config('home.name');
-		$events = DB::table('events')->get();
+		$events = DB::table('events')->orderBy('date')->get();
 		$data = [
 			'title' => $module_name,
 			'events' => $events
 		];
-
+		//debug($data);
 		return view('home::home', $data);
     }
 

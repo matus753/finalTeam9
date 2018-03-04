@@ -141,7 +141,7 @@ class Intranet_documents extends Controller
                 $image->store('/public/documents/'.$category.'/'.$hash_id);
                 $response->link = url('/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName());
                 // TODO je treba do DB ????
-                //DB::table('documents_files')->insert($data);
+                DB::table('documents_files')->insert($data);
                 return stripslashes(json_encode($response->link));
             }
             else{

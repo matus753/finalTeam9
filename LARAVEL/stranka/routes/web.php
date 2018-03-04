@@ -26,6 +26,7 @@
 /* Homapage */
 Route::get('/', '\Modules\Home\Http\Controllers\Home@index');
 
+
 /* About us */
 Route::get('/history', '\Modules\About\Http\Controllers\About@history');
 Route::get('/management', '\Modules\About\Http\Controllers\About@management');

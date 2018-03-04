@@ -28,6 +28,13 @@ function format_time($timestamp = 0, $to_input = false){
 	}
 	return date('d.m.Y', $timestamp);
 }
+
+function format_time_event($timestamp = 0){
+	if( !is_numeric( $timestamp ) ){
+		return false;
+	}
+	return date('j.n.Y', $timestamp);
+}
 /**
  * return news image uri by hash name
  */
