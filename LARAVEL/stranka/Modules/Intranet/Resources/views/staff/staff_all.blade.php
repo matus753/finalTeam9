@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="staff-intra">
             <div class="pull-right">
-                <a href="{{ url('/staff-admin-add') }}" class="btn btn-primary">Pridaj ľuď</a>
+                <a href="{{ url('/staff-admin-add') }}" class="btn btn-primary">Pridať zamestnanca</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>

@@ -44,7 +44,6 @@ class Intranet_events extends Controller
         $date = $request->input('date');
         $type = $request->input('type');
         $url = $request->input('link');
-        $file = $request->file('file');
 
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
         $link = null;
@@ -58,22 +57,6 @@ class Intranet_events extends Controller
         }else{
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
         }
-        //debug($link, true);
-        if($file) {
-            $allowed_types = explode(',', config('events_admin.events_allowed_types'));
-
-            $valid = false;
-            foreach($allowed_types as $a){
-                if($a == explode('.', $file->hashName())[1]){
-                    $valid = true;
-                }
-            }
-            
-            if($valid == false){
-                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
-            }  
-            $file->store('/public/events/');
-
             
             $data = [
                 'name_sk' => $name_sk,
@@ -81,12 +64,11 @@ class Intranet_events extends Controller
                 'text_sk' => $text_sk,
                 'text_en' => $text_en,
                 'place' => $place,
-                'image' => $file->hashName(),
                 'time' => $time,
                 'date' => $date,
                 'url' => $link
             ];
-        }
+
         
         $event_id = DB::table('events')->insertGetId($data);
         if($event_id){
@@ -192,10 +174,6 @@ class Intranet_events extends Controller
         $path = base_path('storage/app/public/events/');
         
         $res = DB::table('events')->where('e_id', $e_id)->first();
-        $tmp = $path.$res->image;
-        if(is_file($tmp)){
-            unlink($tmp);
-        }
     
         $res = (bool) DB::table('events')->where('e_id', $e_id)->delete();
 

@@ -16,20 +16,17 @@
     });
 </script>
 
-<div id="emPAGEcontent" class="container">
-    <br>
+<div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="staff-intra">
             <div class="pull-right">
-                <a href="{{ url('/events-admin-add') }}" class="btn btn-primary">Pridaj udalost</a>
+                <a href="{{ url('/events-admin-add') }}" class="btn btn-primary">Pridať udalosť</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <h2>FUNKCIONALITA OK - treba test + remove bad string. AKTIVACIA POLOZKY ?? </h2>
-            <br>
-            <br> 
+            <h2>Zoznam udalostí ústavu</h2>
+            <h3>FUNKCIONALITA OK - treba test + remove bad string. AKTIVACIA POLOZKY ?? </h3>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="events-table" class="table table-stripped table-bordered intranet-table">
@@ -67,6 +64,5 @@
 			</div>
 		</div>
 	</div>
-
 </div>   
 @stop
