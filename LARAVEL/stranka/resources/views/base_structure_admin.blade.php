@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">	
 		<link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
 		<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/intra_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">    
 
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
@@ -43,9 +43,9 @@
     @endif
 	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
 	<nav class="navbar navbar-default" id="navbar-custom">
-        <div class="container">
+        <div id="navbarContainer" class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
+                <button id="collapsedButton" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
