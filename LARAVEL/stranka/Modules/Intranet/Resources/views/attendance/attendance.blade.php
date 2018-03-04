@@ -2,18 +2,19 @@
 
 @section('additional_headers_admin')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/intranet.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
 <style>
 	.pn{
-		background-color: #ffb861;
+		background-color: #9f8bed;
 	}
 	.d{
 		background-color: #00cdcd;
 	}
 	.pd{
-		background-color: #cd0000;
+		background-color: #ffd446;
 	}
 	.nl{
 		background-color: #c6fd06;
@@ -47,10 +48,18 @@
 		</div>
 	</div>
 	<hr>
-	<label class="radio-inline" style="background-color: white;"><input type="radio" name="absence" id="-1" value="" checked>Delete</label>
-	@foreach($absence as $a)
-		<label class="radio-inline" style="background-color: {{ $a->farba }};"><input type="radio" name="absence" id="{{ $a->t_id }} " value="{{ $a->skratka }}" >{{ $a->nazov }}</label>
-	@endforeach
+	<div class="switch-field">
+		<label class="radio-inline">
+			<input type="radio" name="absence" id="-1" value="" checked>
+			<span  style="background-color: white;">Delete</span>
+		</label>
+		@foreach($absence as $a)
+			<label class="radio-inline" >
+				<input type="radio" name="absence" id="{{ $a->t_id }} " value="{{ $a->skratka }}" >
+				<span style="background-color: {{ $a->farba }};">{{ $a->nazov }}</span>
+			</label>
+		@endforeach
+	</div>
 	<hr>
 	<div class="row">
 		<div class="col-md-12">

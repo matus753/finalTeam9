@@ -482,9 +482,9 @@ CREATE TABLE `typ_nepritomnosti` (
 --
 
 INSERT INTO `typ_nepritomnosti` (`t_id`, `nazov`, `skratka`, `farba`) VALUES
-(1, 'pracovná neschopnosť', 'PN', '#ffb861'),
+(1, 'pracovná neschopnosť', 'PN', '#9f8bed'),
 (2, 'dovolenka', 'D', '#00cdcd'),
-(3, 'plánovaná dovolenka', 'PD', '#cd0000'),
+(3, 'plánovaná dovolenka', 'PD', '#ffd446'),
 (4, 'návšteva lekára', 'NL', '#c6fd06'),
 (5, 'práca z domu', 'HO', '#70a78f');
 
