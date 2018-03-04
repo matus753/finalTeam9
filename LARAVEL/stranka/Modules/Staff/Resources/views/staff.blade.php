@@ -152,12 +152,12 @@ $(document).ready(function() {
 				</table>
 			</div>
 			<div class="staff__notes">
-				<h5>Vyvetlivky pre oddelenia:</h5>
-				<p><b>AHU</b> - Administratívno - hospodársky úsek</p>
-				<p><b>OAMM</b> - Oddelenie aplikovanej mechaniky a mechatroniky</p>
-				<p><b>OEAP</b> - Oddelenie E-mobility, automatizácie a pohonov</p>
-				<p><b>OEMP</b> - Oddelenie elektroniky, mikropočítačov a PLC systémov</p>
-				<p><b>OIKR</b> - Oddelenie informačných, komunikačných a riadiacich systémov</p>
+				<h5>@lang('staff::staff.explanatory')</h5> 
+				<p><b>@lang('staff::staff.AHU')</b> @lang('staff::staff.AHU_desc')</p>
+				<p><b>@lang('staff::staff.OAMM')</b> @lang('staff::staff.OAMM_desc')</p>
+				<p><b>@lang('staff::staff.OEAP')</b> @lang('staff::staff.OEAP_desc')</p>
+				<p><b>@lang('staff::staff.OEMP')</b> @lang('staff::staff.OEMP_desc')</p>
+				<p><b>@lang('staff::staff.OIKR')</b> @lang('staff::staff.OIKR_desc')</p>
 			</div>
 		</div>
 	</div>

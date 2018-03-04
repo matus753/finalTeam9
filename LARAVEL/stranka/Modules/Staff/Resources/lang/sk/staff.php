@@ -44,5 +44,17 @@ return [
 	'show_publications' => 'Zobraziť publikácie',
 	'tbl-title' => 'Názov publikácie',
 	'type' => 'Typ',
-	'year' => 'Rok'
+	'year' => 'Rok',
+
+	'explanatory' => 'Vysvetlivky pre oddelenia:',
+	'AHU' => 'AHU',
+	'AHU_desc' => ' - Administratívno - hospodársky úsek',
+	'OAMM' => 'OAMM',
+	'OAMM_desc' => '- Oddelenie aplikovanej mechaniky a mechatroniky',
+	'OEAP' => 'OEAP',
+	'OEAP_desc' => '- Oddelenie E-mobility, automatizácie a pohonov',
+	'OEMP' => 'OEMP',
+	'OEMP_desc' => ' - Oddelenie elektroniky, mikropočítačov a PLC systémov',
+	'OIKR' => 'OIKR',
+	'OIKR_desc' => ' - Oddelenie informačných, komunikačných a riadiacich systémov'
 ];

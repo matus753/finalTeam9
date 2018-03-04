@@ -43,5 +43,17 @@ return [
 	'teacher' => 'Teacher',
 	'doktorand' => 'Doktorand',
 	'researcher' => 'Researcher',
-	'role' => 'Role'
+	'role' => 'Role',
+
+	'explanatory' => 'Explanatory notes for departments:',
+	'AHU' => 'AHU',
+	'AHU_desc' => ' - Economic section',
+	'OAMM' => 'OAMM',
+	'OAMM_desc' => '- Department of Mechanics and Mechatronics',
+	'OEAP' => 'OEAP',
+	'OEAP_desc' => '- Department of E-mobility, Automation and Drives',
+	'OEMP' => 'OEMP',
+	'OEMP_desc' => ' - Department of Electronics, Microcomputers and PLC',
+	'OIKR' => 'OIKR',
+	'OIKR_desc' => ' - Department of Information, Communication and Control Systems'
 ];
