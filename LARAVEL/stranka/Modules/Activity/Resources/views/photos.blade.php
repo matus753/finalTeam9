@@ -5,7 +5,7 @@
 <link href="{{ URL::asset('css/activity.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/lightbox.css') }}" rel="stylesheet">
 <script type="text/javascript"  src="{{URL::asset('js/galleries/lightbox.js')}}"></script>
-        <script type="text/javascript"  src="{{URL::asset('js/galleries/gallery.js')}}"></script>
+<script type="text/javascript"  src="{{URL::asset('js/galleries/activity.js')}}"></script>
 @stop
 
 @section('content')

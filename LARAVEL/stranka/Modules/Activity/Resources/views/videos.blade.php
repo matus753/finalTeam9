@@ -3,6 +3,7 @@
 @section('additional_headers')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/activity.css') }}" rel="stylesheet">
+<script type="text/javascript"  src="{{URL::asset('js/galleries/activity.js')}}"></script>
 @stop
 
 @section('content')
@@ -40,7 +41,7 @@
         var content = document.getElementById('links');
         content.innerHTML = '';
         for(v in videos){
-            content.innerHTML += '<p class="video"><a target="_blank" href="' + videos[v].url + '"><i class="fa fa-youtube-play" aria-hidden="true"></i>YouTube</a>' + videos[v].title + '</p>';
+            content.innerHTML += '<p class="video"><button type="button" class="btn video-btn" data-toggle="modal" data-src="' + videos[v].url + '" data-target="#myModal"><i class="fa fa-youtube-play" aria-hidden="true"></i>YouTube</button>' + videos[v].title + '</p>';
         }
     }
 	
@@ -59,5 +60,22 @@
 	<div class="video-content" id="links" style="padding: 2em;">
 
 	</div>
-</div>    
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<!-- 16:9 aspect ratio -->
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe width="420" height="315" class="embed-responsive-item" src="" id="video" frameborder="0" allowscriptaccess="always" allowfullscreen></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 @stop

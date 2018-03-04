@@ -5,12 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">	
 		<link href="{{ URL::asset('css/bootstrap.css') }}" rel="stylesheet">
 		<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/intra_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">    
 
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
 		<script src="{{ URL::asset('js/additional_js.js') }}"></script>
 		
 		<title> ÚAMT - {{ $title }}</title>
@@ -43,9 +42,9 @@
     @endif
 	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
 	<nav class="navbar navbar-default" id="navbar-custom">
-        <div class="container">
+        <div id="navbarContainer" class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
+                <button id="collapsedButton" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#emNavbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -61,7 +60,7 @@
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
 					<li><a href="{{ url('/news-admin') }}" class="navbarItem">Aktuality</a></li>
                     <li><a href="{{ url('/events-admin') }}" class="navbarItem">Udalosti</a></li>
-                    <li><a href="{{ url('/attendance-admin') }}" class="navbarItem">Dochadzka</a></li>
+                    <li><a href="{{ url('/attendance-admin') }}" class="navbarItem">Dochádzka</a></li>
                     <li><a href="{{ url('/documents-admin') }}" class="navbarItem">Dokumenty</a></li>
                     <li><a href="{{ url('/projects-admin') }}" class="navbarItem">Projekty</a></li>
                     <li><a href="{{ url('/staff-admin') }}" class="navbarItem">Pracovníci</a></li>

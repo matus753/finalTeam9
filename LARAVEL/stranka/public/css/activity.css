@@ -95,12 +95,12 @@ img.hover-shadow {
 
 .button{
     text-decoration: none;
-    float: right;
     background-color: rgb(255, 212, 70);
     color: #777;
     padding: 5px 10px;
     margin: 0 5px;
     border-radius: 20px;
+    float: left;
 }
 
 .button i{
@@ -108,27 +108,53 @@ img.hover-shadow {
 }
 
 .panel{
-    padding-bottom: 15px;
-    margin-bottom: 10px;
+    padding-bottom: 35px;
+    margin-bottom: 15px;
 }
 
 .video{
     padding: 10px 0;
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(30,30,30,0.2);
-}
-
-
-.video a{
-    padding: 5px 10px;
-    color: white;
-    background-color: rgba(255,0,0,0.8);
-    border-radius: 5px;
-    margin-right: 20px;
+    font-weight: bold;
 }
 
 .video i{
     margin: 0 5px;
 }
 
+.video-btn{
+    color: white;
+    background-color: rgba(255,0,0,0.8);
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
+    -webkit-transform: translate(0,50%) !important;
+    -ms-transform: translate(0,50%) !important;
+    -o-transform: translate(0,50%) !important;
+    transform: translate(0,50%) !important;
+}
+
+.modal-body {
+    position:relative;
+    padding:0px;
+}
+.close {
+    position:absolute;
+    right:-30px;
+    top:0;
+    z-index:999;
+    font-size:2rem;
+    font-weight: normal;
+    color:#fff;
+    opacity:1;
+}
+
+.title-media {
+    display: inline-block;
+}
 

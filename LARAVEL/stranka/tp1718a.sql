@@ -508,15 +508,15 @@ CREATE TABLE `video_gallery` (
 --
 
 INSERT INTO `video_gallery` (`v_id`, `title_SK`, `title_EN`, `url`, `type_sk`, `type_en`) VALUES
-(1, 'Vzdialené experimenty - podpora pre vzdelávanie', 'Remote experiments - support for education', 'https://www.youtube.com/watch?v=Z0zBwR_MKOI', 'Naše laboratóriá', 'Our laboratories'),
-(2, 'Multimédiá a telematika pre mobilné platformy - voliteľný predmet v inžinierskom štúdiu FEI STU', 'Multimedia and telematics for mobile platforms - elective eourse in the FEI STU engineering study', 'https://www.youtube.com/watch?v=NKZmJB0PW3k', 'Predmety', 'Subjects'),
-(3, 'Študuj mechatroniku a budeš úspešný!', 'Study mechatronics and you will be successful!', 'https://www.youtube.com/watch?v=vCYq4JspSCI', 'Propagačné videá', 'Promotional videos'),
-(4, 'Mechatronické kresliace rameno mScara - Makeblock mDrawBot kit ', 'mScara mechatronic drawing arm - Makeblock mDrawBot kit', 'https://www.youtube.com/watch?v=qmijnl8jwaw', 'Naše zariadenie', 'Our facility'),
-(5, 'Riadenie modelu výrobného systému cez PLC', 'Managing the production system model via the PLC', 'https://www.youtube.com/watch?v=ymqYxRYt5sY', 'Naše zariadenie', 'Our facility'),
-(6, 'Inžinierska informatika v mechatronike - Ing. ŠP Aplikovaná mechatronika a elektromobilita ', 'Engineering informatics in mechatronics - Engineering SP Applied mechatronics and electromobility', 'https://www.youtube.com/watch?v=CLwEjKN9ixg', 'Propagačné videá', 'Our facility'),
-(7, 'Ústav automobilovej mechatroniky FEI STU ', 'Department of automobile mechatronics FEI STU', 'https://www.youtube.com/watch?v=IiNXYgbOKxw', 'Propagačné videá', 'Promotional videos'),
-(8, 'videjo', 'videjo in ingliš', 'https://www.youtube.com/watch?v=57BJvTZK6Vc', 'Naše laboratóriá', 'Our laboratories'),
-(9, 'FPFA', 'FPGA', 'https://www.youtube.com/watch?v=xEkg96rcwsE', 'Predmety', 'Subjects');
+(1, 'Vzdialené experimenty - podpora pre vzdelávanie', 'Remote experiments - support for education', 'Z0zBwR_MKOI', 'Naše laboratóriá', 'Our laboratories'),
+(2, 'Multimédiá a telematika pre mobilné platformy - voliteľný predmet v inžinierskom štúdiu FEI STU', 'Multimedia and telematics for mobile platforms - elective eourse in the FEI STU engineering study', 'NKZmJB0PW3k', 'Predmety', 'Subjects'),
+(3, 'Študuj mechatroniku a budeš úspešný!', 'Study mechatronics and you will be successful!', 'vCYq4JspSCI', 'Propagačné videá', 'Promotional videos'),
+(4, 'Mechatronické kresliace rameno mScara - Makeblock mDrawBot kit ', 'mScara mechatronic drawing arm - Makeblock mDrawBot kit', 'qmijnl8jwaw', 'Naše zariadenie', 'Our facility'),
+(5, 'Riadenie modelu výrobného systému cez PLC', 'Managing the production system model via the PLC', 'ymqYxRYt5sY', 'Naše zariadenie', 'Our facility'),
+(6, 'Inžinierska informatika v mechatronike - Ing. ŠP Aplikovaná mechatronika a elektromobilita ', 'Engineering informatics in mechatronics - Engineering SP Applied mechatronics and electromobility', 'CLwEjKN9ixg', 'Propagačné videá', 'Our facility'),
+(7, 'Ústav automobilovej mechatroniky FEI STU ', 'Department of automobile mechatronics FEI STU', 'IiNXYgbOKxw', 'Propagačné videá', 'Promotional videos'),
+(8, 'videjo', 'videjo in ingliš', '57BJvTZK6Vc', 'Naše laboratóriá', 'Our laboratories'),
+(9, 'FPFA', 'FPGA', 'xEkg96rcwsE', 'Predmety', 'Subjects');
 
 --
 -- Kľúče pre exportované tabuľky
