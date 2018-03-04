@@ -46,7 +46,9 @@ body{
     background-color: rgb(200,200,200) !important;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ababab;;
+}
 .dropdown-submenu {
     position: relative;
 }
@@ -252,4 +254,52 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
 }
 .navbar-default .navbar-toggle .icon-bar{
     background-color: #fff;
+}
+.intra-div h2{
+    text-align: center;
+    font-weight: bold;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.btn.btn-primary{
+    background-color: rgb(10, 97, 188);
+}
+.btn.btn-primary:hover{
+    background-color: rgb(10, 73, 145);
+}
+.intra-div .btn-back {
+    position: absolute;
+    top: 60px;
+}
+.btn-center{
+    text-align: center;
+}
+.note{
+    margin: 50px 0;
+    padding: 25px 0;
+    border-top: 1px solid #DCDCDC;
+}
+.note > p{
+    font-size: 12px;
+}
+.note>h5 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.table > tbody > tr > td{
+    vertical-align: middle;
+}
+/*---------projects--------*/
+
+.pCol1{
+    width: 55%;
+}
+.pCol2{
+    width: 10%;
+}
+.pCol3{
+    width: 20%;
+}
+.pCol4{
+    width: 15%;
 }
