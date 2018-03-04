@@ -10,7 +10,6 @@
 
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ URL::asset('js/ib-footer-resize.js') }}"></script>
 		<script src="{{ URL::asset('js/additional_js.js') }}"></script>
 		
 		<title> ÚAMT - {{ $title }}</title>
