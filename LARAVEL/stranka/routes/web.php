@@ -87,7 +87,6 @@ Route::get('/news-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet
 Route::post('/news-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_edit_action');
 Route::post('/news-admin/news_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_images_upload');
 Route::post('/news-admin/news_file_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_file_upload');
-//Route::post('/news-admin/news-set-pagination', '\Modules\Intranet\Http\Controllers\Intranet_news@news_set_pagination_action');
 Route::get('/news-admin-delete-added/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_delete_single_action');
 
 /* Intranet projects */

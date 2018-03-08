@@ -26,9 +26,16 @@ class Home extends Controller
     public function index()
     {	
 		$module_name = config('home.name');
-		$events = DB::table('events')->orderBy('date')->get();
+		$date = DB::table('events')->select('date')->distinct()->orderBy('date')->get();
+		//$events = DB::table('events')->orderBy('date')->groupBy('date')->get();
+		$events_data = [];
+		foreach($date as $d){
+			$events[$d->date] = DB::table('events')->where('date', $d->date)->get();
+		}
+
 		$data = [
 			'title' => $module_name,
+			'date' => $date,
 			'events' => $events
 		];
 		//debug($data);

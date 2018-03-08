@@ -156,19 +156,21 @@
 						@php	
 							$maxEvents = 0;
 						@endphp
-						@foreach($events as $e)
-							@if ((getMonth(date("d.m.Y")) <= getMonth(format_time($e->date))) && (getYear(date("d.m.Y")) <= getYear(format_time($e->date))))
-							    <h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
-								<p>{{  format_time($e->date) }} 
-									@if ($e->time), {{  $e->time }} @endif 
-									@if ($e->place), {{  $e->place }} @endif
-								</p>	
-								@php
-									if ($maxEvents > 2) {
-										break;
-									}
-									$maxEvents++;
-								@endphp	
+						@foreach($events as $key => $event)
+							@if ((getMonth(date("d.m.Y")) <= getMonth(format_time($key))) && (getYear(date("d.m.Y")) <= getYear(format_time($key))))
+								@foreach($event as $e)
+									<h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
+									<p>{{  format_time($key) }} 
+										@if ($e->time), {{  $e->time }} @endif 
+										@if ($e->place), {{  $e->place }} @endif
+									</p>	
+									@php
+										if ($maxEvents > 2) {
+											break;
+										}
+										$maxEvents++;
+									@endphp	
+								@endforeach
 							@endif												
 						@endforeach
 					</div>
@@ -202,11 +204,19 @@
 		    };
 
 		    var $result = $("#special");
-		    var datavalues = [
-		    	@foreach($events as $e)
-		  			"{{ format_time_event($e->date) }}",
+		    /*var dates = [
+		    	@foreach($date as $d)
+		  			"{{ format_time_event($d->date) }}",
+		  		@endforeach
+			];*/
+			
+			var datavalues = [
+				@foreach($events as $key => $event)
+					@foreach($event as $e) {"date" : "{{ format_time_event($e->date) }}","title" : "{{ $e->name_sk }}"}, @endforeach 
 		  		@endforeach
 			];
+
+			
 
 			$.datepicker.setDefaults($.datepicker.regional['sk']);
 		    $( "#datepicker" ).datepicker({
@@ -218,15 +228,22 @@
 						y = date.getFullYear();
 					var a = d+"."+m+"."+y; 	
 					
-					if ($.inArray(a,datavalues) > -1) {
-						return [ true, "hp-events__day", "tralala" ];
-					}
-					else {
+					var returnedData = $.grep(datavalues, function (element, index) {
+						return element['date'] == a;
+					});
+
+					if(returnedData.length > 0){
+						var title = "";
+						for(let i = 0; i <  returnedData.length; i++){
+							title += returnedData[i]['date']+" : "+returnedData[i]['title']+"\n\n";
+						}
+
+						return [ true, "hp-events__day", title ];
+					}else{
 						return [false, '', ""];
-					}
+					}				
 				},
 		    });
 		});
-
 	</script>
 @stop

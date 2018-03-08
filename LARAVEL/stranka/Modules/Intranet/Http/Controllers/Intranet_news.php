@@ -135,15 +135,18 @@ class Intranet_news extends Controller
     public function news_images_upload( Request $request, Response $response ){
         $hash_name = $request->input('news_id_hash');
         $image = $request->file('image');
-        
-        $allowed_types = explode(',', config('news_admin.img_types_allowed'));
+
+        $valid = false;
+        $allowed_types = explode(',', config('news_admin.img_types_allowed')); 
         foreach($allowed_types as $at){
             if($at == explode('.', $image->hashName())[1]){
                 $valid = true;
             }
         }
+
+        
         if($valid){
-            if(news_create_folder($hash_name) && $image){
+             if(news_create_folder($hash_name) && $image){
                 $image->store('/public/news/'.$hash_name);
                 $response->link = url('/storage/news/'.$hash_name.'/'.$image->hashName());
                 return stripslashes(json_encode($response->link));
