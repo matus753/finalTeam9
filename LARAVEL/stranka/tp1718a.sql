@@ -723,3 +723,86 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- --------------------------------------------------------
+--
+-- Štruktúra tabuľky pre tabuľku `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `sub_id` int(11) NOT NULL,
+  `abbrev` varchar(20) COLLATE utf8_slovak_ci NOT NULL,
+  `title` varchar(500) COLLATE utf8_slovak_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `subjects`
+--
+
+INSERT INTO `subjects` (`sub_id`, `abbrev`, `title`) VALUES
+(1, 'I-ASRAV', 'Automatizované systémy riadenia automobilových výrob'),
+(2, 'I-AMS', 'Autonómne mechatronické systémy'),
+(3, 'I-CSPMS', 'CAD  systémy a projektovanie mechatronických systémov'),
+(4, 'I-CAEMS', 'CAE mechatronických systémov'),
+(5, 'B-DAVIS', 'Databázové a vizualizačné systémy'),
+(6, 'B-DYMES', 'Dynamika mechatronických systémov'),
+(7, 'B-ELSA', 'Elektronické systémy automobilov'),
+(8, 'B-KSS', 'Komunikačné systémy a siete'),
+(9, 'B-MECH', 'Mechanika'),
+(10, 'B-MSBEZ', 'Mechatronické systémy bezpečnosti automobilov a elektromobilov'),
+(11, 'I-MEMSISA', 'MEMS - inteligentné senzory a aktuátory'),
+(12, 'I-MKP', 'Metóda konečných prvkov'),
+(13, 'I-MCR', 'Metódy číslicového riadenia'),
+(14, 'I-MVI', 'Metódy vypočtovej inteligencie'),
+(15, 'B-MIPS', 'Mikropočítačové systémy'),
+(16, 'I-MRNMS', 'Modelovanie a riadenie nelineárnych mechatronických systémov'),
+(17, 'B-MSLAB', 'Modelovanie a simulácia v prostredí Matlab'),
+(18, 'I-MPM', 'Multifyzikálne procesy v mechatronike'),
+(19, 'I-MTMP', 'Multimédiá a telematika pre mobilné platformy'),
+(20, 'B-NAVEZ', 'Návrh elektronických zariadení'),
+(21, 'I-NPAE', 'Nekonvenčné pohony automobilov a elektromobilov'),
+(22, 'I-OPM', 'Optimalizácia procesov v mechatronike'),
+(23, 'I-OSA', 'Osvetlovacie systémy automobilov'),
+(24, 'B-PLCM', 'PLC systémy v mechatronike'),
+(25, 'I-PHSMA', 'Pneumatické a hydraulické systémy v mechatronických aplikáciách'),
+(26, 'I-PSZE', 'Pohonné systémy  a zdroje v elektromobiloch'),
+(27, 'I-PMRMS', 'Pokročilé metódy riadenia mechatronických systémov'),
+(28, 'B-PROPA', 'Procesy pohybu automobilov'),
+(29, 'B-PASME', 'Prvky a systémy v mechatronike'),
+(30, 'B-SENSAK', 'Senzorové systémy a aktuátory'),
+(31, 'I-SMA', 'Servopohony pre mechatronické aplikácie'),
+(32, 'B-SMS', 'Smart mechatronické systémy'),
+(33, 'B-SAEMOB', 'Stavba automobilov a elektromobilov'),
+(34, 'B-SAR1', 'Systémy automatického riadenia 1'),
+(35, 'B-SAR2', 'Systémy automatického riadenia 2'),
+(36, 'I-TDIAG', 'Technická diagnostika'),
+(37, 'I-TSAE', 'Transmisné systémy automobilov a elektromobilov'),
+(38, 'B-UIE', 'Úvod do inžinierstva'),
+(39, 'B-VIPROT', 'Virtuálne prototypovanie'),
+(40, 'I-VPPMS', 'Vývojové programové prostredia  pre mechatronické systémy'),
+(41, 'B-WEBTE1', 'Webové technológie 1'),
+(42, 'B-WEBTE2', 'Webové technológie 2');
+
+--
+-- Kľúče pre exportované tabuľky
+--
+
+--
+-- Indexy pre tabuľku `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`sub_id`);
+
+--
+-- AUTO_INCREMENT pre exportované tabuľky
+--
+
+--
+-- AUTO_INCREMENT pre tabuľku `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

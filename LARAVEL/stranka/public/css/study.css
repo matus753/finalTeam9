@@ -21,11 +21,20 @@ span.fa.fa-microchip, span.fa.fa-desktop{
     font-size: 30px;
 }
 .jumbotron p{
-    font-size: 16px !important;
+    font-size: 14px !important;
+}
+.jumbotron h3{
+    font-size: 16px;
+}
+#toggle1{
+    font-size: 20px;
+}
+#toggle1:hover, #toggle2:hover, #toggle3:hover, #toggle4:hover{
+    font-weight: bold;
 }
 #btnTogStudProgram, #btnTogPVPe, #btnTogPVPa, #btnTogPVPi{
     float: right;
-    margin-top: 20px !important;
+    margin-top: 10px !important;
 }
 #btnBp1, #btnBp2, #btnBp3, #btnDp1, #btnDp2, #btnDp3, #btnDp4, #btnAvArr{
     color: white;
@@ -180,4 +189,13 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 }
 .hover:hover{
     cursor: pointer;
+}
+@media screen and (max-width: 575px) {
+    .bpStudy, .ingStudy{
+        margin: 0 0 40px 0;
+    }
+}
+.jumbotron{
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
