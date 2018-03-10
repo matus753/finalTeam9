@@ -34,7 +34,7 @@
                                 <th>Meno</th>
                                 <th>Oddelenie</th>
                                 <th>Rola</th>
-                                <th></th>
+                                <th class="pCol4"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,7 +58,7 @@
                                 <th>Meno</th>
                                 <th>Oddelenie</th>
                                 <th>Rola</th>
-                                <th></th>
+                                <th class="pCol4"></th>
                             </tr>
                         </tfoot>
                     </table>

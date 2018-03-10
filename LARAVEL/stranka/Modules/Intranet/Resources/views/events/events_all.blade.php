@@ -35,7 +35,7 @@
                                 <th>Nadpis</th>
                                 <th>Miesto</th>
                                 <th>Dátum</th>
-                                <th></th>
+                                <th class="pCol4"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,7 +44,7 @@
                                 <td>{{ $e->name_sk }}</td>  
                                 <td>{{ $e->place }}</td>  
                                 <td><span class="hidden">{{ $e->date }}</span>{{ format_time($e->date) }}</td> 
-                                <td>
+                                <td class="pCol4">
                                     <a href="{{ url('/events-admin-edit/'.$e->e_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
                                     <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $e->name_sk }} ', '{{ url('/events-admin-delete/'.$e->e_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
                                 </td> 

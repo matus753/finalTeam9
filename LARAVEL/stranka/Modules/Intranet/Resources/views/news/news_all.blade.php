@@ -16,26 +16,19 @@
     });
 </script>
 
-<div id="emPAGEcontent" class="container">
+<div class="container">
     <div class="row">
-        <div class="text-center">
-            <h1>Administácia aktualít</h1>
-        </div>
-    </div>
-    TO DO:<br>
-    asi farebne odlíšiť expirované.. aj FILTER dať, aký ?? <br>
-    Bulk delete ?<br>
-	<div class="row">
-		<div class="col-md-12">
+        <div class="intra-div">
             <div class="pull-right">
-                <a href="{{ url('/news-admin-add') }}" class="btn btn-primary">Pridaj aktualitu</a>
+                <a href="{{ url('/news-admin-add') }}" class="btn btn-primary">Pridať aktualitu</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <br>
-            <br>
+            <h2>Administácia aktualít</h2>
+            <h3>TO DO:<br>
+                asi farebne odlíšiť expirované.. aj FILTER dať, aký ?? <br>
+                Bulk delete ?<br></h3>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="news-table" class="table table-stripped table-bordered intranet-table">
@@ -44,7 +37,7 @@
                                 <th>Nadpis</th>
                                 <th>Typ</th>
                                 <th>Expirácia</th>
-                                <th></th>
+                                <th class="pCol4"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +46,7 @@
                                 <td>{{ $n->title_sk }}</td>  
                                 <td>{{ $n->type }}</td>  
                                 <td><span class="hidden">{{ $n->date_expiration }}</span>{{ format_time($n->date_expiration) }}</td> 
-                                <td>
+                                <td class="pCol4">
                                     <a href="{{ url('/news-admin-edit/'.$n->id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
                                     <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $n->title_sk }} ', '{{ url('/news-admin-delete/'.$n->id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
                                 </td> 
@@ -71,8 +64,8 @@
                     </table>
                 </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
 
-</div>   
+</div>
 @stop

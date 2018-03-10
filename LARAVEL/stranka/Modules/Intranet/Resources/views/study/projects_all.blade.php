@@ -26,7 +26,6 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <h2>Projekty</h2>
-            <h3>FUNKCIONALITA OK - treba test + remove bad string</h3>
 			<div class="text-center">
                 {{--<h2>FUNKCIONALITA OK - treba test + remove bad string</h2>--}}
                 <div class="table-responsive tableIntra">
@@ -46,8 +45,8 @@
                                 <td class="pCol2">{{ $p->projectType }}</td>
                                 <td class="pCol3">{{ $p->number }}</td>
                                 <td class="pCol4">
-                                    <a href="{{ url('/projects-admin-edit/'.$p->pr_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
-                                    <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $p->titleSK }} ', '{{ url('/projects-admin-delete/'.$p->pr_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
+                                    <a title="Edit" href="{{ url('/projects-admin-edit/'.$p->pr_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
+                                    <a title="Delete" href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $p->titleSK }} ', '{{ url('/projects-admin-delete/'.$p->pr_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
                                     @if($activation)
                                     {{--<a href="{{ url('/photos-admin-activate-project/'.$p->pr_id) }}" class="btn @if($p->activated)  btn-warning @else btn-primary @endif btn-sm" title="@if($p->activated) Deactivate @else Activate @endif" >@if($p->activated) <span class="fa fa-thumbs-down "> @else <span class="fa fa-thumbs-up ">@endif</span></a>--}}
                                     <a href="{{ url('/photos-admin-activate-project/'.$p->pr_id) }}" class="btn @if($p->activated)  btn-warning @else btn-primary @endif btn-sm" title="@if($p->activated) Active @else Deactive @endif" >@if($p->activated) <span class="fa fa-thumbs-up "> @else <span class="fa fa-thumbs-down ">@endif</span></a>

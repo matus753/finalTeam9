@@ -16,20 +16,17 @@
     });
 </script>
 
-<div id="emPAGEcontent" class="container">
-    <br>
-	<div class="row">
-		<div class="col-md-12">
+<div class="container">
+    <div class="row">
+        <div class="intra-div">
             <div class="pull-right">
-                <a href="{{ url('/media-admin-add') }}" class="btn btn-primary">Pridaj médium</a>
+                <a href="{{ url('/media-admin-add') }}" class="btn btn-primary">Pridať médium</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <h2>FUNKCIONALITA OK - treba test + remove bad string. AKTIVACIA POLOZKY ?? </h2>
-            <br>
-            <br> 
+            <h2>Média</h2>
+            <h3>FUNKCIONALITA OK - treba test + remove bad string. AKTIVACIA POLOZKY ??</h3>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="projects-table" class="table table-stripped table-bordered intranet-table">
@@ -39,7 +36,7 @@
                                 <th>Typ</th>
                                 <th>Zdroj</th>
                                 <th>Dátum</th>
-                                <th></th>
+                                <th class="pCol4"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,7 +46,7 @@
                                 <td>{{ $m->type }}</td>  
                                 <td>{{ $m->media }}</td> 
                                 <td><span class="hidden">{{ $m->date }}</span>{{ format_time($m->date) }}</td> 
-                                <td>
+                                <td class="pCol4">
                                     <a href="{{ url('/media-admin-edit/'.$m->m_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
                                     <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $m->title }} ', '{{ url('/media-admin-delete/'.$m->m_id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>
                                 </td> 
@@ -62,14 +59,14 @@
                                 <th>Typ</th>
                                 <th>Zdroj</th>
                                 <th>Dátum</th>
-                                <th></th>
+                                <th class="pCol4"></th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 
-</div>   
+</div>
 @stop
