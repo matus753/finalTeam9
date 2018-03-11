@@ -53,8 +53,8 @@ class Staff extends Controller
 				}
 			}
 		}
-		
-		
+
+
 		$data= [
 			'title' => $module_name,
 			'staff' => $staff_db
