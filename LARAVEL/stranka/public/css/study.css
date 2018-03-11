@@ -199,3 +199,47 @@ span.fa.fa-microchip, span.fa.fa-desktop{
     padding-top: 10px;
     padding-bottom: 10px;
 }
+/*---------------------------predmety------------------------------*/
+.cSubject{
+    /*width: 100%;*/
+    padding: 10px;
+    font-weight: bold;
+    color: #5a5a5a;
+    /*margin: 10px;*/
+    /*border-bottom: 1px solid rgb(10, 97, 188);*/
+}
+.cSubject:hover{
+    background-color: rgb(10, 97, 188);
+    color: #fff;
+    transition: 0.3s ease background-color;
+    cursor: pointer;
+}
+.cDevider{
+    height: 1px;
+    width: 100%;
+    background-color: #d4d4d4;
+}
+.cArrow{
+    font-size: 15px;
+    color:rgb(10, 97, 188);
+    margin-right: 50px;
+    margin-left: 30px;
+}
+.cAbbrev{
+    display: inline-block;
+    margin: 0;
+    width: 10%;
+}
+@media screen and (max-width: 991px) {
+    .cAbbrev{
+        width: 20%;
+    }
+}
+.cTitle{
+    display: inline-block;
+    margin: 0;
+}
+.subjectsAll{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

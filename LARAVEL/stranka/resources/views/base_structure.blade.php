@@ -84,7 +84,7 @@
                                 <a href="{{ url('/master') }}" class="dropdown-toggle" aria-haspopup="false" aria-expanded="true" >Inžinierske štúdium <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem" >
                                     <li><a href="{{ url('/thesis') }}/{{ 2 }}" >Voľné diplomové témy</a></li>
-									<li><a href="{{ url('/subjects') }}/{{ 1 }}" >Predmety</a></li>
+									<li><a href="{{ url('/subjects') }}/{{ 2 }}" >Predmety</a></li>
                                 </ul>
                             </li>
                             <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">  Doktorandské štúdium</a></li>

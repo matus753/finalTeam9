@@ -49,7 +49,7 @@ Route::get('/admission', '\Modules\Study\Http\Controllers\Study@admission');
 Route::get('/bachelor', '\Modules\Study\Http\Controllers\Study@bachelor');
 Route::get('/master', '\Modules\Study\Http\Controllers\Study@master');
 Route::get('/doctoral', '\Modules\Study\Http\Controllers\Study@doctoral');
-Route::get('/subjects', '\Modules\Study\Http\Controllers\Study@subjects');
+Route::get('/subjects/{id}', '\Modules\Study\Http\Controllers\Study@subjects');
 
 /* Research */
 Route::post('/projects/{id}', '\Modules\Research\Http\Controllers\Research@show');

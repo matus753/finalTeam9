@@ -173,8 +173,19 @@ class Study extends Controller
         return view('study::doctoral', $data);
     }
 
-    public function subjects(){
-        $subjects = DB::table('subjects')->get();
+    public function subjects($id){
+        if($id == 1) {
+            $titleSK = 'Bakalárske predmety';
+            $titleEN = 'Bachelor courses';
+            $find = 'B-%';
+        } else if ($id == 2) {
+            $titleSK = 'Inžinierske predmety';
+            $titleEN = 'Master courses';
+            $find = 'I-%';
+        }
+//        $subjects = DB::table('subjects')->get();
+
+        $subjects = DB::table('subjects')->where('abbrev', 'like', $find)->get();
         foreach($subjects as $subject){
             $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
         }
@@ -182,6 +193,8 @@ class Study extends Controller
         $data = [ 
                 'title' => config('study.name'), 
                 'subjects' => $subjects,
+                'titleSK' => $titleSK,
+                'titleEN' => $titleEN
             ];
 
         

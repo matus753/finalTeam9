@@ -188,3 +188,8 @@ $(document).ready(function () {
         }
     });
 });
+$( ".cSubject" ).hover(function() {
+    $( this ).find($("i")).css( "color", "#fff" );
+}, function() {
+    $( this ).find($("i")).css( "color", "rgb(10, 97, 188)" );
+});

@@ -505,7 +505,7 @@ INSERT INTO `subjects` (`sub_id`, `abbrev`, `title`, `hash_name`) VALUES
 (23, 'I-OSA', 'Osvetlovacie systémy automobilov', ''),
 (24, 'B-PLCM', 'PLC systémy v mechatronike', ''),
 (25, 'I-PHSMA', 'Pneumatické a hydraulické systémy v mechatronických aplikáciách', ''),
-(26, 'I-PSZE', 'Pohonné systémy  a zdroje v elektromobiloch', ''),
+(26, 'I-PSZE', 'Pohonné systémy  a zdroje v elektromobiloch', ''),
 (27, 'I-PMRMS', 'Pokročilé metódy riadenia mechatronických systémov', ''),
 (28, 'B-PROPA', 'Procesy pohybu automobilov', ''),
 (29, 'B-PASME', 'Prvky a systémy v mechatronike', ''),
