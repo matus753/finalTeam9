@@ -51,8 +51,40 @@
                 }
             }); 
         }
-    });    
+    });
+    function validateForm() {
+        var x = document.forms["projectForm"]["title_sk"].value;
+        var y = document.forms["projectForm"]["title_en"].value;
+        var z = document.forms["projectForm"]["preview_sk"].value;
+        var w = document.forms["projectForm"]["preview_en"].value;
+        if (!x.trim()) {
+            $("#req1").css("display", "block");
+            event.preventDefault();
+        } else {
+            $("#req1").css("display", "none");
+        }
 
+        if (!y.trim()) {
+            $("#req2").css("display", "block");
+            event.preventDefault();
+        } else {
+            $("#req2").css("display", "none");
+        }
+
+        if (!z.trim()) {
+            $("#req3").css("display", "block");
+            event.preventDefault();
+        } else {
+            $("#req3").css("display", "none");
+        }
+
+        if (!w.trim()) {
+            $("#req4").css("display", "block");
+            event.preventDefault();
+        } else {
+            $("#req4").css("display", "none");
+        }
+    }
 </script>
 <div class="container">
     <div class="intra-div">
@@ -65,7 +97,7 @@
             </div>
         </div>
 
-        <form action="{{ url('/news-admin-add-action') }}" method="post" enctype="multipart/form-data">
+        <form name="projectForm" action="{{ url('/news-admin-add-action') }}" method="post" enctype="multipart/form-data" onsubmit="validateForm()">
             {{ csrf_field() }}
             <input type="hidden" name="news_id_hash" value="{{ $hash_id }}"/>
             <div class="row">
@@ -85,38 +117,42 @@
                     <div class="form-group">
                         <label for="title_sk">* Slovenský nadpis:</label>
                         <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                        <p class="required" id="req1">Tato položka musí byť vyplnená.</p>
                     </div>
                     <div class="form-group">
                         <label for="title_en">* Anglický nadpis:</label>
                         <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                        <p class="required" id="req2">Tato položka musí byť vyplnená.</p>
                     </div>
                     <div class="form-group">
                         <label for="preview_sk">* Ukážkový text SK:</label>
                         <input type="text" class="form-control" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required />
+                        <p class="required" id="req3">Tato položka musí byť vyplnená.</p>
                     </div>
                     <div class="form-group">
                         <label for="preview_en">* Ukážkový text EN:</label>
                         <input type="text" class="form-control" id="preview_en" name="preview_en" placeholder="Anglický preview text" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Ukážkový obrázok:</label>
-                        <input type="file" class="form-control" id="image" name="image" />
+                        <p class="required" id="req4">Tato položka musí byť vyplnená.</p>
                     </div>
                 </div>
 
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
-                        <label for="sk-editor">Dlhý text:</label>
-                        <textarea class="form-control" rows="8" id="sk-editor" name="editor_content_sk"></textarea>
+                        <label for="sk-editor">Dlhý text SK:</label>
+                        <textarea class="form-control" rows="5" id="sk-editor" name="editor_content_sk"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="en-editor">Long text:</label>
-                        <textarea class="form-control" rows="8" id="en-editor"  name="editor_content_en"></textarea>
+                        <label for="en-editor">Dlhý text EN:</label>
+                        <textarea class="form-control" rows="5" id="en-editor"  name="editor_content_en"></textarea>
                     </div>
+                    <div class="form-group">
+                    <label for="image">Ukážkový obrázok:</label>
+                    <input type="file"  id="image" name="image" />
+                </div>
                     <span style="color:red">dat upload suborov?</span>
                     <div class="form-group">
-                        <label for="add_files">Additional files:</label>
-                        <input class="form-control" type="file" id="add_files" name="add_files[]" multiple />
+                        <label for="add_files">Ďalšie súbory:</label>
+                        <input type="file" id="add_files" name="add_files[]" multiple />
                     </div>
                  </div>
                 </div>
