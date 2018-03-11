@@ -29,7 +29,7 @@
         $('#en-editor').summernote({
             callbacks: {
                 onImageUpload: function(files, editor, welEditable) {
-                    sendFile(files[0], this, welEditable);
+                    sendFile(files[0], this, hghgwelEditable);
                 }
             }
         });
@@ -38,11 +38,11 @@
             data = new FormData();
             data.append("image", file);
             data.append("save_to", '{{ $hash_id }}');
-            data.append("category", '{{ $category->hash_name }}');
+            data.append("category", '{{ $subject->hash_name }}');
             $.ajax({
                 data: data,
                 type: "POST",
-                url: '{{ url("/documents-admin/documents_image_upload") }}',
+                url: '{{ url("/subjects-admin/subjects_image_upload") }}',
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 },
@@ -61,7 +61,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-				url : "{{ url('/documents-files-admin-upload-action') }}",
+				url : "{{ url('/subjects-files-admin-upload-action') }}",
 				thumbnailWidth: 360, 
 				thumbnailHeight: 360, 
 				thumbnailMethod: 'crop',
@@ -70,7 +70,7 @@
                 autoProcessQueue: true,
                 init: function() {
                     this.on("sending", function(file, xhr, formData){
-                            formData.append("category", "{{ $category->hash_name }}");
+                            formData.append("category", "{{ $subject->hash_name }}");
                             formData.append("save_to", "{{ $hash_id }}");
                     });
                 }
@@ -87,19 +87,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-left">
-                        <a href="{{ url('/documents-admin') }}" class="btn btn-primary"> Späť </a>
+                        <a href="{{ url('/subjects-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
-                        <h3>Pridanie noveho zaznamu do kategorie {{ $category->name_sk }}</h3>
+                        <h3>Pridanie noveho zaznamu do kategorie {{ $subject->title }}</h3>
                     </div>
                 </div>
             </div>
             <br>
-            <form action="{{ url('/documents-admin-add-item-action') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/subjects-admin-add-item-action') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="save_to" value="{{ $hash_id }}" />
-                <input type="hidden" name="category" value="{{ $category->hash_name }}" />
-                <input type="hidden" name="category_id" value="{{ $category->dc_id }}" />
+                <input type="hidden" name="subject" value="{{ $subject->hash_name }}" />
+                <input type="hidden" name="subject_id" value="{{ $subject->sub_id }}" />
                 <div class="form-group">
                     <label for="title_sk">Slovenský nadpis:</label>
                     <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />

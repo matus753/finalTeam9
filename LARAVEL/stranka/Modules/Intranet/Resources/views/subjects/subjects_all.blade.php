@@ -13,14 +13,14 @@
 <div id="emPAGEcontent" class="container">
     <div class="row">
         <div class="text-center">
-            <h1>Administácia dokumentov</h1>
+            <h1>Administácia predmetov</h1>
         </div>
     </div>
     <hr>
 	<div class="row">
 		<div class="col-md-12">
             <div class="pull-right">
-                <a href="{{ url('/documents-admin-add-category') }}" class="btn btn-primary">Pridaj kategoriu</a>
+                <a href="#" class="btn btn-primary">TUTO BY SOM DAL UPLOAD CSV FILE S PREDMETMI PRE NEJAKU ROLU -> UPDATE DB</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
@@ -28,13 +28,31 @@
             <br>
             <br>
             <br>
-            <ul class="nav nav-tabs" id="tabs">
-            @foreach($categories as $key => $c)
-                @if($key == 0)
-                <li class="active"><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
-                @else
-                <li><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
-                @endif
+
+            @foreach($subjects as $key => $subject)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>{{ $subject->abbrev }}</th>
+                                <th>{{ $subject->title }}</th>
+                                <th><a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-sm" ><span class="fa fa-plus-square fa-2x" ></span></a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($subject->subcategories as $s)
+                            <tr>
+                                <td>{{ $subject->abbrev }}</td>
+                                <td>{{ $s->name_sk }}</td>
+                                <td>
+                                    <a href="{{ url('/subjects-admin-edit-item/'.$subject->sub_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil fa-2x" ></span></a>
+                                    <a href="{{ url('/subjects-admin-delete-item/'.$subject->sub_id) }}" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o fa-2x" ></span></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endforeach
             </ul>
             <div id="add_item" >
@@ -46,69 +64,5 @@
 		</div>
 	</div>
 </div>   
-
-<script>
-    $(document).ready(function(){
-        var data = { 'id' : $('#tabs .active a').attr('id') };
-        $.ajax({
-            url: "{{ url('/documents-admin-get-content') }}",
-            type: "POST",
-            data: data,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-        }).done(function(data){
-            if(data['tab'] != null){
-                $('#add_item').empty().append('<a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary">Pridaj zaznam</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger pull-right">Zmazanie kategorie</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success pull-right">Edit kategorie</a>');
-            }
-            if(data['docs'] != null){
-                //console.log(data['docs']);
-                $('#items').empty();
-                for(let i = 0; i < data['docs'].length; i++){
-                    $('#items').append('<div class="well well-default"><a>'+data['docs'][i].name_sk+'</a>'+                           
-                                '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
-                                '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
-                                '</div>');
-                }
-            }
-        });
-    });
-
-    $('#tabs a').on('click', function(){
-        var data = { 'id' : $(this).attr('id') };
-        $clicked_tab = $(this);
-        $.ajax({
-            url: "{{ url('/documents-admin-get-content') }}",
-            type: "POST",
-            data: data,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-        }).done(function(data){
-            $('#tabs li.active').removeClass('active');
-            $clicked_tab.parent().addClass('active');
-            
-            if(data['tab'] != null){
-                $('#add_item').empty().append('<a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary">Pridaj zaznam</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger pull-right">Zmazanie kategorie</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success pull-right">Edit kategorie</a>');
-            }
-            if(data['docs'] != null){
-                //console.log(data['docs']);
-                $('#items').empty();
-                for(let i = 0; i < data['docs'].length; i++){
-                    $('#items').append('<div class="well well-default"><a>'+data['docs'][i].name_sk+'</a>'+                           
-                                '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
-                                '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
-                                '</div>');
-                }
-            }
-        });
-
-    });
-</script>
-
 
 @stop

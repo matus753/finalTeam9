@@ -42,7 +42,7 @@
             $.ajax({
                 data: data,
                 type: "POST",
-                url: '{{ url("/documents-admin/documents_image_upload_update") }}',
+                url: '{{ url("/documents-admin/documents_image_upload") }}',
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 },
@@ -127,7 +127,7 @@
             @foreach($files as $f)
             <div class="row">
                 <div class="col-md-12" style="background-color: lightgrey">            
-                    <a href="{{ get_documents_file($hash_id, $f->file_hash) }}" class="pull-left">{{ $f->file_name }}</a>
+                    <a href="{{ get_documents_file($category->hash_name, $hash_id, $f->file_hash) }}" class="pull-left">{{ $f->file_name }}</a>
                     <a href="{{ url('/delete-file-in-item/'.$f->df_id) }}" class="btn btn-danger pull-right">DELETE</a>
                 </div>
             </div>

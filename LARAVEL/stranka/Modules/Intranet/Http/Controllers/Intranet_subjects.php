@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
-class Intranet_documents extends Controller
+class Intranet_subjects extends Controller
 {
     private $module_name;
 
@@ -15,92 +15,61 @@ class Intranet_documents extends Controller
         $this->module_name = config('intranet.name');
     }
 
-    public function documents_all(){
-        
-        $categories = DB::table('documents_categories')->get();
+    public function subjects_all(){
+        $subjects = DB::table('subjects')->get();
+        foreach($subjects as $subject){
+            $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+        }
 
-        /*foreach($categories as $c){
-            $docs = DB::table('documents')->where('dc_id', $c->dc_id)->get();
-            foreach($docs as $d){
-                $docs_files = DB::table('documents_files')->where('hash_id', $d->hash_name)->get();
-                $d->files = $docs_files;
-            }
-            
-            
-            $c->docs = $docs;
-        }*/
         $data = [ 
                 'title' => $this->module_name, 
-                'categories' => $categories,
+                'subjects' => $subjects,
             ];
-        return view('intranet::documents/documents_all', $data);
+
+        //debug($data ,true);
+        return view('intranet::subjects/subjects_all', $data);
     }
 
-    public function documents_add_category(){
+    public function subjects_add_item($sub_id = 0){
+        if(!is_numeric($sub_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
+        }
+
+        $subject = DB::table('subjects')->where('sub_id', $sub_id)->first();
+        if(strlen($subject->hash_name) == 0){
+            $hash_id = md5(uniqid());
+            subjects_category_create_folder($hash_id);
+            DB::table('subjects')->where('sub_id', $sub_id)->update(['hash_name' => $hash_id]);
+        }else{
+            subjects_category_create_folder($subject->hash_name);
+            $hash_id = $subject->hash_name;
+        }
+
         
         $data = [
             'title' => $this->module_name,
-        ];
-    
-        return view('intranet::documents/documents_add_category', $data);
-    }
-
-    public function documents_add_category_action( Request $request ){
-        $title_en = $request->input('title_en');
-        $title_sk = $request->input('title_sk');
-
-        $hash_id = md5(uniqid());
-        documents_category_create_folder($hash_id);
-
-        $data = [
-            'hash_name' => $hash_id,
-            'name_en' => $title_en,
-            'name_sk' => $title_sk,
-        ];
-        
-        $res = DB::table('documents_categories')->insertGetId($data);
-
-        if($res){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
-        }
-
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-    }
-
-    public function documents_add_item($dc_id = 0){
-        if(!is_numeric($dc_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
-        }
-
-        $hash_id = md5(uniqid());
-        documents_create_folder($hash_id);
-
-        $category = DB::table('documents_categories')->where('dc_id', $dc_id)->first();
-        
-        $data = [
-            'title' => $this->module_name,
-            'category' => $category,
+            'subject' => $subject,
             'hash_id' => $hash_id
         ];
 
-        return view('intranet::documents/documents_add_item', $data);
+        return view('intranet::subjects/subjects_add_item', $data);
     }
 
-    public function documents_add_item_action( Request $request ){
+    public function subjects_add_item_action( Request $request ){
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
         $editor_en = $request->input('editor_content_sk');
         $editor_sk = $request->input('editor_content_en');
         $hash_id = $request->input('save_to');
-        $category = $request->input('category');
-        $category_id = $request->input('category_id');
+        $subject = $request->input('subject');
+        $subject_id = $request->input('subject_id');
         
-        if(!documents_create_folder($category, $hash_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+        if(!subjects_create_folder($subject, $hash_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
 
         $data = [
-            'dc_id' => $category_id,
+            'sub_id' => $subject_id,
             'hash_name' => $hash_id,
             'name_en' => $title_en,
             'name_sk' => $title_sk,
@@ -108,40 +77,40 @@ class Intranet_documents extends Controller
             'text_sk' => $editor_sk
         ];
   
-        $res = DB::table('documents')->insertGetId($data);
+        $res = DB::table('subjects_subcategories')->insertGetId($data);
 
         if($res){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
 
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
-    public function documents_image_upload( Request $request, Response $response ){
+    public function subjects_image_upload( Request $request, Response $response ){
         $image = $request->file('image');
         $hash_id = $request->input('save_to');
-        $category = $request->input('category');
+        $subject = $request->input('category');
 
         $valid = false;
-        $allowed_types = explode(',', config('documents_admin.img_types_allowed'));
+        $allowed_types = explode(',', config('subjects_admin.img_types_allowed'));
         foreach($allowed_types as $at){
             if($at == explode('.', $image->hashName())[1]){
                 $valid = true;
             }
         }
-        
+        //debug($subject, true);
         if($valid){
-            if(documents_create_folder($category, $hash_id) && $image){
+            if(subjects_create_folder($subject, $hash_id) && $image){
                 $data = [
                     'hash_id'   => $hash_id,
-                    'file_hash' => $image->hashName(),
+                    'hash_name' => $image->hashName(),
                     'file_name' => $image->getClientOriginalName()
                 ];
 
-                $image->store('/public/documents/'.$category.'/'.$hash_id);
-                $response->link = url('/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName());
+                $image->store('/public/subjects/'.$subject.'/'.$hash_id);
+                $response->link = url('/storage/subjects/'.$subject.'/'.$hash_id.'/'.$image->hashName());
                 // TODO je treba do DB ????
-                DB::table('documents_files')->insert($data);
+                DB::table('subjects_files')->insert($data);
                 return stripslashes(json_encode($response->link));
             }
             else{
@@ -153,7 +122,7 @@ class Intranet_documents extends Controller
         }
     }
 
-    public function documents_file_upload(Request $request, Response $response){
+    public function subjects_file_upload(Request $request, Response $response){
         $files = $request->file('file');
 
         foreach($files as $file){
@@ -161,7 +130,7 @@ class Intranet_documents extends Controller
             $category = $request->input('category');
         
             $valid = false;
-            $allowed_types = explode(',', config('documents_admin.img_types_allowed'));
+            $allowed_types = explode(',', config('subjects_admin.img_types_allowed'));
             foreach($allowed_types as $at){
                 if($at == explode('.', $file->hashName())[1]){
                     $valid = true;
@@ -169,16 +138,16 @@ class Intranet_documents extends Controller
             }
 
             if($valid){
-                if(documents_create_folder($category, $hash_id) && $file){
+                if(subjects_create_folder($category, $hash_id) && $file){
                     $data = [
                         'hash_id'   => $hash_id,
-                        'file_hash' => $file->hashName(),
+                        'hash_name' => $file->hashName(),
                         'file_name' => $file->getClientOriginalName()
                     ];
-                    $file->store('/public/documents/'.$category.'/'.$hash_id);
+                    $file->store('/public/subjects/'.$category.'/'.$hash_id);
                     //$response->link = url('/storage/documents/'.$hash_name.'/'.$file->hashName());
                     
-                    DB::table('documents_files')->insert($data);
+                    DB::table('subjects_files')->insert($data);
                 }
                 else{
                     echo json_encode('UPLOAD ERROR');
@@ -193,66 +162,17 @@ class Intranet_documents extends Controller
     ///////////////////////////////////////////////////////////////
     //////////////////////// EDIT /////////////////////////////////
     ///////////////////////////////////////////////////////////////
-
-    public function documents_edit_category( $dc_id = 0 ){
-        if(!is_numeric($dc_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+    public function subjects_edit_item($ss_id = 0){
+        if(!is_numeric($ss_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
-
-        $item = DB::table('documents_categories')->where('dc_id', $dc_id)->first();
-
-        $data = [
-            'title' => $this->module_name,
-            'item' => $item
-        ];
-      
-        return view('intranet::documents/documents_edit_category', $data);
-    }
-
-    public function documents_edit_category_action( $dc_id = 0, Request $request ){
-        if(!is_numeric($dc_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
-        }
-
-        $title_en = $request->input('title_en');
-        $title_sk = $request->input('title_sk');
-           
-        $data = [
-            'name_en' => $title_en,
-            'name_sk' => $title_sk
-        ];
-        
-        $res = DB::table('documents_categories')->where('dc_id', $dc_id)->update($data);
-        if($res){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
-        }
-
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
 
     }
 
-    public function documents_edit_category_item($d_id = 0){
-        if(!is_numeric($d_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
-        }
 
-        $document = DB::table('documents')->where('d_id', $d_id)->first();
-        $category = DB::table('documents_categories')->where('dc_id', $document->dc_id)->first();
-        $files = DB::table('documents_files')->where('hash_id', $document->hash_name)->get();
-        $data = [
-            'title' => $this->module_name,
-            'document' => $document,
-            'category' => $category,
-            'hash_id' => $document->hash_name,
-            'files' => $files
-        ];
-        
-        return view('intranet::documents/documents_edit_category_item', $data);
-    }
-
-    public function documents_edit_category_item_action($d_id = 0, Request $request){
-        if(!is_numeric($d_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+    public function subjects_edit_item_action($ss_id = 0, Request $request){
+        if(!is_numeric($ss_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
         $title_en = $request->input('title_en');
@@ -260,15 +180,15 @@ class Intranet_documents extends Controller
         $editor_en = $request->input('editor_content_sk');
         $editor_sk = $request->input('editor_content_en');
         $hash_id = $request->input('save_to');
-        $category = $request->input('category');
-        $category_id = $request->input('category_id');
+        $category = $request->input('subject');
+        $category_id = $request->input('subject_id');
         
         if(!documents_create_folder($category, $hash_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
 
         $data = [
-            'dc_id' => $category_id,
+            'sub_id' => $category_id,
             'hash_name' => $hash_id,
             'name_en' => $title_en,
             'name_sk' => $title_sk,
@@ -276,55 +196,15 @@ class Intranet_documents extends Controller
             'text_sk' => $editor_sk
         ];
   
-        $res = DB::table('documents')->where('d_id', $d_id)->update($data);
-        return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
+        $res = DB::table('subjects_subcategories')->where('ss_id', $ss_id)->update($data);
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
     }
 
     ///////////////////////////////////////////////////////////////
     //////////////////////// DELETE ///////////////////////////////
     ///////////////////////////////////////////////////////////////
 
-
-    public function documents_delete_category_action( $dc_id = 0 ){
-        if(!is_numeric($dc_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
-        }
-
-        $item = DB::table('documents_categories')->where('dc_id', $dc_id)->first();
-        $path = base_path('storage/app/public/documents/').$item->hash_name;
-        $docs = DB::table('documents')->where('dc_id', $dc_id)->get();
-        
-        foreach($docs as $d){
-            $doc_files = DB::table('documents_files')->where('hash_id', $d->hash_name)->get();     
-            if($doc_files){
-                foreach($doc_files as $df){
-                    $path_tmp = $path."/".$d->hash_name."/".$df->file_hash;
-                    DB::table('documents_files')->where('df_id', $df->df_id)->delete();
-                    if(is_file($path_tmp)){
-                        unlink($path_tmp);
-                    }
-                }
-            }
-
-            DB::table('documents')->where('d_id', $d->d_id)->delete();
-            $path_tmp2 = $path."/".$d->hash_name;
-            if(is_dir($path_tmp2)){
-                rmdir($path_tmp2);
-            }
-        }
-
-        if(is_dir($path)){
-            rmdir($path);
-        }
-        
-        $res = (bool) DB::table('documents_categories')->where('dc_id', $dc_id)->delete();
-        if($res){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
-        }
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-    }
-
-    public function documents_delete_single_action($d_id = 0){
+    public function subjects_delete_single_action($d_id = 0){
         if(!is_numeric($d_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -352,7 +232,7 @@ class Intranet_documents extends Controller
         return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
-    public function documents_delete_single_file_action($df_id = 0){
+    public function subjects_delete_single_file_action($df_id = 0){
         if(!is_numeric($df_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -369,21 +249,4 @@ class Intranet_documents extends Controller
         }
         return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
-
-    ///////////////////////////////////////////////////////////////////
-    //////////////////////// AJAX /////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    public function ajax_get_category_content( Request $request ){
-        $dc_id = $request->input('id');
-    
-        $docs = DB::table('documents')->where('dc_id', $dc_id)->get();
-        $data = [ 
-            'docs' => $docs,
-            'tab'  => $dc_id
-        ];  
-
-        return response()->json($data);
-    }
-    
 }

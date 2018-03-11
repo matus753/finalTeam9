@@ -5,6 +5,8 @@ namespace Modules\Study\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use DB;
+
 
 class Study extends Controller
 {
@@ -169,5 +171,20 @@ class Study extends Controller
         ];
 
         return view('study::doctoral', $data);
+    }
+
+    public function subjects(){
+        $subjects = DB::table('subjects')->get();
+        foreach($subjects as $subject){
+            $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+        }
+
+        $data = [ 
+                'title' => config('study.name'), 
+                'subjects' => $subjects,
+            ];
+
+        
+        return view('study::subjects', $data);
     }
 }

@@ -64,10 +64,10 @@
                 $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success pull-right">Edit kategorie</a>');
             }
             if(data['docs'] != null){
-                //console.log(data['docs']);
+                console.log(data['docs']);
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
-                    $('#items').append('<div class="well well-default"><a>'+data['docs'][i].name_sk+'</a>'+                           
+                    $('#items').append('<div class="well well-default"><a href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a>'+                           
                                 '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
                                 '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
                                 '</div>');

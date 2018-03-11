@@ -204,11 +204,6 @@
 		    };
 
 		    var $result = $("#special");
-		    /*var dates = [
-		    	@foreach($date as $d)
-		  			"{{ format_time_event($d->date) }}",
-		  		@endforeach
-			];*/
 			
 			var datavalues = [
 				@foreach($events as $key => $event)

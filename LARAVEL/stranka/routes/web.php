@@ -26,7 +26,6 @@
 /* Homapage */
 Route::get('/', '\Modules\Home\Http\Controllers\Home@index');
 
-
 /* About us */
 Route::get('/history', '\Modules\About\Http\Controllers\About@history');
 Route::get('/management', '\Modules\About\Http\Controllers\About@management');
@@ -50,6 +49,7 @@ Route::get('/admission', '\Modules\Study\Http\Controllers\Study@admission');
 Route::get('/bachelor', '\Modules\Study\Http\Controllers\Study@bachelor');
 Route::get('/master', '\Modules\Study\Http\Controllers\Study@master');
 Route::get('/doctoral', '\Modules\Study\Http\Controllers\Study@doctoral');
+Route::get('/subjects', '\Modules\Study\Http\Controllers\Study@subjects');
 
 /* Research */
 Route::post('/projects/{id}', '\Modules\Research\Http\Controllers\Research@show');
@@ -148,25 +148,30 @@ Route::post('/events-admin-add-action', '\Modules\Intranet\Http\Controllers\Intr
 Route::get('/events-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_edit');
 Route::post('/events-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_edit_action');
 
-
 /* Intranet documents */ 
 Route::get('/documents-admin', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_all');
+Route::get('/documents-admin-show/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@show_document');
 Route::post('/documents-admin-get-content', '\Modules\Intranet\Http\Controllers\Intranet_documents@ajax_get_category_content');
-
 Route::get('/documents-admin-add-category', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_category');
 Route::post('/documents-admin-add-category-action', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_category_action');
 Route::get('/documents-admin-add-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_item');
 Route::post('/documents-admin-add-item-action', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_add_item_action');
-
 Route::post('/documents-admin/documents_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_image_upload');
 Route::post('/documents-files-admin-upload-action', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_file_upload');
-
 Route::get('/documents-admin-edit-category/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_edit_category');
 Route::post('/documents-admin-edit-category-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_edit_category_action');
 Route::get('/documents-admin-edit-category-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_edit_category_item');
 Route::post('/documents-admin-edit-category-item-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_edit_category_item_action');
-
 Route::get('/documents-admin-delete-category/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_category_action');
 Route::get('//documents-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_action');
 Route::get('/delete-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_file_action');
-//
+
+/* Intranet Subjects */
+Route::get('/subjects-admin', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_all');
+Route::get('/subjects-admin-add-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_item');
+Route::post('/subjects-admin-add-item-action', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_item_action');
+Route::post('/subjects-admin/subjects_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_image_upload');
+Route::post('/subjects-files-admin-upload-action', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_file_upload');
+
+Route::get('/subjects-admin-edit-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_edit_item');
+

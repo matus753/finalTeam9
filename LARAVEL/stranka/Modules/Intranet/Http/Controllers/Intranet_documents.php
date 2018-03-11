@@ -18,22 +18,35 @@ class Intranet_documents extends Controller
     public function documents_all(){
         
         $categories = DB::table('documents_categories')->get();
-
-        /*foreach($categories as $c){
-            $docs = DB::table('documents')->where('dc_id', $c->dc_id)->get();
-            foreach($docs as $d){
-                $docs_files = DB::table('documents_files')->where('hash_id', $d->hash_name)->get();
-                $d->files = $docs_files;
-            }
-            
-            
-            $c->docs = $docs;
-        }*/
         $data = [ 
                 'title' => $this->module_name, 
                 'categories' => $categories,
             ];
         return view('intranet::documents/documents_all', $data);
+    }
+
+    public function show_document($d_id = 0){
+        if(!is_numeric($d_id)){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item error!']);
+        }
+
+        $document = DB::table('documents')->where('d_id', $d_id)->first();
+        
+        $d_files = [];
+        if($document){
+            $category_hash = DB::table('documents_categories')->where('dc_id', $document->dc_id )->first();
+            $d_files = DB::table('documents_files')->where('hash_id', $document->hash_name )->get();
+        }
+
+        $data = [
+            'title' => $this->module_name, 
+            'document' => $document,
+            'files' => $d_files,
+            'category_hash' => $category_hash
+        ];
+        
+        return view('intranet::documents/show_document', $data);
+    
     }
 
     public function documents_add_category(){
@@ -141,7 +154,7 @@ class Intranet_documents extends Controller
                 $image->store('/public/documents/'.$category.'/'.$hash_id);
                 $response->link = url('/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName());
                 // TODO je treba do DB ????
-                DB::table('documents_files')->insert($data);
+                //DB::table('documents_files')->insert($data);
                 return stripslashes(json_encode($response->link));
             }
             else{

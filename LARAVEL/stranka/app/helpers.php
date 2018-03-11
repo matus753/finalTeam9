@@ -86,25 +86,7 @@ function news_create_folder($hash_name = ''){
 /**
  * create news folder if not exists
  */
-function documents_category_create_folder($hash_name = ''){
-	if( $hash_name == '' ){
-		return false;
-	}
-	
-	$path = public_path('/storage/documents/'.$hash_name);
 
-	if(is_dir($path)){
-		return true;
-	}else{
-		@mkdir($path, 0777, true);
-	}
-
-	if(is_dir($path)){
-		return true;
-	}
-	return false;
-
-}
 
 function documents_create_folder($hash_name_category = '', $hash_name = ''){
 	if( $hash_name == '' || $hash_name_category == '' ){
@@ -126,13 +108,62 @@ function documents_create_folder($hash_name_category = '', $hash_name = ''){
 
 }
 
-function get_documents_file($hash_name_folder = '', $hash_file = ''){
-	if ($hash_name_folder != '' && $hash_file != ''){
-		return asset('storage/media/'.$hash_name_folder.'/'.$hash_file);
+function get_documents_file($category_hash = '', $hash_name_folder = '', $hash_file = ''){
+	if ($category_hash != '' && $hash_name_folder != '' && $hash_file != ''){
+		return asset('storage/documents/'.$category_hash.'/'.$hash_name_folder.'/'.$hash_file);
 	}
 	return false;
 }
 
+
+
+function subjects_category_create_folder($hash_name = ''){
+	if( $hash_name == '' ){
+		return false;
+	}
+	
+	$path = public_path('/storage/subjects/'.$hash_name);
+
+	if(is_dir($path)){
+		return true;
+	}else{
+		@mkdir($path, 0777, true);
+	}
+
+	if(is_dir($path)){
+		return true;
+	}
+	return false;
+
+}
+
+
+function subjects_create_folder($hash_name_category = '', $hash_name = ''){
+	if( $hash_name == '' || $hash_name_category == '' ){
+		return false;
+	}
+	
+	$path = public_path('/storage/subjects/'.$hash_name_category.'/'.$hash_name);
+
+	if(is_dir($path)){
+		return true;
+	}else{
+		@mkdir($path, 0777, true);
+	}
+
+	if(is_dir($path)){
+		return true;
+	}
+	return false;
+
+}
+
+function get_subjects_file($category_hash = '', $hash_name_folder = '', $hash_file = ''){
+	if ($category_hash != '' && $hash_name_folder != '' && $hash_file != ''){
+		return asset('storage/subjects/'.$category_hash.'/'.$hash_name_folder.'/'.$hash_file);
+	}
+	return false;
+}
 
 /**
  * create gallery folder if not exists
