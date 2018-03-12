@@ -33,10 +33,12 @@ class Intranet_projects extends Controller
     public function projects_add(){
 
         $types = config('projects_admin.types');
+        $staff = DB::table('staff')->get();
 
         $data = [
             'title' => $this->module_name,
-            'types' => $types
+            'types' => $types,
+            'staff' => $staff
         ];
         
         return view('intranet::study/projects_add', $data);

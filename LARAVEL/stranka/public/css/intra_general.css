@@ -311,3 +311,13 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
     color:red;
     display: none;
 }
+/*----------aktuality----------------*/
+.expired{
+    color: rgb(211, 74, 74) !important;
+    font-weight: bold;
+    /*font-style: italic;*/
+}
+.current{
+    color: rgb(85, 176, 87) !important;
+    font-weight: bold;
+}

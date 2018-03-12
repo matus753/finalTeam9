@@ -71,11 +71,26 @@
                             <label for="duration">Trvanie:</label>
                             <input type="text" class="form-control" id="duration" name="duration" placeholder="Trvanie" />
                         </div>
-                        <span style="color:red">prepojiť so staff ?</span>
+                        {{--<span style="color:red">prepojiť so staff ?</span>--}}
                         <div class="form-group">
                             <label for="coordinator">Koordinátor:</label>
                             <input type="text" class="form-control" id="coordinator" name="coordinator" placeholder="Koordinátor" />
+                            {{--<label for="coordinator">Koordinátor:</label>--}}
+                            {{--<input list="staff" name="coordinator" id="coordinator" type="text" class="form-control" placeholder="Koordinátor">--}}
+                            {{--<datalist size="10" id="staff">--}}
+                                {{--@foreach($staff as $s)--}}
+                                    {{--@if( strcmp($s->title1, '' > 1) &&  strcmp($s->title2, '' > 1)) {--}}
+                                    {{--<option value="{{ $s->title1 }} {{ $s->surname }} {{ $s->name }}, {{ $s->title2 }}"></option>--}}
+                                    {{--} @elseif(strcmp($s->title1, '' > 1)) {--}}
+                                    {{--<option value="{{ $s->title1 }} {{ $s->surname }} {{ $s->name }}"></option>--}}
+                                    {{--} @else{--}}
+                                    {{--<option value="{{ $s->surname }} {{ $s->name }}"></option>--}}
+                                    {{--}--}}
+                                    {{--@endif--}}
+                                {{--@endforeach--}}
+                            {{--</datalist>--}}
                         </div>
+
                         <div class="form-group">
                             <label for="partners">Partneri:</label>
                             <input type="text" class="form-control" id="partners" name="partners" placeholder="Partneri" />

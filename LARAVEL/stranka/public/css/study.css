@@ -204,15 +204,16 @@ span.fa.fa-microchip, span.fa.fa-desktop{
     /*width: 100%;*/
     padding: 10px;
     font-weight: bold;
-    color: #5a5a5a;
     /*margin: 10px;*/
     /*border-bottom: 1px solid rgb(10, 97, 188);*/
 }
 .cSubject:hover{
     background-color: rgb(10, 97, 188);
-    color: #fff;
     transition: 0.3s ease background-color;
     cursor: pointer;
+}
+.cSubject:hover .aLink{
+    color: #fff;
 }
 .cDevider{
     height: 1px;
@@ -242,4 +243,16 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 .subjectsAll{
     margin-top: 50px;
     margin-bottom: 50px;
+}
+.aLink{
+    color: #5a5a5a;
+    text-decoration: none !important;
+}
+.ustavTitle{
+    width: 100%;
+    color: white;
+    background-color: rgba(10, 97, 188, 0.8);
+    /*font-size: 18px;*/
+    padding: 10px;
+    font-weight: bold;
 }

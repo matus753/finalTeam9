@@ -26,9 +26,9 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <h2>Administácia aktualít</h2>
-            <h3>TO DO:<br>
-                asi farebne odlíšiť expirované.. aj FILTER dať, aký ?? <br>
-                Bulk delete ?<br></h3>
+            {{--<h3>TO DO:<br>--}}
+                {{--aj FILTER dať, aký ?? <br>--}}
+                {{--Bulk delete ?<br></h3>--}}
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="news-table" class="table table-stripped table-bordered intranet-table">
@@ -42,10 +42,10 @@
                         </thead>
                         <tbody>
                             @foreach($news as $n)
-                            <tr>  
-                                <td>{{ $n->title_sk }}</td>  
+                            <tr class="{{$exp[$n->id]}}">
+                                <td >{{ $n->title_sk }}</td>
                                 <td>{{ $n->type }}</td>  
-                                <td><span class="hidden">{{ $n->date_expiration }}</span>{{ format_time($n->date_expiration) }}</td> 
+                                <td ><span class="hidden">{{ $n->date_expiration }}</span>{{ format_time($n->date_expiration) }}</td>
                                 <td class="pCol4">
                                     <a href="{{ url('/news-admin-edit/'.$n->id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>
                                     <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $n->title_sk }} ', '{{ url('/news-admin-delete/'.$n->id) }}' )" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o "></span></a>

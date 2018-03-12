@@ -16,10 +16,12 @@
     <div id="emPAGEcontent">
         <div class="container subjectsAll">
             @foreach($subjects as $key => $subject)
-                <div class="cSubject ">
+                <div class="cSubject " >
+                    <a class="aLink" href="{{ url('/subject') }}/{{ $subject->sub_id }}">
                     <i class="fa fa-search-plus cArrow" aria-hidden="true"></i>
                     <p class="cAbbrev" >{{$subject->abbrev}}</p>
                     <p class="cTitle" >{{$subject->title}}</p>
+                        </a>
                 </div>
                 <div class="cDevider"></div>
             @endforeach

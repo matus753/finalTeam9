@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Array_;
 
 class Intranet_news extends Controller
 {
@@ -30,10 +31,20 @@ class Intranet_news extends Controller
                 $a->type = 'Zo života fakulty';
             }
         }
+        $exp = array();
+        $now = time();
+        foreach ($all_news as $a) {
+            if ($a->date_expiration < $now) {
+                $exp[$a->id] = 'expired';
+            } else {
+                $exp[$a->id] = 'current';
+            }
+        }
 
         $data = [ 
                 'title' => $this->module_name, 
                 'news' => $all_news,
+                'exp' => $exp
             ];
         return view('intranet::news/news_all', $data);
     }

@@ -200,4 +200,18 @@ class Study extends Controller
         
         return view('study::subjects', $data);
     }
+
+    public function subject($id) {
+        $module_name = config('study.name');
+        $subject = DB::table('subjects')->where('sub_id', $id)->first();
+        $subcats = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+        $subcats = (!$subcats) ? [] : $subcats;
+        $data = [
+            'title' => $module_name,
+            'subject' => $subject->title,
+            'subcats' => $subcats
+        ];
+
+        return view('study::subject', $data);
+    }
 }
