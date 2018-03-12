@@ -57,7 +57,7 @@
 	
 <div class="container">
 	<div class="row hp-row"> 
-		<div class="col-md-6">
+		<div class="col-md-6 col-sm-8">
 			<div class="row hp-thumbnail">										
 				  <div class="col-sm-6 col-md-6">
 					  <div class="hp-thumbnail__wrapper">
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 col-md-3">                          
+		<div class="col-sm-4 col-md-3 hidden-sm">                          
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
 			  var js, fjs = d.getElementsByTagName(s)[0];

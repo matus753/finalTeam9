@@ -5,18 +5,21 @@
 		border-radius: 5px;
 		overflow: hidden;
         margin-bottom: 30px;
+         &--small {
+            height: 220px;
+            .hp-thumbnail__item {
+                background-position: top;
+            }
+        }
         @media screen and (max-width: 991px) {
-            height: 400px;
+            height: 300px;
             margin-bottom: 30px;
         }
         @media screen and (max-width: 767px) {
             height: 170px;
             margin-bottom: 15px;
-        }
-        &--small {
-            height: 220px;
-            .hp-thumbnail__item {
-                background-position: top;
+            &--small {
+                height: 170px;
             }
         }
 	}
@@ -101,6 +104,12 @@
     ._2p3a {
         min-width: 100% !important;
         width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 1999px) {
+    iframe {
+        width: 230px !important;
     }
 }
 
