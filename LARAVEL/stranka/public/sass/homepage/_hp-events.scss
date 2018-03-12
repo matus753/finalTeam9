@@ -3,8 +3,7 @@
 }
 
 .hp-events {
-	padding: 40px 0;
-	background-color: #f5f5f5;
+	max-height: 600px;
 	&__datepicker {
 		.ui-datepicker {
 			border: none !important;
@@ -22,7 +21,8 @@
 	    margin-bottom: 20px;
 	}
 	&__list {
-		margin-top: 50px;
+		max-height: 305px;
+		overflow-y: auto;
 		h4, h4>a {
 			color: #0a61bc;
 			font-size: 16px;
