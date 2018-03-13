@@ -56,11 +56,14 @@ class News extends Controller
 			}
 		}
 
+		$today = date('d.m.Y');
+
 		$data = [
 			'news' => $res,
 			'title' => $module_name,
 			'type' => $filter,
-			'expired' => $expired
+			'expired' => $expired,
+            'today' => $today
 		];
 
 		//debug($data);
@@ -119,5 +122,4 @@ class News extends Controller
 		}
 		return json_encode(false);
 	}
-    
 }
