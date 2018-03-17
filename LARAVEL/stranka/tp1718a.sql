@@ -118,6 +118,30 @@ INSERT INTO `events` (`e_id`, `name_sk`, `name_en`, `text_sk`, `text_en`, `url`,
 -- --------------------------------------------------------
 
 --
+-- Štruktúra tabuľky pre tabuľku `functions`
+--
+
+CREATE TABLE `functions` (
+  `id` int(11) NOT NULL,
+  `title` varchar(200) COLLATE utf8_slovak_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `functions`
+--
+
+INSERT INTO `functions` (`id`, `title`) VALUES
+(1, 'riaditeľ ústavu'),
+(2, 'vedúci oddelenia'),
+(3, 'zástupca vedúceho oddelenia'),
+(4, 'zástupca riaditeľa ústavu pre rozvoj ústavu'),
+(5, 'zástupca riaditeľa ústavu pre vedeckú činnosť'),
+(6, 'zástupca riaditeľa ústavu pre pedagogickú činnosť');
+
+
+-- --------------------------------------------------------
+
+--
 -- Štruktúra tabuľky pre tabuľku `media`
 --
 
@@ -365,7 +389,6 @@ CREATE TABLE `staff` (
   `phone` varchar(16) COLLATE utf8_slovak_ci DEFAULT NULL,
   `department` varchar(32) COLLATE utf8_slovak_ci DEFAULT NULL,
   `staffRole` varchar(32) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `function` varchar(256) COLLATE utf8_slovak_ci DEFAULT NULL,
   `roles` mediumtext COLLATE utf8_slovak_ci NOT NULL,
   `email` varchar(128) COLLATE utf8_slovak_ci DEFAULT NULL,
   `web` varchar(128) COLLATE utf8_slovak_ci DEFAULT NULL,
@@ -376,53 +399,83 @@ CREATE TABLE `staff` (
 -- Sťahujem dáta pre tabuľku `staff`
 --
 
-INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`, `photo`, `room`, `phone`, `department`, `staffRole`, `function`, `roles`, `email`, `web`, `activated`) VALUES
-(1, 'Vladislav', 'Bača', 'Ing.', NULL, NULL, 'baca.jpg', 'T005', '264', 'OEMP', 'doktorand', NULL, '', '', '', 1),
-(2, 'Peter', 'Balko', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', NULL, '', '', '', 1),
-(3, 'Richard', 'Balogh', 'Ing.', ' PhD.', NULL, 'balogh.jpg', 'D110', '411', 'OEMP', 'teacher', 'zástupca vedúceho oddelenia', '', '', '', 1),
-(4, 'Igor', 'Bélai', 'Ing.', ' PhD.', NULL, NULL, 'D 126', '478', 'OEMP', 'teacher', NULL, '', '', '', 1),
-(5, 'Katarína', 'Beringerová', NULL, NULL, NULL, NULL, 'A 705', '672', 'AHU', 'teacher', NULL, '', '', '', 1),
-(6, 'Pavol', 'Bisták', 'Ing.', ' PhD.', 'bistak', 'bistak.jpg', 'D 120', '695', 'OEAP', 'teacher', NULL, '', '', '', 1),
-(7, 'Dmitrii', 'Borkin', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', NULL, '', '', '', 1),
-(8, 'Martin', 'Bugár', 'Ing.', ' PhD.', NULL, NULL, 'A 708', '579', 'OEAP', 'teacher', NULL, '', '', '', 1),
-(9, 'Ján', 'Cigánek', 'Ing.', ' PhD.', NULL, NULL, 'D 104', '686', 'OIKR', 'teacher', NULL, '', '', '', 1),
-(10, 'Peter', 'Drahoš', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 118', '669', 'OEMP', 'teacher', NULL, '', '', '', 1),
-(11, 'František', 'Erdödy', NULL, NULL, NULL, 'erdody.jpg', 'A S39', '818', 'AHU', 'teacher', NULL, '', '', '', 1),
-(12, 'Viktor', 'Ferencey', 'prof. Ing.', ' PhD.', NULL, 'ferencey.jpg', 'A 802', '438', 'OEAP', 'teacher', 'zástupca vedúceho oddelenia', '', '', '', 1),
-(13, 'Peter', 'Fuchs', 'doc. Ing.', ' PhD.', NULL, NULL, 'B S05', '826', 'OEMP', 'researcher', NULL, '', '', '', 1),
-(14, 'Gabriel', 'Gálik', 'Ing.', NULL, NULL, NULL, 'A 706', '559', 'OAMM', 'researcher', NULL, '', '', '', 1),
-(15, 'Vladimír', 'Goga', 'doc. Ing.', ' PhD.', NULL, NULL, 'A 702', '687', 'OAMM', 'teacher', NULL, '', '', '', 1),
-(16, 'Miroslav', 'Gula', 'Ing.', NULL, 'xgulam', 'gula.jpg', 'D 103', '628', 'OIKR', 'doktorand', NULL, '', '', '', 1),
-(17, 'Oto', 'Haffner', 'Ing.', ' PhD.', NULL, 'haffner.jpg', 'D 125', '315', 'OIKR ', 'teacher', NULL, '', '', '', 1),
-(18, 'Juraj', 'Hrabovský', 'Ing.', ' PhD.', NULL, NULL, 'A 706', '559', 'OAMM', 'teacher', NULL, '', '', '', 1),
-(19, 'Mikuláš', 'Huba', 'prof. Ing.', ' PhD.', NULL, 'huba.jpg', 'D 112', '771', 'OEAP', 'teacher', 'riaditeľ ústavu; vedúci oddelenia', '', '', '', 1),
-(20, 'Mária', 'Hypiusová', 'Ing.', ' PhD.', NULL, NULL, 'D 122', '193', 'OIKR', 'teacher', NULL, '', '', '', 1),
-(21, 'Štefan', 'Chamraz', 'Ing.', ' PhD.', NULL, NULL, 'D 107', '848', 'OEMP', 'teacher', NULL, '', '', '', 1),
-(22, 'Jakub', 'Jakubec', 'Ing.', ' PhD.', NULL, NULL, 'A 707', '452', 'OAMM ', 'researcher', NULL, '', '', '', 1),
-(23, 'Igor', 'Jakubička', 'Ing.', NULL, NULL, 'jakubicka.jpg', 'T005', '264', 'OEMP', 'doktorand', NULL, '', '', '', 1),
-(24, 'Katarína', 'Kermietová', NULL, NULL, NULL, NULL, 'D 116', '598', 'AHU', 'teacher', 'zástupca vedúceho oddelenia', '', '', '', 1),
-(25, 'Ivan', 'Klimo', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', NULL, '', '', '', 1),
-(26, 'Michal', 'Kocúr', 'Ing.', ' PhD.', 'xkocurm2', 'kocur.jpg', 'D 104', '686', 'OIKR ', 'teacher', NULL, '', '', '', 1),
-(27, 'Štefan', 'Kozák', 'prof. Ing.', ' PhD.', NULL, 'kozak.jpg', 'D 115', '281', 'OEMP', 'teacher', 'zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia', '', '', '', 1),
-(28, 'Alena', 'Kozáková', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 111', '563', 'OIKR', 'teacher', NULL, '', '', '', 1),
-(29, 'Erik', 'Kučera', 'Ing.', ' PhD.', NULL, NULL, 'D 125', '315', 'OIKR ', 'teacher', NULL, '', '', '', 1),
-(30, 'Vladimír', 'Kutiš', 'doc. Ing.', ' PhD.', NULL, 'kutis.jpg', 'A 701', '562', 'OAMM ', 'teacher', 'zástupca vedúceho oddelenia', '', '', '', 1),
-(31, 'Alek', 'Lichtman', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', NULL, '', '', '', 1),
-(32, 'Justín', 'Murín', 'prof. Ing.', ' DrSc.', NULL, 'murin.jpg', 'A 704', '611', 'OAMM', 'teacher', 'zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia', '', '', '', 1),
-(33, 'Jakub', 'Osuský', 'Ing.', ' PhD.', NULL, 'osusky.jpg', 'D 123', '356', 'OIKR ', 'teacher', NULL, '', '', '', 1),
-(34, 'Tomáš', 'Paciga', 'Ing.', NULL, NULL, NULL, 'A 707', '452', 'OAMM', 'doktorand', NULL, '', '', '', 1),
-(35, 'Juraj', 'Paulech', 'Ing.', ' PhD.', NULL, 'paulech.jpg', 'A 701', '562', 'OAMM', 'teacher', NULL, '', '', '', 1),
-(36, 'Matej', 'Rábek', 'Ing.', NULL, 'xrabek', 'rabek.jpg', 'D 103', '628', 'OIKR', 'doktorand', NULL, '', '', '', 1),
-(37, 'Tibor', 'Sedlár', 'Ing. ', NULL, NULL, NULL, 'A 803', '399', 'OAMM', 'teacher', NULL, '', '', '', 1),
-(38, 'Erich', 'Stark', 'Ing.', NULL, NULL, 'stark.jpg', 'C 014', '', 'OIKR', 'doktorand', NULL, '', '', '', 1),
-(39, 'Peter', 'Ťapák', 'Ing.', ' PhD.', NULL, NULL, 'D 121', '569', 'OEAP', 'teacher', NULL, '', '', '', 1),
-(40, 'Katarína', 'Žáková', 'doc. Ing.', ' PhD.', 'zakova', 'zakova.jpg', 'D 119', '742', 'OIKR', 'teacher', 'zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia', '', '', '', 1),
-(41, 'Danica', 'Rosinová', 'doc. Ing.', ' PhD.', NULL, 'rosinova.jpg', 'D 111', '563', 'OIKR', 'teacher', 'vedúci oddelenia\r\n', '', '', '', 1),
-(42, 'Admin', 'Admin', NULL, NULL, 'xdzacovsky', NULL, '', NULL, '', '', NULL, '', '', '', 1),
-(43, 'Laravel', 'Laravel', 'Prof.', 'PhD.', 'xtrocha', NULL, '456', '123', 'ABC', 'developer', 'develop', '', '', '', 1),
-(55, 'aaaa', 'aaa', 'aaaa', 'aaaa', 'xaaa', 'default_male_img.png', 'aaaa', 'aaaaa', 'AHU', 'doktorand', 'aaaaa', '', 'aaa@aaa', 'http://aaaa.com', 1),
-(56, 'bbb', 'bbbová', 'bbb', 'bbb', 'xss', 'default_female_img.png', 'bbb', 'bbbbbb', 'AHU', 'doktorand', 'bbb', '["admin"]', NULL, NULL, 1),
-(58, 'fdsd', 'fdfdf', NULL, NULL, 'xfdsa', 'Oi9WYHban0dkvqdPjJketF172Is7J4XRIFTaosnI.jpeg', NULL, NULL, 'AHU', 'doktorand', NULL, '[]', NULL, NULL, 1);
+INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`, `photo`, `room`, `phone`, `department`, `staffRole`, `roles`, `email`, `web`, `activated`) VALUES
+(1, 'Vladislav', 'Bača', 'Ing.', NULL, NULL, 'baca.jpg', 'T005', '264', 'OEMP', 'doktorand', '', '', '', 1),
+(2, 'Peter', 'Balko', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', '', '', '', 1),
+(3, 'Richard', 'Balogh', 'Ing.', ' PhD.', NULL, 'balogh.jpg', 'D110', '411', 'OEMP', 'teacher', '', '', '', 1),
+(4, 'Igor', 'Bélai', 'Ing.', ' PhD.', NULL, NULL, 'D 126', '478', 'OEMP', 'teacher', '', '', '', 1),
+(5, 'Katarína', 'Beringerová', NULL, NULL, NULL, NULL, 'A 705', '672', 'AHU', 'teacher', '', '', '', 1),
+(6, 'Pavol', 'Bisták', 'Ing.', ' PhD.', 'bistak', 'bistak.jpg', 'D 120', '695', 'OEAP', 'teacher', '', '', '', 1),
+(7, 'Dmitrii', 'Borkin', 'Ing.', NULL, NULL, NULL, 'D 102', '395', 'OIKR', 'doktorand', '', '', '', 1),
+(8, 'Martin', 'Bugár', 'Ing.', ' PhD.', NULL, NULL, 'A 708', '579', 'OEAP', 'teacher', '', '', '', 1),
+(9, 'Ján', 'Cigánek', 'Ing.', ' PhD.', NULL, NULL, 'D 104', '686', 'OIKR', 'teacher', '', '', '', 1),
+(10, 'Peter', 'Drahoš', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 118', '669', 'OEMP', 'teacher', '', '', '', 1),
+(11, 'František', 'Erdödy', NULL, NULL, NULL, 'erdody.jpg', 'A S39', '818', 'AHU', 'teacher', '', '', '', 1),
+(12, 'Viktor', 'Ferencey', 'prof. Ing.', ' PhD.', NULL, 'ferencey.jpg', 'A 802', '438', 'OEAP', 'teacher', '', '', '', 1),
+(13, 'Peter', 'Fuchs', 'doc. Ing.', ' PhD.', NULL, NULL, 'B S05', '826', 'OEMP', 'researcher', '', '', '', 1),
+(14, 'Gabriel', 'Gálik', 'Ing.', NULL, NULL, NULL, 'A 706', '559', 'OAMM', 'researcher', '', '', '', 1),
+(15, 'Vladimír', 'Goga', 'doc. Ing.', ' PhD.', NULL, NULL, 'A 702', '687', 'OAMM', 'teacher', '', '', '', 1),
+(16, 'Miroslav', 'Gula', 'Ing.', NULL, 'xgulam', 'gula.jpg', 'D 103', '628', 'OIKR', 'doktorand', '', '', '', 1),
+(17, 'Oto', 'Haffner', 'Ing.', ' PhD.', NULL, 'haffner.jpg', 'D 125', '315', 'OIKR ', 'teacher', '', '', '', 1),
+(18, 'Juraj', 'Hrabovský', 'Ing.', ' PhD.', NULL, NULL, 'A 706', '559', 'OAMM', 'teacher', '', '', '', 1),
+(19, 'Mikuláš', 'Huba', 'prof. Ing.', ' PhD.', NULL, 'huba.jpg', 'D 112', '771', 'OEAP', 'teacher', '', '', '', 1),
+(20, 'Mária', 'Hypiusová', 'Ing.', ' PhD.', NULL, NULL, 'D 122', '193', 'OIKR', 'teacher', '', '', '', 1),
+(21, 'Štefan', 'Chamraz', 'Ing.', ' PhD.', NULL, NULL, 'D 107', '848', 'OEMP', 'teacher', '', '', '', 1),
+(22, 'Jakub', 'Jakubec', 'Ing.', ' PhD.', NULL, NULL, 'A 707', '452', 'OAMM ', 'researcher', '', '', '', 1),
+(23, 'Igor', 'Jakubička', 'Ing.', NULL, NULL, 'jakubicka.jpg', 'T005', '264', 'OEMP', 'doktorand', '', '', '', 1),
+(24, 'Katarína', 'Kermietová', NULL, NULL, NULL, NULL, 'D 116', '598', 'AHU', 'teacher', '', '', '', 1),
+(25, 'Ivan', 'Klimo', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', '', '', '', 1),
+(26, 'Michal', 'Kocúr', 'Ing.', ' PhD.', 'xkocurm2', 'kocur.jpg', 'D 104', '686', 'OIKR ', 'teacher', '', '', '', 1),
+(27, 'Štefan', 'Kozák', 'prof. Ing.', ' PhD.', NULL, 'kozak.jpg', 'D 115', '281', 'OEMP', 'teacher', '', '', '', 1),
+(28, 'Alena', 'Kozáková', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 111', '563', 'OIKR', 'teacher', '', '', '', 1),
+(29, 'Erik', 'Kučera', 'Ing.', ' PhD.', NULL, NULL, 'D 125', '315', 'OIKR ', 'teacher', '', '', '', 1),
+(30, 'Vladimír', 'Kutiš', 'doc. Ing.', ' PhD.', NULL, 'kutis.jpg', 'A 701', '562', 'OAMM ', 'teacher', '', '', '', 1),
+(31, 'Alek', 'Lichtman', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', '', '', '', 1),
+(32, 'Justín', 'Murín', 'prof. Ing.', ' DrSc.', NULL, 'murin.jpg', 'A 704', '611', 'OAMM', 'teacher', '', '', '', 1),
+(33, 'Jakub', 'Osuský', 'Ing.', ' PhD.', NULL, 'osusky.jpg', 'D 123', '356', 'OIKR ', 'teacher', '', '', '', 1),
+(34, 'Tomáš', 'Paciga', 'Ing.', NULL, NULL, NULL, 'A 707', '452', 'OAMM', 'doktorand', '', '', '', 1),
+(35, 'Juraj', 'Paulech', 'Ing.', ' PhD.', NULL, 'paulech.jpg', 'A 701', '562', 'OAMM', 'teacher', '', '', '', 1),
+(36, 'Matej', 'Rábek', 'Ing.', NULL, 'xrabek', 'rabek.jpg', 'D 103', '628', 'OIKR', 'doktorand', '', '', '', 1),
+(37, 'Tibor', 'Sedlár', 'Ing. ', NULL, NULL, NULL, 'A 803', '399', 'OAMM', 'teacher', '', '', '', 1),
+(38, 'Erich', 'Stark', 'Ing.', NULL, NULL, 'stark.jpg', 'C 014', '', 'OIKR', 'doktorand', '', '', '', 1),
+(39, 'Peter', 'Ťapák', 'Ing.', ' PhD.', NULL, NULL, 'D 121', '569', 'OEAP', 'teacher', '', '', '', 1),
+(40, 'Katarína', 'Žáková', 'doc. Ing.', ' PhD.', 'zakova', 'zakova.jpg', 'D 119', '742', 'OIKR', 'teacher', '', '', '', 1),
+(41, 'Danica', 'Rosinová', 'doc. Ing.', ' PhD.', NULL, 'rosinova.jpg', 'D 111', '563', 'OIKR', 'teacher', '', '', '', 1),
+(42, 'Admin', 'Admin', NULL, NULL, 'xdzacovsky', NULL, '', NULL, '', '', '', '', '', 1),
+(43, 'Laravel', 'Laravel', 'Prof.', 'PhD.', 'xtrocha', NULL, '456', '123', 'ABC', 'developer', '', '', '', 1),
+(55, 'aaaa', 'aaa', 'aaaa', 'aaaa', 'xaaa', 'default_male_img.png', 'aaaa', 'aaaaa', 'AHU', 'doktorand', '["admin"]', 'aaa@aaa', 'http://aaaa.com', 1),
+(56, 'bbb', 'bbbová', 'bbb', 'bbb', 'xss', 'default_female_img.png', 'bbb', 'bbbbbb', 'AHU', 'doktorand', '["admin"]', NULL, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `staff_function`
+--
+
+CREATE TABLE `staff_function` (
+  `id` int(11) NOT NULL,
+  `id_staff` int(4) NOT NULL,
+  `id_func` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `staff_function`
+--
+
+INSERT INTO `staff_function` (`id`, `id_staff`, `id_func`) VALUES
+(1, 3, 3),
+(2, 12, 3),
+(3, 19, 1),
+(4, 19, 2),
+(5, 24, 3),
+(6, 27, 4),
+(7, 27, 2),
+(8, 30, 3),
+(9, 32, 5),
+(10, 32, 2),
+(11, 40, 6),
+(12, 40, 3),
+(13, 41, 2);
 
 -- --------------------------------------------------------
 
@@ -598,6 +651,12 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`e_id`);
 
 --
+-- Indexy pre tabuľku `functions`
+--
+ALTER TABLE `functions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexy pre tabuľku `media`
 --
 ALTER TABLE `media`
@@ -659,6 +718,12 @@ ALTER TABLE `staff`
   ADD PRIMARY KEY (`s_id`);
 
 --
+-- Indexy pre tabuľku `staff_function`
+--
+ALTER TABLE `staff_function`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexy pre tabuľku `subjects`
 --
 ALTER TABLE `subjects`
@@ -713,6 +778,11 @@ ALTER TABLE `documents_files`
 ALTER TABLE `events`
   MODIFY `e_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT pre tabuľku `functions`
+--
+ALTER TABLE `functions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT pre tabuľku `media`
 --
 ALTER TABLE `media`
@@ -762,6 +832,11 @@ ALTER TABLE `project`
 --
 ALTER TABLE `staff`
   MODIFY `s_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+--
+-- AUTO_INCREMENT pre tabuľku `staff_function`
+--
+ALTER TABLE `staff_function`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT pre tabuľku `subjects`
 --

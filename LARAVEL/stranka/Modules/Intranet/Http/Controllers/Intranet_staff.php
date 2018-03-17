@@ -135,14 +135,6 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
         } 
 
-        if($request->filled('func')){
-            if(!is_string($func) || strlen($func) < 1 || strlen($func) > 256 ){
-                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 256 characters!']);
-            } 
-        }else{
-            $func = null;
-        }
-
         if($request->filled('email')){
             if(!is_string($email) || strlen($email) < 1 || strlen($email) > 128 ){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 128 characters!']);
@@ -384,13 +376,6 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
         } 
 
-        if($request->filled('func')){
-            if(!is_string($func) || strlen($func) < 1 || strlen($func) > 256 ){
-                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 256 characters!']);
-            } 
-        }else{
-            $func = null;
-        }
 
         if($request->filled('email')){
             if(!is_string($email) || strlen($email) < 1 || strlen($email) > 128 ){
