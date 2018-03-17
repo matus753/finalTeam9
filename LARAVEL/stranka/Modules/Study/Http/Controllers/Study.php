@@ -16,16 +16,23 @@ class Study extends Controller
      */
 
     public function getAvailableThesis($id){
+        if(!is_numeric($id)){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
 
         $module_name = config('study.name');
-
         list($thesisType, $thesisTypeId, $urlBack, $studyType) = $this->getThesisType($id);
-            $data = [
-                'title' => $module_name,
-                'typ' => $thesisType,
-                'urlBack' => $urlBack,
-                'typId' => $thesisTypeId,
-                'studyType' => $studyType
+
+        if(!is_string($thesisType) || !is_numeric($thesisTypeId) || !is_string($urlBack) || !is_string($studyType)){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
+
+        $data = [
+            'title' => $module_name,
+            'typ' => $thesisType,
+            'urlBack' => $urlBack,
+            'typId' => $thesisTypeId,
+            'studyType' => $studyType
         ];
 
         return view('study::getAvailableThesis', $data);
@@ -57,6 +64,10 @@ class Study extends Controller
     }
 
     public function getThesisType($id){
+        if(!is_numeric($id)){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
+
         if ($id == 1){
             $thesisType = 'bakalárske';
             $studyType = 'bakalárske';
@@ -174,6 +185,10 @@ class Study extends Controller
     }
 
     public function subjects($id){
+        if(!is_numeric($id)){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
+
         if($id == 1) {
             $titleSK = 'Bakalárske predmety';
             $titleEN = 'Bachelor courses';
@@ -183,29 +198,40 @@ class Study extends Controller
             $titleEN = 'Master courses';
             $find = 'I-%';
         }
-//        $subjects = DB::table('subjects')->get();
 
         $subjects = DB::table('subjects')->where('abbrev', 'like', $find)->get();
-        foreach($subjects as $subject){
-            $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+        if($subjects){
+            foreach($subjects as $subject){
+                $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+            }
+        }else{
+            return redirect('/')->with('err_code', ['type' => 'warning', 'msg' => 'Item does not exists!']);
         }
-
+        
         $data = [ 
                 'title' => config('study.name'), 
                 'subjects' => $subjects,
                 'titleSK' => $titleSK,
                 'titleEN' => $titleEN
             ];
-
         
         return view('study::subjects', $data);
     }
 
     public function subject($id) {
+        if(!is_numeric($id)){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
+
         $module_name = config('study.name');
         $subject = DB::table('subjects')->where('sub_id', $id)->first();
-        $subcats = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
-        $subcats = (!$subcats) ? [] : $subcats;
+        if($subjects){
+            $subcats = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+            $subcats = (!$subcats) ? [] : $subcats;
+        }else{
+            return redirect('/')->with('err_code', ['type' => 'warning', 'msg' => 'Subject does not exists!']);
+        }
+        
         $data = [
             'title' => $module_name,
             'subject' => $subject->title,

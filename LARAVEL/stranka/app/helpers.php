@@ -230,11 +230,13 @@ function get_profile_photo($photo_hash = ''){
 
 function has_permission($perm){
 	if(is_string($perm) && strlen($perm) > 0){
-		
+		if(isLogged()){
+			debug(session()->get('user'));
+		}
 	}else{
-		return false;
+		return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
 	}
-	return false;
+	return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
 }
 
 function isLogged(){

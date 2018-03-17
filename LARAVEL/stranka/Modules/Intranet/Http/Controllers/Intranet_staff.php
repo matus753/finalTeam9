@@ -17,6 +17,10 @@ class Intranet_staff extends Controller
 
     public function staff_all(){
         
+        /*if(has_permission()){
+
+        }*/
+
         $staff = DB::table('staff')->get();
         $staff = (!$staff) ? [] : $staff;
 
@@ -46,9 +50,6 @@ class Intranet_staff extends Controller
     }
 
     public function staff_add(){
-
-        /*$departments = DB::table('staff')->select('department')->groupBy('department')->get();
-        $roles = DB::table('staff')->select('staffRole')->groupBy('staffRole')->get();*/
         $locale = session()->get('locale');
         if($locale == 'sk'){
             $roles = config('staff_admin.rolesSK');
@@ -65,13 +66,11 @@ class Intranet_staff extends Controller
             'roles' => $roles,
             'permission_roles' => $permission_roles
         ];
-        //debug($data, true);
+
         return view('intranet::staff/staff_add', $data);
     }
 
-    public function staff_add_action( Request $request ){
-        // TODO REMOVE BAD STRING
-        
+    public function staff_add_action( Request $request ){        
         $name = $request->input('name');
         $surname = $request->input('surname');
         $title1 = $request->input('title1');
@@ -86,18 +85,87 @@ class Intranet_staff extends Controller
         $img = $request->file('img');
         $perm = $request->input('perm');
        
-        if(is_array($perm)){
-            $permissions = [];
-            foreach($perm as $p){
-                $permissions[] = $p;
-            }
+        if(!is_string($name) || strlen($name) < 1 || strlen($name) > 64 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Name max 64 characters!']);
+        } 
+
+        if(!is_string($surname) || strlen($surname) < 1 || strlen($surname) > 64 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Surname max 64 characters!']);
+        } 
+
+        if($request->filled('title1')){
+            if(!is_string($title1) || strlen($title1) < 1 || strlen($title1) > 32 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title 1 max 32 characters!']);
+            } 
         }else{
-            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Input error error!']);
+            $title1 = null;
+        }
+
+        if($request->filled('title2')){
+            if(!is_string($title2) || strlen($title2) < 1 || strlen($title2) > 32 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title 2 max 32 characters!']);
+            } 
+        }else{
+            $title2 = null;
+        }
+        if($request->filled('room')){
+            if(!is_string($room) || strlen($room) < 1 || strlen($room) > 128 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 128 characters!']);
+            } 
+        }else{
+            $room = null;
+        }
+
+        if($request->filled('phone')){
+            if(!is_string($phone) || strlen($phone) < 1 || strlen($phone) > 16 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Phone max 16 characters!']);
+            } 
+        }else{
+            $phone = null;
+        }
+
+        if(!is_string($department) || strlen($department) < 1 || strlen($department) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 32 characters!']);
+        } 
+
+        if(!is_string($role) || strlen($role) < 1 || strlen($role) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
+        } 
+
+        if($request->filled('func')){
+            if(!is_string($func) || strlen($func) < 1 || strlen($func) > 256 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 256 characters!']);
+            } 
+        }else{
+            $func = null;
+        }
+
+        if($request->filled('email')){
+            if(!is_string($email) || strlen($email) < 1 || strlen($email) > 128 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 128 characters!']);
+            } 
+        }else{
+            $email = null;
+        }
+
+        $permissions = [];
+        if(is_array($perm) && count($perm) > 0){
+            
+            foreach($perm as $p){
+                if(is_string($p) && strlen($p) > 0){
+                    $permissions[] = $p;
+                }else{
+                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Input error!']);
+                }
+            }
         }
     
         $x_rule = config('staff_admin.x_rule');
+        $ldap = $request->input('ldap');
+        if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
+        } 
         if($x_rule){
-            $ldap = $request->input('ldap');
             if($ldap[0] != 'x'){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'LDAP syntax error!']);
             }
@@ -110,7 +178,6 @@ class Intranet_staff extends Controller
             }
         }
 
-        $gender_rule = config('staff_admin.gender_rule');
         if($img){
             $photo = $img->hashName();
             $img->store('/public/staff/');
@@ -148,9 +215,10 @@ class Intranet_staff extends Controller
         }
 
         $item = DB::table('staff')->where('s_id', $s_id)->first();
+        if(!$item){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
+        }
         $item->roles = json_decode($item->roles);
-        /*$departments = DB::table('staff')->select('department')->groupBy('department')->get();
-        $roles = DB::table('staff')->select('staffRole')->groupBy('staffRole')->get();*/
 
         $locale = session()->get('locale');
         if($locale == 'sk'){
@@ -168,7 +236,7 @@ class Intranet_staff extends Controller
             'roles' => $roles,
             'permission_roles' => $permission_roles
         ];
-        //debug($data, true);
+
         return view('intranet::staff/staff_edit', $data);
     }
 
@@ -177,7 +245,6 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
         
-        // TODO REMOVE BAD STRING
         $name = $request->input('name');
         $surname = $request->input('surname');
         $title1 = $request->input('title1');
@@ -193,19 +260,88 @@ class Intranet_staff extends Controller
         $img = $request->file('img');
         $default_photo = $request->input('default_photo');
         $perm = $request->input('perm');
-       
-        if(is_array($perm)){
-            $permissions = [];
-            foreach($perm as $p){
-                $permissions[] = $p;
-            }
+        
+        if(!is_string($name) || strlen($name) < 1 || strlen($name) > 64 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Name max 64 characters!']);
+        } 
+
+        if(!is_string($surname) || strlen($surname) < 1 || strlen($surname) > 64 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Surname max 64 characters!']);
+        } 
+
+        if($request->filled('title1')){
+            if(!is_string($title1) || strlen($title1) < 1 || strlen($title1) > 32 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title 1 max 32 characters!']);
+            } 
         }else{
-            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Input error error!']);
+            $title1 = null;
+        }
+
+        if($request->filled('title2')){
+            if(!is_string($title2) || strlen($title2) < 1 || strlen($title2) > 32 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title 2 max 32 characters!']);
+            } 
+        }else{
+            $title2 = null;
+        }
+        if($request->filled('room')){
+            if(!is_string($room) || strlen($room) < 1 || strlen($room) > 128 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 128 characters!']);
+            } 
+        }else{
+            $room = null;
+        }
+
+        if($request->filled('phone')){
+            if(!is_string($phone) || strlen($phone) < 1 || strlen($phone) > 16 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Phone max 16 characters!']);
+            } 
+        }else{
+            $phone = null;
+        }
+
+        if(!is_string($department) || strlen($department) < 1 || strlen($department) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 32 characters!']);
+        } 
+
+        if(!is_string($role) || strlen($role) < 1 || strlen($role) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
+        } 
+
+        if($request->filled('func')){
+            if(!is_string($func) || strlen($func) < 1 || strlen($func) > 256 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 256 characters!']);
+            } 
+        }else{
+            $func = null;
+        }
+
+        if($request->filled('email')){
+            if(!is_string($email) || strlen($email) < 1 || strlen($email) > 128 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 128 characters!']);
+            } 
+        }else{
+            $email = null;
+        }
+
+        $permissions = [];
+        if(is_array($perm) && count($perm) > 0){
+            
+            foreach($perm as $p){
+                if(is_string($p) && strlen($p) > 0){
+                    $permissions[] = $p;
+                }else{
+                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Input error!']);
+                }
+            }
         }
 
         $x_rule = config('staff_admin.x_rule');
+        $ldap = $request->input('ldap');
+        if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
+        } 
         if($x_rule){
-            $ldap = $request->input('ldap');
             if($ldap[0] != 'x'){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'LDAP syntax error!']);
             }
@@ -218,30 +354,31 @@ class Intranet_staff extends Controller
             }
         }
 
-        $gender_rule = config('staff_admin.gender_rule');
         if($img && !$default_photo){
             $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
+            if(!$original_img){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal DB error!']);
+            }
             if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
                 $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
-                unlink($path);
+                if(is_file($path)){
+                    unlink($path);
+                }
             }
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
             $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
+            if(!$original_img){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal DB error!']);
+            }
             if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
                 $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
-                unlink($path);
-            }
-            if($gender_rule && strlen($surname) > 2 ){
-                if(substr($surname, -4) == 'ová'){
-                    $photo = config('staff_admin.default_imgs')['default_female_img'];
-                }else{
-                    $photo = config('staff_admin.default_imgs')['default_male_img'];
+                if(is_file($path)){
+                    unlink($path);
                 }
-            }else{
-                $photo = config('staff_admin.default_imgs')['default_img'];
             }
+            $photo = config('staff_admin.default_imgs')['default_male_img'];
         }
 
         $data = [
@@ -276,7 +413,9 @@ class Intranet_staff extends Controller
         $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
         if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
             $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
-            unlink($path);
+            if(is_file($path)){
+                unlink($path);
+            }
         }
 
         $res = (bool) DB::table('staff')->where('s_id', $s_id)->delete();
@@ -290,7 +429,7 @@ class Intranet_staff extends Controller
         if(!is_numeric($s_id) || $s_id == 0){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
-        // ak je aktivne tak deaktivuj inak aktivuj
+
         $item = DB::table('staff')->where('s_id', $s_id)->select('activated')->first();
 
         if($item->activated){

@@ -17,6 +17,7 @@ class Intranet_media extends Controller
 
     public function media_all(){
         $all_media = DB::table('media')->get();
+        $all_media = (!$all_media) ? [] : $all_media;
 
         $data = [ 
                 'title' => $this->module_name, 
@@ -42,7 +43,16 @@ class Intranet_media extends Controller
         $media = $request->input('media');
         $date = $request->input('date');
         $type = $request->input('type');
-        
+
+        if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 256){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
+        }
+        if(!is_string($titleEN) || strlen($titleEN) < 1 || strlen($titleEN) > 256){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Anglický nadpis has bad format - max 256 characters!']);
+        }
+        if(!is_string($media) || strlen($media) < 1 || strlen($media) > 256){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
+        }
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
 
         $link = null;
@@ -50,18 +60,17 @@ class Intranet_media extends Controller
         $allowed_types = explode(',', config('media_admin.media_allowed_types'));
         if($type == 'link'){
             $url = $request->input('link');
-            $parsed = parse_url($url);
-            if (empty($parsed['scheme'])) {
-                $url = 'http://'.ltrim($url, '/');
-            }
-            if( isset($url) && !empty($url) ){
+            if( isset($url) && !empty($url) && is_string($url))  {
                 $link = $url;
+                $parsed = parse_url($url);
+                if (empty($parsed['scheme'])) {
+                    $link = 'http://'.ltrim($url, '/');
+                }
             }else{
                 return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
             }
         }elseif($type == 'server'){
             $files = $request->file('files');
-            
             foreach($files as $f){
                 $valid = false;
                 foreach($allowed_types as $a){
@@ -76,11 +85,28 @@ class Intranet_media extends Controller
         }elseif($type == 'both'){
             $files = $request->file('files');
             $url = $request->input('link');
+
             if( isset($url) && !empty($url) ){
                 $link = $url;
+                $parsed = parse_url($url);
+                if (empty($parsed['scheme'])) {
+                    $link = 'http://'.ltrim($url, '/');
+                }
             }else{
                 return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
             }
+
+            foreach($files as $f){
+                $valid = false;
+                foreach($allowed_types as $a){
+                    if($a == explode('.', $f->hashName())[1]){
+                        $valid = true;
+                    }
+                }
+            }
+            if($valid == false){
+                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
+            }  
         }else{
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Type error!']);
         }
@@ -131,8 +157,11 @@ class Intranet_media extends Controller
         }
 
         $media = DB::table('media')->where('m_id', $id)->first();
+        if(!$media){
+            return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
         $files = DB::table('media_files')->where('m_id', $id)->get();
-        
         $files = (!$files) ? [] : $files;
     
         $types = config('media_admin.types');
@@ -158,19 +187,29 @@ class Intranet_media extends Controller
         $date = $request->input('date');
         $type = $request->input('type');
         
+        if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 256){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
+        }
+        if(!is_string($titleEN) || strlen($titleEN) < 1 || strlen($titleEN) > 256){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Anglický nadpis has bad format - max 256 characters!']);
+        }
+        if(!is_string($media) || strlen($media) < 1 || strlen($media) > 256){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
+        }
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
+
 
         $link = null;
         $files = null;
         $allowed_types = explode(',', config('media_admin.media_allowed_types'));
         if($type == 'link'){
             $url = $request->input('link');
-            $parsed = parse_url($url);
-            if (empty($parsed['scheme'])) {
-                $url = 'http://'.ltrim($url, '/');
-            }
-            if( isset($url) && !empty($url) ){
+            if( isset($url) && !empty($url) && is_string($url))  {
                 $link = $url;
+                $parsed = parse_url($url);
+                if (empty($parsed['scheme'])) {
+                    $link = 'http://'.ltrim($url, '/');
+                }
             }else{
                 return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
             }
@@ -190,11 +229,28 @@ class Intranet_media extends Controller
         }elseif($type == 'both'){
             $files = $request->file('files');
             $url = $request->input('link');
+
             if( isset($url) && !empty($url) ){
                 $link = $url;
+                $parsed = parse_url($url);
+                if (empty($parsed['scheme'])) {
+                    $link = 'http://'.ltrim($url, '/');
+                }
             }else{
                 return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
             }
+
+            foreach($files as $f){
+                $valid = false;
+                foreach($allowed_types as $a){
+                    if($a == explode('.', $f->hashName())[1]){
+                        $valid = true;
+                    }
+                }
+            }
+            if($valid == false){
+                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
+            }  
         }else{
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Type error!']);
         }
@@ -212,7 +268,9 @@ class Intranet_media extends Controller
         $files_to_delete = DB::table('media_files')->where('m_id', $id)->get();
         $path = base_path('storage/app/public/media/');
         foreach($files_to_delete as $f){
-            unlink($path.$f->hash_name);
+            if(is_file($path.$f->hash_name)){
+                unlink($path.$f->hash_name);
+            }
         }
         
         DB::table('media_files')->where('m_id', $m_id)->delete();
@@ -252,17 +310,20 @@ class Intranet_media extends Controller
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
         
-        $path = base_path('storage/app/public/media/');
+        
         
         $res = (bool) DB::table('media')->where('m_id', $id)->delete();
         $files_to_delete = DB::table('media_files')->where('m_id', $id)->get();
         $delete = (bool) DB::table('media_files')->where('m_id', $id)->delete();
 
+        $path = base_path('storage/app/public/media/');
         foreach($files_to_delete as $f){
-            unlink($path.$f->hash_name);
+            if(is_file($path.$f->hash_name)){
+                unlink($path.$f->hash_name);
+            }
         }
 
-        if($res){
+        if($delete){
             return redirect('/media-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly deleted!']);
         }
 

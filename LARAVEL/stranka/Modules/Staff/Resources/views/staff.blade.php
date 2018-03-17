@@ -108,7 +108,6 @@ $(document).ready(function() {
 	
 } );
 </script>
-
 <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner1.jpg') }}')">
 	<h1>@lang('staff::staff.title')</h1>
 </section>

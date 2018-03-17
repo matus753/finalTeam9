@@ -45,17 +45,6 @@ class Research extends Controller
         return view('research::projects', $data);
     }
 
-    public function show($pr_id = 0){
-        if(!is_numeric($pr_id) || $pr_id == 0){
-            return false;
-		}
-		
-        $project = DB::table('project')->where('pr_id',$pr_id )->first();
-
-        return json_encode($project);
-
-    }
-
 	public function ekart()
     {
 		$module_name = config('research.name');

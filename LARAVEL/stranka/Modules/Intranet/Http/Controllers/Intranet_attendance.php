@@ -4,9 +4,11 @@ namespace Modules\Intranet\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response as FacadeResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Config\Repository;
+use Dompdf\Dompdf;
+use Storage;
 
 class Intranet_attendance extends Controller
 {
@@ -88,11 +90,47 @@ class Intranet_attendance extends Controller
             'curr_year'     => $year,
             'years'         => $tmp
         ];
-       // debug($data, true);
+
         return view('intranet::attendance/attendance', $data);
     }
 
-    public function attendance_ajax( Request $request){
+    public function attendance_pdf_ajax( Request $request ){
+        $table = $request->input('table');
+        if(!is_string($table)){
+            return response()->json(['error' => 'Failed'], 400);
+        }
+        $table = '<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><style>*{ font-family: DejaVu Sans !important;}</style>'.$table.'</html>';
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($table);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $output = $dompdf->output();
+        
+        Storage::put('public/pdf_attendance.pdf', $output);
+        $exists = Storage::disk('public')->exists('pdf_attendance.pdf');
+
+        if($exists){
+            return response()->json(['error' => 'Success'], 200);
+        }
+        return response()->json(['error' => 'Failed'], 400);
+    }
+
+    public function download_pdf(){
+        $exists = Storage::disk('public')->exists('pdf_attendance.pdf');
+        if($exists){
+            $file = public_path(). "/storage/pdf_attendance.pdf";
+            $headers = [
+                "Content-type :application/pdf",
+                "Cache-Control : no-store, no-cache",
+                "Content-disposition", "attachment; filename=pdf_attendance.pdf"
+            ];
+            return response()->download($file, 'pdf_attendance.pdf', $headers);
+        }
+        return redirect('/attendance-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error - PDF does not exists!']);
+    }
+
+
+    public function attendance_ajax( Request $request ){
         $id_zamestnanca = $request->input('staff');
         $rok = $request->input('year');
         $mesiac = $request->input('month');

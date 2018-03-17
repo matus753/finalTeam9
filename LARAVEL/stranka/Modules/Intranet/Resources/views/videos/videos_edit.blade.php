@@ -36,11 +36,11 @@
                 </div>
                 <div class="form-group">
                     <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $video->title_SK }}" required />
+                    <input type="text" class="form-control" id="title_sk" name="title_SK" placeholder="Slovenský nadpis" value="{{ $video->title_SK }}" required />
                 </div>
                 <div class="form-group">
                     <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $video->title_EN }}" required />
+                    <input type="text" class="form-control" id="title_en" name="title_EN" placeholder="Anglický nadpis" value="{{ $video->title_EN }}" required />
                 </div>
                 <div class="form-group">
                     <label for="url">URL:</label>

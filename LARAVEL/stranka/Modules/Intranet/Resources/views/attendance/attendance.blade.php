@@ -59,7 +59,10 @@
 				<span style="background-color: {{ $a->farba }};">{{ $a->nazov }}</span>
 			</label>
 		@endforeach
+		
+		<button class="btn btn-success pull-right" id="PDF">Generate PDF</button>
 	</div>
+	<label class="checkbox-inline"><input type="checkbox" id="overwrite" >AllowOverwrite</label>
 	<hr>
 	<div class="row">
 		<div class="col-md-12">
@@ -136,8 +139,23 @@
 		});
 	});
 
+	$('#PDF').on('click', function(){
+		var data = { 'table' : $('#rdata').html(), 'year' : year, 'month' : month };
+		$.ajax({
+			url : '{{ url("/attendance-pdf-admin-ajax") }}',
+			data : data,
+			type : "POST",
+			headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+		}).done(function(data){
+			window.location = '{{ url("/attendance-pdf-download") }}'
+		});
+	});
+
 	$(function () {
 		var isMouseDown = false;
+		
 		$("#attendance td")
 			.mousedown(function () {
 				var staff = $(this).parent().attr('id');
@@ -153,13 +171,26 @@
 					'type'	: type
 				};
 				isMouseDown = true;
-				if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
-					if($(this).data('dateDay')){
-						$(this).empty()
-						$(this).removeClass();
-						$(this).append($('input[name=absence]:checked').val());
-						$(this).toggleClass($('input[name=absence]:checked').val().toLowerCase());
-						sendData(data);
+				if($('#overwrite').is(':checked')) {
+					if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
+						console.log($(this).text().length);
+						if($(this).data('dateDay')){
+							$(this).empty()
+							$(this).removeClass();
+							$(this).append($('input[name=absence]:checked').val());
+							$(this).toggleClass($('input[name=absence]:checked').val().toLowerCase());
+							sendData(data);
+						}
+					}
+				}else{
+					if($(this).text().length == 0){
+						if($(this).data('dateDay')){
+							$(this).empty()
+							$(this).removeClass();
+							$(this).append($('input[name=absence]:checked').val());
+							$(this).toggleClass($('input[name=absence]:checked').val().toLowerCase());
+							sendData(data);
+						}
 					}
 				}
 				return false;
@@ -178,13 +209,26 @@
 						'day'	: day,
 						'type'	: type
 					};
-					if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
-						if($(this).data('dateDay')){
-							$(this).empty();
-							$(this).removeClass();
-							$(this).append($('input[name=absence]:checked').val());  
-							$(this).toggleClass($('input[name=absence]:checked').val().toLowerCase());
-							sendData(data);
+					if($('#overwrite').is(':checked')) {
+						if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
+							console.log($(this).text().length);
+							if($(this).data('dateDay')){
+								$(this).empty()
+								$(this).removeClass();
+								$(this).append($('input[name=absence]:checked').val());
+								$(this).toggleClass($('input[name=absence]:checked').val().toLowerCase());
+								sendData(data);
+							}
+						}
+					}else{
+						if($(this).text().length == 0){
+							if($(this).data('dateDay')){
+								$(this).empty()
+								$(this).removeClass();
+								$(this).append($('input[name=absence]:checked').val());
+								$(this).toggleClass($('input[name=absence]:checked').val().toLowerCase());
+								sendData(data);
+							}
 						}
 					}
 				}

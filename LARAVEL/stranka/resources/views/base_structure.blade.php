@@ -7,7 +7,7 @@
 		<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ URL::asset('css/eb_general.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">    
-
+        <link rel="shortcut icon" href="http://uamt.fei.stuba.sk/web/misc/favicon.ico" type="image/vnd.microsoft.icon" />
 
 		<script src="{{ URL::asset('js/jquery.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
@@ -112,7 +112,7 @@
                             <li><a href="{{ url('/videos') }}" class="navbarItem">Videá</a></li>
                             <li><a href="{{ url('/media') }}" class="navbarItem">Média</a></li>
                             <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Naše témetické web stránky <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown">Naše tématické web stránky <b class="caret"></b></a>
                                 <ul class="dropdown-menu submenuItem2 navbarItem" >
                                     <li><a href="http://www.e-mobilita.fei.stuba.sk/" >Elektromobilita</a></li>
                                 </ul>

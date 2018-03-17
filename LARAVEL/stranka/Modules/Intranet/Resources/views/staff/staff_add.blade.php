@@ -19,7 +19,6 @@
                     <a href="{{ url('/staff-admin') }}" class="btn btn-primary btn-back"> Späť </a>
                 </div>
                 <h2>Pridanie nového zamestnanca</h2>
-                <h3>TODO: premenovat db IDcka</h3>
             </div>
         </div>       
         <form action="{{ url('/staff-admin-add-action') }}" method="post" enctype="multipart/form-data">

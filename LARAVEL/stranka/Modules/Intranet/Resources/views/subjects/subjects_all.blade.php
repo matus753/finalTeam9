@@ -45,8 +45,8 @@
                                 <td>{{ $subject->abbrev }}</td>
                                 <td>{{ $s->name_sk }}</td>
                                 <td>
-                                    <a href="{{ url('/subjects-admin-edit-item/'.$subject->sub_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil fa-2x" ></span></a>
-                                    <a href="{{ url('/subjects-admin-delete-item/'.$subject->sub_id) }}" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o fa-2x" ></span></a>
+                                    <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil fa-2x" ></span></a>
+                                    <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o fa-2x" ></span></a>
                                 </td>
                             </tr>
                         @endforeach

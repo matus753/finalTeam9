@@ -17,16 +17,17 @@ class Intranet_subjects extends Controller
 
     public function subjects_all(){
         $subjects = DB::table('subjects')->get();
+        $subjects = (!$subjects) ? [] : $subjects;
+
         foreach($subjects as $subject){
             $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
         }
 
         $data = [ 
-                'title' => $this->module_name, 
-                'subjects' => $subjects,
-            ];
+            'title' => $this->module_name, 
+            'subjects' => $subjects,
+        ];
 
-        //debug($data ,true);
         return view('intranet::subjects/subjects_all', $data);
     }
 
@@ -36,6 +37,10 @@ class Intranet_subjects extends Controller
         }
 
         $subject = DB::table('subjects')->where('sub_id', $sub_id)->first();
+        if(!$subject){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
+        }
+
         if(strlen($subject->hash_name) == 0){
             $hash_id = md5(uniqid());
             subjects_category_create_folder($hash_id);
@@ -64,6 +69,18 @@ class Intranet_subjects extends Controller
         $subject = $request->input('subject');
         $subject_id = $request->input('subject_id');
         
+        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
+        }
+
+        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 256){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
+        }
+
+        if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 128){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Internal server error!']);
+        }
+
         if(!subjects_create_folder($subject, $hash_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
@@ -78,11 +95,9 @@ class Intranet_subjects extends Controller
         ];
   
         $res = DB::table('subjects_subcategories')->insertGetId($data);
-
         if($res){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
-
         return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
@@ -91,6 +106,10 @@ class Intranet_subjects extends Controller
         $hash_id = $request->input('save_to');
         $subject = $request->input('category');
 
+        if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 128){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Internal server error!']);
+        }
+
         $valid = false;
         $allowed_types = explode(',', config('subjects_admin.img_types_allowed'));
         foreach($allowed_types as $at){
@@ -98,7 +117,7 @@ class Intranet_subjects extends Controller
                 $valid = true;
             }
         }
-        //debug($subject, true);
+        
         if($valid){
             if(subjects_create_folder($subject, $hash_id) && $image){
                 $data = [
@@ -109,16 +128,15 @@ class Intranet_subjects extends Controller
 
                 $image->store('/public/subjects/'.$subject.'/'.$hash_id);
                 $response->link = url('/storage/subjects/'.$subject.'/'.$hash_id.'/'.$image->hashName());
-                // TODO je treba do DB ????
                 DB::table('subjects_files')->insert($data);
                 return stripslashes(json_encode($response->link));
             }
             else{
-                echo json_encode('UPLOAD ERROR');
+                return response()->json(['error' => 'Bad request'], 400);
             }
         }
         else{
-            echo json_encode('UPLOAD ERROR');
+            return response()->json(['error' => 'Bad request'], 400);
         }
     }
 
@@ -127,6 +145,9 @@ class Intranet_subjects extends Controller
 
         foreach($files as $file){
             $hash_id = $request->input('save_to');
+            if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 128){
+                return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Internal server error!']);
+            }
             $category = $request->input('category');
         
             $valid = false;
@@ -144,17 +165,15 @@ class Intranet_subjects extends Controller
                         'hash_name' => $file->hashName(),
                         'file_name' => $file->getClientOriginalName()
                     ];
-                    $file->store('/public/subjects/'.$category.'/'.$hash_id);
-                    //$response->link = url('/storage/documents/'.$hash_name.'/'.$file->hashName());
-                    
+                    $file->store('/public/subjects/'.$category.'/'.$hash_id);        
                     DB::table('subjects_files')->insert($data);
                 }
                 else{
-                    echo json_encode('UPLOAD ERROR');
+                    return response()->json(['error' => 'Bad request'], 400);
                 }
             }
             else{
-                echo json_encode('UPLOAD ERROR');
+                return response()->json(['error' => 'Bad request'], 400);
             }
         }
     }
@@ -167,6 +186,25 @@ class Intranet_subjects extends Controller
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
+        $subjects_subcategories = DB::table('subjects_subcategories')->where('ss_id', $ss_id)->first();
+        if(!$subjects_subcategories){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $subject = DB::table('subjects')->where('sub_id', $subjects_subcategories->sub_id)->first();
+        $subject_files = DB::table('subjects_files')->where('hash_id', $subjects_subcategories->hash_name)->first();
+        $hash_id = $subject->hash_name;
+        $subject_files = (!$subject_files) ? [] : $subject_files;
+
+        $data = [
+            'title' => $this->module_name,
+            'subject' => $subject,
+            'item' => $subjects_subcategories,
+            'files' => $subject_files,
+            'hash_id' => $hash_id
+        ];
+ 
+        return view('intranet::subjects/subjects_edit_item', $data);
     }
 
 
@@ -183,8 +221,20 @@ class Intranet_subjects extends Controller
         $category = $request->input('subject');
         $category_id = $request->input('subject_id');
         
-        if(!documents_create_folder($category, $hash_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
+        }
+
+        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 256){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
+        }
+
+        if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 128){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Internal server error!']);
+        }
+
+        if(!subjects_create_folder($subject, $hash_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
 
         $data = [
@@ -204,18 +254,25 @@ class Intranet_subjects extends Controller
     //////////////////////// DELETE ///////////////////////////////
     ///////////////////////////////////////////////////////////////
 
-    public function subjects_delete_single_action($d_id = 0){
-        if(!is_numeric($d_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+    public function subjects_delete_single_action($ss_id = 0){
+        if(!is_numeric($ss_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
-        $item = DB::table('documents')->where('d_id', $d_id)->first();
-        $parent = DB::table('documents_categories')->where('dc_id', $item->dc_id)->first();
+        $item = DB::table('subjects_subcategories')->where('ss_id', $ss_id)->first();
+        if(!$item){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
 
-        $path = base_path('storage/app/public/documents/').$parent->hash_name.'/'.$item->hash_name;
-        $files = DB:: table('documents_files')->where('hash_id', $item->hash_name)->get();
+        $parent = DB::table('subjects')->where('sub_id', $item->sub_id)->first();
+        if(!$parent){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+        }
+
+        $path = base_path('storage/app/public/subjects/').$parent->hash_name.'/'.$item->hash_name;
+        $files = DB:: table('subjects_files')->where('hash_id', $item->hash_name)->get();
         foreach($files as $f){
-            $tmp = $path.'/'.$f->file_hash;
+            $tmp = $path.'/'.$f->hash_name;
             if(is_file($tmp)){
                 unlink($tmp);
             }
@@ -225,28 +282,38 @@ class Intranet_subjects extends Controller
         }
 
 
-        $res = (bool) DB::table('documents')->where('d_id', $d_id)->delete();
+        $res = (bool) DB::table('subjects_subcategories')->where('ss_id', $ss_id)->delete();
         if($res){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
         }
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
-    public function subjects_delete_single_file_action($df_id = 0){
-        if(!is_numeric($df_id)){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+    public function subjects_delete_single_file_action($sf_id = 0){
+        if(!is_numeric($sf_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
-        $file_db = DB::table('documents_files')->where('df_id', $df_id)->first();
-        $category_id = DB::table('documents')->where('hash_name', $file_db->hash_id)->select('dc_id')->first()->dc_id;
-        $category_hash = DB::table('documents_categories')->where('dc_id', $category_id)->first()->hash_name;
-        $path = base_path('storage/app/public/documents/').$category_hash.'/'.$file_db->hash_id.'/'.$file_db->file_hash;
-        //debug($path, true);
-        unlink($path);
 
-        $res = (bool)DB::table('documents_files')->where('df_id', $df_id)->delete();
+        $file_db = DB::table('subjects_files')->where('sf_id', $sf_id)->first();
+        if(!$file_db){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $sub_sub = DB::table('subjects_subcategories')->where('hash_name', $file_db->hash_id)->first();
+        if(!$sub_sub){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+        }
+        $subject_hash = DB::table('subjects')->where('sub_id', $sub_sub->sub_id)->first()->hash_name;
+        $path = base_path('storage/app/public/subjects/').$subject_hash.'/'.$file_db->hash_id.'/'.$file_db->hash_name;
+
+        if(is_file($path)){
+            unlink($path);
+        }
+
+        $res = (bool)DB::table('subjects_files')->where('sf_id', $sf_id)->delete();
         if($res){
             return redirect()->back()->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
         }
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 }

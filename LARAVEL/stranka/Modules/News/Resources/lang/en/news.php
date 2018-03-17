@@ -7,6 +7,7 @@ return [
     'notice' => 'Notice',
     'life' => 'Institute life',
     'all' => 'All',
+    'created' => 'Created',
     'expired' => 'Expired',
     'more' => 'Read more...',
     'no_news' => 'No news',

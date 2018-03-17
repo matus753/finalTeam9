@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Config\Repository;
 
 class Intranet_projects extends Controller
 {
@@ -22,10 +21,10 @@ class Intranet_projects extends Controller
         $all_projects = (!$all_projects) ? [] : $all_projects;
 
         $data = [ 
-                'title' => $this->module_name, 
-                'projects' => $all_projects,
-                'activation' => config('projects_admin.activation')
-            ];
+            'title' => $this->module_name, 
+            'projects' => $all_projects,
+            'activation' => config('projects_admin.activation')
+        ];
 
         return view('intranet::study/projects_all', $data);
     }
@@ -34,7 +33,7 @@ class Intranet_projects extends Controller
 
         $types = config('projects_admin.types');
         $staff = DB::table('staff')->get();
-
+        // TODO prepojenie so staff bootstrap chosen
         $data = [
             'title' => $this->module_name,
             'types' => $types,
@@ -45,8 +44,6 @@ class Intranet_projects extends Controller
     }
 
     public function projects_add_action( Request $request ){
-        // TODO REMOVE BAD STRING
-
         $type = $request->input('type');
         $number = $request->input('id_number');
         $titleEN = $request->input('title_en');
@@ -59,6 +56,42 @@ class Intranet_projects extends Controller
         $annotationEN = $request->input('annotationEN');
         $annotationSK = $request->input('annotationSK');
         
+        if(!is_string($type) || strlen($type) < 1 || strlen($type) > 128){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format type!']);
+        }
+
+        if(!is_string($number) || strlen($number) < 1 || strlen($number) > 32){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format number - max 32 characters!']);
+        }
+
+        if(!is_string($titleEN) || strlen($titleEN) < 1 || strlen($titleEN) > 512){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format english title - max 512 characters!']);
+        }
+
+        if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 512){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format slovak title - max 512 characters!']);
+        }
+
+        if(!is_string($duration) || strlen($duration) < 1 || strlen($duration) > 32){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format duration - max 32 characters!']);
+        }
+
+        if(!is_string($coordinator) || strlen($coordinator) < 1 || strlen($coordinator) > 128){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format coordinator - max 128 characters!']);
+        }
+
+        if(!is_string($partners) || strlen($partners) < 1 || strlen($partners) > 1024){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format partners - max 1024 characters!']);
+        }
+
+        if(!is_string($web) || strlen($web) < 1 || strlen($web) > 512){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format web link - max 512 characters!']);
+        }
+
+        if(!is_string($iCode) || strlen($iCode) < 1 || strlen($iCode) > 16){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format web link - max 16 characters!']);
+        }
+
 
         $data = [
             'projectType' => $type,
@@ -75,11 +108,9 @@ class Intranet_projects extends Controller
         ];
        
         $res = (bool) DB::table('project')->insert($data);
-        if($res){
-            return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
-        }
+        return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
 
-        return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        //return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
     public function projects_edit( $pr_id = 0 ){
@@ -88,6 +119,9 @@ class Intranet_projects extends Controller
         }
 
         $item = DB::table('project')->where('pr_id', $pr_id)->first();
+        if(!$item){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
+        }
         $types = config('projects_admin.types');
 
         $data = [
@@ -116,6 +150,41 @@ class Intranet_projects extends Controller
         $annotationEN = $request->input('annotationEN');
         $annotationSK = $request->input('annotationSK');
         
+        if(!is_string($type) || strlen($type) < 1 || strlen($type) > 128){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format type!']);
+        }
+
+        if(!is_string($number) || strlen($number) < 1 || strlen($number) > 32){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format number - max 32 characters!']);
+        }
+
+        if(!is_string($titleEN) || strlen($titleEN) < 1 || strlen($titleEN) > 512){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format english title - max 512 characters!']);
+        }
+
+        if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 512){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format slovak title - max 512 characters!']);
+        }
+
+        if(!is_string($duration) || strlen($duration) < 1 || strlen($duration) > 32){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format duration - max 32 characters!']);
+        }
+
+        if(!is_string($coordinator) || strlen($coordinator) < 1 || strlen($coordinator) > 128){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format coordinator - max 128 characters!']);
+        }
+
+        if(!is_string($partners) || strlen($partners) < 1 || strlen($partners) > 1024){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format partners - max 1024 characters!']);
+        }
+
+        if(!is_string($web) || strlen($web) < 1 || strlen($web) > 512){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format web link - max 512 characters!']);
+        }
+
+        if(!is_string($iCode) || strlen($iCode) < 1 || strlen($iCode) > 16){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format web link - max 16 characters!']);
+        }
 
         $data = [
             'projectType' => $type,
@@ -132,7 +201,6 @@ class Intranet_projects extends Controller
         ];
 
         $res = (bool) DB::table('project')->where('pr_id', $pr_id)->update($data);
-
         if($res){
             return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item edited successfuly!']);
         }
@@ -157,7 +225,6 @@ class Intranet_projects extends Controller
         if(!is_numeric($pr_id) || $pr_id == 0){
             return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
-        // ak je aktivne tak deaktivuj inak aktivuj
         $item = DB::table('project')->where('pr_id', $pr_id)->select('activated')->first();
 
         if($item->activated){

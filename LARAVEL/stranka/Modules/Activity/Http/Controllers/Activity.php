@@ -30,17 +30,21 @@ class Activity extends Controller
 			}
 		}
 
+		$photos_cats = (!$photos_cats) ? [] : $photos_cats;
+		$photos = [];
 		foreach($photos_cats as $p){
 			$tmp = DB::table('photos')->where('pg_id', $p->pg_id)->get();
 			$photos[] = [ $p->pg_id => $tmp ];
 		}
 		
+		$photos = (!$photos) ? [] : $photos;
+
 		$data = [
 			'title' => $module_name,
 			'categories' => $photos_cats,
 			'photos' => $photos
 		];
-		//debug($data, true);
+
         return view('activity::photos', $data);
     }
 	
@@ -55,6 +59,7 @@ class Activity extends Controller
             $videos_db_cats = DB::table('video_gallery')->select('type_en as type')->groupBy('type_en')->get();
         }
 
+		$videos_db_cats = (!$videos_db_cats) ? [] : $videos_db_cats;
 
 		$data = [
 			'title' => $module_name,
@@ -65,8 +70,11 @@ class Activity extends Controller
 
 	public function ajax_get_videos_by_type( Request $request ){
 		$filter = $request->input('category');
-		
-		$videos_db = null;
+
+		if(!is_string($filter)){
+			return redirect('/videos')->with('err_code', ['type' => 'warning', 'msg' => 'Filter bad format!']);
+		}
+
 		$locale = session()->get('locale');
 		
 		if($filter == 'all'){
@@ -82,27 +90,35 @@ class Activity extends Controller
 				$videos_db = DB::table('video_gallery')->select('title_EN as title', 'url', 'type_en as type')->where('type_en', $filter)->get();
 			}
 		}
+
+		$videos_db = (!$videos_db) ? [] : $videos_db;
+
+
 		return json_encode($videos_db);
 	}
 	
     public function media()
     {
-		// TO DO MULTILANG
 		$module_name = config('activity.name');
 		
 		$media_db = DB::table('media')->get();
 
-		foreach($media_db as $m){
-			$files = DB::table('media_files')->where('m_id', $m->m_id)->get();
-			$files = (!$files) ? [] : $files;
-			$m->files['files'] = $files;
+		if($media_db){
+			$media_db = (!$media_db) ? [] : $media_db;
+			foreach($media_db as $m){
+				$files = DB::table('media_files')->where('m_id', $m->m_id)->get();
+				$files = (!$files) ? [] : $files;
+				$m->files['files'] = $files;
+			}
+		}else{
+			return redirect('/')->with('err_code', ['type' => 'dan', 'msg' => 'Filter bad format!']);
 		}
 
 		$data = [
 			'title' => $module_name,
 			'media' => $media_db
 		];
-		//debug($data['media'][0]->files,true);
+
         return view('activity::media', $data);
     }
 

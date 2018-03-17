@@ -65,8 +65,9 @@ class Staff extends Controller
 	
 	public function getStaffById( $id = 0 ){
 		if(!is_numeric($id)){
-			return false;
+			return redirect('/staff')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
 		}
+
 		$module_name = config('staff.name');
 		$activation = config('staff_admin.activation');
 		if($activation){
@@ -76,11 +77,11 @@ class Staff extends Controller
 		}
 		
 		if($ais){
-			/*$ais_id = null;
-			if($ais->ldapLogin){
+			$ais_id = null;
+			if($ais->ldapLogin && is_string($ais->ldapLogin) && strlen($ais->ldapLogin) > 0){
 				$ais_id = $this->getAisId($ais->ldapLogin);
-			}*/
-			$ais_id = "lala";
+			}
+	
 			$data = [
 				'title' => $module_name,
 				'ais' => $ais,
@@ -89,9 +90,9 @@ class Staff extends Controller
 			
 			return view('staff::getstaffbyid', $data);
 		}else{
-			return redirect('/');
+			return redirect('/staff')->with('err_code', ['type' => 'warning', 'msg' => 'Item does not exists!']);
 		}
-		return redirect('/');
+		return redirect('/staff')->with('err_code', ['type' => 'error', 'msg' => 'Internal error!']);
 	}
 	
 	private function getAisId( $ais_login = '' ){
@@ -172,8 +173,6 @@ class Staff extends Controller
 				}
 			}
 		}
-		
-		//debug($data);
 		
 		return json_encode($data);
 	}

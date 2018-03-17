@@ -17,6 +17,7 @@ class Intranet_events extends Controller
 
     public function events_all(){
         $all_events = DB::table('events')->get();
+        $all_events = (!$all_events) ? [] : $all_events;
 
         $data = [ 
                 'title' => $this->module_name, 
@@ -42,41 +43,63 @@ class Intranet_events extends Controller
         $place = $request->input('place');
         $time = $request->input('time');
         $date = $request->input('date');
-        $type = $request->input('type');
         $url = $request->input('link');
 
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
-        $link = null;
-
-        $parsed = parse_url($url);
-        if (empty($parsed['scheme'])) {
-            $url = 'http://'.ltrim($url, '/');
+        
+        if(!is_string($name_sk) || strlen($name_sk) < 1 || strlen($name_sk) > 128){
+            return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 128 characters!']);
         }
-        if( isset($url) && !empty($url) ){
-            $link = $url;
-        }else{
-            return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
-        }
-        //debug($link, true);
-        /*if($file) {
-            $allowed_types = explode(',', config('events_admin.events_allowed_types'));
 
-            $valid = false;
-            foreach($allowed_types as $a){
-                if($a == explode('.', $file->hashName())[1]){
-                    $valid = true;
-                }
+        if(!is_string($name_en) || strlen($name_en) < 1 || strlen($name_en) > 128){
+            return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 128 characters!']);
+        }
+
+        if($request->filled('sk_text')){
+            if(!is_string($text_sk) || strlen($text_sk) < 1 || strlen($text_sk) > 65535){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Text SK max 65535 characters!']);
             }
-            
-            if($valid == false){
-                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
-            }  
-            $file->store('/public/events/');
-            $file_name = $file->hashName();
         }else{
-            $file_name = null;
-        }*/
-            
+            $text_sk = null;
+        }
+        
+
+        if($request->filled('en_text')){
+            if(!is_string($text_en) || strlen($text_en) < 1 || strlen($text_en) > 65535){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Text EN max 65535 characters!']);
+            }
+        }else{
+            $text_en = null;
+        }
+
+        if($request->filled('place')){
+            if(!is_string($place) || strlen($place) < 1 || strlen($place) > 64){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Place max 64 characters!']);
+            }
+        }else{
+            $place = null;
+        }
+
+        if($request->filled('time')){
+            if(!is_string($time) || strlen($time) < 1 || strlen($time) > 16){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Place max 16 characters!']);
+            }
+        }else{
+            $time = null;
+        }
+
+        if($request->filled('url')){
+            if(!is_string($url) || strlen($url) < 1 || strlen($url) > 512){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Place max 16 characters!']);
+            }
+            $parsed = parse_url($url);
+            if (empty($parsed['scheme'])) {
+                $url = 'http://'.ltrim($url, '/');
+            }
+        }else{
+            $url = null;
+        }
+
         $data = [
             'name_sk' => $name_sk,
             'name_en' => $name_en,
@@ -85,7 +108,7 @@ class Intranet_events extends Controller
             'place' => $place,
             'time' => $time,
             'date' => $date,
-            'url' => $link
+            'url' => $url
         ];
     
         
@@ -102,6 +125,9 @@ class Intranet_events extends Controller
         }
 
         $events = DB::table('events')->where('e_id', $e_id)->first();
+        if(!$events){
+            return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
 
         $data = [
             'events' => $events,
@@ -123,11 +149,62 @@ class Intranet_events extends Controller
         $place = $request->input('place');
         $time = $request->input('time');
         $date = $request->input('date');
-        $type = $request->input('type');
         $url = $request->input('link');
-        $file = $request->file('file');
 
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
+        
+        if(!is_string($name_sk) || strlen($name_sk) < 1 || strlen($name_sk) > 128){
+            return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 128 characters!']);
+        }
+
+        if(!is_string($name_en) || strlen($name_en) < 1 || strlen($name_en) > 128){
+            return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 128 characters!']);
+        }
+
+        if($request->filled('sk_text')){
+            if(!is_string($text_sk) || strlen($text_sk) < 1 || strlen($text_sk) > 65535){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Text SK max 65535 characters!']);
+            }
+        }else{
+            $text_sk = null;
+        }
+        
+
+        if($request->filled('en_text')){
+            if(!is_string($text_en) || strlen($text_en) < 1 || strlen($text_en) > 65535){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Text EN max 65535 characters!']);
+            }
+        }else{
+            $text_en = null;
+        }
+
+        if($request->filled('place')){
+            if(!is_string($place) || strlen($place) < 1 || strlen($place) > 64){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Place max 64 characters!']);
+            }
+        }else{
+            $place = null;
+        }
+
+        if($request->filled('time')){
+            if(!is_string($time) || strlen($time) < 1 || strlen($time) > 16){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Place max 16 characters!']);
+            }
+        }else{
+            $time = null;
+        }
+
+        if($request->filled('url')){
+            if(!is_string($url) || strlen($url) < 1 || strlen($url) > 512){
+                return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Place max 16 characters!']);
+            }
+            $parsed = parse_url($url);
+            if (empty($parsed['scheme'])) {
+                $url = 'http://'.ltrim($url, '/');
+            }
+        }else{
+            $url = null;
+        }
         
         $data = [
             'name_sk' => $name_sk,
@@ -139,45 +216,8 @@ class Intranet_events extends Controller
             'date' => $date,
         ];
 
-        
-        $link = null;
-
-        $parsed = parse_url($url);
-        if (empty($parsed['scheme'])) {
-            $url = 'http://'.ltrim($url, '/');
-        }
-        if( isset($url) && !empty($url) ){
-            $link = $url;
-            $data['url'] = $link ;
-        }else{
-            return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'URL not defined!']);
-        }
-       
-        if($file){
-            $allowed_types = explode(',', config('events_admin.events_allowed_types'));
-
-            $valid = false;
-            foreach($allowed_types as $a){
-                if($a == explode('.', $file->hashName())[1]){
-                    $valid = true;
-                }
-            }
-
-            if($valid){
-                $data['image'] = $file->hashName();
-            }
-        }
-       
-        if($file){
-            $file_to_delete = DB::table('events')->where('e_id', $e_id)->first();
-            $path = base_path('storage/app/public/events/');
-            unlink($path.$file_to_delete->hash_name);
-            
-
-        }
 
         $event_id = DB::table('events')->where('e_id', $e_id )->update($data);
-        
         if($event_id){
             return redirect('/events-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly added!']);
         }
@@ -190,10 +230,6 @@ class Intranet_events extends Controller
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
         
-        $path = base_path('storage/app/public/events/');
-        
-        $res = DB::table('events')->where('e_id', $e_id)->first();
-    
         $res = (bool) DB::table('events')->where('e_id', $e_id)->delete();
 
         if($res){

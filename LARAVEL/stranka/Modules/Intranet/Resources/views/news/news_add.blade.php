@@ -48,6 +48,9 @@
                 processData: false,
                 success: function(url) {
                     $(editor).summernote("insertImage", JSON.parse(url));
+                },
+                error:function(request, status, error){
+                    console.log(error);
                 }
             }); 
         }
@@ -146,20 +149,20 @@
                         <textarea class="form-control" rows="5" id="en-editor"  name="editor_content_en"></textarea>
                     </div>
                     <div class="form-group">
-                    <label for="image">Ukážkový obrázok:</label>
-                    <input type="file"  id="image" name="image" />
-                </div>
-                    <span style="color:red">dat upload suborov?</span>
+                        <label for="image">Ukážkový obrázok:</label>
+                        <input type="file"  id="image" name="image" />
+                    </div>
+                    TODO dropzone
                     <div class="form-group">
                         <label for="add_files">Ďalšie súbory:</label>
                         <input type="file" id="add_files" name="add_files[]" multiple />
                     </div>
-                 </div>
                 </div>
-                <div class="row text-center">
-                    <input type="submit" class="btn btn-success" value="Pridať aktualitu" />
-                </div>
-            </form>
-		</div>
-	</div>
+            </div>
+            <div class="row text-center">
+                <input type="submit" class="btn btn-success" value="Pridať aktualitu" />
+            </div>
+        </form>
+    </div>
+</div>
 @stop

@@ -20,10 +20,14 @@ class Login extends Controller
     }
 
 	public function login_action( Request $request ){
-		#!!!!!!!!!!! TO DO REMOVE BAD STRING
+
 		$login = $request->input('name');
 		$password = $request->input('pass');
 		
+		if(!is_string($login) || strlen($login) == 0 || !is_string($password) || strlen($password) == 0 ){
+			return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Bad login parameters!']);
+		}
+
 		$in_table = DB::table('staff')->where('ldapLogin', $login)->first();
 		
 		if($in_table == null){
@@ -64,13 +68,19 @@ class Login extends Controller
 				return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Authentification failed!']);
 			}
 			
-			$log = $in_table->id."/".$in_table->name."+".$in_table->surname;
+			$id = $in_table->id;
+			$check = sha1(md5($in_table->name.$in_table->surname).$in_table->surname);
 			$role = $in_table->role;
+
+			$role = (!$role) ? [] : $role;
+
 			$user = [
-				'logged' => $log,
-				'role' => $role
+				'id' => $id,
+				'logged' => true,
+				'role' => $role,
+				'check' => $check,
 			];
-			//session()->forget('error');
+
 			session()->put('user', $user);
 			return redirect('/login')->with('err_code', ['type' => 'success', 'msg' => 'Authentification success!']);
 		}

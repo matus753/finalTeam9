@@ -190,7 +190,7 @@
 				dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
 				weekHeader: 'Ty',
 				dateFormat: 'dd.mm.yy',
-				firstDay: 0,             
+				firstDay: 1,             
 				isRTL: false,
 				showMonthAfterYear: false,
 				yearSuffix: '',
@@ -204,14 +204,14 @@
 		  		@endforeach
 			];
 
-			
-
 			$.datepicker.setDefaults($.datepicker.regional['sk']);
 		    $( "#datepicker" ).datepicker({
 				numberOfMonths: 1,
-				dateFormat: 'mm.dd.yy',
+				dateFormat: 'dd.mm.yy',
+				showOtherMonths : false,
 				beforeShowDay: function (date) {
-					var m = date.getMonth() + 1, 
+					
+					var m = date.getMonth()+1, 
 						d = date.getDate(), 
 						y = date.getFullYear();
 					var a = d+"."+m+"."+y; 	
@@ -219,8 +219,9 @@
 					var returnedData = $.grep(datavalues, function (element, index) {
 						return element['date'] == a;
 					});
-
+					
 					if(returnedData.length > 0){
+			
 						var title = "";
 						for(let i = 0; i <  returnedData.length; i++){
 							title += returnedData[i]['date']+" : "+returnedData[i]['title']+"\n\n";
@@ -229,9 +230,11 @@
 						return [ true, "hp-events__day", title ];
 					}else{
 						return [false, '', ""];
-					}				
+					}
+					
 				},
 		    });
+			
 		});
 	</script>
 @stop
