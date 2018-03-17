@@ -19,10 +19,10 @@ class Intranet_videos extends Controller
     public function videos_all(){
 
         $locale = session()->get('locale');
-        if($locale == 'sk') {
+        if($locale == 'sk'){
             $videos = DB::table('video_gallery')->select('v_id', 'title_SK as title', 'type_sk as type')->get();
-        } else {
-            $videos = DB::table('video_gallery')->select('v_id', 'title_EN as title','type_en as type')->get();
+        }else{
+            $videos = DB::table('video_gallery')->select('v_id', 'title_EN as title', 'type_en as type')->get();
         }
 
         $videos = (!$videos) ? [] : $videos;

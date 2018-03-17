@@ -74,9 +74,9 @@
 								<th>Meno</th>
 								@for($i = 1; $i < $num_days+1; $i++ )
 									@if(date('N',strtotime($curr_year.'-'.$curr_month.'-'.$i)) >= 6)
-										<th style="background-color: lightgray;">{{ $i }}</th>
+										<th style="background-color: lightgray;" class="fixed">{{ $i }}</th>
 									@else
-										<th>{{ $i }}</th>
+										<th class="fixed">{{ $i }}</th>
 									@endif
 								@endfor
 							</tr>

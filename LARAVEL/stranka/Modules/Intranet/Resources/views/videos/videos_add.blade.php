@@ -22,7 +22,7 @@
                         <a href="{{ url('/photos-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
-                        <h3>Vytvorenie galerie</h3>
+                        <h3>Pridanie Videa</h3>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     <input type="text" class="form-control" id="url" name="url" placeholder="url" required />
                 </div>
                 <div class="form-group">
-                    <label for="date">Datum:</label>
+                    <label for="date">Dátum:</label>
                     <input type="date" class="form-control" id="date" name="date" placeholder="date" required />
                 </div>
                
