@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Hostiteľ: localhost
--- Čas generovania: Ne 11.Mar 2018, 20:28
+-- Čas generovania: So 17.Mar 2018, 17:40
 -- Verzia serveru: 10.0.34-MariaDB-0ubuntu0.16.04.1
 -- Verzia PHP: 7.0.25-0ubuntu0.16.04.1
 
@@ -108,12 +108,12 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`e_id`, `name_sk`, `name_en`, `text_sk`, `text_en`, `url`, `place`, `date`, `time`) VALUES
-(2, 'fasdfasd', 'fasdfasdfasdfasdf', 'fdfasdfasfdasfsa', 'dfasdfsadfs', 'http://www.google.com', 'fasdfasdfsad', 1519801728, '15:45'),
 (3, 'Fakultná prehliadka prác ŠVOČ', 'Fakultná prehliadka prác ŠVOČ', 'Tu je nejaký popis k udalosti. Môže byť dlhší/kratší ...', 'This is ...', '', 'FEI', 1524009600, '8:00'),
 (4, 'Veľký piatok', NULL, NULL, NULL, 'http://www.gmail.com', NULL, 1522368000, NULL),
 (5, 'Deň pracovného pokoja', 'Day', NULL, NULL, '', NULL, 1525737600, NULL),
 (6, 'Veľkonočný pondelok', NULL, NULL, NULL, '', NULL, 1522627200, NULL),
-(7, 'Deň pracovného pokoja', NULL, 'Deň pracovného pokoja', NULL, '', NULL, 1525132800, NULL);
+(7, 'Deň pracovného pokoja', NULL, 'Deň pracovného pokoja', NULL, '', NULL, 1525132800, NULL),
+(8, 'gdsfgsdfgs', 'gfsdgfsdf', 'gsdfgsd', 'fgsdfgsdf', 'http://', 'dfasdf', 1522368000, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,11 +124,11 @@ INSERT INTO `events` (`e_id`, `name_sk`, `name_en`, `text_sk`, `text_en`, `url`,
 CREATE TABLE `media` (
   `m_id` int(11) NOT NULL,
   `date` int(11) NOT NULL DEFAULT '0',
-  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `media` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_slovak_ci DEFAULT NULL,
-  `title_EN` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `title` varchar(256) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `media` varchar(128) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `type` varchar(128) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `url` varchar(512) CHARACTER SET utf8 COLLATE utf8_slovak_ci DEFAULT NULL,
+  `title_EN` varchar(256) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
   `activated` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -137,14 +137,8 @@ CREATE TABLE `media` (
 --
 
 INSERT INTO `media` (`m_id`, `date`, `title`, `media`, `type`, `url`, `title_EN`, `activated`) VALUES
-(35, 1517574124, 'test files', 'test files', 'server', NULL, 'test files', 0),
-(36, 1517574150, 'test url', 'test url', 'link', 'www.google.com', 'test url', 0),
-(37, 1517574172, 'test both', 'test both', 'both', 'www.google.com', 'test both', 0),
-(38, 1517576250, 'test bad url', 'test bad url', 'link', 'www.google.com', 'test bad url', 0),
-(39, 1517576329, 'fsdafsa', 'dfasdfas', 'link', 'www.google.com', 'dfasdfas', 0),
-(40, 1517576429, 'fsadfsad', 'fsadfsadfas', 'link', 'http://www.google.com', 'dsfsadfas', 0),
-(41, 1517582317, 'fasdfas', 'dafsadfsadf', 'server', NULL, 'asdfasdfsadf', 0),
-(42, 1517582332, 'dfasdfasdfas', 'fdfdfdfd', 'server', NULL, 'dfsdfsdfsdfs', 0);
+(1, 1521136575, 'test', 'test', 'link', 'http://google.com', 'test', 0),
+(2, 1521136845, 'fdsaf', 'sdfrewf', 'server', NULL, 'dfsfsdfs', 0);
 
 -- --------------------------------------------------------
 
@@ -164,12 +158,7 @@ CREATE TABLE `media_files` (
 --
 
 INSERT INTO `media_files` (`mf_id`, `m_id`, `file_name`, `hash_name`) VALUES
-(28, 35, 'test2.jpg', 'ciBNG7Wg0j7j2qKygVK6CzZdIFnRGIFKWiEYu3qU.jpeg'),
-(29, 35, 'water.jpg', 'GoPQ96aDoSH446QNTkHM30cCuOeVAcfUzXvvX038.jpeg'),
-(30, 37, 'banana.jpg', '8gHQgysawrEnB6U7C1YG1egONMPwNg2ITygMv5q1.jpeg'),
-(31, 37, 'path.jpg', 'MvfkUvTT6b7mf54HuUx2QqGAYIzdJ0BWv4WEE493.jpeg'),
-(32, 41, 'test2.jpg', 'kFqwy9wvJcomxcfjIm9qDKEGJY6qWyq0PGTFFv4u.jpeg'),
-(33, 42, 'monkey1.png', 'tK4wS367vkAC5ke4yiIHNRrDsZeKUguWOasHRb5V.png');
+(1, 2, 'success.docx', '6gUXqEgIJnCee1gjsvRFeWGScNpwoDfitn3llDHI.docx');
 
 -- --------------------------------------------------------
 
@@ -204,7 +193,22 @@ INSERT INTO `nepritomnosti` (`at_id`, `id_zamestnanca`, `id_typu`, `rok`, `mesia
 (522, 9, 1, 2018, 1, 14),
 (523, 10, 1, 2018, 1, 14),
 (524, 11, 1, 2018, 1, 14),
-(525, 12, 1, 2018, 1, 14);
+(525, 12, 1, 2018, 1, 14),
+(526, 1, 1, 2018, 3, 5),
+(527, 1, 1, 2018, 3, 6),
+(528, 1, 1, 2018, 3, 7),
+(529, 1, 1, 2018, 3, 8),
+(530, 2, 1, 2018, 3, 5),
+(531, 2, 1, 2018, 3, 6),
+(532, 2, 1, 2018, 3, 7),
+(533, 2, 1, 2018, 3, 8),
+(534, 3, 1, 2018, 3, 8),
+(535, 3, 1, 2018, 3, 7),
+(536, 3, 1, 2018, 3, 6),
+(537, 2, 1, 2018, 3, 9),
+(538, 1, 1, 2018, 3, 9),
+(539, 3, 1, 2018, 3, 9),
+(540, 3, 1, 2018, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -213,7 +217,7 @@ INSERT INTO `nepritomnosti` (`at_id`, `id_zamestnanca`, `id_typu`, `rok`, `mesia
 --
 
 CREATE TABLE `news` (
-  `id` int(11) NOT NULL,
+  `n_id` int(11) NOT NULL,
   `hash_id` varchar(32) NOT NULL,
   `title_en` varchar(256) CHARACTER SET ucs2 COLLATE ucs2_slovak_ci NOT NULL,
   `title_sk` varchar(256) CHARACTER SET ucs2 COLLATE ucs2_slovak_ci NOT NULL,
@@ -231,10 +235,8 @@ CREATE TABLE `news` (
 -- Sťahujem dáta pre tabuľku `news`
 --
 
-INSERT INTO `news` (`id`, `hash_id`, `title_en`, `title_sk`, `image_hash_name`, `preview_sk`, `preview_en`, `editor_content_sk`, `editor_content_en`, `date_created`, `date_expiration`, `type`) VALUES
-(13, '5a8f078aeb130', 'fasdfasdfas', 'fasdfsadfsd', '4esFpnICWHayHXTlezG8nvcyCkrdt3gckufgNXWQ.jpeg', 'dfasdfsadfas', 'fsadfasdf', '<p>dfasdfasdfasdfsadfasf</p>', NULL, 1519323389, 1519257600, 0),
-(22, '5a95692a76446', 'sdfnsajdnfsjkdfn', 'njdnfjasndfjanj', 'V1dKtKa7Erw4XglkFhxuDwHetySAtuvRsrqytM4q.jpeg', 'dfmnsdfaskjfsj', 'dsnfsjknfkjsdnkjfs', '<p>fasdfasdfasdfasf<img src="/storage/news/5a95692a76446/U5agRsfHJtYcP6dn71LI48U8aSou8mwTYAZfT5zj.png" style="width: 303px;"></p>', NULL, 1519741280, 1519741280, 0),
-(23, '5a9658ae53370', 'monin', 'asdfasdfasdfsafdasfs', 'GvDfKdn9dZYuhTub24OPnbPpnFGrZz3hJYUDSgbQ.jpeg', 'n', 'jnijnijn', '<p>osadmfomsaokdmfsa<b>fasdfsadfasdfas</b><img src="/storage/news/5a9658ae53370/RTvmy9RXyK1hEqXFHK9zNHg0Rmod4v7JnGCgMpnV.png" style="width: 669px;"></p>', NULL, 1519802591, 1519802591, 2);
+INSERT INTO `news` (`n_id`, `hash_id`, `title_en`, `title_sk`, `image_hash_name`, `preview_sk`, `preview_en`, `editor_content_sk`, `editor_content_en`, `date_created`, `date_expiration`, `type`) VALUES
+(2, 'd84a5242e480cd82ee659fc12ee46d83', 'sdfsdfs', 'dfsdfs', 'info.png', 'fsfsd', 'dfsdfsd', NULL, NULL, 1521301946, 1521301946, 0);
 
 -- --------------------------------------------------------
 
@@ -254,7 +256,10 @@ CREATE TABLE `newsletter` (
 
 INSERT INTO `newsletter` (`id`, `email`, `lang`) VALUES
 (17, 'michal.kocur@stuba.sk', 'SK'),
-(53, 'aaa@gggg.vvv', 'SK');
+(53, 'aaa@gggg.vvv', 'SK'),
+(58, 'fasdfas@dsfasd.com', 'EN'),
+(59, 'ffff@gds.com', 'SK'),
+(60, 'sadf@ggg.com', 'SK');
 
 -- --------------------------------------------------------
 
@@ -269,19 +274,6 @@ CREATE TABLE `news_dl_files` (
   `file_name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Sťahujem dáta pre tabuľku `news_dl_files`
---
-
-INSERT INTO `news_dl_files` (`nf_id`, `n_id`, `file_hash`, `file_name`) VALUES
-(10, 1, 'la2cZufNyyqe7NIDnTR7RZO7TIRfl9f2WmWs12US.jpeg', 'monkey.jpg'),
-(11, 1, 'nPORTnsw3VWILBz2qWbWAtKs30tAFQIcFcgVBxQw.png', 'monkey1.png'),
-(12, 1, '24PtSET961Cmh16RHveuCgsItsaL3DKTb0igwZjp.jpeg', 'path.jpg'),
-(13, 1, 'FFrBFvFGSjBlSoQR05X0bDkwP3Lrdn6J5cH9NGUw.jpeg', 'success.jpg'),
-(14, 1, 'KbcXAUgKr6yjWgmnBOkgnxAUMnVOP4kSP3FMqkXC.jpeg', 'test.jpg'),
-(16, 13, 'hDfmGfYIzaHOVRfcBXZLcG0sJFqjNHTQACFNaKIG.jpeg', 'test.jpg'),
-(17, 13, '4kQZRwl2sDC6V5YbddfKnTEVG2fwf8Kdpxps81FG.jpeg', 'test2.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -295,29 +287,6 @@ CREATE TABLE `photos` (
   `hash_name` varchar(128) NOT NULL,
   `date_added` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Sťahujem dáta pre tabuľku `photos`
---
-
-INSERT INTO `photos` (`p_id`, `pg_id`, `file_name`, `hash_name`, `date_added`) VALUES
-(17, 29, '13 Meranie 01_0.JPG', 'LjUiDnAoWo4OhI4zjlK49a53LnW9xYFbEd4NDVKK.jpeg', 1517944493),
-(18, 29, '2015-09-25-6460.jpg', 'dj4xNjOp204P9JwDOMiNExHqH31mwSv3GE4s06GB.jpeg', 1517944493),
-(19, 29, '2015-09-25-6465.jpg', 'aHs9FjkdXBN9qXel9jVL9knchkP7mh681jvQ3rJ8.jpeg', 1517944494),
-(20, 29, '2015-09-25-6470.jpg', 'dXz9IxRDgX2RuImdEbibRJlU6ACfNPZEs7D9BtHr.jpeg', 1517944494),
-(21, 29, '2015-09-25-6471.jpg', 'JdBqHoIU5gAOcrfbrSo1IibiM3LGlT1h1SyhFFtT.jpeg', 1517944494),
-(22, 29, '2015-09-25-6476.jpg', '3B1TAb5b8WAANjgfNDclWZ40CSXWqQw3dr4UxbhO.jpeg', 1517944494),
-(23, 29, '2015-09-25-6477.jpg', 'ZbuF9on5MprL2DrGKfrEWiYCXG04CL9sh9rOKneg.jpeg', 1517944494),
-(24, 29, '2015-09-25-6483.jpg', 'bFW3RgqhJtm2qkxFHLbxuka7LTMc6BaRedk5xpCy.jpeg', 1517944494),
-(25, 29, '2015-09-25-6535.jpg', 'BIY3STljtbU6RN5TvNTF9yLWy6Qy0s80tDGkYAQb.jpeg', 1517944495),
-(26, 29, '2015-09-25-6557.jpg', 'p8sqHJ8rDnLXvmbOP3clhTeJ7K0fEQBAKfgot5NV.jpeg', 1517944495),
-(27, 29, '2015-09-25-6568.jpg', 'OiESwYwy9esJz5iGO3s2IdNT0Jw6PWm4ykVqgpzY.jpeg', 1517944495),
-(28, 28, '_MG_5627.JPG', 'q0n70NjfFdmgC2tjnO7FhHzK7ngwnpia8pcuHDtW.jpeg', 1517944518),
-(29, 28, '_MG_5635.JPG', 'HPGfmePjyP5iFjvve60Vp7PEgd5mzxsBNxO0ErDP.jpeg', 1517944518),
-(30, 28, '_MG_5674.JPG', 'aGrEbacRWSKnCugeMeMMklQ7NcWGkdbS5phAYZX8.jpeg', 1517944520),
-(31, 28, '_MG_5688.JPG', 'ZOcctbRL9cdlFkhV400scMQTdnlbiqy7MO3NBnfR.jpeg', 1517944520),
-(32, 28, '_MG_5728.JPG', 'YVdurCscVZlu3oI5Sw0AeV3Bx7pVQ5nJDKnoEyc6.jpeg', 1517944520),
-(33, 28, 'DSCN8589.JPG', 'owhmhJ8PdJ5QvPYORJqjq7Ff4bMTxHpB01JQUGQT.jpeg', 1517944520);
 
 -- --------------------------------------------------------
 
@@ -334,14 +303,6 @@ CREATE TABLE `photo_gallery` (
   `activated` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Sťahujem dáta pre tabuľku `photo_gallery`
---
-
-INSERT INTO `photo_gallery` (`pg_id`, `title_SK`, `title_EN`, `folder`, `date`, `activated`) VALUES
-(28, 'Deň otvorených dverí na ÚAMT FEI STU', 'Open day at UAMT FEI STU', '77c563ff2d64fe252c2b9b938b1f5b07', 1517938634, 1),
-(29, 'Noc výskumníkov', 'Night of researchers', 'a667b8cbcad152b2b1d2730e102f3727', 1517938727, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -350,17 +311,17 @@ INSERT INTO `photo_gallery` (`pg_id`, `title_SK`, `title_EN`, `folder`, `date`, 
 
 CREATE TABLE `project` (
   `pr_id` int(11) NOT NULL,
-  `projectType` varchar(100) COLLATE utf8_slovak_ci NOT NULL,
-  `number` varchar(30) COLLATE utf8_slovak_ci NOT NULL,
-  `titleSK` varchar(500) COLLATE utf8_slovak_ci NOT NULL,
-  `titleEN` varchar(500) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `duration` varchar(30) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `coordinator` varchar(150) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `partners` varchar(1000) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `web` varchar(500) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `internalCode` varchar(15) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `annotationSK` varchar(5000) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `annotationEN` varchar(5000) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `projectType` varchar(128) COLLATE utf8_slovak_ci NOT NULL,
+  `number` varchar(32) COLLATE utf8_slovak_ci NOT NULL,
+  `titleSK` varchar(512) COLLATE utf8_slovak_ci NOT NULL,
+  `titleEN` varchar(512) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `duration` varchar(32) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `coordinator` varchar(128) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `partners` varchar(1024) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `web` varchar(512) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `internalCode` varchar(16) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `annotationSK` mediumtext COLLATE utf8_slovak_ci,
+  `annotationEN` mediumtext COLLATE utf8_slovak_ci,
   `activated` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
@@ -370,7 +331,7 @@ CREATE TABLE `project` (
 
 INSERT INTO `project` (`pr_id`, `projectType`, `number`, `titleSK`, `titleEN`, `duration`, `coordinator`, `partners`, `web`, `internalCode`, `annotationSK`, `annotationEN`, `activated`) VALUES
 (1, 'VEGA', '1/0937/14 ', 'Pokročilé metódy nelineárneho modelovania a riadenia mechatronických systémov \r\n', 'Advanced methods for nonlinear modeling and control of mechatronic systems \r\n', '2014-2017', 'prof. Ing. Mikuláš Huba, PhD. ', '', NULL, '1425', 'Projekt sa zameriava na rozvoj metód nelineárneho riadenia a ich aplikácií. Zahrňuje metódy algebrického a diferenciálneho prístupu k návrhu nelineárnych systémov, riadenie časovo oneskorených (time delayed) systémov a systémov s obmedzeniami uvažovaných ako súčasť hybridných, autonómnych a inteligentných systémov, metódy simulácie, modelovania a automatizovaného návrhu s využitím podporných numerických a symbolických metód a programov. Venuje sa formulácii riešených problémov v rámci vnorených (embedded) systémov a PLC, spracovaniu signálov, zohľadneniu aspektov riadenia cez Internet, mobilné a rádiové siete, identifikácii a kompenzácii nelinearít, integrácii jednotlivých prístupov pri implementácii a fyzickej realizácii konkrétnych algoritmov a štruktúr riadenia. Pôjde najmä o riadenie mechatronických, robotických a ďalších systémov s dominantnými nelinearitami.', 'The project focuses on development of nonlinear control methods and their applications. It includes algebraic and differential approach to nonlinear control, control of time-delayed and constrained systems considered as a part of hybrid autonomous intelligent systems, simulations modeling and automatized design based on numeric and symbolic computer aided methods. It is dealing with formulation of solved problems within the embedded systems and PLCs, with signal processing, control via Internet, mobile and radio networks, with identification and compensation of nonlinearities, integration of particular approaches in implementing and physically accomplishing particular algorithms and structures. Thereby, one considers especially mechatronic and robotic systems and other systems with dominating nonlinear behavior.', 1),
-(2, 'VEGA', '1/0228/14', 'Modelovanie termohydraulických a napätostných pomerov vo vybraných komponentoch tlakovodných jadrových reaktorov ', 'Modelling of thermohydraulic and stress conditions in selected components of NPP with pressurized water reactor ', '2014-2016', 'doc. Ing. Vladimír Kutiš, PhD. ', '', '', '1435', 'Cieľom predkladaného projektu je tvorba matematických modelov vybraných komponentov jadrových zariadení tlakovodného jadrového reaktora ako sú palivová kazeta, aktívna zóna ako aj celý jadrový reaktor. Tieto komponenty budú analyzované z pohľadu termohydrauliky ako aj z pohľadu mechanického (napätostného) namáhania. Takto získané numerické výsledky budú konfrontované s dostupnými experimentálnymi údajmi daných zariadení, pričom cieľom má byť zvyšovanie bezpečnosti prevádzky týchto zariadení. Pri tvorbe jednotlivých matematických modelov budú použité moderné numerické metódy, ako sú Computational Fluid Dynamics (CFD) a Metóda Konečných Prvkov (MKP), ktoré sú implementované v programoch ANSYS CFX a ANSYS Multiphysics. Súčasťou predkladaného projektu bude realizácia prepojenia matematických modelov termohydrauliky a mechanického namáhania, ktoré bude realizované tak, aby jednotlivé fyzikálne domény boli priamo previazané. Výstupom projektu okrem matematických modelov budú aj vedecké a odborné články a príspevky.', 'The aim of this project is to create mathematical models of selected components of nuclear power plants like fuel assembly, the active zone as well as a nuclear reactor itself considering pressurized water reactor. These components will be analyzed in terms of thermo-hydraulics and mechanical point of view (stress loading). Obtained numerical results will be confronted with available experimental data to increase operational safety of these devices. In the process of developing the mathematical models modern numerical methods such as Computational Fluid Dynamics (CFD) and Finite Element Method (FEM) will be used. These methods are implemented in programs ANSYS CFX and ANSYS Multiphysics. The proposed project will interconnect the thermo-hydraulic and mechanical mathematical models, which will be implemented so that the individual physical domains were directly connected. The outcome of the project will be the mathematical models and also scientific and technical papers and conference contributions.', 1),
+(2, 'VEGA', '1/0228/14', 'Modelovanie termohydraulických a napätostných pomerov vo vybraných komponentoch tlakovodných jadrových reaktorov ', 'Modelling of thermohydraulic and stress conditions in selected components of NPP with pressurized water reactor ', '2014-2016', 'doc. Ing. Vladimír Kutiš, PhD. ', '', '', '1435', 'Cieľom predkladaného projektu je tvorba matematických modelov vybraných komponentov jadrových zariadení tlakovodného jadrového reaktora ako sú palivová kazeta, aktívna zóna ako aj celý jadrový reaktor. Tieto komponenty budú analyzované z pohľadu termohydrauliky ako aj z pohľadu mechanického (napätostného) namáhania. Takto získané numerické výsledky budú konfrontované s dostupnými experimentálnymi údajmi daných zariadení, pričom cieľom má byť zvyšovanie bezpečnosti prevádzky týchto zariadení. Pri tvorbe jednotlivých matematických modelov budú použité moderné numerické metódy, ako sú Computational Fluid Dynamics (CFD) a Metóda Konečných Prvkov (MKP), ktoré sú implementované v programoch ANSYS CFX a ANSYS Multiphysics. Súčasťou predkladaného projektu bude realizácia prepojenia matematických modelov termohydrauliky a mechanického namáhania, ktoré bude realizované tak, aby jednotlivé fyzikálne domény boli priamo previazané. Výstupom projektu okrem matematických modelov budú aj vedecké a odborné články a príspevky.', 'The aim of this project is to create mathematical models of selected components of nuclear power plants like fuel assembly, the active zone as well as a nuclear reactor itself considering pressurized water reactor. These components will be analyzed in terms of thermo-hydraulics and mechanical point of view (stress loading). Obtained numerical results will be confronted with available experimental data to increase operational safety of these devices. In the process of developing the mathematical models modern numerical methods such as Computational Fluid Dynamics (CFD) and Finite Element Method (FEM) will be used. These methods are implemented in programs ANSYS CFX and ANSYS Multiphysics. The proposed project will interconnect the thermo-hydraulic and mechanical mathematical models, which will be implemented so that the individual physical domains were directly connected. The outcome of the project will be the mathematical models and also scientific and technical papers and conference contributions.', 0),
 (3, 'VEGA', '1/0453/15', 'Výskum stiesneného krútenia uzatvorených prierezov ', 'Research of nonuniform torsion of cross-sections ', '2015-2017 ', 'prof. Ing. Justín Murín, DrSc. ', NULL, NULL, '1479', '"Podstatou projektu je skúmanie účinkov stiesneného krútenia v nosníkoch s uzatvoreným tenkostenným prierezom numerickými metódami ako aj experimentálnym meraním na fyzikálnych modeloch. Bude vytvorený nový 3D nosníkový konečný prvok so zahrnutím stiesneného krútenia uzatvorených prierezov, kde sa uplatní deformačný účinok sekundárneho krútiaceho momentu. Matica tuhosti a hmotnosti bude zostavená pre homogénny materiál ako aj pre kompozitné nosníky s pozdĺžnou premenlivosťou materiálových vlastností.\r\nOdvodené vzťahy a rovnice budú implementované do počítačového programu pre elastostatickú a modálnu analýzu s uvažovaním stiesneného krútenia. Bude navrhnuté a vyrobené meracie zariadenie, ktorým sa budú verifikovať výsledky teoretických výpočtov novým konečným prvkom. Predpokladá sa, že výsledky riešenia projektu prispejú ku zmene tvrdenia normy EC 3, podľa ktorej vplyv stiesneného krútenia možno pri nosníkoch uzatvoreného prierezu zanedbať. Výsledky nášho výskumu majú za cieľ zvýšiť bezpečnosť projektovania mechanických sústav."\r\n', 'The project aim is to examine the effects of non-uniform torsion in thin-walled beams with closed cross-section by numerical methods and experimental measurements on physical models. A 3D beam finite element will be created including the non-uniform torsion with the secondary torsion moment deformation effect. The stiffness and mass matrix will be prepared for a homogeneous material as well as for composite beams with longitudinal variation of material properties. Derived relations and equations will be implemented in the computer programs for elastic-static and modal analyses. Measurement equipment will be designed, by which the results of theoretical calculations by the new finite elements will be verified. It is expected that the results of the project will contribute to review the arguments of the Eurocode 3, according to which the effect of non-uniform torsion can be neglected in the closed cross-section beams. The results of the project are intended to enhance the safety of the beam structures design.\r\n', 1),
 (4, 'KEGA\r\n', '035STU-4/2014', 'Návrh virtuálneho laboratória pre implementáciu pokrocilých metodík výucby v novom študijnom programe Elektromobilita \r\n', 'Development of virtual laboratory for implementation of advanced methods of teaching in the new study program Electromobility \r\n', '2014-2016', 'prof. Ing. Viktor Ferencey, PhD. \r\n', '1709', '', NULL, '"Projekt je zameraný na vybudovanie moderného špecializovaného virtuálneho laboratória pre pripravovaný študijný program Elektromobilita. V projekte sú navrhnuté pokročilé metódy výučby, ktoré integrujú tvorivú implementáciu teoretických poznatkov priamo do virtuálneho modelovania a simulovania mechatronických systémov v inteligentných vozidlách s elektrickým pohonom, t.j. elektromobiloch.\r\nPre podporu špecializovaného vzdelávania a novú metodológiu v študijnom programe Elektromobilita bude v projekte spracovaná nová moderná študijná literatúra a vybudované Špecializované virtuálne laboratórium s inovatívnym vybavením pre teoretickú i praktickú výučbu predmetov v tomto študijnom programe. Všetky predmety programu Elektromobilita sú zamerané na virtuálne prototypovanie smart mechatronických systémov používaných v elektromobiloch s náväznosťou na nové systémy pohonu dopravných prostriedkov s využitím virtuálneho prototypovania.\r\nSúčasťou projektu bude spracovanie študijných materiálov, vedeckých monografií, tvorba inovatívnej web stránky, publikovanie v odborných časopisoch a účasť na vedeckých konferenciách. Špecializované virtuálne laboratórium bude vybavené mechatronickými učebnými modulmi pre výučbu a štúdium sofistikovaných technológií."\r\n', 'The project aim it to build a modern specialized virtual laboratory for prepared study program Electromobility. In this project, advanced teaching methods are proposed that integrate theoretical knowledge into practical application directly into mechatronic systems in vehicles with electric drive (electric vehicles). To promote specialized training and a new methodology in the study program Electromobility, the project will support processing of a new modern study literature and creating a dedicated virtual laboratory with innovative facilities for theoretical and practical training courses in this program of study. These courses aim at smart mechatronic systems used in electromobility systems with links to the new drive systems of vehicles using virtual prototyping. The project includes new study materials processing, writing scientific monographs, creating innovative websites, publications in peer-reviewed journals and participation in scientific conferences. Dedicated virtual laboratory will be equipped with educational mechatronic modules for teaching and learning sophisticated technology.\r\n', 1),
 (5, 'KEGA', '032STU-4/2013', 'Online laboratórium pre výucbu predmetov automatického riadenia \r\n', 'Online laboratory for teaching automation control subjects \r\n', '1.1.2013-31.12.2015', 'doc. Ing. Katarína Žáková, PhD. ', '', NULL, '1719', '"Projekt sa zameriava na tvorbu interaktívnych znovupoužiteľných vzdelávacích objektov pre zvolené segmenty teórie automatického riadenia, na budovanie širšej škály experimentov ilustrujúcich aplikáciu študovaných teoretických prístupov na riešenie praktických problémov, ktoré umožňujú a podporujú nadobúdanie vedomostí, zručností, návykov a postojov v kvázi-autentickom prostredí.\r\nProjekt má za cieľ podporovať využitie nielen proprietárnych, ale aj open technológií, ktoré prinášajú viaceré výhody v oblasti šírenia výsledkov a nesporne aj po finančnej stránke. Snahou je uľahčiť prístup k laboratórnym experimentom v rámci rôznych foriem vzdelávania (denných, dištančných, resp. elektronických foriem)."\r\n', '"The project is focussed on development of interactive reusable learning objects for chosen segments of automatic control, on building broader spectrum of experiments illustrating application of studied\r\ntheoretical approaches onto practical problems enabling and supporting acquisition of knowledge, skills, habits and attitudes in an quasi-authentic environment.\r\nThe project is going to support the use of not only proprietary but also open technologies that bring various advantages in the area of results dissemination and from the financial point of view as well. Our aim is to facilitate approach to laboratory experiments for students in daily or distance form of education."\r\n', 1),
@@ -460,7 +421,8 @@ INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`,
 (42, 'Admin', 'Admin', NULL, NULL, 'xdzacovsky', NULL, '', NULL, '', '', NULL, '', '', '', 1),
 (43, 'Laravel', 'Laravel', 'Prof.', 'PhD.', 'xtrocha', NULL, '456', '123', 'ABC', 'developer', 'develop', '', '', '', 1),
 (55, 'aaaa', 'aaa', 'aaaa', 'aaaa', 'xaaa', 'default_male_img.png', 'aaaa', 'aaaaa', 'AHU', 'doktorand', 'aaaaa', '', 'aaa@aaa', 'http://aaaa.com', 1),
-(56, 'bbb', 'bbbová', 'bbb', 'bbb', 'xss', 'default_female_img.png', 'bbb', 'bbbbbb', 'AHU', 'doktorand', 'bbb', '["admin"]', NULL, NULL, 1);
+(56, 'bbb', 'bbbová', 'bbb', 'bbb', 'xss', 'default_female_img.png', 'bbb', 'bbbbbb', 'AHU', 'doktorand', 'bbb', '["admin"]', NULL, NULL, 1),
+(58, 'fdsd', 'fdfdf', NULL, NULL, 'xfdsa', 'Oi9WYHban0dkvqdPjJketF172Is7J4XRIFTaosnI.jpeg', NULL, NULL, 'AHU', 'doktorand', NULL, '[]', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -470,8 +432,8 @@ INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`,
 
 CREATE TABLE `subjects` (
   `sub_id` int(11) NOT NULL,
-  `abbrev` varchar(20) COLLATE utf8_slovak_ci NOT NULL,
-  `title` varchar(500) COLLATE utf8_slovak_ci NOT NULL,
+  `abbrev` varchar(16) COLLATE utf8_slovak_ci NOT NULL,
+  `title` varchar(256) COLLATE utf8_slovak_ci NOT NULL,
   `hash_name` varchar(128) COLLATE utf8_slovak_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
@@ -505,7 +467,7 @@ INSERT INTO `subjects` (`sub_id`, `abbrev`, `title`, `hash_name`) VALUES
 (23, 'I-OSA', 'Osvetlovacie systémy automobilov', ''),
 (24, 'B-PLCM', 'PLC systémy v mechatronike', ''),
 (25, 'I-PHSMA', 'Pneumatické a hydraulické systémy v mechatronických aplikáciách', ''),
-(26, 'I-PSZE', 'Pohonné systémy  a zdroje v elektromobiloch', ''),
+(26, 'I-PSZE', 'Pohonné systémy  a zdroje v elektromobiloch', ''),
 (27, 'I-PMRMS', 'Pokročilé metódy riadenia mechatronických systémov', ''),
 (28, 'B-PROPA', 'Procesy pohybu automobilov', ''),
 (29, 'B-PASME', 'Prvky a systémy v mechatronike', ''),
@@ -552,19 +514,6 @@ CREATE TABLE `subjects_subcategories` (
   `text_sk` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Sťahujem dáta pre tabuľku `subjects_subcategories`
---
-
-INSERT INTO `subjects_subcategories` (`ss_id`, `sub_id`, `hash_name`, `name_sk`, `name_en`, `text_en`, `text_sk`) VALUES
-(2, 1, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'sddsd', 'sddssd', NULL, NULL),
-(3, 1, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'fgsdfgsd', 'gfsdfgds', '<p>fgsdfgsd</p>', NULL),
-(4, 2, '157f9ba36dd25159c9829cd1f12ebb36', 'sfdgsdf', 'dsfgsdfgs', NULL, NULL),
-(5, 3, 'b723af648c5a822be03eec592673651d', 'ffffvd', 'vvfds', NULL, NULL),
-(6, 2, '157f9ba36dd25159c9829cd1f12ebb36', 'dfbsdbsdbfsd', 'bfsdfbsdfbsdfbvdf', '<p>vsdfvsdfvsdfbsdfbsdfvdsfv</p>', NULL),
-(7, 3, 'b723af648c5a822be03eec592673651d', 'fd sf', 'fds sd', NULL, '<p>&nbsp;sdf sd</p>'),
-(8, 1, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'sdcs', 'cdscsdcs', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -597,11 +546,11 @@ INSERT INTO `typ_nepritomnosti` (`t_id`, `nazov`, `skratka`, `farba`) VALUES
 
 CREATE TABLE `video_gallery` (
   `v_id` int(11) NOT NULL,
-  `title_SK` varchar(100) COLLATE utf8_slovak_ci NOT NULL,
-  `title_EN` varchar(100) COLLATE utf8_slovak_ci NOT NULL,
-  `url` varchar(70) COLLATE utf8_slovak_ci NOT NULL,
-  `type_sk` varchar(20) COLLATE utf8_slovak_ci NOT NULL,
-  `type_en` varchar(20) COLLATE utf8_slovak_ci NOT NULL
+  `title_SK` varchar(256) COLLATE utf8_slovak_ci NOT NULL,
+  `title_EN` varchar(256) COLLATE utf8_slovak_ci NOT NULL,
+  `url` varchar(512) COLLATE utf8_slovak_ci NOT NULL,
+  `type_sk` varchar(64) COLLATE utf8_slovak_ci NOT NULL,
+  `type_en` varchar(64) COLLATE utf8_slovak_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 --
@@ -617,7 +566,8 @@ INSERT INTO `video_gallery` (`v_id`, `title_SK`, `title_EN`, `url`, `type_sk`, `
 (6, 'Inžinierska informatika v mechatronike - Ing. ŠP Aplikovaná mechatronika a elektromobilita ', 'Engineering informatics in mechatronics - Engineering SP Applied mechatronics and electromobility', 'CLwEjKN9ixg', 'Propagačné videá', 'Our facility'),
 (7, 'Ústav automobilovej mechatroniky FEI STU ', 'Department of automobile mechatronics FEI STU', 'IiNXYgbOKxw', 'Propagačné videá', 'Promotional videos'),
 (8, 'videjo', 'videjo in ingliš', '57BJvTZK6Vc', 'Naše laboratóriá', 'Our laboratories'),
-(9, 'FPFA', 'FPGA', 'xEkg96rcwsE', 'Predmety', 'Subjects');
+(9, 'FPFA', 'FPGA', 'xEkg96rcwsE', 'Predmety', 'Subjects'),
+(10, 'testeste', 'testewre', 'http://google.com', 'Naše laboratóriá', 'Our labs');
 
 --
 -- Kľúče pre exportované tabuľky
@@ -669,7 +619,7 @@ ALTER TABLE `nepritomnosti`
 -- Indexy pre tabuľku `news`
 --
 ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`n_id`);
 
 --
 -- Indexy pre tabuľku `newsletter`
@@ -761,47 +711,47 @@ ALTER TABLE `documents_files`
 -- AUTO_INCREMENT pre tabuľku `events`
 --
 ALTER TABLE `events`
-  MODIFY `e_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `e_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pre tabuľku `media`
 --
 ALTER TABLE `media`
-  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pre tabuľku `media_files`
 --
 ALTER TABLE `media_files`
-  MODIFY `mf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `mf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pre tabuľku `nepritomnosti`
 --
 ALTER TABLE `nepritomnosti`
-  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=526;
+  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=541;
 --
 -- AUTO_INCREMENT pre tabuľku `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pre tabuľku `newsletter`
 --
 ALTER TABLE `newsletter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT pre tabuľku `news_dl_files`
 --
 ALTER TABLE `news_dl_files`
-  MODIFY `nf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `nf_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `photo_gallery`
 --
 ALTER TABLE `photo_gallery`
-  MODIFY `pg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `pg_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `project`
 --
@@ -811,7 +761,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT pre tabuľku `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `s_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `s_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT pre tabuľku `subjects`
 --
@@ -821,12 +771,12 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT pre tabuľku `subjects_files`
 --
 ALTER TABLE `subjects_files`
-  MODIFY `sf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sf_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `subjects_subcategories`
 --
 ALTER TABLE `subjects_subcategories`
-  MODIFY `ss_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ss_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `typ_nepritomnosti`
 --
@@ -836,7 +786,7 @@ ALTER TABLE `typ_nepritomnosti`
 -- AUTO_INCREMENT pre tabuľku `video_gallery`
 --
 ALTER TABLE `video_gallery`
-  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
