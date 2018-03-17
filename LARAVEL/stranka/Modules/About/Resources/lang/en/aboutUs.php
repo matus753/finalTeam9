@@ -23,5 +23,15 @@ return [
 
     'oamm1' => 'The Department provides the teaching of subjects with a major emphasis on mechanics and mechatronic elements in the Bachelor\'s degree program. At the engineering level, it provides the teaching of subjects with emphasis on simulation and modeling of mechanical and mechatronic systems, both in terms of mechanics and dynamics, as well as from the point of view of multiphysical interconnection of individual physical domains.',
     'oamm2' => 'The members of the Department are devoted to formulating new mathematical procedures and methods used in multiphysical analyzes, for example in description of functionally grading materials (FGM), dynamic analysis of mechatronic and MEMS systems as well as a description of piezoelectric elements.',
-    'oamm3' => 'The members of the department use modern SW tools such as ANSYS, Catia and MSC.ADAMS to design, analyze and optimize individual components, as well as entire subsystems of mechatronic elements.'
+    'oamm3' => 'The members of the department use modern SW tools such as ANSYS, Catia and MSC.ADAMS to design, analyze and optimize individual components, as well as entire subsystems of mechatronic elements.',
+
+    'depOIKRTitle1' => 'Pedagogical and research activities of the Department are concentrated on the following areas',
+    'depOIKRT_li1' => 'modeling and advanced control methods for mechatronic systems (robust, predictive and optimal control in time and frequency domains)',
+    'depOIKRT_li2' => 'database and visualization systems, their application in  industry and environment',
+    'depOIKRT_li3' => 'modelling and control of mechatronic system using cosimulation',
+    'depOIKRT_li4' => 'virtual and mixed reality for Industry 4.0 applications',
+    'depOIKRT_li5' => 'modern mobile and web technologies for mechatronic systems',
+    'depOIKRT_li6' => 'development and implementation of new software architectures and communication systems for mechatronic applications',
+    'depOIKRT_li7' => 'applied research in remote control of mechatronic systems',
+    'depOIKRT_li8' => 'event systems control using PLC and developing HMI for these systems. '
 ];

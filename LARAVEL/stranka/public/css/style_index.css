@@ -74,8 +74,12 @@
 }
 
 #myCarousel .item {
-    height: 360px;
+    height: 30vh;
     background-size: cover;
+}
+
+.carousel-inner {
+    height: 30vh;
 }
 
 h4  {
@@ -158,5 +162,14 @@ h4  {
 @media screen and (min-width: 768px) {
     .carousel-caption {
         padding-bottom: 70px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #myCarousel .item {
+        height: 200px;
+    }
+    .carousel-inner {
+        height: 200px;
     }
 }

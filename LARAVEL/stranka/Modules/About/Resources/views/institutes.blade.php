@@ -32,17 +32,30 @@
         <!--Department 2 -->
         <div class="sectContent">
             <h4 class="ustavTitle" id="secH32">@lang('about::aboutUs.depOIKR')</h4>
-                <div class="sectText row col-lg-12">
-                    <div class="col-md-2">
-                        <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                        <p class="bold">@lang('about::aboutUs.depHead2'): </p>
-                    </div>
-                    <div class="col-md-10">
-                        <p>doc. Ing. Danica Rosinová, PhD.</p>
-                        <p>doc. Ing. Katarína Žáková, PhD.</p>
-                    </div>
+            <div class="sectText row col-lg-12">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead'): </p>
+                    <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                 </div>
-                <p class="sectText">@lang('about::aboutUs.later')</p>
+                <div class="col-md-10">
+                    <p>doc. Ing. Danica Rosinová, PhD.</p>
+                    <p>doc. Ing. Katarína Žáková, PhD.</p>
+                </div>
+            </div>
+            <h5>@lang('about::aboutUs.depOIKRTitle1')</h5>
+            <ul>                   
+                <li>@lang('about::aboutUs.depOIKRT_li1')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li2')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li3')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li4')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li5')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li6')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li7')</li>
+                <li>@lang('about::aboutUs.depOIKRT_li8')</li>
+            </ul>
+            <img src="images/oddelenia/OIKR1.png" alt="img">
+            <img src="images/oddelenia/OIKR2.jpg" alt="img">
+            <img src="images/oddelenia/OIKR3.png" alt="img">
         </div>
         <!--Department 3 -->
         <div class="sectContent">

@@ -20,3 +20,17 @@
     padding: 10px;
     font-weight: bold;
 }
+
+.sectContent h5 {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.sectContent ul {
+    margin-bottom: 40px;
+}
+.sectContent img {
+    max-height: 210px;
+    display: inline-block;
+    margin-bottom: 40px;
+}

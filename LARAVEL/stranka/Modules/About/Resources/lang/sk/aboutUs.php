@@ -23,5 +23,15 @@ return [
 
     'oamm1' => 'Oddelenie v rámci pedagogiky zabezpečuje v bakalárskom stupni ŠP výučbu predmetov s hlavným dôrazom na mechaniku a mechatronické prvky. V inžinierskom stupni ŠP zabezpečuje výučbu predmetov s dôrazom na simuláciu a modelovanie mechanických a mechatronických systémov tak z pohľadu mechaniky a dynamiky, ako aj z pohľadu multifyzikálneho previazania jednotlivých fyzikálnych domén.',
     'oamm2' => 'Členovia oddelenia sa venujú formulácii nových matematických postupov a metód, ktoré sa používajú v multifyzikálnych analýzach napr. na opis funkcionálne gradovaných materiálov (FGM), v dynamických analýzach mechatronických a MEMS systémov, ako aj na opis piezoelektrických prvkov.',
-    'oamm3' => 'Členovia oddelenia využívajú moderné SW prostriedky, ako sú ANSYS, Catia a MSC.ADAMS na návrh, analýzu a optimalizáciu jednotlivých komponentov, ako aj celých subsystémov mechatronických prvkov.'
+    'oamm3' => 'Členovia oddelenia využívajú moderné SW prostriedky, ako sú ANSYS, Catia a MSC.ADAMS na návrh, analýzu a optimalizáciu jednotlivých komponentov, ako aj celých subsystémov mechatronických prvkov.',
+    
+    'depOIKRTitle1' => 'Členovia oddelenia sa pedagogicky a výskumne venujú najmä nasledujúcim oblastiam:',
+    'depOIKRT_li1' => 'modelovanie a pokročilé metódy automatického riadenia mechatronických systémov (robustné, prediktívne a optimálne riadenie v časovej aj frekvenčnej oblasti)',
+    'depOIKRT_li2' => 'databázové a vizualizačné systémy, ich využitie v oblasti priemyslu aj životného prostredia',
+    'depOIKRT_li3' => 'modelovanie a riadenie mechatronických systémov s využitím kosimulácie',
+    'depOIKRT_li4' => 'využitie virtuálnej a zmiešanej reality v aplikáciách Industry 4.0',
+    'depOIKRT_li5' => 'využitie moderných mobilných a webových technológií pre mechatronické systémy',
+    'depOIKRT_li6' => 'vývoj a implementácia nových softvérových architektúr a komunikačných systémov pre mechatronické aplikácie,',
+    'depOIKRT_li7' => 'aplikovaný výskum v oblasti vzdialeného riadenia mechatronických systémov',
+    'depOIKRT_li8' => 'riadenie udalostných systémov s využitím PLC a tvorba HMI pre tieto systémy.'
 ];

@@ -3,7 +3,10 @@
 }
 
 .hp-events {
-	max-height: 600px;
+	height: 600px;
+	padding: 8px;
+	border-radius: 5px;
+    background: linear-gradient(rgba(10, 97, 188, 0.8) 0%, rgba(255, 212, 70, 0.5) 95%);
 	&__datepicker {
 		.ui-datepicker {
 			border: none !important;
@@ -18,17 +21,18 @@
 		text-transform: unset;
 	    font-weight: bold;
 	    text-align: center;
-	    margin-bottom: 20px;
+	    margin-bottom: 12px;
+	    color: white;
 	}
 	&__list {
 		max-height: 305px;
-		overflow-y: auto;
+		overflow: hidden;
 		h4, h4>a {
 			color: #0a61bc;
-			font-size: 16px;
+			font-size: 14px;
 		    text-align: left;
 		    margin-bottom: 4px;
-		    margin-top: 24px;
+		    margin-top: 16px;
 		}
 		i {
 			font-size: 14px;
@@ -36,6 +40,9 @@
     		&:hover {
 				cursor: pointer;
 			}
+		}
+		p {
+			font-size: 12px;
 		}
 		@media screen and (max-width: 991px) {
 			max-height: 340px;
@@ -77,4 +84,8 @@
 	opacity: 1;
 	border-radius: 2px;
 	box-shadow: none;
+}
+
+.ui-datepicker-header {
+	border: none;
 }
