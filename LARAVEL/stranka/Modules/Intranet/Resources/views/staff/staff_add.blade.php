@@ -34,37 +34,6 @@
                         <input type="text" class="form-control" id="surname" name="surname" placeholder="Priezvisko" />
                     </div>
                     <div class="form-group">
-                        <label for="ldap">* LDAP meno (xsagan):</label>
-                        <input type="text" class="form-control" id="ldap" name="ldap" placeholder="LDAP meno (xsagan)" />
-                    </div>
-                    <div class="form-group">
-                        <label for="room">Miestnosť:</label>
-                        <input type="text" class="form-control" id="room" name="room" placeholder="Miestnost" />
-                    </div>
-                    <div class="form-group">
-                        <label for="role">* Rola:</label>
-                        <select class="form-control" id="role" name="role">
-                            @foreach($roles as $key => $r)
-                                <option value="{{ $key }}">{{ $r }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="func">Funkcia:</label>
-                        <input type="text" class="form-control" id="func" name="func" placeholder="Funkcia" />
-                    </div>                    
-                    <div class="form-group">
-                        <label for="perms">Permissions:</label>
-                        <div id="perms">
-                            @foreach($permission_roles as $key => $pr)
-                                {{ $pr }}
-                                <input type="checkbox" name="perm[]" value="{{ $key }}" />
-                            @endforeach
-                        </div>
-                    </div>                   
-                </div>
-                <div class="col-md-5 col-md-offset-1">
-                    <div class="form-group">
                         <label for="title1">Titul(y) pred menom:</label>
                         <input type="text" class="form-control" id="title1" name="title1" placeholder="Titul(y) pred menom" />
                     </div>
@@ -73,16 +42,8 @@
                         <input type="text" class="form-control" id="title2" name="title2" placeholder="Titul(y) za menom" />
                     </div>
                     <div class="form-group">
-                        <label for="phone">Klapka:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Klapka" />
-                    </div>
-                    <div class="form-group">
-                        <label for="department">* Oddelenie:</label>
-                        <select class="form-control" id="department" name="department">
-                            @foreach($departments as $key => $d)
-                                <option value="{{ $key}}">{{ $d}}</option>
-                            @endforeach
-                        </select>
+                        <label for="ldap">* LDAP meno (xsagan):</label>
+                        <input type="text" class="form-control" id="ldap" name="ldap" placeholder="LDAP meno (xsagan)" />
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
@@ -93,8 +54,56 @@
                         <input type="text" class="form-control" id="web" name="web" placeholder="Web adresa" />
                     </div>
                     <div class="form-group">
+                        <label for="role">* Rola:</label>
+                        <select class="form-control" id="role" name="role">
+                            @foreach($roles as $key => $r)
+                                <option value="{{ $key }}">{{ $r }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="form-group">
+                        <label for="department">* Oddelenie:</label>
+                        <select class="form-control" id="department" name="department">
+                            @foreach($departments as $key => $d)
+                                <option value="{{ $key}}">{{ $d}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="func">Funkcia:</label>
+                        {{--<input type="text" class="form-control" id="func" name="func" placeholder="Funkcia" />--}}
+                        <div >
+                            @foreach($functions as $key => $f)
+                                <div><input type="checkbox" name="func[]" value="{{ $key }}" />
+                                    {{ $f->title }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="room">Miestnosť:</label>
+                        <input type="text" class="form-control" id="room" name="room" placeholder="Miestnost" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Klapka:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Klapka" />
+                    </div>
+
+                    <div class="form-group">
                         <label for="img">Profilový obrázok:</label>
                         <input type="file" class="form-control" id="img" name="img" placeholder="profile img" />
+                    </div>
+                    <div class="form-group">
+                        <label for="perms">Permissions:</label>
+                        <div id="perms">
+                            @foreach($permission_roles as $key => $pr)
+                                <div ><input type="checkbox" name="perm[]" value="{{ $key }}" />
+                                    {{ $pr }}
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

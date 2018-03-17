@@ -74,8 +74,10 @@ function showPubs(){
 							<p><span>@lang('staff::staff.room'): </span> {{ $ais->room }}</p>
 							<p><span>@lang('staff::staff.phone'): </span> +421 60291 {{ $ais->phone }}</p>
 							<p><span>@lang('staff::staff.department'): </span> {{ $ais->department }}</p>
-							@if( $ais->function ) 
-								<p><span>@lang('staff::staff.function'): </span> {{ $ais->function }}</p>
+							@if( count($ais->function) > 0 )
+								<p><span>@lang('staff::staff.function'): </span>
+									@foreach($ais->function as $key=>$value)@if($key > 0), @endif{{$value}}@endforeach
+								</p>
 							@endif
 						</div>
 					</div>

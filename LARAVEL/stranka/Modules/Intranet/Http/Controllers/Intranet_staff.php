@@ -59,12 +59,15 @@ class Intranet_staff extends Controller
 
         $departments = config('staff_admin.departments');
         $permission_roles = config('staff_admin.permission_roles');
+        $functions = DB::table('functions')->get();
+
 
         $data = [
             'title' => $this->module_name,
             'departments' => $departments,
             'roles' => $roles,
-            'permission_roles' => $permission_roles
+            'permission_roles' => $permission_roles,
+            'functions' => $functions
         ];
 
         return view('intranet::staff/staff_add', $data);
@@ -185,6 +188,7 @@ class Intranet_staff extends Controller
             $photo = config('staff_admin.default_imgs')['default_male_img'];
         }
 
+
         $data = [
             'name' => $name,
             'surname' => $surname,
@@ -196,17 +200,82 @@ class Intranet_staff extends Controller
             'phone' => $phone,
             'department' => $department,
             'staffRole' => $role,
-            'function' => $func,
             'roles' => json_encode($permissions),
             'email' => $email,
             'web' => $url
         ];
        
-        $res = (bool) DB::table('staff')->insert($data);
+        $s_id = DB::table('staff')->insertGetId($data);
+        if (!is_numeric($s_id)){
+            $res = false;
+        } else {
+            $res = true;
+        }
+
+
+        $db_func = DB::table('functions')->pluck('id');
+        if(is_array($func)) {
+            $fcs = [];
+            foreach($func as $p){
+                array_push($fcs, $p);
+            }
+            foreach ($db_func as $f) {
+                $check = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->exists();
+                if(in_array($f, $fcs)) {
+                    if(!$check) {
+                        $resFunc = DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
+                    }
+                } else {
+                    if($check) {
+                        $tmp = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->first();
+                        $resFunc = DB::table('staff_function')->where('id', $tmp->id)->delete();
+                    }
+                }
+
+            }
+        } else {
+            $resFunc = DB::table('staff_function')->where('id_staff', $s_id)->delete();
+        }
+
         if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
         }
         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+    }
+
+    public function getFunctions($id){
+        $functions = DB::table('staff_function')
+            ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->where('staff_function.id_staff', '=', $id)
+            ->pluck('functions.id');
+        $myFuncs = [];
+        //SELECT f.title FROM staff_function sf INNER JOIN staff s on sf.id_staff = s.s_id LEFT JOIN functions f on sf.id_func = f.id WHERE s.s_id = 12;
+        if (count($functions) != 0) {
+            foreach ($functions as $f) {
+                switch ($f) {
+                    case 1:
+                        array_push($myFuncs, 1);
+                        break;
+                    case 2:
+                        array_push($myFuncs, 2);
+                        break;
+                    case 3:
+                        array_push($myFuncs, 3);
+                        break;
+                    case 4:
+                        array_push($myFuncs, 4);
+                        break;
+                    case 5:
+                        array_push($myFuncs, 5);
+                        break;
+                    case 6:
+                        array_push($myFuncs, 6);
+                        break;
+                }
+            }
+        }
+        return $myFuncs;
     }
 
     public function staff_edit( $s_id = 0 ){
@@ -229,12 +298,19 @@ class Intranet_staff extends Controller
         $departments = config('staff_admin.departments');
         $permission_roles = config('staff_admin.permission_roles');
 
+        $functions = DB::table('functions')->get();
+
+        $myFunc = $this->getFunctions($s_id);
+        $myFunc = (!$myFunc) ? [] : $myFunc;
+
         $data = [
             'title' => $this->module_name,
             'item' => $item,
             'departments' => $departments,
             'roles' => $roles,
-            'permission_roles' => $permission_roles
+            'permission_roles' => $permission_roles,
+            'functions' => $functions,
+            'myFunc' => $myFunc
         ];
 
         return view('intranet::staff/staff_edit', $data);
@@ -326,7 +402,6 @@ class Intranet_staff extends Controller
 
         $permissions = [];
         if(is_array($perm) && count($perm) > 0){
-            
             foreach($perm as $p){
                 if(is_string($p) && strlen($p) > 0){
                     $permissions[] = $p;
@@ -381,6 +456,29 @@ class Intranet_staff extends Controller
             $photo = config('staff_admin.default_imgs')['default_male_img'];
         }
 
+        $db_func = DB::table('functions')->pluck('id');
+        if(is_array($func)) {
+            $fcs = [];
+            foreach($func as $p){
+                array_push($fcs, $p);
+            }
+            foreach ($db_func as $f) {
+                $check = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->exists();
+                if(in_array($f, $fcs)) {
+                    if(!$check) {
+                        $resFunc = DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
+                    }
+                } else {
+                    if($check) {
+                        $tmp = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->first();
+                        $resFunc = DB::table('staff_function')->where('id', $tmp->id)->delete();
+                    }
+                }
+
+            }
+        } else {
+            $resFunc = DB::table('staff_function')->where('id_staff', $s_id)->delete();
+        }
         $data = [
             'name' => $name,
             'surname' => $surname,
@@ -392,7 +490,6 @@ class Intranet_staff extends Controller
             'phone' => $phone,
             'department' => $department,
             'staffRole' => $role,
-            'function' => $func,
             'roles' => json_encode($permissions),
             'email' => $email,
             'web' => $url

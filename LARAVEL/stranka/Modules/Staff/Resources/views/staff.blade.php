@@ -134,7 +134,9 @@ $(document).ready(function() {
 							<td>{{ $s->phone }}</td>
 							<td>{{ $s->department }}</td>
 							<td>{{ $s->staffRole }}</td>
-							<td>{{ $s->function }}</td>						
+							<td>
+								@foreach($s->function as $key=>$value)@if($key > 0), @endif{{$value}}@endforeach
+							</td>
 						</tr>
 						@endforeach
 					</tbody>

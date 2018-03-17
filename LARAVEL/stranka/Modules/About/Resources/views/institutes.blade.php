@@ -20,8 +20,12 @@
                         <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                     </div>
                     <div class=" col-md-10">
-                        <p>prof. Ing. Justín Murín, DrSc.</p>
-                        <p>doc. Ing. Vladimír Kutiš, PhD.</p>
+                        @foreach ($vOAMM as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                        @foreach ($zOAMM as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
                     </div>
                 </div>
                 <p class="sectText">@lang('about::aboutUs.oamm1')</p>
@@ -32,10 +36,19 @@
         <!--Department 2 -->
         <div class="sectContent">
             <h4 class="ustavTitle" id="secH32">@lang('about::aboutUs.depOIKR')</h4>
-            <div class="sectText row col-lg-12">
-                <div class="col-md-2">
-                    <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                    <p class="bold">@lang('about::aboutUs.depHead2'): </p>
+                <div class="sectText row col-lg-12">
+                    <div class="col-md-2">
+                        <p class="bold">@lang('about::aboutUs.depHead'): </p>
+                        <p class="bold">@lang('about::aboutUs.depHead2'): </p>
+                    </div>
+                    <div class="col-md-10">
+                        @foreach ($vOIKR as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                        @foreach ($zOIKR as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="col-md-10">
                     <p>doc. Ing. Danica Rosinová, PhD.</p>
@@ -66,8 +79,12 @@
                         <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                     </div>
                     <div class="col-md-10">
-                        <p>prof. Ing. Štefan Kozák, PhD.</p>
-                        <p>Ing. Richard Balogh, PhD.</p>
+                        @foreach ($vOEMP as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                        @foreach ($zOEMP as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
                     </div>
                 </div>
                 <p class="sectText">@lang('about::aboutUs.later')</p>
@@ -81,8 +98,12 @@
                         <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                     </div>
                     <div class="col-md-10">
-                        <p>prof. Ing. Mikuláš Huba, PhD.</p>
-                        <p>prof. Ing. Viktor Ferencey, CSc.</p>
+                        @foreach ($vOEAP as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                        @foreach ($zOEAP as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
                     </div>
                 </div>
                 <p class="sectText">@lang('about::aboutUs.later')</p>

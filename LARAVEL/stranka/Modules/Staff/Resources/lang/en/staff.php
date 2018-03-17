@@ -28,14 +28,14 @@ return [
 	'sPrevious' => 'Previous',
 	'sSortAscending' => ': activate to sort column ascending',
 	'sSortDescending' => ': activate to sort column descending',
-	
-	'zastupca_veduceho' => 'Deputy Head of Unit',
-	'zastupca_veduceho_r1' => 'Deputy Director of the Institute for Scientific Activities; Head of Unit',
-	'zastupca_veduceho_r2' => 'Deputy Director of Institute for Institution Development; Head of Unit',
-	'zastupca_veduceho_r3' => 'Deputy Director of the Institute for Educational Activities; Deputy Head of Unit',
-	'veduci_oddelenia' => 'Head of Unit',
-	'riaditel' => 'Director of the Institute, Head of Unit',
-		
+
+    'zastupca_veduceho' => 'Deputy Head of Unit',
+    'veduci_vc' => 'Deputy Director of the Institute for Scientific Activities',
+    'veduci_ru' => 'Deputy Director of Institute for Institution Development',
+    'veduci_pc' => 'Deputy Director of the Institute for Educational Activities',
+    'veduci_oddelenia' => 'Head of Unit',
+    'riaditel' => 'Director of the Institute',
+
 	'teacher' => 'Teacher',
 	'doktorand' => 'PhD student',
 	'researcher' => 'Researcher',

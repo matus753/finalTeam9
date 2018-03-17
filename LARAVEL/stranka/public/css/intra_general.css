@@ -289,6 +289,9 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
 .table > tbody > tr > td{
     vertical-align: middle;
 }
+.lastButton{
+    margin-bottom: 50px;
+}
 /*---------projects--------*/
 
 .pCol1{
@@ -320,4 +323,9 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
 .current{
     color: rgb(85, 176, 87) !important;
     font-weight: bold;
+}
+/*-----------staff------------*/
+.perms{
+    display: inline-block;
+    margin-right: 20px;
 }

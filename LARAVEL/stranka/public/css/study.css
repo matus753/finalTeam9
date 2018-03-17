@@ -251,7 +251,7 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 .ustavTitle{
     width: 100%;
     color: white;
-    background-color: rgba(10, 97, 188, 0.8);
+    background-color: rgb(10, 97, 188);
     /*font-size: 18px;*/
     padding: 10px;
     font-weight: bold;

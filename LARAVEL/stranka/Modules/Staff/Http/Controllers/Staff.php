@@ -21,26 +21,7 @@ class Staff extends Controller
 		
 		
 		foreach($staff_db as $s){
-			if($s->function != null){
-				if($s->function == "zástupca vedúceho oddelenia"){
-					$s->function = trans('staff::staff.zastupca_veduceho');
-				}
-				if($s->function == "zástupca riaditeľa ústavu pre vedeckú činnosť; vedúci oddelenia"){
-					$s->function = trans('staff::staff.zastupca_veduceho_r1');
-				}
-				if($s->function == "zástupca riaditeľa ústavu pre rozvoj ústavu; vedúci oddelenia"){
-					$s->function = trans('staff::staff.zastupca_veduceho_r2');
-				}
-				if($s->function == "zástupca riaditeľa ústavu pre pedagogickú činnosť; zástupca vedúceho oddelenia"){
-					$s->function = trans('staff::staff.zastupca_veduceho_r3');
-				}
-				if($s->function == "vedúci oddelenia"){
-					$s->function = trans('staff::staff.veduci_oddelenia');
-				}
-				if($s->function == "riaditeľ ústavu; vedúci oddelenia"){
-					$s->function = trans('staff::staff.riaditel');
-				}
-			}
+            $s->function = $this->getFunctions($s->s_id);
 			if($s->staffRole != null){
 				if($s->staffRole == "teacher"){
 					$s->staffRole = trans('staff::staff.teacher');
@@ -55,14 +36,51 @@ class Staff extends Controller
 		}
 
 
-		$data= [
+        // odstranit stplec v databaze ze ci to aj tak pojde
+
+        $data= [
 			'title' => $module_name,
 			'staff' => $staff_db
 		];
 		//debug($data, true);
         return view('staff::staff', $data);
     }
-	
+
+    public function getFunctions($id){
+        $functions = DB::table('staff_function')
+            ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->where('staff_function.id_staff', '=', $id)
+            ->pluck('functions.id');
+        $myFuncs = [];
+        //SELECT f.title FROM staff_function sf INNER JOIN staff s on sf.id_staff = s.s_id LEFT JOIN functions f on sf.id_func = f.id WHERE s.s_id = 12;
+        if (count($functions) != 0) {
+            foreach ($functions as $f) {
+                switch ($f) {
+                    case 1:
+                        array_push($myFuncs, trans('staff::staff.riaditel'));
+                        break;
+                    case 2:
+                        array_push($myFuncs, trans('staff::staff.veduci_oddelenia'));
+                        break;
+                    case 3:
+                        array_push($myFuncs, trans('staff::staff.zastupca_veduceho'));
+                        break;
+                    case 4:
+                        array_push($myFuncs, trans('staff::staff.veduci_vc'));
+                        break;
+                    case 5:
+                        array_push($myFuncs, trans('staff::staff.veduci_ru'));
+                        break;
+                    case 6:
+                        array_push($myFuncs, trans('staff::staff.veduci_pc'));
+                        break;
+                }
+            }
+        }
+        return $myFuncs;
+    }
+
 	public function getStaffById( $id = 0 ){
 		if(!is_numeric($id)){
 			return redirect('/staff')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
@@ -75,13 +93,15 @@ class Staff extends Controller
 		}else{
 			$ais = DB::table('staff')->where( 's_id', $id )->first();
 		}
-		
+
 		if($ais){
 			$ais_id = null;
 			if($ais->ldapLogin && is_string($ais->ldapLogin) && strlen($ais->ldapLogin) > 0){
-				$ais_id = $this->getAisId($ais->ldapLogin);
-			}
-	
+                $ais_id = $this->getAisId($ais->ldapLogin);
+            }
+            $ais->function = $this->getFunctions($ais->s_id);
+            $ais->function = (!$ais->function) ? [] : $ais->function;
+
 			$data = [
 				'title' => $module_name,
 				'ais' => $ais,
