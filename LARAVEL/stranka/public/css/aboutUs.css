@@ -34,3 +34,30 @@
     display: inline-block;
     margin-bottom: 40px;
 }
+
+@media all and (max-width: 1199px) {
+    .sectContent img {
+        max-height: 170px;
+    }
+}
+
+@media all and (max-width: 991px) {
+    .sectContent img {
+        width: 49%;
+        height: auto;
+    }
+}
+
+@media all and (max-width: 399px) {
+    .sectContent img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .sectContent h4 {
+        text-align: left;
+        font-size: 14px;
+    }
+}

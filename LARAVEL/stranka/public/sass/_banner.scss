@@ -53,6 +53,9 @@
 	&--bottom {
 		background-position: bottom;
 	}
+	&--nmargin {
+		margin-bottom: 0;
+	}
 	@media screen and (max-width: 767px) {
 		margin-bottom: 0px;
 		height: 150px;

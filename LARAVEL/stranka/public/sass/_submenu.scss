@@ -1,0 +1,39 @@
+.submenu {
+	background-color: rgb(10, 97, 188);
+	margin-bottom: 30px;
+	ul {
+		margin: 0;
+		text-align: center;
+		padding: 0;
+		>li {
+			display: inline-block;
+			color: #ffffff;
+			>a {
+				padding: 20px 40px;
+				color: #ffffff;
+				display: block;
+				font-weight: bold;
+				transition: 0.3s ease color, background-color;
+				&:hover, &:focus {
+					background-color: #ffffff;
+					color: rgb(10, 97, 188);
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+@media all and (max-width: 767px) {
+	.submenu {
+		margin-bottom: 10px;
+		ul {
+			>li {
+				>a {
+					padding: 15px 15px;
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
