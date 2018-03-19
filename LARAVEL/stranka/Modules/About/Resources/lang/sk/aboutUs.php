@@ -33,5 +33,14 @@ return [
     'depOIKRT_li5' => 'využitie moderných mobilných a webových technológií pre mechatronické systémy',
     'depOIKRT_li6' => 'vývoj a implementácia nových softvérových architektúr a komunikačných systémov pre mechatronické aplikácie,',
     'depOIKRT_li7' => 'aplikovaný výskum v oblasti vzdialeného riadenia mechatronických systémov',
-    'depOIKRT_li8' => 'riadenie udalostných systémov s využitím PLC a tvorba HMI pre tieto systémy.'
+    'depOIKRT_li8' => 'riadenie udalostných systémov s využitím PLC a tvorba HMI pre tieto systémy.', 
+
+    'depOEMPTitle1' => 'Zabezpečuje výskum a výučbu v oblasti elektronických prvkov, komponentov a mikropočítačových systémov pre mechatroniku v týchto podoblastiach:',
+    'depOEMP_li1' => 'senzory, inteligentné senzorové systémy, MEMS a meracie kanály senzorov, číslicové spracovanie signálov, spracovanie obrazu (strojové videnie)',
+    'depOEMP_li2' => 'aktuátory, smart aktuátory, elektrické pohony, servosystémy a trakčné pohony elektrických vozidiel',
+    'depOEMP_li3' => 'vstavané mikropočítačové systémy, signálové procesory (DSP), nízkopríkonové mikropro-cesory, vývojové kity na báze ARM procesorov, FPGA štruktúry a SoC (System on Chip) s orientáciou na spracovanie signálov, implementáciu algoritmov riadenia a návrh palubných počítačov automobilov',
+    'depOEMP_li4' => 'komunikačné systémy pre automobil (LIN, CAN, FlexRay, MOST,…), pre priemysel (Profibus, Profinet, EtherCat,…), bezdrôtové  komunikačné systémy (vrátane GPS a Galileo) pre vzájomné zosieťovanie komponentov mechatronických a automatizovaných systémov',
+    'depOEMP_li5' => 'projektovanie (CAE) mechatronických a priemyselných  systémov (EPLAN) vrátane funkčnej bezpečnosti, iskrovej bezpečnosti a spoľahlivosti. Návrh elektronických zariadení a elektronické systémy automobilov',
+    'depOEMP_li6' => 'metódy a algoritmy číslicového riadenia a ich implementácia pomocou mikropočítačových systémov.',
+    'depOEMP_li7' => 'Na OEMP sídli Európske zákaznícke školiace stredisko Texas Instrument.'
 ];
