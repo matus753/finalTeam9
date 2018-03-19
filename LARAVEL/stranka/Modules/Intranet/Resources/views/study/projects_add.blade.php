@@ -5,29 +5,17 @@
 <link href="{{ URL::asset('css/datatables.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
+
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>
 @stop
 
 @section('content_admin')
     <script>
-        function validateForm() {
-            var x = document.forms["projectForm"]["id_number"].value;
-            var y = document.forms["projectForm"]["title_sk"].value;
-            if (!x.trim()) {
-                $("#req1").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req1").css("display", "none");
-            }
+        $('.selectpicker').selectpicker();
 
-            if (!y.trim()) {
-                $("#req2").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req2").css("display", "none");
-            }
-        }
     </script>
 <div class="container">
     <div class="intra-div">
@@ -71,24 +59,16 @@
                             <label for="duration">Trvanie:</label>
                             <input type="text" class="form-control" id="duration" name="duration" placeholder="Trvanie" />
                         </div>
-                        {{--<span style="color:red">prepojiť so staff ?</span>--}}
+                       
                         <div class="form-group">
                             <label for="coordinator">Koordinátor:</label>
-                            <input type="text" class="form-control" id="coordinator" name="coordinator" placeholder="Koordinátor" />
-                            {{--<label for="coordinator">Koordinátor:</label>--}}
-                            {{--<input list="staff" name="coordinator" id="coordinator" type="text" class="form-control" placeholder="Koordinátor">--}}
-                            {{--<datalist size="10" id="staff">--}}
-                                {{--@foreach($staff as $s)--}}
-                                    {{--@if( strcmp($s->title1, '' > 1) &&  strcmp($s->title2, '' > 1)) {--}}
-                                    {{--<option value="{{ $s->title1 }} {{ $s->surname }} {{ $s->name }}, {{ $s->title2 }}"></option>--}}
-                                    {{--} @elseif(strcmp($s->title1, '' > 1)) {--}}
-                                    {{--<option value="{{ $s->title1 }} {{ $s->surname }} {{ $s->name }}"></option>--}}
-                                    {{--} @else{--}}
-                                    {{--<option value="{{ $s->surname }} {{ $s->name }}"></option>--}}
-                                    {{--}--}}
-                                    {{--@endif--}}
-                                {{--@endforeach--}}
-                            {{--</datalist>--}}
+                            <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">
+                                    
+                                @foreach($staff as $s)
+                                <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                                @endforeach
+                                <!--<option data-content="<input type='text' placeholder='Vlastný záznam...' class='form-control' />"></option>-->
+                            <select>
                         </div>
 
                         <div class="form-group">

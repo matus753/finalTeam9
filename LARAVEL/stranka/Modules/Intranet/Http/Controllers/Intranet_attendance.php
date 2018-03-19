@@ -55,7 +55,7 @@ class Intranet_attendance extends Controller
 
         if(has_permission('hr')){
             $staff = DB::table('staff')->get();
-        }else{
+        }else{   
             $s_id = get_user_id();
             if($s_id){
                 $staff = DB::table('staff')->where('s_id', $s_id)->get();
@@ -64,11 +64,7 @@ class Intranet_attendance extends Controller
             }
         }
 
-        // staff names
-        $staff = DB::table('staff')->get();
-        // radio btns 
         $absence = DB::table('typ_nepritomnosti')->get();
-
         $staff_attendance = DB::table('nepritomnosti')
                             ->join('typ_nepritomnosti', 'id_typu', '=', 't_id')
                             ->where('rok', $year)
@@ -91,10 +87,9 @@ class Intranet_attendance extends Controller
                 }
             }
             $tmp2['skratky'] = $skratky;
-            
             $s->att = $tmp2;
         }
-
+        
         $data = [ 
             'title'         => $this->module_name,
             'num_days'      => $n_curr_month_days,

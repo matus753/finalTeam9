@@ -45,7 +45,7 @@ class Intranet_projects extends Controller
             'types' => $types,
             'staff' => $staff
         ];
-        
+        //debug($data, true);
         return view('intranet::study/projects_add', $data);
     }
 
@@ -118,9 +118,10 @@ class Intranet_projects extends Controller
         ];
        
         $res = (bool) DB::table('project')->insert($data);
-        return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
-
-        //return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        if($res){
+            return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
+        }
+        return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
     public function projects_edit( $pr_id = 0 ){

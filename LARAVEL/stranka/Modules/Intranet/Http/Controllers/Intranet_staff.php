@@ -165,6 +165,10 @@ class Intranet_staff extends Controller
         if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
         } 
+        $tmp = DB::table('staff')->where('ldapLogin', $ldap)->first();
+        if($mp){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'User already exists']);
+        }
         if($x_rule){
             if($ldap[0] != 'x'){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'LDAP syntax error!']);
@@ -418,6 +422,10 @@ class Intranet_staff extends Controller
         if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
         } 
+        $tmp = DB::table('staff')->where('ldapLogin', $ldap)->first();
+        if($mp){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'User already exists']);
+        }
         if($x_rule){
             if($ldap[0] != 'x'){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'LDAP syntax error!']);
