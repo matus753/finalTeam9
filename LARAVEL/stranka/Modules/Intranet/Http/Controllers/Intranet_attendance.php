@@ -19,6 +19,9 @@ class Intranet_attendance extends Controller
     }
 
     public function attendance($year = -1, $month = -1){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         if(!is_numeric($year) || $year < 0){
             $year = date('Y'); // current year
@@ -48,6 +51,17 @@ class Intranet_attendance extends Controller
 
         if(!in_array($next_year, $tmp)){
             $tmp[] = $next_year;
+        }
+
+        if(has_permission('hr')){
+            $staff = DB::table('staff')->get();
+        }else{
+            $s_id = get_user_id();
+            if($s_id){
+                $staff = DB::table('staff')->where('s_id', $s_id)->get();
+            }else{
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            }
         }
 
         // staff names
@@ -95,6 +109,10 @@ class Intranet_attendance extends Controller
     }
 
     public function attendance_pdf_ajax( Request $request ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $table = $request->input('table');
         if(!is_string($table)){
             return response()->json(['error' => 'Failed'], 400);
@@ -116,6 +134,10 @@ class Intranet_attendance extends Controller
     }
 
     public function download_pdf(){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $exists = Storage::disk('public')->exists('pdf_attendance.pdf');
         if($exists){
             $file = public_path(). "/storage/pdf_attendance.pdf";
@@ -136,6 +158,16 @@ class Intranet_attendance extends Controller
         $mesiac = $request->input('month');
         $den = $request->input('day');
         $id_typu = $request->input('type');
+
+        if(!is_numeric($id_zamestnanca) || !is_numeric($rok) || !is_numeric($mesiac) || $mesiac < 1 || $mesiac > 12 || !is_numeric($den) || $den < 1 || $den > 31 || !is_numeric($id_typu) || $id_typu < 1 || $id_typu > 5){
+            return response()->json(['error' => 'Bad request'], 400);
+        }
+        
+        if(!has_permission('hr')){
+            if($id_zamestnanca != get_user_id()){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            }
+        }
 
         if(date('N',strtotime($rok.'-'.$mesiac.'-'.$den)) < 6){
             if($id_typu == -1){
@@ -163,15 +195,19 @@ class Intranet_attendance extends Controller
                 
                 if(count($tmp) > 0){
                     DB::table('nepritomnosti')->where('id_zamestnanca', $id_zamestnanca)->where('rok', $rok)->where('mesiac', $mesiac)->where('den', $den)->update($data);
-                    echo json_encode(['code' => 200, 'message' => 'OK']);
+                    return response()->json(['error' => 'Success'], 200);
                 }else{
                     if(DB::table('nepritomnosti')->insertGetId($data)){
-                        echo json_encode(['code' => 200, 'message' => 'OK']);
+                        return response()->json(['error' => 'Success'], 200);
                     }else{
-                        echo json_encode(['code' => 400, 'message' => 'ERROR']);
+                        return response()->json(['error' => 'Error'], 400);
                     }
                 }
             }
+            return response()->json(['error' => 'Error'], 400);
         }
+
+        return response()->json(['error' => 'Error'], 400);
     }
+    
 }

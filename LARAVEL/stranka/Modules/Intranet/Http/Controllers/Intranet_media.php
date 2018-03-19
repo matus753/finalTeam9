@@ -16,6 +16,10 @@ class Intranet_media extends Controller
     }
 
     public function media_all(){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $all_media = DB::table('media')->get();
         $all_media = (!$all_media) ? [] : $all_media;
 
@@ -28,6 +32,10 @@ class Intranet_media extends Controller
     }
 
     public function media_add(){    
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $types = config('media_admin.types');
 
         $data = [
@@ -38,6 +46,10 @@ class Intranet_media extends Controller
     }
 
     public function media_add_action( Request $request ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $titleSK = $request->input('title_sk');
         $titleEN = $request->input('title_en');
         $media = $request->input('media');
@@ -152,6 +164,10 @@ class Intranet_media extends Controller
     }
 
     public function media_edit( $id = 0 ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($id)){
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -177,6 +193,10 @@ class Intranet_media extends Controller
     }
 
     public function media_edit_action( $m_id = 0 ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($id)){
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -306,6 +326,10 @@ class Intranet_media extends Controller
     }
 
     public function media_delete_action( $id = 0 ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+        
         if(!is_numeric($id)){
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }

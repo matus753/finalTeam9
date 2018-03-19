@@ -2,5 +2,5 @@
 
 return [
     'name' => 'Login',
-	'ldapServer' => 'ldap.stuba.sk'
+    'ldapServer' => 'ldap.stuba.sk'
 ];

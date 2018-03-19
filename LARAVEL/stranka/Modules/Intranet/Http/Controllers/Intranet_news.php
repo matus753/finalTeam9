@@ -17,6 +17,9 @@ class Intranet_news extends Controller
     }
 
     public function news_all(){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
         
         $all_news = DB::table('news')->get();
         $all_news = (!$all_news) ? [] : $all_news;
@@ -47,6 +50,10 @@ class Intranet_news extends Controller
     }
 
     public function news_add(){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
         $types = config('news_admin.types');
         $hash_id = md5(uniqid());
 
@@ -60,6 +67,10 @@ class Intranet_news extends Controller
     }
 
     public function news_add_action( Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
         $hash_id = $request->input('news_id_hash');
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
@@ -178,6 +189,10 @@ class Intranet_news extends Controller
     }
 
     public function news_images_upload( Request $request, Response $response ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
         $hash_name = $request->input('news_id_hash');
         $image = $request->file('image');
 
@@ -212,6 +227,10 @@ class Intranet_news extends Controller
     }
 
     public function news_edit( $n_id = 0 ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
         if(!is_numeric($n_id)){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -236,6 +255,10 @@ class Intranet_news extends Controller
     }
 
     public function news_edit_action( $n_id = 0, Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
         if(!is_numeric($n_id)){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -367,6 +390,10 @@ class Intranet_news extends Controller
     }
 
     public function news_delete_action( $n_id = 0 ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
         if(!is_numeric($n_id)){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -384,6 +411,10 @@ class Intranet_news extends Controller
     }
 
     public function news_delete_single_action($nf_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+        
         if(!is_numeric($nf_id)){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }

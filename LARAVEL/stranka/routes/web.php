@@ -74,11 +74,15 @@ Route::get('/ml/{lang}', [ 'uses' => 'Languages@switchLanguage']);
 /* Login OK TEST treba TODO Logout + profile*/
 Route::get('/login', '\Modules\Login\Http\Controllers\Login@index');
 Route::post('/login-action', '\Modules\Login\Http\Controllers\Login@login_action');
+Route::post('/logout-action', '\Modules\Login\Http\Controllers\Login@logout_action');
 
-/* Intranet ZMENA viewu*/
+Route::get('/developer', '\Modules\Login\Http\Controllers\Login@developer');
+
+
+/* Intranet ZMENA viewu */
 Route::get('/intranet', '\Modules\Intranet\Http\Controllers\Intranet@intranet');
 
-
+//Reporter
 /* Intranet news OK ?? */
 Route::get('/news-admin', '\Modules\Intranet\Http\Controllers\Intranet_news@news_all');
 Route::get('/news-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_delete_action');
@@ -90,6 +94,7 @@ Route::post('/news-admin/news_image_upload', '\Modules\Intranet\Http\Controllers
 Route::post('/news-admin/news_file_upload', '\Modules\Intranet\Http\Controllers\Intranet_news@news_file_upload');
 Route::get('/news-admin-delete-added/{id}', '\Modules\Intranet\Http\Controllers\Intranet_news@news_delete_single_action');
 
+//Editor
 /* Intranet projects OK treba test */
 Route::get('/projects-admin', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_all');
 Route::get('/projects-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_delete_action');
@@ -99,6 +104,7 @@ Route::get('/projects-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intr
 Route::post('/projects-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@projects_edit_action');
 Route::get('/photos-admin-activate-project/{id}', '\Modules\Intranet\Http\Controllers\Intranet_projects@project_activate_action');
 
+//HR
 /* Intranet media OK treba test */
 Route::get('/media-admin', '\Modules\Intranet\Http\Controllers\Intranet_media@media_all');
 Route::get('/media-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_media@media_delete_action');
@@ -107,6 +113,7 @@ Route::post('/media-admin-add-action', '\Modules\Intranet\Http\Controllers\Intra
 Route::get('/media-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_media@media_edit');
 Route::post('/media-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_media@media_edit_action');
 
+//Reporter
 /* Intranet videos OK treba test plus otazka */
 Route::get('/videos-admin', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_all');
 Route::get('/videos-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_delete_action');
@@ -115,6 +122,7 @@ Route::post('/videos-admin-add-action', '\Modules\Intranet\Http\Controllers\Intr
 Route::get('/videos-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_edit');
 Route::post('/videos-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_videos@videos_edit_action');
 
+//Reporter
 /* Intranet photos OK treba test + dropzone */
 Route::get('/photos-admin', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_all');
 Route::get('/photos-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_delete_action');
@@ -127,6 +135,7 @@ Route::get('/photos-admin-upload/{id}', '\Modules\Intranet\Http\Controllers\Intr
 Route::post('/photos-admin-upload-action', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_upload_action');
 Route::get('/photos-admin-activate-gallery/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_activate_action');
 
+//admin
 /* Intranet staff OK treba test*/
 Route::get('/staff-admin', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_all');
 Route::get('/staff-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_delete_action');
@@ -137,12 +146,15 @@ Route::post('/staff-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers
 Route::get('/staff-admin-show-profile/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_show_profile');
 Route::get('/staff-admin-activate-user/{id}', '\Modules\Intranet\Http\Controllers\Intranet_staff@staff_activate_user');
 
+//HR pre vsetkych
 /* Intranet attendance OK */ 
 Route::get('/attendance-admin/{year?}/{month?}', '\Modules\Intranet\Http\Controllers\Intranet_attendance@attendance');
 Route::get('/attendance-admin-ajax', '\Modules\Intranet\Http\Controllers\Intranet_attendance@attendance_ajax');
 Route::post('/attendance-pdf-admin-ajax', '\Modules\Intranet\Http\Controllers\Intranet_attendance@attendance_pdf_ajax');
 Route::get('/attendance-pdf-download', '\Modules\Intranet\Http\Controllers\Intranet_attendance@download_pdf');
 
+
+//Reporter
 /* Intranet events OK */
 Route::get('/events-admin', '\Modules\Intranet\Http\Controllers\Intranet_events@events_all');
 Route::get('/events-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_delete_action');
@@ -151,6 +163,7 @@ Route::post('/events-admin-add-action', '\Modules\Intranet\Http\Controllers\Intr
 Route::get('/events-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_edit');
 Route::post('/events-admin-edit-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_events@events_edit_action');
 
+//HR
 /* Intranet documents OK */ 
 Route::get('/documents-admin', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_all');
 Route::get('/documents-admin-show/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@show_document');
@@ -169,6 +182,7 @@ Route::get('/documents-admin-delete-category/{id}', '\Modules\Intranet\Http\Cont
 Route::get('//documents-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_action');
 Route::get('/delete-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_file_action');
 
+// TODO prepojit subjects s ucitelmi
 /* Intranet Subjects OK */
 Route::get('/subjects-admin', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_all');
 Route::get('/subjects-admin-add-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_item');

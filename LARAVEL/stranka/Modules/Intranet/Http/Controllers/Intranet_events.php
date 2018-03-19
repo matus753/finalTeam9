@@ -16,6 +16,10 @@ class Intranet_events extends Controller
     }
 
     public function events_all(){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $all_events = DB::table('events')->get();
         $all_events = (!$all_events) ? [] : $all_events;
 
@@ -28,6 +32,9 @@ class Intranet_events extends Controller
     }
 
     public function events_add(){    
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         $data = [
             'title' => $this->module_name,
@@ -36,6 +43,10 @@ class Intranet_events extends Controller
     }
 
     public function events_add_action( Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $name_sk = $request->input('title_sk');
         $name_en = $request->input('title_en');
         $text_sk = $request->input('sk_text');
@@ -63,7 +74,6 @@ class Intranet_events extends Controller
             $text_sk = null;
         }
         
-
         if($request->filled('en_text')){
             if(!is_string($text_en) || strlen($text_en) < 1 || strlen($text_en) > 65535){
                 return redirect('/events-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Text EN max 65535 characters!']);
@@ -120,6 +130,10 @@ class Intranet_events extends Controller
     }
 
     public function events_edit( $e_id = 0 ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($e_id)){
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -138,6 +152,10 @@ class Intranet_events extends Controller
     }
 
     public function events_edit_action( $e_id = 0, Request $request){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($e_id)){
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -168,7 +186,6 @@ class Intranet_events extends Controller
         }else{
             $text_sk = null;
         }
-        
 
         if($request->filled('en_text')){
             if(!is_string($text_en) || strlen($text_en) < 1 || strlen($text_en) > 65535){
@@ -226,6 +243,10 @@ class Intranet_events extends Controller
     }
 
     public function events_delete_action( $e_id = 0 ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($e_id)){
             return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }

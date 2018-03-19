@@ -231,12 +231,28 @@ function get_profile_photo($photo_hash = ''){
 function has_permission($perm){
 	if(is_string($perm) && strlen($perm) > 0){
 		if(isLogged()){
-			debug(session()->get('user'));
+			$user = session()->get('user');
+
+			if(!is_array($user['role'])){
+				return false;
+			}
+
+			if(in_array('admin', $user['role'])){
+				return true;
+			}
+
+			if(in_array($perm, $user['role'])){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
 		}
 	}else{
-		return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+		return false;
 	}
-	return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
+	return false;
 }
 
 function isLogged(){
@@ -251,7 +267,7 @@ function isLogged(){
 				return false;
 			}
 		
-			$usr = DB::table('staff')->where('id', $user['id'])->first();
+			$usr = DB::table('staff')->where('s_id', $user['id'])->first();
 			$tmp = sha1(md5($usr->name.$usr->surname).$usr->surname);
 			if($tmp == $user['check']){
 				return true;
@@ -261,6 +277,14 @@ function isLogged(){
 			return false;
 		}
 		return false;
+	}
+	return false;
+}
+
+function get_user_id(){
+	if(isLogged()){
+		$user = session()->get('user');
+		return $user['id'];
 	}
 	return false;
 }

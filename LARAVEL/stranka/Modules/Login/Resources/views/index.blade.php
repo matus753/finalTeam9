@@ -6,6 +6,25 @@
 
 @section('content')
 <div id="emPAGEcontent" class="container">
+	@if(isLogged())
+	<div class="row">
+		<div class="col-md-12">
+			<div class="text-center">
+				<h1>Odhlásenie</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<form method="POST" action="{{ url('/logout-action') }}">
+				{{ csrf_field() }}
+				<input type="submit" class="btn btn-primary" value="Odhlás">
+			</form>
+		</div>
+	</div>
+
+	@else
 	<div class="row">
 		<div class="col-md-12">
 			<div class="text-center">
@@ -30,5 +49,6 @@
 			</form>
 		</div>
 	</div>
+	@endif
 </div>
 @stop

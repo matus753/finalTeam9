@@ -17,6 +17,9 @@ class Intranet_videos extends Controller
     }
 
     public function videos_all(){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         $locale = session()->get('locale');
         if($locale == 'sk'){
@@ -36,6 +39,9 @@ class Intranet_videos extends Controller
     }
 
     public function videos_add(){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         $types = config('videos_admin.types');
         
@@ -48,6 +54,9 @@ class Intranet_videos extends Controller
     }
 
     public function videos_add_action( Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         $title_sk = $request->input('title_sk');
         $title_en = $request->input('title_en');
@@ -98,6 +107,10 @@ class Intranet_videos extends Controller
     }
 
     public function videos_edit($v_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($v_id)){
             return redirect('/videos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -124,6 +137,10 @@ class Intranet_videos extends Controller
     }
 
     public function videos_edit_action( $v_id = 0, Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($v_id)){
             return redirect('/videos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -177,6 +194,10 @@ class Intranet_videos extends Controller
     }
 
     public function videos_delete_action($v_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+        
         if(!is_numeric($v_id)){
             return redirect('/videos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }

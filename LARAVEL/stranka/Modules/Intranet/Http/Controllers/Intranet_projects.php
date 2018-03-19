@@ -16,7 +16,10 @@ class Intranet_projects extends Controller
     }
 
     public function projects_all(){
-        
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $all_projects = DB::table('project')->get();
         $all_projects = (!$all_projects) ? [] : $all_projects;
 
@@ -30,6 +33,9 @@ class Intranet_projects extends Controller
     }
 
     public function projects_add(){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         $types = config('projects_admin.types');
         $staff = DB::table('staff')->get();
@@ -44,6 +50,10 @@ class Intranet_projects extends Controller
     }
 
     public function projects_add_action( Request $request ){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $type = $request->input('type');
         $number = $request->input('id_number');
         $titleEN = $request->input('title_en');
@@ -114,6 +124,10 @@ class Intranet_projects extends Controller
     }
 
     public function projects_edit( $pr_id = 0 ){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pr_id)){
             return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -134,6 +148,10 @@ class Intranet_projects extends Controller
     }
 
     public function projects_edit_action( $pr_id = 0, Request $request ){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pr_id)){
             return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -210,6 +228,10 @@ class Intranet_projects extends Controller
     }
 
     public function projects_delete_action( $pr_id = 0 ){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pr_id)){
             return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -222,6 +244,10 @@ class Intranet_projects extends Controller
     }
 
     public function project_activate_action($pr_id = 0){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+        
         if(!is_numeric($pr_id) || $pr_id == 0){
             return redirect('/projects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }

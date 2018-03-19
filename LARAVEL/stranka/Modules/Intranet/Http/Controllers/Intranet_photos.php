@@ -16,7 +16,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_all(){
-    
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $locale = session()->get('locale');
         if($locale == 'sk'){
             $photos = DB::table('photo_gallery')->select('pg_id', 'title_SK as title', 'date', 'activated')->groupBy('folder')->get();
@@ -34,6 +37,9 @@ class Intranet_photos extends Controller
     }
 
     public function photos_add(){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
 
         $data = [
             'title' => $this->module_name,
@@ -43,7 +49,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_add_action( Request $request ){
-      
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $title_sk = $request->input('title_sk');
         $title_en = $request->input('title_en');
         $hash_name = md5(uniqid());
@@ -73,6 +82,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_upload($pg_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pg_id) || $pg_id == 0){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB internal error!']);
         }
@@ -93,6 +106,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_upload_action(Request $request){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $files = $request->file('file');
         $hash_check = $request->input('hash_check');
         $pg_id = $request->input('id');
@@ -151,6 +168,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_edit($pg_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pg_id)){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -169,6 +190,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_edit_action( $pg_id = 0, Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pg_id)){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -190,6 +215,10 @@ class Intranet_photos extends Controller
 
     // OK OK OK OK OK OK OK 
     public function photos_delete_action($pg_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($pg_id)){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -219,6 +248,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_single_delete_action($p_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($p_id) || $p_id == 0){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -238,6 +271,10 @@ class Intranet_photos extends Controller
     }
 
     public function photos_activate_action($pg_id = 0){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+        
         if(!is_numeric($pg_id) || $pg_id == 0){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }

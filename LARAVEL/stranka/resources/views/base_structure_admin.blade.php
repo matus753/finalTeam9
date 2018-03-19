@@ -58,17 +58,16 @@
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
-					<li><a href="{{ url('/news-admin') }}" class="navbarItem">Aktuality</a></li>
-                    <li><a href="{{ url('/events-admin') }}" class="navbarItem">Udalosti</a></li>
+					@if(has_permission('reporter')) <li><a href="{{ url('/news-admin') }}" class="navbarItem">Aktuality</a></li> @endif
+                    @if(has_permission('reporter')) <li><a href="{{ url('/events-admin') }}" class="navbarItem">Udalosti</a></li> @endif
                     <li><a href="{{ url('/subjects-admin') }}" class="navbarItem">Predmety</a></li>
                     <li><a href="{{ url('/attendance-admin') }}" class="navbarItem">Dochádzka</a></li>
                     <li><a href="{{ url('/documents-admin') }}" class="navbarItem">Dokumenty</a></li>
-                    <li><a href="{{ url('/projects-admin') }}" class="navbarItem">Projekty</a></li>
-                    <li><a href="{{ url('/staff-admin') }}" class="navbarItem">Pracovníci</a></li>
-                    <li><a href="{{ url('/media-admin') }}" class="navbarItem">Médiá</a></li>
-                    <li><a href="{{ url('/videos-admin') }}" class="navbarItem">Videá</a></li>
-                    <li><a href="{{ url('/photos-admin') }}" class="navbarItem">Fotky</a></li>
-				</ul>
+                    @if(has_permission('editor')) <li><a href="{{ url('/projects-admin') }}" class="navbarItem">Projekty</a></li> @endif
+                    @if(has_permission('admin')) <li><a href="{{ url('/staff-admin') }}" class="navbarItem">Pracovníci</a></li> @endif
+                    @if(has_permission('hr')) <li><a href="{{ url('/media-admin') }}" class="navbarItem">Médiá</a></li> @endif
+                    @if(has_permission('reporter')) <li><a href="{{ url('/videos-admin') }}" class="navbarItem">Videá</a></li> @endif
+                    @if(has_permission('reporter')) <li><a href="{{ url('/photos-admin') }}" class="navbarItem">Fotky</a></li> @endif
 				</ul>
             </div>
         </div>

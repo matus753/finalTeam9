@@ -16,10 +16,6 @@ class Intranet_staff extends Controller
     }
 
     public function staff_all(){
-        
-        /*if(has_permission()){
-
-        }*/
 
         $staff = DB::table('staff')->get();
         $staff = (!$staff) ? [] : $staff;
@@ -34,6 +30,7 @@ class Intranet_staff extends Controller
     }
 
     public function staff_show_profile($s_id = 0){
+
         if(!is_numeric($s_id) || $s_id == 0){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -50,6 +47,10 @@ class Intranet_staff extends Controller
     }
 
     public function staff_add(){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $locale = session()->get('locale');
         if($locale == 'sk'){
             $roles = config('staff_admin.rolesSK');
@@ -73,7 +74,11 @@ class Intranet_staff extends Controller
         return view('intranet::staff/staff_add', $data);
     }
 
-    public function staff_add_action( Request $request ){        
+    public function staff_add_action( Request $request ){  
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $name = $request->input('name');
         $surname = $request->input('surname');
         $title1 = $request->input('title1');
@@ -236,6 +241,10 @@ class Intranet_staff extends Controller
     }
 
     public function getFunctions($id){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $functions = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
             ->join('functions', 'staff_function.id_func', '=', 'functions.id')
@@ -271,6 +280,10 @@ class Intranet_staff extends Controller
     }
 
     public function staff_edit( $s_id = 0 ){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($s_id)){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -309,6 +322,10 @@ class Intranet_staff extends Controller
     }
 
     public function staff_edit_action( $s_id = 0, Request $request ){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($s_id)){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -488,6 +505,10 @@ class Intranet_staff extends Controller
     }
 
     public function staff_delete_action( $s_id = 0 ){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($s_id)){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
@@ -508,6 +529,10 @@ class Intranet_staff extends Controller
     }
 
     public function staff_activate_user($s_id = 0){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+        
         if(!is_numeric($s_id) || $s_id == 0){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }

