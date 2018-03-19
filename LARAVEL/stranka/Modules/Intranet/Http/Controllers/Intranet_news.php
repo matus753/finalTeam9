@@ -385,7 +385,7 @@ class Intranet_news extends Controller
             
         }
 
-        return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        return redirect('/news-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
 
     }
 

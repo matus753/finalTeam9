@@ -247,7 +247,10 @@ class Intranet_subjects extends Controller
         ];
   
         $res = DB::table('subjects_subcategories')->where('ss_id', $ss_id)->update($data);
-        return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
+        if($res){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
+        }
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
     }
 
     ///////////////////////////////////////////////////////////////

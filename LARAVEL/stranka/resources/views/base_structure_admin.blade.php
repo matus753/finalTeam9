@@ -58,6 +58,7 @@
             </div>
             <div class="collapse navbar-collapse" id="emNavbar">
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
+                    <li><a href="{{ url('/schedule-admin') }}" class="navbarItem">Rozvrh</a></li>
 					@if(has_permission('reporter')) <li><a href="{{ url('/news-admin') }}" class="navbarItem">Aktuality</a></li> @endif
                     @if(has_permission('reporter')) <li><a href="{{ url('/events-admin') }}" class="navbarItem">Udalosti</a></li> @endif
                     <li><a href="{{ url('/subjects-admin') }}" class="navbarItem">Predmety</a></li>

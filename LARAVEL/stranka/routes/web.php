@@ -71,7 +71,7 @@ Route::get('/contact', '\Modules\Contact\Http\Controllers\Contact@index');
 /* Languages OK */
 Route::get('/ml/{lang}', [ 'uses' => 'Languages@switchLanguage']);
 
-/* Login OK TEST treba TODO Logout + profile*/
+/* Login OK TEST TODO profile*/
 Route::get('/login', '\Modules\Login\Http\Controllers\Login@index');
 Route::post('/login-action', '\Modules\Login\Http\Controllers\Login@login_action');
 Route::post('/logout-action', '\Modules\Login\Http\Controllers\Login@logout_action');
@@ -193,3 +193,7 @@ Route::get('/subjects-admin-edit-item/{id}', '\Modules\Intranet\Http\Controllers
 Route::post('/subjects-admin-edit-item-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_edit_item_action');
 Route::get('/delete-subject-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_delete_single_file_action');
 Route::get('/subjects-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_delete_single_action');
+
+
+/* Intranet schedule */
+Route::get('/schedule-admin', '\Modules\Intranet\Http\Controllers\Intranet_schedule@index');

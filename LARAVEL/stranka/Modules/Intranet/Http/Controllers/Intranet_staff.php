@@ -501,7 +501,7 @@ class Intranet_staff extends Controller
         if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated successfuly!']);
         }
-        return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'DB error or no changes!']);
+        return redirect('/staff-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
     }
 
     public function staff_delete_action( $s_id = 0 ){

@@ -322,7 +322,7 @@ class Intranet_media extends Controller
             }
             return redirect('/media-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly added!']);
         }
-        return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB insert error!']);
+        return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
     }
 
     public function media_delete_action( $id = 0 ){

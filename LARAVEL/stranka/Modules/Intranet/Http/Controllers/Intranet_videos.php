@@ -190,7 +190,7 @@ class Intranet_videos extends Controller
         if($res){
             return redirect('/videos-admin')->with('err_code', ['type' => 'success', 'msg' => 'Record updated successfuly!']);
         }
-        return redirect('/videos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB update error!']);
+        return redirect('/videos-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
     }
 
     public function videos_delete_action($v_id = 0){

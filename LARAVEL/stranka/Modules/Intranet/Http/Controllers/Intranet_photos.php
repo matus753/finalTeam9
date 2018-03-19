@@ -210,7 +210,7 @@ class Intranet_photos extends Controller
         if($res){
             return redirect('/photos-admin-upload/'.$pg_id)->with('err_code', ['type' => 'success', 'msg' => 'Record updated!']);
         }
-        return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB update error (probably bad string or no changes)!']);
+        return redirect('/photos-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
     }
 
     // OK OK OK OK OK OK OK 

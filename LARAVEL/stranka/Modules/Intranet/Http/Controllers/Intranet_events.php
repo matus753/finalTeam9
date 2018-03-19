@@ -238,7 +238,7 @@ class Intranet_events extends Controller
         if($event_id){
             return redirect('/events-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly added!']);
         }
-        return redirect('/events-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB insert error!']);
+        return redirect('/events-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
 
     }
 

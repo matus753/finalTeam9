@@ -321,7 +321,7 @@ class Intranet_documents extends Controller
             return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
         }
 
-        return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        return redirect('/documents-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
 
     }
 
@@ -402,7 +402,10 @@ class Intranet_documents extends Controller
         ];
   
         $res = DB::table('documents')->where('d_id', $d_id)->update($data);
-        return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
+        if($res){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']); 
+        }
+        return redirect('/documents-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);   
     }
 
     ///////////////////////////////////////////////////////////////
