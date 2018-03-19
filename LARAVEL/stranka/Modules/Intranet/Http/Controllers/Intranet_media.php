@@ -83,6 +83,7 @@ class Intranet_media extends Controller
             }
         }elseif($type == 'server'){
             $files = $request->file('files');
+            $files = (!$files) ? [] : $files;
             foreach($files as $f){
                 $valid = false;
                 foreach($allowed_types as $a){
@@ -96,6 +97,7 @@ class Intranet_media extends Controller
             }  
         }elseif($type == 'both'){
             $files = $request->file('files');
+            $files = (!$files) ? [] : $files;
             $url = $request->input('link');
 
             if( isset($url) && !empty($url) ){
@@ -192,12 +194,12 @@ class Intranet_media extends Controller
         return view('intranet::media/media_edit', $data);
     }
 
-    public function media_edit_action( $m_id = 0 ){
+    public function media_edit_action( Request $request, $m_id = 0 ){
         if(!has_permission('hr')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
-        if(!is_numeric($id)){
+        if(!is_numeric($m_id)){
             return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
@@ -206,7 +208,8 @@ class Intranet_media extends Controller
         $media = $request->input('media');
         $date = $request->input('date');
         $type = $request->input('type');
-        
+        $has_files = $request->input('has_files');
+
         if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 256){
             return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
         }
@@ -215,6 +218,9 @@ class Intranet_media extends Controller
         }
         if(!is_string($media) || strlen($media) < 1 || strlen($media) > 256){
             return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
+        }
+        if(!is_numeric($has_files)){
+            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Error somewhere!']);
         }
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
 
@@ -235,19 +241,27 @@ class Intranet_media extends Controller
             }
         }elseif($type == 'server'){
             $files = $request->file('files');
-            foreach($files as $f){
+            $files = (!$files) ? [] : $files;
+            if(count($files) > 0){
                 $valid = false;
-                foreach($allowed_types as $a){
-                    if($a == explode('.', $f->hashName())[1]){
-                        $valid = true;
+                foreach($files as $f){
+                    $valid = false;
+                    foreach($allowed_types as $a){
+                        if($a == explode('.', $f->hashName())[1]){
+                            $valid = true;
+                        }
                     }
                 }
+                if($valid == false){
+                    return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
+                }  
+            }else{
+                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'No files added!']);
             }
-            if($valid == false){
-                return redirect('/media-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad file type!']);
-            }  
+            
         }elseif($type == 'both'){
             $files = $request->file('files');
+            $files = (!$files) ? [] : $files;
             $url = $request->input('link');
 
             if( isset($url) && !empty($url) ){
@@ -285,7 +299,7 @@ class Intranet_media extends Controller
         ];
         $media_id = DB::table('media')->where('m_id', $m_id )->update($data);
 
-        $files_to_delete = DB::table('media_files')->where('m_id', $id)->get();
+        $files_to_delete = DB::table('media_files')->where('m_id', $m_id)->get();
         $path = base_path('storage/app/public/media/');
         foreach($files_to_delete as $f){
             if(is_file($path.$f->hash_name)){

@@ -1,6 +1,12 @@
 
 var redirect = null;
 
+$(document).ready(function(){
+    $("#alert").fadeTo(4000, 500).fadeOut(500, function(){
+        $("#alert").fadeOut(500);
+    });
+});
+
 function confirmation_redirect(head,text,link){
     redirect = link;
     $('#confirmation-title').text(head);

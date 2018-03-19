@@ -1,3 +1,11 @@
+.message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999999999999999;
+}
+
 #return-to-top {
     position: fixed;
     bottom: 20px;

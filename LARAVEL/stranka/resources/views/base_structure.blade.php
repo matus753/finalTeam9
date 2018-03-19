@@ -18,29 +18,29 @@
 		@yield('additional_headers')
 	</head>
 	<body>
-    @if(session()->has('err_code'))
-        @if(session()->get('err_code')['type'] == 'success')
-        <div class="alert alert-success alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Success!</strong> {{ session()->get('err_code')['msg'] }}.
-        </div>
-        @elseif(session()->get('err_code')['type'] == 'warning')
-        <div class="alert alert-warning alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Warning!</strong> {{ session()->get('err_code')['msg'] }}.
-        </div>
-        @elseif(session()->get('err_code')['type'] == 'error')
-        <div class="alert alert-danger alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Error!</strong> {{ session()->get('err_code')['msg'] }}.
-        </div>
-        @elseif(session()->get('err_code')['type'] == 'info')
-        <div class="alert alert-info alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Info!</strong> {{ session()->get('err_code')['msg'] }}.
-        </div>
+            @if(session()->has('err_code'))
+            @if(session()->get('err_code')['type'] == 'success')
+            <div id="alert" class="alert alert-success alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> {{ session()->get('err_code')['msg'] }}.
+            </div>
+            @elseif(session()->get('err_code')['type'] == 'warning')
+            <div id="alert" class="alert alert-warning alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Warning!</strong> {{ session()->get('err_code')['msg'] }}.
+            </div>
+            @elseif(session()->get('err_code')['type'] == 'error')
+            <div id="alert" class="alert alert-danger alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error!</strong> {{ session()->get('err_code')['msg'] }}.
+            </div>
+            @elseif(session()->get('err_code')['type'] == 'info')
+            <div id="alert" class="alert alert-info alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Info!</strong> {{ session()->get('err_code')['msg'] }}.
+            </div>
+            @endif
         @endif
-    @endif
 	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
 	<nav class="navbar navbar-default" id="navbar-custom">
         <div class="container">

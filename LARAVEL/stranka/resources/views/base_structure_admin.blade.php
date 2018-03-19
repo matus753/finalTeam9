@@ -19,22 +19,22 @@
 	<body>
     @if(session()->has('err_code'))
         @if(session()->get('err_code')['type'] == 'success')
-        <div class="alert alert-success alert-dismissable fade in">
+        <div id="alert" class="alert alert-success alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Success!</strong> {{ session()->get('err_code')['msg'] }}.
         </div>
         @elseif(session()->get('err_code')['type'] == 'warning')
-        <div class="alert alert-warning alert-dismissable fade in">
+        <div id="alert" class="alert alert-warning alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Warning!</strong> {{ session()->get('err_code')['msg'] }}.
         </div>
         @elseif(session()->get('err_code')['type'] == 'error')
-        <div class="alert alert-danger alert-dismissable fade in">
+        <div id="alert" class="alert alert-danger alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Error!</strong> {{ session()->get('err_code')['msg'] }}.
         </div>
         @elseif(session()->get('err_code')['type'] == 'info')
-        <div class="alert alert-info alert-dismissable fade in">
+        <div id="alert" class="alert alert-info alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Info!</strong> {{ session()->get('err_code')['msg'] }}.
         </div>

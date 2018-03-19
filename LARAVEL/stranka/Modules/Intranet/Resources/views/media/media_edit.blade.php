@@ -79,6 +79,11 @@
                     <label for="file">{{ 'Súbor(y):' }}</label>
                     <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" />
                 </div>
+                @if($files)
+                <input type="hidden" name="has_files" value="1" />
+                @else
+                <input type="hidden" name="has_files" value="0" />
+                @endif
                 <input type="submit" class="btn btn-success pull-right" value="Ulož" />
             </form>
             @if($files)
