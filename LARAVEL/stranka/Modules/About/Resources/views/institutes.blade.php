@@ -81,21 +81,30 @@
         <!--Department 3 -->
         <div class="sectContent" id="dep_OEMP">
             <h4 class="ustavTitle" >@lang('about::aboutUs.depOEMP')</h4>
-                <div class="sectText row col-lg-12">
-                    <div class="col-md-2">
-                        <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                        <p class="bold">@lang('about::aboutUs.depHead2'): </p>
-                    </div>
-                    <div class="col-md-10">
-                        @foreach ($vOEMP as $s)
-                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                        @endforeach
-                        @foreach ($zOEMP as $s)
-                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                        @endforeach
-                    </div>
+            <div class="sectText row col-lg-12">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead'): </p>
+                    <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                 </div>
-                <p class="sectText">@lang('about::aboutUs.later')</p>
+                <div class="col-md-10">
+                    @foreach ($vOEMP as $s)
+                        <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                    @endforeach
+                    @foreach ($zOEMP as $s)
+                        <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                    @endforeach
+                </div>
+            </div>
+            <h5>@lang('about::aboutUs.depOEMPTitle1')</h5>
+            <ul>                   
+                <li>@lang('about::aboutUs.depOEMP_li1')</li>
+                <li>@lang('about::aboutUs.depOEMP_li2')</li>
+                <li>@lang('about::aboutUs.depOEMP_li3')</li>
+                <li>@lang('about::aboutUs.depOEMP_li4')</li>
+                <li>@lang('about::aboutUs.depOEMP_li5')</li>
+                <li>@lang('about::aboutUs.depOEMP_li6')</li>
+                <li class="sectContentLi">@lang('about::aboutUs.depOEMP_li7')</li>
+            </ul>                
         </div>
         <!--Department 4 -->
         <div class="sectContent" id="dep_OEAP">

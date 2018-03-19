@@ -35,6 +35,12 @@
     margin-bottom: 40px;
 }
 
+.sectContentLi {
+    list-style: none;
+    margin-left: -16px;
+    margin-top: 15px;
+}
+
 @media all and (max-width: 1199px) {
     .sectContent img {
         max-height: 170px;

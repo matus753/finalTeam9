@@ -33,5 +33,14 @@ return [
     'depOIKRT_li5' => 'modern mobile and web technologies for mechatronic systems',
     'depOIKRT_li6' => 'development and implementation of new software architectures and communication systems for mechatronic applications',
     'depOIKRT_li7' => 'applied research in remote control of mechatronic systems',
-    'depOIKRT_li8' => 'event systems control using PLC and developing HMI for these systems. '
+    'depOIKRT_li8' => 'event systems control using PLC and developing HMI for these systems. ', 
+
+    'depOEMPTitle1' => 'Research and education at the Department of Electronics, Microcomputer Systems and Programmable Logic Controllers (OEMP) are focused on electronic components and microcomputer systems for mechatronics within the following fields:',
+    'depOEMP_li1' => 'sensors, smart sensor systems, MEMS and measuring channels of sensors, digital signal processing, machine vision',
+    'depOEMP_li2' => 'actuators, smart actuators, electrical drives, servosystems and traction electric drives for electric vehicles',
+    'depOEMP_li3' => 'embedded microcomputer systems, signal processors (DSP), low power microprocessors, development kits based on ARM processors, FPGA structures and SoC (System on Chip) for signal processing, implementation of control algorithms and design of on-board computers in vehicles',
+    'depOEMP_li4' => 'in-car communication systems (LIN, CAN, FlexRay, MOST,…), industrial communication systems (Profibus, Profinet, EtherCat,…), wireless communication systems (including GPS and Galileo) for networking components of mechatronic and automatic control systems',
+    'depOEMP_li5' => 'electrical design software EPLAN (CAE system for mechatronic and industrial systems) including functional safety, spark safety and reliability. Design of electronic devices and automotive electronic systems',
+    'depOEMP_li6' => 'digital control methods and algorithms and their implementation on microcomputer systems',
+    'depOEMP_li7' => 'DEMP is seat of a Texas Instrument European Customer Training Centre.'
 ];
