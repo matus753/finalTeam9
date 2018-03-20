@@ -33,5 +33,10 @@ return [
 	
 	'interesting_projects' => 'WORKING ON INTERESTING PROJECTS',
 	'interesting_projects_text' => 'Our institute cooperates with a number of companies and is involved in several domestic or international projects.',
-	
+
+    '' => '',
+    'go_to_page' => 'Go to page ',
+    'calendar' => 'Institute events calendar',
+
+
 ];

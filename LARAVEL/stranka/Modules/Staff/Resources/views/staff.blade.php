@@ -54,7 +54,7 @@ $(document).ready(function() {
 					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em 20px 0.5em 0.5em"></div></label>').prependTo($('#staff_filter'));
 					$('<label>@lang("staff::staff.role")</label>').prependTo($('#staff_filter'));
 					var column = this;
-					var select = $('<select class="form-control input-sm"><option value="">Žiadne</option></select>')
+					var select = $('<select class="form-control input-sm"><option value="">@lang("staff::staff.no_role")</option></select>')
 						.prependTo( $('#filterbox').empty() )
 						.on( 'change', function () {
 							var val = $.fn.dataTable.util.escapeRegex(
@@ -78,7 +78,7 @@ $(document).ready(function() {
 					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em 20px 0.5em 0.5em"></div></label>').prependTo($('#staff_filter'));
 					$('<label>@lang("staff::staff.department")</label>').prependTo($('#staff_filter'));
 					var column = this;
-					var select = $('<select class="form-control input-sm"><option value="">Žiadne</option></select>')
+					var select = $('<select class="form-control input-sm"><option value="">@lang("staff::staff.no_dept")</option></select>')
 						.prependTo( $('#filterbox').empty() )
 						.on( 'change', function () {
 							var val = $.fn.dataTable.util.escapeRegex(

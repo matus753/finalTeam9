@@ -2,10 +2,45 @@
 
 return [
 
-    /*
-    |	Menu translations
-    */
-	
-    
+
+    '' => '',
+    '' => '',
+    '' => '',
+    'contact' => 'Contact',
+    'e_mobility' => 'Electromobility',
+    'web_pages' => 'TODO Thematic web pages',
+    'photogalery' => 'Photogalery',
+    'activities' => 'Activities',
+    'biomechatronics' => 'Biomechatronics',
+    'cube' => '3D LED cube',
+    'a_vehicle' => 'Autonomous vehicle 6×6',
+    'e_cart' => 'Electric cart',
+    'research_fields' => 'Fields of research',
+    'research' => 'Research',
+    'phd_study' => 'Master studies',
+    'ing_themes' => 'Engineering thesis themes',
+    'ing_study' => 'Engineering studies',
+    'bc_themes' => 'Bachelor thesis themes',
+    'bc_study' => 'Bachelor studies',
+    'applicants' => 'For study applicants',
+    'study' => 'Study',
+    'departments' => 'Institute departments',
+    'management' => 'Institute management',
+    'history' => 'Institute history',
+    'about' => 'About us',
+    'cancel' => 'Cancel',
+    'ok' => 'Ok',
+    'photos' => 'Photos',
+    'videos' => 'Videos',
+    'media' => 'Media',
+    'staff' => 'Staff',
+    'projects' => 'Projects',
+    'documents' => 'Documents',
+    'attendance' => 'Attendance',
+    'subjects' => 'Subjects',
+    'events' => 'Events',
+    'news' => 'News',
+    'schedule' => 'Schedule',
+
 
 ];

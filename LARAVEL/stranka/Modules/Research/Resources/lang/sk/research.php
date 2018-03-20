@@ -24,5 +24,9 @@ return [
     'kapacita' => 'Celková kapacita aku­mulá­torov: 13,2 Ah',
 
     'kocka' => '3D LED kocka',
+    'biomech' => 'Biomechatronika',
+    'cart' => 'Elektrická motokára',
+    'international' => 'MEDZINÁRODNÉ',
+    'other' => 'OSTATNÉ',
     'kockaPopis' => 'Zobrazená kocka bola vytvorená v rámci diplomovej práce. Bol k nej vytvorený vzdialený prístup cez Internet, čo umožňuje užívateľovi vkladať do kocky vlastný kód, ktorý ovplyvňuje jej správanie sa.'
 ];

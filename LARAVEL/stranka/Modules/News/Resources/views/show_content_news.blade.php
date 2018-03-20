@@ -13,11 +13,11 @@
 <div id="emPAGEcontent" class="container">
     <div class="row">
         <h1 class="display-4">
-            {{ $content->title_sk }}
+            {{ $title }}
         </h1>
     </div>
     <div class="row">
-        {!! $content->editor_content_sk !!}
+        {!! $content !!}
     </div>
     <div class="row">
         @if($added_files)

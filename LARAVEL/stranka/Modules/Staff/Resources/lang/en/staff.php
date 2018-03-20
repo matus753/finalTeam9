@@ -39,7 +39,6 @@ return [
 	'teacher' => 'Teacher',
 	'doktorand' => 'PhD student',
 	'researcher' => 'Researcher',
-	'role' => 'Role',
 
     'show_publications' => 'Show publications',
     'tbl-title' => 'Title',
@@ -56,5 +55,9 @@ return [
 	'OEMP' => 'OEMP',
 	'OEMP_desc' => ' - Department of Electronics, Microcomputers and PLC',
 	'OIKR' => 'OIKR',
-	'OIKR_desc' => ' - Department of Information, Communication and Control Systems'
+	'OIKR_desc' => ' - Department of Information, Communication and Control Systems',
+
+    'no_role' => 'No position',
+    'no_dept' => 'No department',
+
 ];

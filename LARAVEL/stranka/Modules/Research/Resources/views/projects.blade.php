@@ -19,7 +19,7 @@
 			<div >
 				<div >
 					<table class="table">
-						<thead class="category"><tr><th colspan="4">INTERNATIONAL</th></tr></thead>
+						<thead class="category"><tr><th colspan="4">@lang('research::research.international')</th></tr></thead>
 						<thead>
 							<tr class="tableHead">
 								<th class="column1">@lang('research::research.projectNumber')</th>
@@ -245,7 +245,7 @@
 				<div >
 
 					<table class="table">
-                        <thead class="category"><tr><th colspan="4">OTHER</th></tr></thead>
+                        <thead class="category"><tr><th colspan="4">@lang('research::research.other')</th></tr></thead>
 						<thead>
 							<tr class="tableHead">
 								<th class="column1">@lang('research::research.projectNumber')</th>

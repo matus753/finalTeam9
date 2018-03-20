@@ -10,7 +10,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="text-center">
-				<h1>Odhlásenie</h1>
+				<h1>@lang('login::index.logout')</h1>
 			</div>
 		</div>
 	</div>
@@ -19,7 +19,7 @@
 		<div class="col-md-12">
 			<form method="POST" action="{{ url('/logout-action') }}">
 				{{ csrf_field() }}
-				<input type="submit" class="btn btn-primary" value="Odhlás">
+				<input type="submit" class="btn btn-primary" value="@lang('login::index.to_logout')">
 			</form>
 		</div>
 	</div>
@@ -28,7 +28,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="text-center">
-				<h1>Prihlásenie</h1>
+				<h1>@lang('login::index.login')</h1>
 			</div>
 		</div>
 	</div>
@@ -38,14 +38,14 @@
 			<form method="POST" action="{{ url('/login-action') }}">
 				{{ csrf_field() }}
 				<div class="form-group">
-					<label for="name">Name:</label>
+					<label for="name">@lang('login::index.name'):</label>
 					<input type="text" class="form-control" id="name" name="name" />
 				</div>
 				<div class="form-group">
-					<label for="pass">Heslo:</label>
+					<label for="pass">@lang('login::index.pass'):</label>
 					<input type="password" class="form-control" id="pass" name="pass" />
 				</div>
-				<input type="submit" class="btn btn-primary" value="Prihlás">
+				<input type="submit" class="btn btn-primary" value="@lang('login::index.to_login')">
 			</form>
 		</div>
 	</div>

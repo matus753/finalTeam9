@@ -39,7 +39,6 @@ return [
 	'teacher' => 'Učiteľ',
 	'doktorand' => 'Doktorant',
 	'researcher' => 'Výskumník',
-	'role' => 'Rola',
 
 	'show_publications' => 'Zobraziť publikácie',
 	'tbl-title' => 'Názov publikácie',
@@ -56,5 +55,8 @@ return [
 	'OEMP' => 'OEMP',
 	'OEMP_desc' => ' - Oddelenie elektroniky, mikropočítačov a PLC systémov',
 	'OIKR' => 'OIKR',
-	'OIKR_desc' => ' - Oddelenie informačných, komunikačných a riadiacich systémov'
+	'OIKR_desc' => ' - Oddelenie informačných, komunikačných a riadiacich systémov',
+
+    'no_role' => 'Žiadne',
+    'no_dept' => 'Žiadne',
 ];

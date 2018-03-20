@@ -135,5 +135,9 @@ return [
     'bachelor' => 'bachelor',
     'master' => 'master',
 
-    'lang' => 'en'
+    'lang' => 'en',
+    'at' => 'at',
+    'in' => 'in',
+    'head' => 'head',
+    'no_data' => 'No data available.',
 ];

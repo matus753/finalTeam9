@@ -6,7 +6,7 @@
 
 @section('content')
 <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/biomech.png') }}')">
-    <h1>Biomechatronika</h1>
+    <h1>@lang('research::research.biomech')</h1>
 </section>
 <div id="emPAGEcontent">
     <div class="container">

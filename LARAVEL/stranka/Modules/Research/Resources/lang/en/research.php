@@ -24,5 +24,9 @@ return [
     'kapacita' => 'Total battery capacity: 13.2 Ah',
 
     'kocka' => '3D LED cube',
+    'biomech' => 'Biomechatronics',
+    'cart' => 'Electric cart',
+    'international' => 'INTERNATIONAL',
+    'other' => 'OTHER',
     'kockaPopis' => 'Displayed cube was created within the diploma thesis. It was created for remote access via the Internet. It allows the user to insert custom code blocks and in this way to influence its behavior.'
 ];

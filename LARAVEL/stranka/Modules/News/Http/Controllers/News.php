@@ -75,8 +75,9 @@ class News extends Controller
 			return redirect('/news')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
 		}
 
+        $locale = session()->get('locale');
 		$content = DB::table('news')->where('n_id', $n_id)->first();
-		
+
 		$added_files = [];
 		if($content){
 			$added_files = DB::table('news_dl_files')->where('n_id', $content->n_id)->get();
@@ -85,11 +86,19 @@ class News extends Controller
 			return redirect('/news')->with('err_code', ['type' => 'warning', 'msg' => 'Item does not exists!']);
 		}
 
-		$data = [
-			'title' => $content->title_sk,
-			'content' => $content,
-			'added_files' => $added_files
-		];
+        if($locale == 'sk'){
+            $data = [
+                'title' => $content->title_sk,
+                'content' => $content->editor_content_sk,
+                'added_files' => $added_files
+            ];
+        } else {
+            $data = [
+                'title' => $content->title_en,
+                'content' => $content->editor_content_en,
+                'added_files' => $added_files
+            ];
+        }
 
 		return view('news::show_content_news', $data);
 	}

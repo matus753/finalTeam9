@@ -13,7 +13,7 @@
         <div class="container">
 
             @if(count($subcats) == 0)
-            <h3 style="text-align: center">Žiadne dáta nie sú k dizpocícii.</h3>
+            <h3 style="text-align: center">@lang('study::study.no_data')</h3>
             @else
             @foreach($subcats as $s)
                 <div>

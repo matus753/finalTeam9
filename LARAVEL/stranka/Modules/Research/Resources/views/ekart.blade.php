@@ -6,7 +6,7 @@
 
 @section('content')
 <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner9.jpg') }}')">
-    <h1>Elektrická motokára</h1>
+    <h1>@lang('research::research.cart')</h1>
 </section>
 <div id="emPAGEcontent">
     <div class="container">

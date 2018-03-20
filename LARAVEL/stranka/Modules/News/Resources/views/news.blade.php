@@ -108,9 +108,9 @@ function check(){
                         </div>
                         <div class="col-md-2" style="margin-top: 60px; margin-bottom: 10px;">
                             @if($n->editor_content_sk)
-                                <a class="btn btn-sm btn-default" href="{{ url('/news/content/'.$n->id) }}"><i class="fa fa-fw fa-eye"></i> @lang("news::news.more")</a>
+                                <a class="btn btn-sm btn-default ib-button" href="{{ url('/news/content/'.$n->id) }}"><i class="fa fa-fw fa-eye"></i> @lang("news::news.more")</a>
                             @endif
-                            <button class="btn btn-sm btn-primary {{ $today > $n->date_expiration ? 'expired_b' : '' }}"><i class="fa fa-fw fa-shopping-cart"></i> @lang("news::news.created"): {{ format_time($n->date_created) }}</button>
+                            <button class="btn btn-sm btn-primary {{ $today > $n->date_expiration ? 'expired_b' : '' }} ib-button"><i class="fa fa-fw fa-shopping-cart"></i> @lang("news::news.created"): {{ format_time($n->date_created) }}</button>
                         </div>
                     </div>
                 </div>

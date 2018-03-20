@@ -133,5 +133,9 @@ return [
     'bachelor' => 'bakalárske',
     'master' => 'diplomové',
 
-    'lang' => 'sk'
+    'lang' => 'sk',
+    'at' => 'o',
+    'in' => 'v',
+    'head' => 'predseda',
+    'no_data' => 'Žiadne dáta nie sú k dizpocícii.',
 ];

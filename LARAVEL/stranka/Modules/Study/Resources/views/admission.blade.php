@@ -94,9 +94,9 @@
                             <p>@lang('study::study.fullStudyProgram') 2017-2018: <a href="{{ URL::asset('docs/SP20172018b.pdf') }}"  target="_blank">SP20172018b.pdf</a></p>
                             <table class="table tableStudy">
                                 <tbody>
-                                <tr><th>@lang('study::study.examDate')</th><td>28.6.2017 o 10:00 v D124</td></tr>
-                                <tr><th rowspan="5">@lang('study::study.examComitee')</th><td>prof. Ing. Mikuláš Huba, PhD. (predseda)</td></tr>
-                                <tr><td>prof. Ing. Justín Murín, DrSc. (predseda)</td></tr>
+                                <tr><th>@lang('study::study.examDate')</th><td>28.6.2017 @lang('study::study.at') 10:00 @lang('study::study.in') D124</td></tr>
+                                <tr><th rowspan="5">@lang('study::study.examComitee')</th><td>prof. Ing. Mikuláš Huba, PhD. (@lang('study::study.head'))</td></tr>
+                                <tr><td>prof. Ing. Justín Murín, DrSc. (@lang('study::study.head'))</td></tr>
                                 <tr><td>prof. Ing. Viktor Ferencey, PhD.</td></tr>
                                 <tr><td>prof. Ing. Štefan Kozák, PhD.</td></tr>
                                 <tr><td>doc. Ing. Katarína Žáková, PhD.</td></tr>

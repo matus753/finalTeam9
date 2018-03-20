@@ -65,7 +65,7 @@
 						  	<div class="hp-thumbnail__item-content">
 						  		<h3>@lang('home::home.news')</h3>
 						  		<p class="hp-thumbnail__text">@lang('home::home.news_section_preview')</p>
-						  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+						  		<p class="hp-thumbnail__link">@lang('home::home.go_to_page')<i class="fa fa-arrow-right" aria-hidden="true"></i></p>
 						  	</div>
 						  </a>
 					  </div>				  
@@ -76,7 +76,7 @@
 						  	<div class="hp-thumbnail__item-content">
 						  		<h3>@lang('home::home.photo_gallery')</h3>
 						  		<p class="hp-thumbnail__text">@lang('home::home.photo_gallery_section_preview')</p>
-						  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+						  		<p class="hp-thumbnail__link">@lang('home::home.go_to_page')<i class="fa fa-arrow-right" aria-hidden="true"></i></p>
 						  	</div>
 						  </a>
 					  </div>
@@ -87,7 +87,7 @@
 						  	<div class="hp-thumbnail__item-content">
 						  		<h3>@lang('home::home.about_us')</h3>
 						  		<p class="hp-thumbnail__text">@lang('home::home.about_us_section_preview')</p>
-						  		<p class="hp-thumbnail__link">Prejdite na stránku <i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+						  		<p class="hp-thumbnail__link">@lang('home::home.go_to_page')<i class="fa fa-arrow-right" aria-hidden="true"></i></p>
 						  	</div>
 						  </a>
 					  </div>
@@ -106,13 +106,13 @@
 			</script>
 			<div class="fb-page" data-href="https://www.facebook.com/UAMTFEISTU/?fref=ts" data-tabs="timeline" data-height="600" data-width="1000000000" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false">
 				<blockquote cite="https://www.facebook.com/UAMTFEISTU/?fref=ts" class="fb-xfbml-parse-ignore">
-					<a href="https://www.facebook.com/UAMTFEISTU/?fref=ts">Ústav automobilovej mechatroniky FEI STU</a>
+					<a href="https://www.facebook.com/UAMTFEISTU/?fref=ts">@lang('home::home.slider1_highlighted')</a>
 				</blockquote>
 			</div>						
 		</div>
 		<div class="col-sm-4 col-md-3">
 		  	<div class="hp-events">
-			  	<h4>Ústavný kalendár akcií</h4>
+			  	<h4>@lang('home::home.calendar')</h4>
 				<div id="datepicker" class="hp-events__datepicker">
 				</div>
 			  	<div class="hp-events__list">
@@ -174,7 +174,7 @@
 		</div>
 	</div> -->
 </div>
-
+<!--TODO prelozit tento JS script-->
 <script type="text/javascript">
 		
 		$(function() {
