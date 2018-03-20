@@ -4,9 +4,10 @@
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/datatables.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
 
+<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
+<script src="{{ URL::asset('js/additional_style.js') }}"></script>
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>

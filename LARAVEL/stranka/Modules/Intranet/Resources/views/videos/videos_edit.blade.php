@@ -25,7 +25,7 @@
                 </div>
             </div>
             <br>
-            <form action="{{ url('/videos-admin-add-action') }}" method="post">
+            <form action="{{ url('/videos-admin-edit-action/'.$video->v_id) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <select class="form-control" id="type" name="type" >
@@ -36,17 +36,17 @@
                 </div>
                 <div class="form-group">
                     <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_SK" placeholder="Slovenský nadpis" value="{{ $video->title_SK }}" required />
+                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $video->title_SK }}" required />
                 </div>
                 <div class="form-group">
                     <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_EN" placeholder="Anglický nadpis" value="{{ $video->title_EN }}" required />
+                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $video->title_EN }}" required />
                 </div>
                 <div class="form-group">
                     <label for="url">URL:</label>
                     <input type="text" class="form-control" id="url" name="url" placeholder="URL" value="{{ $video->url }}" required />
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
+                <input type="submit" class="btn btn-success pull-right" value="Uloz" />
             </form>
 		</div>
 	</div>

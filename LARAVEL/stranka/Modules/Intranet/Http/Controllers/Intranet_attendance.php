@@ -153,10 +153,12 @@ class Intranet_attendance extends Controller
         $mesiac = $request->input('month');
         $den = $request->input('day');
         $id_typu = $request->input('type');
+        
 
-        if(!is_numeric($id_zamestnanca) || !is_numeric($rok) || !is_numeric($mesiac) || $mesiac < 1 || $mesiac > 12 || !is_numeric($den) || $den < 1 || $den > 31 || !is_numeric($id_typu) || $id_typu < 1 || $id_typu > 5){
+        if(!is_numeric($id_zamestnanca) || !is_numeric($rok) || !is_numeric($mesiac) || $mesiac < 1 || $mesiac > 12 || !is_numeric($den) || $den < 1 || $den > 31 || !is_numeric($id_typu) || $id_typu < -1 || $id_typu == 0 || $id_typu > 5){
             return response()->json(['error' => 'Bad request'], 400);
         }
+        
         
         if(!has_permission('hr')){
             if($id_zamestnanca != get_user_id()){
@@ -172,6 +174,7 @@ class Intranet_attendance extends Controller
                         ->where('mesiac', $mesiac)
                         ->where('den', $den)
                         ->delete();
+                return response()->json(['error' => 'Success'], 200);
             }else{
                 $data = [
                     'id_zamestnanca' => $id_zamestnanca,

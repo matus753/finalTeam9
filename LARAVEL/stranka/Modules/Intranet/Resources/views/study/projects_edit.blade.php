@@ -4,31 +4,17 @@
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/datatables.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
+
+<script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>
+<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
-    <script>
-        function validateForm() {
-            var x = document.forms["projectForm"]["id_number"].value;
-            var y = document.forms["projectForm"]["title_sk"].value;
-            if (!x.trim()) {
-                $("#req1").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req1").css("display", "none");
-            }
-
-            if (!y.trim()) {
-                $("#req2").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req2").css("display", "none");
-            }
-        }
-    </script>
+<script>
+    $('.selectpicker').selectpicker();
+</script>
 <div class="container">
     <div class="intra-div">
         <div class="row">
@@ -64,17 +50,23 @@
                     </div>
                     <div class="form-group">
                         <label for="title_en">Anglický nadpis:</label>
-                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $item->titleEN }}" required />
+                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $item->titleEN }}" />
                     </div>
                     {{--<span style="color:red">zmenit na  date ?</span>--}}
                     <div class="form-group">
                         <label for="duration">Trvanie:</label>
-                        <input type="text" class="form-control" id="duration" name="duration" placeholder="Trvanie" value="{{ $item->duration }}" required />
+                        <input type="text" class="form-control" id="duration" name="duration" placeholder="Trvanie" value="{{ $item->duration }}"  />
                     </div>
-                    <span style="color:red">prepojiť so staff ?</span>
+ 
                     <div class="form-group">
                         <label for="coordinator">Koordinátor:</label>
-                        <input type="text" class="form-control" id="coordinator" name="coordinator" placeholder="Koordinátor" value="{{ $item->coordinator }}" required />
+                        <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">
+                                
+                            @foreach($staff as $s)
+                            <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                            @endforeach
+                            <!--<option data-content="<input type='text' placeholder='Vlastný záznam...' class='form-control' />"></option>-->
+                        <select>
                     </div>
                     <div class="form-group">
                         <label for="partners">Partneri:</label>
@@ -82,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label for="iCode">Interný kód:</label>
-                        <input type="text" class="form-control" id="iCode" name="iCode" placeholder="Kód" value="{{ $item->internalCode }}" required />
+                        <input type="text" class="form-control" id="iCode" name="iCode" placeholder="Kód" value="{{ $item->internalCode }}"  />
                     </div>
                 </div>
 

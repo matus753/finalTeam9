@@ -57,13 +57,13 @@ class Intranet_media extends Controller
         $type = $request->input('type');
 
         if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 256){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
         }
         if(!is_string($titleEN) || strlen($titleEN) < 1 || strlen($titleEN) > 256){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Anglický nadpis has bad format - max 256 characters!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Anglický nadpis has bad format - max 256 characters!']);
         }
         if(!is_string($media) || strlen($media) < 1 || strlen($media) > 256){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
         }
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
 
@@ -211,16 +211,16 @@ class Intranet_media extends Controller
         $has_files = $request->input('has_files');
 
         if(!is_string($titleSK) || strlen($titleSK) < 1 || strlen($titleSK) > 256){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
         }
         if(!is_string($titleEN) || strlen($titleEN) < 1 || strlen($titleEN) > 256){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Anglický nadpis has bad format - max 256 characters!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Anglický nadpis has bad format - max 256 characters!']);
         }
         if(!is_string($media) || strlen($media) < 1 || strlen($media) > 256){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Media has bad format - max 128 characters!']);
         }
         if(!is_numeric($has_files)){
-            return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Error somewhere!']);
+            return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Error somewhere!']);
         }
         $date = (isset($date) && !empty($date)) ? strtotime($date) : time();
 
@@ -336,7 +336,7 @@ class Intranet_media extends Controller
             }
             return redirect('/media-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly added!']);
         }
-        return redirect('/media-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
+        return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
     }
 
     public function media_delete_action( $id = 0 ){

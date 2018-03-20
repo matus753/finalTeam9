@@ -86,7 +86,25 @@ function news_create_folder($hash_name = ''){
 /**
  * create news folder if not exists
  */
+function documents_category_create_folder($hash_name = ''){
+	if( $hash_name == '' ){
+		return false;
+	}
+	
+	$path = public_path('/storage/documents/'.$hash_name);
 
+	if(is_dir($path)){
+		return true;
+	}else{
+		@mkdir($path, 0777, true);
+	}
+
+	if(is_dir($path)){
+		return true;
+	}
+	return false;
+
+}
 
 function documents_create_folder($hash_name_category = '', $hash_name = ''){
 	if( $hash_name == '' || $hash_name_category == '' ){

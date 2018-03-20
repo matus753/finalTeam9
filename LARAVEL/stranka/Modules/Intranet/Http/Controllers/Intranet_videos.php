@@ -149,7 +149,7 @@ class Intranet_videos extends Controller
         $title_en = $request->input('title_en');
         $url = $request->input('url');
         $type = $request->input('type');
-
+        
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256 ){
             return redirect('/videos-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
         }
@@ -186,11 +186,11 @@ class Intranet_videos extends Controller
             'type_en' => $type_en,
         ];
 
-        $res = (bool)DB::table('video_gallery')->where('v_id', $v_id)->insert($data);
+        $res = (bool)DB::table('video_gallery')->where('v_id', $v_id)->update($data);
         if($res){
             return redirect('/videos-admin')->with('err_code', ['type' => 'success', 'msg' => 'Record updated successfuly!']);
         }
-        return redirect('/videos-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
+        return redirect('/videos-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
     }
 
     public function videos_delete_action($v_id = 0){

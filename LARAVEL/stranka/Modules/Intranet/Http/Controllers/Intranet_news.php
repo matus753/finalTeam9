@@ -399,12 +399,18 @@ class Intranet_news extends Controller
         }
 
         $item = DB::table('news')->where('n_id', $n_id)->first();
+        if(!$item){
+            return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
         $path = base_path('storage/app/public/news/').$item->hash_id;
         
         $res = (bool) DB::table('news')->where('n_id', $n_id)->delete();
         if($res){
             array_map('unlink', glob("$path/*.*"));
-            rmdir($path);
+            if(is_dir($path)){
+                rmdir($path);
+            }
             return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
         }
         return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -420,13 +426,18 @@ class Intranet_news extends Controller
         }
 
         $item = DB::table('news_dl_files')->where('nf_id', $nf_id)->first();
+        if(!$item){
+            return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
         $parent = DB::table('news')->where('n_id', $item->n_id)->first();
 
         $path = base_path('storage/app/public/news/').$parent->hash_id.'/'.$item->file_hash;
 
         $res = (bool) DB::table('news_dl_files')->where('nf_id', $nf_id)->delete();
         if($res){
-            unlink($path);
+            if(is_file($path)){
+                unlink($path);
+            }
             return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
         }
         return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);

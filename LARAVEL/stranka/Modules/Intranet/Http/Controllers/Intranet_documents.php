@@ -207,7 +207,7 @@ class Intranet_documents extends Controller
                     'file_hash' => $image->hashName(),
                     'file_name' => $image->getClientOriginalName()
                 ];
-
+                DB::table('documents_files')->insert($data);
                 $image->store('/public/documents/'.$category.'/'.$hash_id);
                 $response->link = url('/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName());
                 return stripslashes(json_encode($response->link));
@@ -475,6 +475,7 @@ class Intranet_documents extends Controller
 
         $path = base_path('storage/app/public/documents/').$parent->hash_name.'/'.$item->hash_name;
         $files = DB:: table('documents_files')->where('hash_id', $item->hash_name)->get();
+       
         foreach($files as $f){
             $tmp = $path.'/'.$f->file_hash;
             if(is_file($tmp)){
@@ -484,7 +485,7 @@ class Intranet_documents extends Controller
         if(is_dir($path)){
             rmdir($path);
         }
-
+        DB:: table('documents_files')->where('hash_id', $item->hash_name)->delete();
 
         $res = (bool) DB::table('documents')->where('d_id', $d_id)->delete();
         if($res){
