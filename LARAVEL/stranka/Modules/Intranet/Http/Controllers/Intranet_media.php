@@ -297,9 +297,11 @@ class Intranet_media extends Controller
             'url' => $link,
             'title_EN' => $titleEN
         ];
+
         $media_id = DB::table('media')->where('m_id', $m_id )->update($data);
 
         $files_to_delete = DB::table('media_files')->where('m_id', $m_id)->get();
+        
         $path = base_path('storage/app/public/media/');
         foreach($files_to_delete as $f){
             if(is_file($path.$f->hash_name)){
@@ -309,7 +311,7 @@ class Intranet_media extends Controller
         
         DB::table('media_files')->where('m_id', $m_id)->delete();
 
-        if($media_id){
+        if($files){
             if($files && is_array($files)){
                 foreach($files as $f){
                     $file_name = $f->getClientOriginalName();
@@ -317,7 +319,7 @@ class Intranet_media extends Controller
                     $size = $f->getClientSize();
 
                     $data_files = [
-                        'm_id' => $media_id,
+                        'm_id' => $m_id,
                         'file_name' => $file_name,
                         'hash_name' => $hash_name,
                     ];
@@ -334,9 +336,10 @@ class Intranet_media extends Controller
                     }
                 } 
             }
-            return redirect('/media-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly added!']);
+            
         }
-        return redirect('/media-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
+
+        return redirect('/media-admin')->with('err_code', ['type' => 'success', 'msg' => 'Successfuly changed!']);
     }
 
     public function media_delete_action( $id = 0 ){

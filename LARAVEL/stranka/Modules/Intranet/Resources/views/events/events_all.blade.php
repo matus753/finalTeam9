@@ -26,7 +26,6 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <h2>Zoznam udalostí ústavu</h2>
-            <h3>FUNKCIONALITA OK - treba test + remove bad string. AKTIVACIA POLOZKY ?? </h3>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="events-table" class="table table-stripped table-bordered intranet-table">

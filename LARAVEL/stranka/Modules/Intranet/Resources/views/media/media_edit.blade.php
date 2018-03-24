@@ -71,27 +71,27 @@
                     <label for="date">Dátum:</label>
                     <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" value="{{ format_time($media->date, true) }}" required />
                 </div>
-                <div id="div_link" class="form-group @if($media->type == 'server' || $media->type == 'both') {{ 'hidden' }} @endif">
+                <div id="div_link" class="form-group @if($media->type == 'server') {{ 'hidden' }} @endif">
                     <label for="link">Link:</label>
                     <input type="text" class="form-control" id="link" name="link" value="{{ $media->url }}" placeholder="Link" />
                 </div>
-                <div id="div_file" class="form-group @if($media->type == 'link' || $media->type == 'both') {{ 'hidden' }} @endif">
+                <div id="div_file" class="form-group @if($media->type == 'link' ) {{ 'hidden' }} @endif">
                     <label for="file">{{ 'Súbor(y):' }}</label>
-                    <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" />
+                    <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" multiple/>
                 </div>
-                @if($files)
+                @if(count($files))
                 <input type="hidden" name="has_files" value="1" />
                 @else
                 <input type="hidden" name="has_files" value="0" />
                 @endif
                 <input type="submit" class="btn btn-success pull-right" value="Ulož" />
             </form>
-            @if($files)
+            @if(count($files))
                 Súbory pri uploadnutí nových budú zmazané.
                 @foreach($files as $f)
                 <div class="row">
                     <div class="pull-left">
-                        <h4>Tento záznam už obsahuje súbors názvom: <small>{{ $f->file_name }}</small></h4>
+                        <h4>Tento záznam obsahuje súbors názvom: <small>{{ $f->file_name }}</small></h4>
                     </div>
                 </div>
                 @endforeach

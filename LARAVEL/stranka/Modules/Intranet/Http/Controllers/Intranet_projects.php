@@ -53,19 +53,20 @@ class Intranet_projects extends Controller
         if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
-
+       
         $type = $request->input('type');
         $number = $request->input('id_number');
         $titleEN = $request->input('title_en');
         $titleSK = $request->input('title_sk');
         $duration = $request->input('duration');
         $coordinator = $request->input('coordinator');
+        $custom_coordinator = $request->input('custom_coordinator');
         $partners = $request->input('partners');
         $web = $request->input('web');
         $iCode = $request->input('iCode');
         $annotationEN = $request->input('annotationEN');
         $annotationSK = $request->input('annotationSK');
-        
+
         if(!is_string($type) || strlen($type) < 1 || strlen($type) > 128){
             return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format type!']);
         }
@@ -94,12 +95,19 @@ class Intranet_projects extends Controller
             $duration = null;
         }
 
-        if($request->filled('coordinator')){
-            if(!is_string($coordinator) || strlen($coordinator) < 1 || strlen($coordinator) > 128){
+        if($request->filled('custom_coordinator')){
+            if(!is_string($custom_coordinator) || strlen($custom_coordinator) < 1 || strlen($custom_coordinator) > 128){
                 return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format coordinator - max 128 characters!']);
             }
+            $coordinator = $custom_coordinator;
         }else{
-            $coordinator = null;
+            if($request->filled('coordinator')){
+                if(!is_string($coordinator) || strlen($coordinator) < 1 || strlen($coordinator) > 128){
+                    return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format coordinator - max 128 characters!']);
+                }
+            }else{
+                $coordinator = null;
+            }
         }
 
         if($request->filled('partners')){
@@ -156,7 +164,7 @@ class Intranet_projects extends Controller
             'annotationSK' => $annotationSK,
             'annotationEN' => $annotationEN
         ];
-       
+        
         $res = (bool) DB::table('project')->insert($data);
         if($res){
             return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
@@ -186,7 +194,7 @@ class Intranet_projects extends Controller
             'types' => $types,
             'staff' => $staff
         ];
-
+        
         return view('intranet::study/projects_edit', $data);
     }
 
@@ -205,6 +213,7 @@ class Intranet_projects extends Controller
         $titleSK = $request->input('title_sk');
         $duration = $request->input('duration');
         $coordinator = $request->input('coordinator');
+        $custom_coordinator = $request->input('custom_coordinator');
         $partners = $request->input('partners');
         $web = $request->input('web');
         $iCode = $request->input('iCode');
@@ -239,13 +248,23 @@ class Intranet_projects extends Controller
             $duration = null;
         }
 
-        if($request->filled('coordinator')){
-            if(!is_string($coordinator) || strlen($coordinator) < 1 || strlen($coordinator) > 128){
+        if($request->filled('custom_coordinator')){
+            if(!is_string($custom_coordinator) || strlen($custom_coordinator) < 1 || strlen($custom_coordinator) > 128){
                 return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format coordinator - max 128 characters!']);
             }
+            $coordinator = $custom_coordinator;
         }else{
-            $coordinator = null;
+            if($request->filled('coordinator')){
+                if(!is_string($coordinator) || strlen($coordinator) < 1 || strlen($coordinator) > 128){
+                    return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Bad format coordinator - max 128 characters!']);
+                }
+            }else{
+                $coordinator = null;
+            }
         }
+        
+
+        
 
         if($request->filled('partners')){
             if(!is_string($partners) || strlen($partners) < 1 || strlen($partners) > 1024){

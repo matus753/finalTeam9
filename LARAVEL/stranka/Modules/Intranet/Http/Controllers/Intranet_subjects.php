@@ -113,7 +113,9 @@ class Intranet_subjects extends Controller
         $valid = false;
         $allowed_types = explode(',', config('subjects_admin.img_types_allowed'));
         foreach($allowed_types as $at){
-            if($at == explode('.', $image->hashName())[1]){
+            $extension = explode('.', $file->hashName());
+            $extension = $extension[count($extension)-1];
+            if($at == $extension){
                 $valid = true;
             }
         }
@@ -144,6 +146,7 @@ class Intranet_subjects extends Controller
         $files = $request->file('file');
 
         foreach($files as $file){
+            
             $hash_id = $request->input('save_to');
             if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 128){
                 return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Internal server error!']);
@@ -151,9 +154,11 @@ class Intranet_subjects extends Controller
             $category = $request->input('category');
         
             $valid = false;
-            $allowed_types = explode(',', config('subjects_admin.img_types_allowed'));
+            $allowed_types = explode(',', config('subjects_admin.file_types_allowed'));
             foreach($allowed_types as $at){
-                if($at == explode('.', $file->hashName())[1]){
+                $extension = explode('.', $file->hashName());
+                $extension = $extension[count($extension)-1];
+                if($at == $extension){
                     $valid = true;
                 }
             }
@@ -173,8 +178,9 @@ class Intranet_subjects extends Controller
                 }
             }
             else{
-                return response()->json(['error' => 'Bad request'], 400);
+                return response()->json(['error' => 'File type not valid'], 400);
             }
+           
         }
     }
 

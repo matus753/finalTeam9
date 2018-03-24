@@ -96,7 +96,6 @@ class Intranet_news extends Controller
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 32){
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
-
         
         if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 65535){
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
@@ -106,7 +105,7 @@ class Intranet_news extends Controller
                 return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
         }
 
-        if($request->filled('editor_sk')){
+        if($request->filled('editor_content_sk')){
             if(!is_string($editor_sk) || strlen($editor_sk) < 1 || strlen($editor_sk) > 4294967295){
                 return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Page text longer than can be saved!']);
             }
@@ -114,7 +113,7 @@ class Intranet_news extends Controller
             $editor_sk = null;
         }
 
-        if($request->filled('editor_en')){
+        if($request->filled('editor_content_en')){
             if(!is_string($editor_en) || strlen($editor_en) < 1 || strlen($editor_en) > 4294967295){
                 return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Page text longer than can be saved!']);
             }
@@ -157,36 +156,11 @@ class Intranet_news extends Controller
             return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
         return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-        /*if($res){
-            $add_files = $request->file('add_files');
-            $allowed_types = explode(',', config('news_admin.add_files_types_allowed'));
-            if($add_files){
-                foreach($add_files as $a){
-                    $valid = false;
-                    foreach($allowed_types as $at){
-                        if($at == explode('.', $a->hashName())[1]){
-                            $valid = true;
-                        }
-                    }
-
-                    if($valid){
-                        $a->store('public/news/'.$hash_id);
-                        $add_files_db[] = [
-                            'n_id'      => $res,
-                            'file_hash' => $a->hashName(),
-                            'file_name' => $a->getClientOriginalName(),
-                        ];
-                        $res2 = (bool)DB::table('news_dl_files')->insert($add_files_db);
-                    }
-                    
-                }
-
-                
-            }
-            return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
-        }
-        return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);*/
     }
+
+    //////////////////////////////////////////////////////////////////////
+    /////////////////////// SUMMERNOTE UPLOAD ////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 
     public function news_images_upload( Request $request, Response $response ){
         if(!has_permission('reporter')){
@@ -203,7 +177,9 @@ class Intranet_news extends Controller
         $valid = false;
         $allowed_types = explode(',', config('news_admin.img_types_allowed')); 
         foreach($allowed_types as $at){
-            if($at == explode('.', $image->hashName())[1]){
+            $extension = explode('.', $file->hashName());
+            $extension = $extension[count($extension)-1];
+            if($at == $extension){
                 $valid = true;
             }
         }
@@ -222,9 +198,56 @@ class Intranet_news extends Controller
             return response()->json(['error' => 'Bad request'], 400);                      
         }
         return response()->json(['error' => 'Bad request'], 400);          
-      
         
     }
+
+    //////////////////////////////////////////////////////////////////////
+    /////////////////////// DROPZONE FILE UPLOAD /////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    public function news_file_upload( Request $request ){
+        if(!has_permission('reporter')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
+
+        $hash_name = $request->input('news_id_hash');
+        if(!is_string($hash_name) || strlen($hash_name) < 1 || strlen($hash_name) > 32){
+            return redirect('/news-admin')->with('err_code', ['type' => 'Error', 'msg' => 'Internal server error!']);
+        }
+
+        $files = $request->file('file');
+        foreach($files as $file){
+            $valid = false;
+            $allowed_types = explode(',', config('news_admin.add_files_types_allowed')); 
+            foreach($allowed_types as $at){
+                $extension = explode('.', $file->hashName());
+                $extension = $extension[count($extension)-1];
+                if($at == $extension){
+                    $valid = true;
+                }
+            }
+
+            if($valid){
+                if(news_create_folder($hash_name) && $file){
+                    $data = [
+                        'hash_id'   => $hash_name,
+                        'file_hash' => $file->hashName(),
+                        'file_name' => $file->getClientOriginalName()
+                    ];
+                    $file->store('/public/news/'.$hash_name);
+                    DB::table('news_dl_files')->insert($data);
+                    return response()->json(['error' => 'Success'], 200);
+                }
+                else{
+                    return response()->json(['error' => 'Bad request'], 400);
+                }
+            }
+            return response()->json(['error' => 'Bad request'], 400);
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    /////////////////////// NEWS EDITATION ///////////////////////////////
+    //////////////////////////////////////////////////////////////////////
 
     public function news_edit( $n_id = 0 ){
         if(!has_permission('reporter')){
@@ -239,7 +262,7 @@ class Intranet_news extends Controller
         if(!$item){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
-        $items = DB::table('news_dl_files')->where('n_id', $n_id)->get();
+        $items = DB::table('news_dl_files')->where('hash_id', $item->hash_id)->get();
         $types = config('news_admin.types');
 
         $items = (!$items) ? [] : $items;
@@ -249,6 +272,7 @@ class Intranet_news extends Controller
             'item' => $item,
             'types' => $types,
             'add_files' => $items,
+            'hash_id' => $item->hash_id
         ];
       
         return view('intranet::news/news_edit', $data);
@@ -298,12 +322,20 @@ class Intranet_news extends Controller
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
         }
 
-        if(!is_string($editor_sk) || strlen($editor_sk) < 1 || strlen($editor_sk) > 4294967295){
-            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Page text longer than can be saved!']);
+        if($request->filled('editor_content_sk')){
+            if(!is_string($editor_sk) || strlen($editor_sk) < 1 || strlen($editor_sk) > 4294967295){
+                return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Page text longer than can be saved!']);
+            }
+        }else{
+            $editor_sk = null;
         }
 
-        if(!is_string($editor_en) || strlen($editor_en) < 1 || strlen($editor_en) > 4294967295){
-            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Page text longer than can be saved!']);
+        if($request->filled('editor_content_en')){
+            if(!is_string($editor_en) || strlen($editor_en) < 1 || strlen($editor_en) > 4294967295){
+                return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Page text longer than can be saved!']);
+            }
+        }else{
+            $editor_en = null;
         }
 
         if(isset($exp) && !empty($exp)){
@@ -353,38 +385,8 @@ class Intranet_news extends Controller
         $res = (bool) DB::table('news')->where('n_id', $n_id)->update($data);
 
         if($res){
-            /*$add_files = $request->file('add_files');
-            $allowed_types = explode(',', config('news_admin.add_files_types_allowed'));
-            if($add_files != null){
-                foreach($add_files as $a){
-                    $valid = false;
-                    foreach($allowed_types as $at){
-                        if($at == explode('.', $a->hashName())[1]){
-                            $valid = true;
-                        }
-                    }
-
-                    if($valid){
-                        $a->store('public/news/'.$hash_id);
-                        $add_files_db[] = [
-                            'n_id'      => $res,
-                            'file_hash' => $a->hashName(),
-                            'file_name' => $a->getClientOriginalName(),
-                        ];
-                    }
-                }
-                $res2 = (bool)DB::table('news_dl_files')->insert($add_files_db);
-            
-                if($res2){
-                    return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
-                }else{
-                    return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Added files error!']);
-                }
-            }*/
             return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
-            
         }
-
         return redirect('/news-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
 
     }
@@ -429,7 +431,7 @@ class Intranet_news extends Controller
         if(!$item){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
-        $parent = DB::table('news')->where('n_id', $item->n_id)->first();
+        $parent = DB::table('news')->where('hash_id', $item->hash_id)->first();
 
         $path = base_path('storage/app/public/news/').$parent->hash_id.'/'.$item->file_hash;
 

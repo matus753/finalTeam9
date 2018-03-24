@@ -18,7 +18,7 @@ class Intranet_videos extends Controller
 
     public function videos_all(){
         if(!has_permission('reporter')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         $locale = session()->get('locale');
@@ -40,7 +40,7 @@ class Intranet_videos extends Controller
 
     public function videos_add(){
         if(!has_permission('reporter')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         $types = config('videos_admin.types');
@@ -62,7 +62,7 @@ class Intranet_videos extends Controller
         $title_en = $request->input('title_en');
         $url = $request->input('url');
         $type = $request->input('type');
-
+        
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256 ){
             return redirect('/videos-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Slovenský nadpis has bad format - max 256 characters!']);
         }
@@ -86,10 +86,10 @@ class Intranet_videos extends Controller
             return redirect('/videos-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Param Slovenský nadpis has bad format - max 64 characters!']);
         }
 
-        $parsed = parse_url($url);
+        /*$parsed = parse_url($url);
         if (empty($parsed['scheme'])) {
             $url = 'http://'.ltrim($url, '/');
-        }
+        }*/
 
         $data = [
             'title_SK' => $title_sk,

@@ -11,6 +11,7 @@
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>
+
 @stop
 
 @section('content_admin')
@@ -63,13 +64,13 @@
                        
                         <div class="form-group">
                             <label for="coordinator">Koordinátor:</label>
-                            <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">
-                                    
+                            <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">  
                                 @foreach($staff as $s)
                                 <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                                 @endforeach
-                                <!--<option data-content="<input type='text' placeholder='Vlastný záznam...' class='form-control' />"></option>-->
                             <select>
+                            <br><br>
+                            <input name="custom_coordinator" type='text' placeholder='Vlastný záznam...' class='form-control' />
                         </div>
 
                         <div class="form-group">

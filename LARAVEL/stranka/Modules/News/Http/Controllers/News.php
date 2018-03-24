@@ -80,7 +80,7 @@ class News extends Controller
 
 		$added_files = [];
 		if($content){
-			$added_files = DB::table('news_dl_files')->where('n_id', $content->n_id)->get();
+			$added_files = DB::table('news_dl_files')->where('hash_id', $content->hash_id)->get();
 			$added_files = (!$added_files) ? [] : $added_files;
 		}else{
 			return redirect('/news')->with('err_code', ['type' => 'warning', 'msg' => 'Item does not exists!']);
@@ -99,7 +99,7 @@ class News extends Controller
                 'added_files' => $added_files
             ];
         }
-
+		
 		return view('news::show_content_news', $data);
 	}
 	

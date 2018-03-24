@@ -10,6 +10,8 @@
 
 <script src="{{ URL::asset('plugins/summernote/dist/summernote.js') }}"></script>
 <link href="{{ URL::asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
+<script src="{{ URL::asset('plugins/dropzone/dropzone.js') }}"></script>
+<link href="{{ URL::asset('plugins/dropzone/dropzone.css') }}" rel="stylesheet">
 
 @stop
 
@@ -18,6 +20,7 @@
     
     $(document).ready(function(){
         $('#sk-editor').summernote({
+            height: 100,
             callbacks: {
                 onImageUpload: function(files, editor, welEditable) {
                     sendFile(files[0], this, welEditable);
@@ -25,6 +28,7 @@
             }
         });
         $('#en-editor').summernote({
+            height: 100,
             callbacks: {
                 onImageUpload: function(files, editor, welEditable) {
                     sendFile(files[0], this, welEditable);
@@ -54,41 +58,32 @@
                 }
             }); 
         }
+
+        Dropzone.autoDiscover = false; // autosearch for div
+		var myDropzone = new Dropzone("div#dropzone", 
+			{ 
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+				url : "{{ url('/news-admin/news_file_upload') }}",
+				thumbnailWidth: 360, 
+				thumbnailHeight: 360, 
+				thumbnailMethod: 'crop',
+				timeout: 9900000,
+				uploadMultiple: true,
+                parallelUploads: 1,
+                autoProcessQueue: true,
+                init: function() {
+                    this.on("sending", function(file, xhr, formData){
+                            formData.append("news_id_hash", "{{ $hash_id }}");
+                    });
+                }
+			}
+		);
+
     });
-    function validateForm() {
-        var x = document.forms["projectForm"]["title_sk"].value;
-        var y = document.forms["projectForm"]["title_en"].value;
-        var z = document.forms["projectForm"]["preview_sk"].value;
-        var w = document.forms["projectForm"]["preview_en"].value;
-        if (!x.trim()) {
-            $("#req1").css("display", "block");
-            event.preventDefault();
-        } else {
-            $("#req1").css("display", "none");
-        }
-
-        if (!y.trim()) {
-            $("#req2").css("display", "block");
-            event.preventDefault();
-        } else {
-            $("#req2").css("display", "none");
-        }
-
-        if (!z.trim()) {
-            $("#req3").css("display", "block");
-            event.preventDefault();
-        } else {
-            $("#req3").css("display", "none");
-        }
-
-        if (!w.trim()) {
-            $("#req4").css("display", "block");
-            event.preventDefault();
-        } else {
-            $("#req4").css("display", "none");
-        }
-    }
 </script>
+
 <div class="container">
     <div class="intra-div">
         <div class="row">
@@ -120,22 +115,22 @@
                     <div class="form-group">
                         <label for="title_sk">* Slovenský nadpis:</label>
                         <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
-                        <p class="required" id="req1">Tato položka musí byť vyplnená.</p>
                     </div>
                     <div class="form-group">
                         <label for="title_en">* Anglický nadpis:</label>
                         <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
-                        <p class="required" id="req2">Tato položka musí byť vyplnená.</p>
                     </div>
                     <div class="form-group">
                         <label for="preview_sk">* Ukážkový text SK:</label>
-                        <input type="text" class="form-control" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required />
-                        <p class="required" id="req3">Tato položka musí byť vyplnená.</p>
+                        <textarea class="form-control" style="resize:vertical;" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required ></textarea>
                     </div>
                     <div class="form-group">
                         <label for="preview_en">* Ukážkový text EN:</label>
-                        <input type="text" class="form-control" id="preview_en" name="preview_en" placeholder="Anglický preview text" required />
-                        <p class="required" id="req4">Tato položka musí byť vyplnená.</p>
+                        <textarea class="form-control" style="resize:vertical;" id="preview_en" name="preview_en" placeholder="Anglický preview text" required ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Ukážkový obrázok:</label>
+                        <input type="file"  id="image" name="image" />
                     </div>
                 </div>
 
@@ -149,13 +144,8 @@
                         <textarea class="form-control" rows="5" id="en-editor"  name="editor_content_en"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="image">Ukážkový obrázok:</label>
-                        <input type="file"  id="image" name="image" />
-                    </div>
-                    TODO dropzone
-                    <div class="form-group">
-                        <label for="add_files">Ďalšie súbory:</label>
-                        <input type="file" id="add_files" name="add_files[]" multiple />
+                        <label for="dropzone">Dodatočné súbory:</label>
+                        <div class="dropzone" id="dropzone"></div>
                     </div>
                 </div>
             </div>

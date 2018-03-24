@@ -123,7 +123,11 @@
 						@if ((getMonth(date("d.m.Y")) <= getMonth(format_time($key))) && (getYear(date("d.m.Y")) <= getYear(format_time($key))))
 							@foreach($event as $e)
 								@if ($maxEvents < 5)
-								<h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
+								@if($e->url != null)
+									<a href="{{ url($e->url) }}" target="_blank">{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</a> 
+								@else
+									<h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
+								@endif
 								<p>{{  format_time($key) }} 
 									@if ($e->time), {{  $e->time }} @endif 
 									@if ($e->place), {{  $e->place }} @endif

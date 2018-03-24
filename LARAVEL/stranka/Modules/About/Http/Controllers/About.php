@@ -22,22 +22,22 @@ class About extends Controller
 
         $staff1 = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
-            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.f_id')
             ->where('staff_function.id_func', '=', 1)
             ->get();
         $staff2 = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
-            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.f_id')
             ->where('staff_function.id_func', '=', 5)
             ->get();
         $staff3 = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
-            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.f_id')
             ->where('staff_function.id_func', '=', 4)
             ->get();
         $staff4 = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
-            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.f_id')
             ->where('staff_function.id_func', '=', 6)
             ->get();
 

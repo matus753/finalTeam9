@@ -15,20 +15,16 @@
         $('#projects-table').DataTable();  
     });
 </script>
-<div id="emPAGEcontent" class="container">
-    <br>
+<div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="intra-div">
             <div class="pull-right">
                 <a href="{{ url('/videos-admin-add') }}" class="btn btn-primary">Pridaj video</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <h2>FUNKCIONALITA OK - test + remove bad string. AKTIVACIA POLOZKY ?? </h2>
-            <br>
-            <br> 
+            <h2>Videogaléria</h2> 
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="projects-table" class="table table-stripped table-bordered intranet-table">

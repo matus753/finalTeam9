@@ -52,7 +52,7 @@
                         <label for="title_en">Anglický nadpis:</label>
                         <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $item->titleEN }}" />
                     </div>
-                    {{--<span style="color:red">zmenit na  date ?</span>--}}
+
                     <div class="form-group">
                         <label for="duration">Trvanie:</label>
                         <input type="text" class="form-control" id="duration" name="duration" placeholder="Trvanie" value="{{ $item->duration }}"  />
@@ -60,14 +60,15 @@
  
                     <div class="form-group">
                         <label for="coordinator">Koordinátor:</label>
-                        <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">
-                                
+                        <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">  
                             @foreach($staff as $s)
-                            <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                                <option value="{{ $s->s_id }}" @if($s->s_id == $item->coordinator) {{ 'selected' }} @endif>{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                             @endforeach
-                            <!--<option data-content="<input type='text' placeholder='Vlastný záznam...' class='form-control' />"></option>-->
                         <select>
+                            <br><br>
+                        <input name="custom_coordinator" type='text' placeholder='Vlastný záznam...' class='form-control' value="@if(!is_numeric($item->coordinator)) {{ $item->coordinator }}  @endif" />
                     </div>
+
                     <div class="form-group">
                         <label for="partners">Partneri:</label>
                         <input type="text" class="form-control" id="partners" name="partners" placeholder="Partneri" value="{{ $item->partners }}" />

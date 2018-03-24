@@ -10,6 +10,8 @@
 
     <script src="{{ URL::asset('plugins/summernote/dist/summernote.js') }}"></script>
     <link href="{{ URL::asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
+    <script src="{{ URL::asset('plugins/dropzone/dropzone.js') }}"></script>
+    <link href="{{ URL::asset('plugins/dropzone/dropzone.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
@@ -17,6 +19,7 @@
 
         $(document).ready(function(){
             $('#sk-editor').summernote({
+                height: 100,
                 callbacks: {
                     onImageUpload: function(files, editor, welEditable) {
                         sendFile(files[0], this, welEditable);
@@ -24,6 +27,7 @@
                 }
             });
             $('#en-editor').summernote({
+                height: 100,
                 callbacks: {
                     onImageUpload: function(files, editor, welEditable) {
                         sendFile(files[0], this, welEditable);
@@ -50,8 +54,30 @@
                     }
                 });
             }
+
+            Dropzone.autoDiscover = false; // autosearch for div
+            var myDropzone = new Dropzone("div#dropzone", 
+                { 
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url : "{{ url('/news-admin/news_file_upload') }}",
+                    thumbnailWidth: 360, 
+                    thumbnailHeight: 360, 
+                    thumbnailMethod: 'crop',
+                    timeout: 9900000,
+                    uploadMultiple: true,
+                    parallelUploads: 1,
+                    autoProcessQueue: true,
+                    init: function() {
+                        this.on("sending", function(file, xhr, formData){
+                                formData.append("news_id_hash", "{{ $hash_id }}");
+                        });
+                    }
+                }
+            );
         });
-        function validateForm() {
+        /*function validateForm() {
             var x = document.forms["projectForm"]["title_sk"].value;
             var y = document.forms["projectForm"]["title_en"].value;
             var z = document.forms["projectForm"]["preview_sk"].value;
@@ -83,7 +109,7 @@
             } else {
                 $("#req4").css("display", "none");
             }
-        }
+        }*/
     </script>
     <div class="container">
         <div class="intra-div">
@@ -95,7 +121,6 @@
                     <h2>{{ $item->title_sk }}</h2>
                 </div>
             </div>
-
                 <form name="projectForm"  action="{{ url('/news-admin-edit-action/'.$item->n_id) }}" method="post" enctype="multipart/form-data" onsubmit="validateForm()">
                     {{ csrf_field() }}
                     <div class="row">
@@ -133,21 +158,6 @@
                                 <input type="text" class="form-control" id="preview_en" name="preview_en" value="{{ $item->preview_en }}" placeholder="Anglický preview text" required />
                                 <p class="required" id="req4">Tato položka musí byť vyplnená.</p>
                             </div>
-                        </div>
-
-                        <div class="col-md-5 col-md-offset-1">
-                            <div class="form-group">
-                                <label for="sk-editor">Dlhý text SK:</label>
-                                <textarea class="form-control" rows="4" id="sk-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="en-editor">Dlhý text EN:</label>
-                                <textarea class="form-control" rows="4" id="en-editor" name="editor_content_en">{{ $item->editor_content_en }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="add_files">Ďalšie súbory:</label>
-                                <input type="file" id="add_files" name="add_files[]" multiple />
-                            </div>
                             <div class="form-group">
                                 <label for="orig_img">Ponechať obrázok:</label>
                                 <input type="checkbox" id="orig_img" name="orig_img" value="set" checked />
@@ -164,21 +174,35 @@
                                     <input type="file" class="form-control" id="image" name="image" />
                                 </div>
                             @endif
+                        </div>
 
-                            @if($add_files)
-                                @foreach($add_files as $added)
-                                    <div>
-                                        <p>{{ $added->file_name }}</p>
-                                        <a href="{{ url('/news-admin-delete-added/'.$added->nf_id) }}" class="btn btn-danger">Delete</a>
-                                    </div>
-                                @endforeach
-                            @endif
+                        <div class="col-md-5 col-md-offset-1">
+                            <div class="form-group">
+                                <label for="sk-editor">Dlhý text SK:</label>
+                                <textarea class="form-control" rows="4" id="sk-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="en-editor">Dlhý text EN:</label>
+                                <textarea class="form-control" rows="4" id="en-editor" name="editor_content_en">{{ $item->editor_content_en }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="dropzone">Dodatočné súbory:</label>
+                                <div class="dropzone" id="dropzone"></div>
                             </div>
                         </div>
-                    <div class="row text-center">
-                        <input type="submit" class="btn btn-success" value="Ulož zmeny" />
                     </div>
-                </form>
+                <div class="row text-center">
+                    <input type="submit" class="btn btn-success" value="Ulož zmeny" />
+                </div>
+            </form>
+            @if($add_files)
+                @foreach($add_files as $added)
+                    <div>
+                        <p>{{ $added->file_name }}</p>
+                        <a href="{{ url('/news-admin-delete-added/'.$added->nf_id) }}" class="btn btn-danger">Delete</a>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 @stop

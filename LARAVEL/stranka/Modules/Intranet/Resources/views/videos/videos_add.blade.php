@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="pull-left">
-                        <a href="{{ url('/photos-admin') }}" class="btn btn-primary"> Späť </a>
+                        <a href="{{ url('/videos-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
                         <h3>Pridanie Videa</h3>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <br>
-            <form action="{{ url('/videos-admin-add-action') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/videos-admin-add-action') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <select class="form-control" id="type" name="type" >
@@ -47,10 +47,6 @@
                 <div class="form-group">
                     <label for="url">URL:</label>
                     <input type="text" class="form-control" id="url" name="url" placeholder="url" required />
-                </div>
-                <div class="form-group">
-                    <label for="date">Dátum:</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="date" required />
                 </div>
                
                 <input type="submit" class="btn btn-success pull-right" value="Pridaj" />

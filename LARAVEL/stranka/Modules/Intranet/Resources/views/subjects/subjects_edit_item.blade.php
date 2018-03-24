@@ -66,6 +66,7 @@
 				thumbnailHeight: 360, 
 				thumbnailMethod: 'crop',
 				timeout: 9900000,
+                parallelUploads: 1,
 				uploadMultiple: true,
                 autoProcessQueue: true,
                 init: function() {

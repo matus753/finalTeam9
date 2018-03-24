@@ -195,7 +195,9 @@ class Intranet_documents extends Controller
         $valid = false;
         $allowed_types = explode(',', config('documents_admin.img_types_allowed'));
         foreach($allowed_types as $at){
-            if($at == explode('.', $image->hashName())[1]){
+            $extension = explode('.', $file->hashName());
+            $extension = $extension[count($extension)-1];
+            if($at == $extension){
                 $valid = true;
             }
         }
@@ -238,7 +240,9 @@ class Intranet_documents extends Controller
             $valid = false;
             $allowed_types = explode(',', config('documents_admin.img_types_allowed'));
             foreach($allowed_types as $at){
-                if($at == explode('.', $file->hashName())[1]){
+                $extension = explode('.', $file->hashName());
+                $extension = $extension[count($extension)-1];
+                if($at == $extension){
                     $valid = true;
                 }
             }

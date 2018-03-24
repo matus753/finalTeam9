@@ -7,10 +7,18 @@
 <link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>
+<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
+<script>
 
+    $('.selectpicker').selectpicker();
+ 
+
+
+</script>
 <div class="container">
     <div class="staff-intra"> 
         <div class="row">    
@@ -79,20 +87,20 @@
                     </div>
                     <div class="form-group">
                         <label for="func">Funkcia:</label>
-                        {{--<input type="text" class="form-control" id="func" name="func" placeholder="Funkcia" value="{{ $item->function }}" />--}}
                         <div >
                             @foreach($functions as $key => $f)
-                                <div><input type="checkbox" name="func[]" value="{{ $f->id }}"
-                                    @if(count($myFunc) > 0) @foreach($myFunc as $r)
-                                        @if($f->id == $r ) {{ 'checked' }} @endif  @endforeach @endif/>
-                                    {{ $f->title }}</div>
+                                <div>
+                                    <label><input type="checkbox" name="func[]" value="{{ $f->f_id }} "
+                                    @if(count($myFunc) > 0) 
+                                        @foreach($myFunc as $r)
+                                            @if($f->f_id == $r ) {{ 'checked' }} @endif  
+                                        @endforeach 
+                                    @endif
+                                    />
+                                    {{ $f->title }}</label>
+                                </div>
                             @endforeach
                         </div>
-                        {{--<select class="form-control" name="func" multiple>--}}
-                        {{--@foreach($functions as $f)--}}
-                        {{--<option value="{{$f->title}}">{{$f->title}}</option>--}}
-                        {{--@endforeach--}}
-                        {{--</select>--}}
                     </div>
                     <div class="form-group">
                         <label for="room">Miestnost:</label>
@@ -105,24 +113,35 @@
                     <div class="form-group">
                         <label for="default_photo">Default photo:</label>
                         <div>
-                        <input type="checkbox" id="default_photo" name="default_photo" >
-                        ak je zaškrtnuté nastaví sa default fotka aj ked sa uploadne nova
+                        <label><input type="checkbox" id="default_photo" name="default_photo" >
+                        ak je zaškrtnuté nastaví sa default fotka aj ked sa uploadne nova</label>
                             </div>
                     </div>
                     <div class="form-group">
                         <label for="img">Nový obrazok:</label>
                         <input type="file" class="form-control" id="img" name="img" placeholder="profile img" />
                     </div>
+                    @if(has_permission('admin'))
                     <div class="form-group">
                         <label for="perms">Permissions:</label>
                         <div id="perms">
                             @foreach($permission_roles as $key => $pr)
-                                <div class="perms"><input type="checkbox" name="perm[]" value="{{ $key }}" @if($item->roles) @foreach($item->roles as $r) @if($r == $key) {{ 'checked' }} @endif  @endforeach @endif/>
+                                <label><div class="perms"><input type="checkbox" name="perm[]" value="{{ $key }}" @if($item->roles) @foreach($item->roles as $r) @if($r == $key) {{ 'checked' }} @endif  @endforeach @endif/>
                                     {{ $pr }}
-                                </div>
+                                </div></label>
                             @endforeach
                         </div>
                     </div>
+
+                    <div class="form-group">
+                            <label for="subjects_staff">Predmety k vyučujúcemu:</label>
+                            <select class="form-control selectpicker" data-size="5" data-width="auto" data-live-search="true" multiple id="subjects_staff" name="subjects_staff[]" tabindex="2">  
+                                @foreach($subjects as $s)
+                                    <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" @foreach($selected_subs as $ss) @if($s->sub_id == $ss) {{ 'selected' }} @endif @endforeach >{{ $s->title }}</option>
+                                @endforeach
+                            <select>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="row lastButton">

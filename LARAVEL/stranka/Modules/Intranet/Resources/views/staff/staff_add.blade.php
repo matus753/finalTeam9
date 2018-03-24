@@ -7,10 +7,14 @@
 <link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
+<script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>
+<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
 @stop
 
 @section('content_admin')
-
+<script>
+    $('.selectpicker').selectpicker();
+</script>
 <div class="container">
 	<div class="staff-intra"> 
         <div class="row">    
@@ -42,7 +46,7 @@
                         <input type="text" class="form-control" id="title2" name="title2" placeholder="Titul(y) za menom" />
                     </div>
                     <div class="form-group">
-                        <label for="ldap">* LDAP meno (xsagan):</label>
+                        <label for="ldap"> LDAP meno (xsagan):</label>
                         <input type="text" class="form-control" id="ldap" name="ldap" placeholder="LDAP meno (xsagan)" />
                     </div>
                     <div class="form-group">
@@ -74,11 +78,12 @@
                     </div>
                     <div class="form-group">
                         <label for="func">Funkcia:</label>
-                        {{--<input type="text" class="form-control" id="func" name="func" placeholder="Funkcia" />--}}
                         <div >
-                            @foreach($functions as $key => $f)
-                                <div><input type="checkbox" name="func[]" value="{{ $key }}" />
-                                    {{ $f->title }}</div>
+                            @foreach($functions as $f)
+                                <div>
+                                    <label><input type="checkbox" name="func[]" value="{{ $f->f_id }}" />
+                                    {{ $f->title }}</label>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -95,16 +100,27 @@
                         <label for="img">Profilový obrázok:</label>
                         <input type="file" class="form-control" id="img" name="img" placeholder="profile img" />
                     </div>
+                    @if(has_permission('admin'))
                     <div class="form-group">
                         <label for="perms">Permissions:</label>
                         <div id="perms">
                             @foreach($permission_roles as $key => $pr)
-                                <div ><input type="checkbox" name="perm[]" value="{{ $key }}" />
-                                    {{ $pr }}
+                                <div >
+                                    <label><input type="checkbox" name="perm[]" value="{{ $key }}" />
+                                    {{ $pr }}</label>
                                 </div>
                             @endforeach
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="subjects_staff">Predmety k vyučujúcemu:</label>
+                        <select class="form-control selectpicker" data-size="5" data-width="auto" data-live-search="true" multiple id="subjects_staff" name="subjects_staff[]" tabindex="2">  
+                            @foreach($subjects as $s)
+                                <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" >{{ $s->title }}</option>
+                            @endforeach
+                        <select>
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="row">

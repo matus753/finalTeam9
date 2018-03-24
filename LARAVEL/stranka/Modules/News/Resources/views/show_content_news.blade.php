@@ -22,7 +22,7 @@
     <div class="row">
         @if($added_files)
             @foreach($added_files as $a)
-                <a target="_blank" href="{{ get_news_image($content->hash_id, $a->file_hash) }}">{{ $a->file_name }}</a>
+                <a target="_blank" href="{{ get_news_image($a->hash_id, $a->file_hash) }}">{{ $a->file_name }}</a>
             @endforeach
         @endif
     </div>

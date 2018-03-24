@@ -25,7 +25,6 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <h2>Fotogaléria</h2>
-            <h3>FUNKCIONALITA OK - treba test + remove bad string</h3>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="projects-table" class="table table-stripped table-bordered intranet-table">

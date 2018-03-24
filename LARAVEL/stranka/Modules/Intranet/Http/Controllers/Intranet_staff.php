@@ -48,7 +48,7 @@ class Intranet_staff extends Controller
 
     public function staff_add(){
         if(!has_permission('admin')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         $locale = session()->get('locale');
@@ -61,16 +61,17 @@ class Intranet_staff extends Controller
         $departments = config('staff_admin.departments');
         $permission_roles = config('staff_admin.permission_roles');
         $functions = DB::table('functions')->get();
-
+        $subjects = DB::table('subjects')->get();
 
         $data = [
             'title' => $this->module_name,
             'departments' => $departments,
             'roles' => $roles,
             'permission_roles' => $permission_roles,
-            'functions' => $functions
+            'functions' => $functions,
+            'subjects'  => $subjects
         ];
-
+      
         return view('intranet::staff/staff_add', $data);
     }
 
@@ -78,7 +79,7 @@ class Intranet_staff extends Controller
         if(!has_permission('admin')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
-
+        
         $name = $request->input('name');
         $surname = $request->input('surname');
         $title1 = $request->input('title1');
@@ -87,12 +88,13 @@ class Intranet_staff extends Controller
         $phone = $request->input('phone');
         $department = $request->input('department');
         $role = $request->input('role');
-        $func = $request->input('func');
         $email = $request->input('email');
         $url = $request->input('web');
         $img = $request->file('img');
         $perm = $request->input('perm');
+        $func = $request->input('func');
        
+        // povinne
         if(!is_string($name) || strlen($name) < 1 || strlen($name) > 64 ){
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Name max 64 characters!']);
         } 
@@ -101,6 +103,15 @@ class Intranet_staff extends Controller
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Surname max 64 characters!']);
         } 
 
+        if(!is_string($department) || strlen($department) < 1 || strlen($department) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 32 characters!']);
+        } 
+
+        if(!is_string($role) || strlen($role) < 1 || strlen($role) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
+        } 
+
+        // nepovinne
         if($request->filled('title1')){
             if(!is_string($title1) || strlen($title1) < 1 || strlen($title1) > 32 ){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title 1 max 32 characters!']);
@@ -132,14 +143,6 @@ class Intranet_staff extends Controller
             $phone = null;
         }
 
-        if(!is_string($department) || strlen($department) < 1 || strlen($department) > 32 ){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 32 characters!']);
-        } 
-
-        if(!is_string($role) || strlen($role) < 1 || strlen($role) > 32 ){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
-        } 
-
         if($request->filled('email')){
             if(!is_string($email) || strlen($email) < 1 || strlen($email) > 128 ){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Function max 128 characters!']);
@@ -147,7 +150,7 @@ class Intranet_staff extends Controller
         }else{
             $email = null;
         }
-
+        
         $permissions = [];
         if(is_array($perm) && count($perm) > 0){
             
@@ -159,20 +162,18 @@ class Intranet_staff extends Controller
                 }
             }
         }
-    
-        $x_rule = config('staff_admin.x_rule');
+      
         $ldap = $request->input('ldap');
-        if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
-        } 
-        $tmp = DB::table('staff')->where('ldapLogin', $ldap)->first();
-        if($mp){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'User already exists']);
-        }
-        if($x_rule){
-            if($ldap[0] != 'x'){
-                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'LDAP syntax error!']);
+        if($request->filled('ldap')){
+            if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
+            } 
+            $tmp = DB::table('staff')->where('ldapLogin', $ldap)->first();
+            if($tmp){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'User already exists']);
             }
+        }else{
+            $ldap = null;
         }
 
         if($url){
@@ -188,6 +189,8 @@ class Intranet_staff extends Controller
         }else{
             $photo = config('staff_admin.default_imgs')['default_male_img'];
         }
+
+        
 
 
         $data = [
@@ -205,18 +208,50 @@ class Intranet_staff extends Controller
             'email' => $email,
             'web' => $url
         ];
-       
+
         $s_id = DB::table('staff')->insertGetId($data);
-        if (!is_numeric($s_id)){
-            $res = false;
-        } else {
+        if ($s_id > 0){
             $res = true;
+        } else {
+            $res = false;
         }
+        
+        $db_func = DB::table('functions')->pluck('f_id')->toArray();
+        if($res){
+            if(is_array($func)) {
+                foreach($func as $f){
+                    if(in_array($f,$db_func)){
+                        $resFunc = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
+                        if(!$resFunc){
+                            DB::table('staff')->where('s_id', $s_id)->delete();
+                            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                        }
+                    }else{
+                        DB::table('staff')->where('s_id', $s_id)->delete();
+                        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                    }
+                }
+            } else{
+                DB::table('staff')->where('s_id', $s_id)->delete();
+                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+            }
+            // Prepoj na predmety
+            $subjects_staff = $request->input('subjects_staff');
+            if($request->filled('subjects_staff')){
+                if(!is_array($subjects_staff)){
+                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                }
 
+                foreach($subjects_staff as $ss){
+                    $res = DB::table('subjects_staff_rel')->insertGetId(['sub_id' => $ss , 's_id' => $s_id]);
+                    if(!$res){
+                        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                    }
+                }
 
-        $db_func = DB::table('functions')->pluck('id');
-        if(is_array($func)) {
-            $fcs = [];
+            }
+        }
+            /*$fcs = [];
             foreach($func as $p){
                 array_push($fcs, $p);
             }
@@ -232,11 +267,10 @@ class Intranet_staff extends Controller
                         $resFunc = DB::table('staff_function')->where('id', $tmp->id)->delete();
                     }
                 }
-
-            }
-        } else {
+            }*/
+            /*else {
             $resFunc = DB::table('staff_function')->where('id_staff', $s_id)->delete();
-        }
+        }*/
 
         if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
@@ -244,16 +278,19 @@ class Intranet_staff extends Controller
         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
-    public function getFunctions($id){
+    public function getFunctions($id = 0){
         if(!has_permission('admin')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
+
+
         $functions = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
-            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.f_id')
             ->where('staff_function.id_staff', '=', $id)
-            ->pluck('functions.id');
+            ->pluck('functions.f_id');
+
         $myFuncs = [];
         //SELECT f.title FROM staff_function sf INNER JOIN staff s on sf.id_staff = s.s_id LEFT JOIN functions f on sf.id_func = f.id WHERE s.s_id = 12;
         if (count($functions) != 0) {
@@ -285,7 +322,7 @@ class Intranet_staff extends Controller
 
     public function staff_edit( $s_id = 0 ){
         if(!has_permission('admin')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         if(!is_numeric($s_id)){
@@ -304,10 +341,15 @@ class Intranet_staff extends Controller
         }else{
             $roles = config('staff_admin.rolesEN');
         }
+
         $departments = config('staff_admin.departments');
         $permission_roles = config('staff_admin.permission_roles');
 
         $functions = DB::table('functions')->get();
+        $subjects_staff = DB::table('subjects_staff_rel')->join('subjects', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')->where('s_id', $s_id)->pluck('subjects_staff_rel.sub_id')->toArray();
+        $subjects_staff = (!$subjects_staff) ? [] : $subjects_staff;
+        $all_subs = DB::table('subjects')->get();
+
 
         $myFunc = $this->getFunctions($s_id);
         $myFunc = (!$myFunc) ? [] : $myFunc;
@@ -319,9 +361,11 @@ class Intranet_staff extends Controller
             'roles' => $roles,
             'permission_roles' => $permission_roles,
             'functions' => $functions,
-            'myFunc' => $myFunc
+            'myFunc' => $myFunc,
+            'subjects' => $all_subs,
+            'selected_subs' => $subjects_staff
         ];
-
+        
         return view('intranet::staff/staff_edit', $data);
     }
 
@@ -345,7 +389,7 @@ class Intranet_staff extends Controller
         $func = $request->input('func');
         $email = $request->input('email');
         $url = $request->input('web');
-        //file
+
         $img = $request->file('img');
         $default_photo = $request->input('default_photo');
         $perm = $request->input('perm');
@@ -356,6 +400,14 @@ class Intranet_staff extends Controller
 
         if(!is_string($surname) || strlen($surname) < 1 || strlen($surname) > 64 ){
             return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Surname max 64 characters!']);
+        } 
+
+        if(!is_string($department) || strlen($department) < 1 || strlen($department) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 32 characters!']);
+        } 
+
+        if(!is_string($role) || strlen($role) < 1 || strlen($role) > 32 ){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
         } 
 
         if($request->filled('title1')){
@@ -373,6 +425,7 @@ class Intranet_staff extends Controller
         }else{
             $title2 = null;
         }
+
         if($request->filled('room')){
             if(!is_string($room) || strlen($room) < 1 || strlen($room) > 128 ){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 128 characters!']);
@@ -388,15 +441,6 @@ class Intranet_staff extends Controller
         }else{
             $phone = null;
         }
-
-        if(!is_string($department) || strlen($department) < 1 || strlen($department) > 32 ){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Room max 32 characters!']);
-        } 
-
-        if(!is_string($role) || strlen($role) < 1 || strlen($role) > 32 ){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Staff role max 32 characters!']);
-        } 
-
 
         if($request->filled('email')){
             if(!is_string($email) || strlen($email) < 1 || strlen($email) > 128 ){
@@ -416,20 +460,14 @@ class Intranet_staff extends Controller
                 }
             }
         }
-
-        $x_rule = config('staff_admin.x_rule');
+        
         $ldap = $request->input('ldap');
-        if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
-        } 
-        $tmp = DB::table('staff')->where('ldapLogin', $ldap)->first();
-        if($mp){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'User already exists']);
-        }
-        if($x_rule){
-            if($ldap[0] != 'x'){
-                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'LDAP syntax error!']);
-            }
+        if($request->filled('ldap')){
+            if(!is_string($ldap) || strlen($ldap) < 1 || strlen($ldap) > 32 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'ldap max 32 characters!']);
+            } 
+        }else{
+            $ldap = null;
         }
 
         if($url){
@@ -466,29 +504,29 @@ class Intranet_staff extends Controller
             $photo = config('staff_admin.default_imgs')['default_male_img'];
         }
 
-        $db_func = DB::table('functions')->pluck('id');
+        $db_func = DB::table('functions')->pluck('f_id')->toArray();
+        $myFunc = $this->getFunctions($s_id);
+        $myFunc = (!$myFunc) ? [] : $myFunc;
         if(is_array($func)) {
-            $fcs = [];
-            foreach($func as $p){
-                array_push($fcs, $p);
+            if(count($myFunc) > 0){
+                DB::table('staff_function')->where('id_staff', $s_id)->delete();  
             }
-            foreach ($db_func as $f) {
-                $check = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->exists();
-                if(in_array($f, $fcs)) {
-                    if(!$check) {
-                        $resFunc = DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
+            foreach($func as $f){
+                if(in_array($f,$db_func)){
+                    $resFunc = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
+                    if(!$resFunc){
+                        DB::table('staff')->where('s_id', $s_id)->delete();
+                        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
                     }
-                } else {
-                    if($check) {
-                        $tmp = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->first();
-                        $resFunc = DB::table('staff_function')->where('id', $tmp->id)->delete();
-                    }
+                }else{
+                    DB::table('staff')->where('s_id', $s_id)->delete();
+                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
                 }
-
             }
         } else {
-            $resFunc = DB::table('staff_function')->where('id_staff', $s_id)->delete();
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB Error!']);
         }
+
         $data = [
             'name' => $name,
             'surname' => $surname,
@@ -506,10 +544,9 @@ class Intranet_staff extends Controller
         ];
 
         $res = DB::table('staff')->where('s_id', $s_id)->update($data);
-        if($res){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated successfuly!']);
-        }
-        return redirect('/staff-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
+        
+        return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated successfuly!']);
+
     }
 
     public function staff_delete_action( $s_id = 0 ){

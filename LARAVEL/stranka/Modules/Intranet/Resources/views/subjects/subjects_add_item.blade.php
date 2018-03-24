@@ -67,6 +67,7 @@
 				thumbnailMethod: 'crop',
 				timeout: 9900000,
 				uploadMultiple: true,
+                parallelUploads: 1,
                 autoProcessQueue: true,
                 init: function() {
                     this.on("sending", function(file, xhr, formData){

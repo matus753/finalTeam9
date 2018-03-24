@@ -32,13 +32,13 @@ class Intranet_photos extends Controller
             'title' => $this->module_name,
             'activation' => config('photos_admin.activation')
         ];
-        //debug($data, true);
+        
         return view('intranet::photos/photos_all', $data);
     }
 
     public function photos_add(){
         if(!has_permission('reporter')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         $data = [
@@ -50,11 +50,20 @@ class Intranet_photos extends Controller
 
     public function photos_add_action( Request $request ){
         if(!has_permission('reporter')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
         $title_sk = $request->input('title_sk');
         $title_en = $request->input('title_en');
+
+        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 128){
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Title SK bad format - empty string or max 128 characters']);
+        }
+
+        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 128){
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Title SK bad format - empty string or max 128 characters']);
+        }
+
         $hash_name = md5(uniqid());
 
         $data = [
@@ -83,11 +92,11 @@ class Intranet_photos extends Controller
 
     public function photos_upload($pg_id = 0){
         if(!has_permission('reporter')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         if(!is_numeric($pg_id) || $pg_id == 0){
-            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB internal error!']);
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
         $gallery = DB::table('photo_gallery')->where('pg_id', $pg_id)->first();
@@ -112,6 +121,10 @@ class Intranet_photos extends Controller
 
         $files = $request->file('file');
         $hash_check = $request->input('hash_check');
+        if(!is_string($hash_check) || strlen($hash_check) < 1 || strlen($hash_check) > 64){
+            return response()->json(['error' => 'Internal Error'], 400);
+        }
+
         $pg_id = $request->input('id');
         if(!gallery_folder_exists($hash_check)){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'UPLOAD : Internal Server Error!']);
@@ -127,14 +140,16 @@ class Intranet_photos extends Controller
             foreach($files as $f){
                 $valid = false;
                 
-                foreach($allowed_types as $a){
-                    if( $a == explode('.',$f->hashName())[1] ){
+                foreach($allowed_types as $at){
+                    $extension = explode('.', $f->hashName());
+                    $extension = $extension[count($extension)-1];
+                    if($at == $extension){
                         $valid = true;
                     }
                 }
 
                 if($valid == false){
-                    echo "TO DO ERROR RESPONSE";
+                    return response()->json(['error' => 'Bad file type'], 400);
                 }
                 
                 $file_name = $f->getClientOriginalName();
@@ -154,22 +169,22 @@ class Intranet_photos extends Controller
                     if( isset($file_name) && !empty($file_name) && isset($hash_name) && !empty($hash_name) && isset($size) && $size > 0){
                         $f->store('/public/gallery/'.$hash_check);
                     }else{
-                        return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'File store error!']);
+                        return response()->json(['error' => 'Upload crashed'], 400);
                     } 
                 }else{
-                    return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB insert file error! '.$file_name]);
+                    return response()->json(['error' => 'Database error'], 400);
                 }
 
             }   
         }else{
-            echo "TO DO ERROR RESPONSE";
+            return response()->json(['error' => 'No files found'], 400);
         }
         
     }
 
     public function photos_edit($pg_id = 0){
         if(!has_permission('reporter')){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
         if(!is_numeric($pg_id)){
@@ -177,6 +192,10 @@ class Intranet_photos extends Controller
         }
 
         $gallery_params = DB::table('photo_gallery')->where('pg_id', $pg_id)->first();
+        if(!$gallery_params){
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
+        }
+
         $photos = DB::table('photos')->where('pg_id', $pg_id)->get();
         $photos = (!$photos) ? [] : $photos;
 
@@ -200,6 +219,14 @@ class Intranet_photos extends Controller
         
         $title_sk = $request->input('title_sk');
         $title_en = $request->input('title_en');
+
+        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 128){
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Title SK bad format - empty string or max 128 characters']);
+        }
+
+        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 128){
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Title SK bad format - empty string or max 128 characters']);
+        }
 
         $data = [
             'title_SK' => $title_sk,
@@ -239,9 +266,13 @@ class Intranet_photos extends Controller
 
         if($res){
             foreach($files_to_delete as $f){
-                unlink($path.$f->hash_name);
+                if(is_file($path.$f->hash_name)){
+                    unlink($path.$f->hash_name);
+                }
             }
-            rmdir($path);
+            if(is_dir($path)){
+                rmdir($path);
+            }
             return redirect('/photos-admin')->with('err_code', ['type' => 'success', 'msg' => 'Record deleted successfuly!']);
         }
         return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB delete error!']);
@@ -261,7 +292,9 @@ class Intranet_photos extends Controller
             $folder = DB::table('photo_gallery')->where('pg_id', $file_to_delete->pg_id)->first();
             $res_files = (bool) DB::table('photos')->where('p_id', $p_id)->delete();
             $path = base_path('storage/app/public/gallery/'.$folder->folder.'/'.$file_to_delete->hash_name); 
-            unlink($path); 
+            if(is_file($path)){
+                unlink($path); 
+            }
             return redirect('/photos-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted successfuly!']); 
         }else{
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']); 
