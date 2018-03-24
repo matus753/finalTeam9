@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Hostiteľ: localhost
--- Čas generovania: So 17.Mar 2018, 17:40
+-- Čas generovania: So 24.Mar 2018, 18:55
 -- Verzia serveru: 10.0.34-MariaDB-0ubuntu0.16.04.1
--- Verzia PHP: 7.0.25-0ubuntu0.16.04.1
+-- Verzia PHP: 7.0.28-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -36,14 +36,6 @@ CREATE TABLE `documents` (
   `text_sk` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Sťahujem dáta pre tabuľku `documents`
---
-
-INSERT INTO `documents` (`d_id`, `dc_id`, `hash_name`, `name_sk`, `name_en`, `text_en`, `text_sk`) VALUES
-(20, 28, '228fed74c4e664ad1ee8d29376e40e23', 'aaaaaaaaaaaaa', 'ffaaaaaaaaaaaaaaaaaaa', NULL, NULL),
-(21, 29, 'cfa79772df0d4ff87f9b18b45859edb7', 'ffffffffffffff', 'rrrrrrrrr', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -56,14 +48,6 @@ CREATE TABLE `documents_categories` (
   `name_sk` varchar(64) NOT NULL,
   `name_en` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Sťahujem dáta pre tabuľku `documents_categories`
---
-
-INSERT INTO `documents_categories` (`dc_id`, `hash_name`, `name_sk`, `name_en`) VALUES
-(28, '05ca45fd83cec7138418ded7bf8ca1e1', 'fasdfsa', 'fasdfsa'),
-(29, '3e6d323002fccd92b892c8a154de2e0a', 'dfasdfasdf', 'dfasdfas');
 
 -- --------------------------------------------------------
 
@@ -83,7 +67,7 @@ CREATE TABLE `documents_files` (
 --
 
 INSERT INTO `documents_files` (`df_id`, `hash_id`, `file_hash`, `file_name`) VALUES
-(20, '3529c0392287d1d4d71df25ca4044428', 'RIPcS7uOhhzGPmALHHIBERjtbjptQ5xttjs5lV4r.png', 'monkey1.png');
+(1, '4afc150660d57b636b3f7ffe50df483a', 'BJCIo1EOtNjtLZNVsM1JVb3bEIdSRdLabstQBFEf.zip', 'water.jpg.zip');
 
 -- --------------------------------------------------------
 
@@ -95,11 +79,11 @@ CREATE TABLE `events` (
   `e_id` int(11) NOT NULL,
   `name_sk` varchar(128) NOT NULL,
   `name_en` varchar(128) DEFAULT NULL,
-  `text_sk` mediumtext,
-  `text_en` mediumtext,
+  `text_sk` varchar(2048) DEFAULT NULL,
+  `text_en` varchar(2048) DEFAULT NULL,
   `url` varchar(512) DEFAULT NULL,
   `place` varchar(64) DEFAULT NULL,
-  `date` int(11) DEFAULT NULL,
+  `date` int(11) NOT NULL,
   `time` varchar(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -108,12 +92,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`e_id`, `name_sk`, `name_en`, `text_sk`, `text_en`, `url`, `place`, `date`, `time`) VALUES
-(3, 'Fakultná prehliadka prác ŠVOČ', 'Fakultná prehliadka prác ŠVOČ', 'Tu je nejaký popis k udalosti. Môže byť dlhší/kratší ...', 'This is ...', '', 'FEI', 1524009600, '8:00'),
-(4, 'Veľký piatok', NULL, NULL, NULL, 'http://www.gmail.com', NULL, 1522368000, NULL),
-(5, 'Deň pracovného pokoja', 'Day', NULL, NULL, '', NULL, 1525737600, NULL),
-(6, 'Veľkonočný pondelok', NULL, NULL, NULL, '', NULL, 1522627200, NULL),
-(7, 'Deň pracovného pokoja', NULL, 'Deň pracovného pokoja', NULL, '', NULL, 1525132800, NULL),
-(8, 'gdsfgsdfgs', 'gfsdgfsdf', 'gsdfgsd', 'fgsdfgsdf', 'http://', 'dfasdf', 1522368000, NULL);
+(1, 'Veľký piatok', 'Good Friday', 'Sviatok, máme voľno', 'No school, just coding at home', 'http://www.velkypiatok.com', 'Všade', 1522368000, '8:00');
 
 -- --------------------------------------------------------
 
@@ -122,7 +101,7 @@ INSERT INTO `events` (`e_id`, `name_sk`, `name_en`, `text_sk`, `text_en`, `url`,
 --
 
 CREATE TABLE `functions` (
-  `id` int(11) NOT NULL,
+  `f_id` int(11) NOT NULL,
   `title` varchar(200) COLLATE utf8_slovak_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
@@ -130,14 +109,13 @@ CREATE TABLE `functions` (
 -- Sťahujem dáta pre tabuľku `functions`
 --
 
-INSERT INTO `functions` (`id`, `title`) VALUES
+INSERT INTO `functions` (`f_id`, `title`) VALUES
 (1, 'riaditeľ ústavu'),
 (2, 'vedúci oddelenia'),
 (3, 'zástupca vedúceho oddelenia'),
 (4, 'zástupca riaditeľa ústavu pre rozvoj ústavu'),
 (5, 'zástupca riaditeľa ústavu pre vedeckú činnosť'),
 (6, 'zástupca riaditeľa ústavu pre pedagogickú činnosť');
-
 
 -- --------------------------------------------------------
 
@@ -156,14 +134,6 @@ CREATE TABLE `media` (
   `activated` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Sťahujem dáta pre tabuľku `media`
---
-
-INSERT INTO `media` (`m_id`, `date`, `title`, `media`, `type`, `url`, `title_EN`, `activated`) VALUES
-(1, 1521136575, 'test', 'test', 'link', 'http://google.com', 'test', 0),
-(2, 1521136845, 'fdsaf', 'sdfrewf', 'server', NULL, 'dfsfsdfs', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -173,16 +143,9 @@ INSERT INTO `media` (`m_id`, `date`, `title`, `media`, `type`, `url`, `title_EN`
 CREATE TABLE `media_files` (
   `mf_id` int(11) NOT NULL,
   `m_id` int(11) NOT NULL,
-  `file_name` varchar(64) NOT NULL,
-  `hash_name` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Sťahujem dáta pre tabuľku `media_files`
---
-
-INSERT INTO `media_files` (`mf_id`, `m_id`, `file_name`, `hash_name`) VALUES
-(1, 2, 'success.docx', '6gUXqEgIJnCee1gjsvRFeWGScNpwoDfitn3llDHI.docx');
+  `file_name` varchar(128) NOT NULL,
+  `hash_name` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -218,21 +181,57 @@ INSERT INTO `nepritomnosti` (`at_id`, `id_zamestnanca`, `id_typu`, `rok`, `mesia
 (523, 10, 1, 2018, 1, 14),
 (524, 11, 1, 2018, 1, 14),
 (525, 12, 1, 2018, 1, 14),
-(526, 1, 1, 2018, 3, 5),
-(527, 1, 1, 2018, 3, 6),
-(528, 1, 1, 2018, 3, 7),
-(529, 1, 1, 2018, 3, 8),
-(530, 2, 1, 2018, 3, 5),
-(531, 2, 1, 2018, 3, 6),
-(532, 2, 1, 2018, 3, 7),
-(533, 2, 1, 2018, 3, 8),
-(534, 3, 1, 2018, 3, 8),
-(535, 3, 1, 2018, 3, 7),
-(536, 3, 1, 2018, 3, 6),
-(537, 2, 1, 2018, 3, 9),
-(538, 1, 1, 2018, 3, 9),
-(539, 3, 1, 2018, 3, 9),
-(540, 3, 1, 2018, 3, 5);
+(541, 1, 1, 2018, 3, 1),
+(542, 1, 1, 2018, 3, 2),
+(543, 1, 1, 2018, 3, 5),
+(544, 1, 1, 2018, 3, 6),
+(545, 1, 1, 2018, 3, 7),
+(546, 1, 1, 2018, 3, 8),
+(547, 1, 1, 2018, 3, 9),
+(548, 1, 1, 2018, 3, 12),
+(549, 1, 1, 2018, 3, 13),
+(550, 1, 1, 2018, 3, 14),
+(551, 1, 1, 2018, 3, 15),
+(552, 1, 1, 2018, 3, 16),
+(553, 1, 1, 2018, 3, 19),
+(554, 1, 1, 2018, 3, 20),
+(555, 1, 1, 2018, 3, 21),
+(556, 1, 1, 2018, 3, 22),
+(557, 1, 1, 2018, 3, 23),
+(565, 1, 1, 2018, 3, 26),
+(566, 1, 1, 2018, 3, 27),
+(567, 1, 1, 2018, 3, 28),
+(568, 1, 1, 2018, 3, 29),
+(569, 1, 1, 2018, 3, 30),
+(629, 4, 2, 2018, 3, 5),
+(630, 4, 2, 2018, 3, 6),
+(631, 4, 2, 2018, 3, 7),
+(632, 4, 2, 2018, 3, 8),
+(633, 5, 2, 2018, 3, 5),
+(634, 5, 2, 2018, 3, 6),
+(635, 5, 2, 2018, 3, 7),
+(636, 5, 2, 2018, 3, 8),
+(637, 5, 3, 2018, 3, 9),
+(649, 6, 3, 2018, 3, 1),
+(650, 6, 3, 2018, 3, 2),
+(651, 6, 3, 2018, 3, 5),
+(652, 6, 3, 2018, 3, 6),
+(653, 6, 3, 2018, 3, 7),
+(654, 6, 3, 2018, 3, 8),
+(655, 6, 3, 2018, 3, 9),
+(656, 6, 3, 2018, 3, 12),
+(657, 6, 3, 2018, 3, 13),
+(658, 6, 3, 2018, 3, 14),
+(659, 6, 3, 2018, 3, 15),
+(660, 6, 3, 2018, 3, 16),
+(661, 6, 4, 2018, 3, 19),
+(662, 6, 4, 2018, 3, 20),
+(663, 6, 4, 2018, 3, 21),
+(664, 6, 4, 2018, 3, 22),
+(665, 6, 4, 2018, 3, 23),
+(666, 7, 2, 2018, 3, 5),
+(667, 7, 2, 2018, 3, 6),
+(668, 7, 2, 2018, 3, 7);
 
 -- --------------------------------------------------------
 
@@ -260,7 +259,7 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`n_id`, `hash_id`, `title_en`, `title_sk`, `image_hash_name`, `preview_sk`, `preview_en`, `editor_content_sk`, `editor_content_en`, `date_created`, `date_expiration`, `type`) VALUES
-(2, 'd84a5242e480cd82ee659fc12ee46d83', 'sdfsdfs', 'dfsdfs', 'info.png', 'fsfsd', 'dfsdfsd', NULL, NULL, 1521301946, 1521301946, 0);
+(1, '57dc309931519c635af6b0769979f998', 'Testing', 'Testovačka', 'info.png', 'Lorem ipsum dolor sit amet, pri meliore veritus id, usu laoreet convenire petentium ad. Ea has ornatus sensibus, ne mel stet corrumpit delicatissimi. Suas veri nulla vis id, no mutat iriure scaevola sed, ut sit labitur similique. Probo euripidis neglegentur ad nam, vitae mucius quo te. Eos ex ipsum fastidii accumsan, facilisis ullamcorper usu te, vel te decore admodum. Nisl praesent eloquentiam mei te.', 'Lorem ipsum dolor sit amet, pri meliore veritus id, usu laoreet convenire petentium ad. Ea has ornatus sensibus, ne mel stet corrumpit delicatissimi. Suas veri nulla vis id, no mutat iriure scaevola sed, ut sit labitur similique. Probo euripidis neglegentur ad nam, vitae mucius quo te. Eos ex ipsum fastidii accumsan, facilisis ullamcorper usu te, vel te decore admodum. Nisl praesent eloquentiam mei te.', '<h1 style="text-align: center; ">Lorem Ipsum</h1><p style="text-align: left;">Lorem ipsum dolor sit amet, pri meliore veritus id, usu laoreet convenire petentium ad. Ea has ornatus sensibus, ne mel stet corrumpit delicatissimi. Suas veri nulla vis id, no mutat iriure scaevola sed, ut sit labitur similique. Probo euripidis neglegentur ad nam, vitae mucius quo te. Eos ex ipsum fastidii accumsan, facilisis ullamcorper usu te, vel te decore admodum. Nisl praesent eloquentiam mei te.</p><p style="text-align: left;"><br></p><p style="text-align: left;">An cum equidem voluptaria, eos epicurei interesset necessitatibus ut, error corpora consulatu et mei. Mel modus ornatus percipitur id, idque animal fastidii cu mei. Ea vel nisl consetetur, cu scripta tritani quo, vim ne sonet quaestio. Nostro tritani nec te, nostro definiebas et vel.</p><p style="text-align: left;"><br></p><p style="text-align: left;"><img src="http://127.0.0.1:8000/storage/news/57dc309931519c635af6b0769979f998/1h7jPLFuZnMthft5renGqd2i4dqDwc0UVUmH4ASm.png" style="width: 303px;"></p><p style="text-align: left;"><br></p><ol><li style="text-align: left;">A</li><li style="text-align: left;">B</li><li style="text-align: left;">C</li></ol><p style="text-align: left;"><a href="http://www.google.com" target="_blank">Text to display</a><br></p>', '<h1 style="font-family: "Open Sans", sans-serif; text-align: center;">Lorem Ipsum</h1><p>Lorem ipsum dolor sit amet, pri meliore veritus id, usu laoreet convenire petentium ad. Ea has ornatus sensibus, ne mel stet corrumpit delicatissimi. Suas veri nulla vis id, no mutat iriure scaevola sed, ut sit labitur similique. Probo euripidis neglegentur ad nam, vitae mucius quo te. Eos ex ipsum fastidii accumsan, facilisis ullamcorper usu te, vel te decore admodum. Nisl praesent eloquentiam mei te.</p><p><br></p><p>An cum equidem voluptaria, eos epicurei interesset necessitatibus ut, error corpora consulatu et mei. Mel modus ornatus percipitur id, idque animal fastidii cu mei. Ea vel nisl consetetur, cu scripta tritani quo, vim ne sonet quaestio. Nostro tritani nec te, nostro definiebas et vel.</p><p><br></p><p><img src="http://127.0.0.1:8000/storage/news/57dc309931519c635af6b0769979f998/1h7jPLFuZnMthft5renGqd2i4dqDwc0UVUmH4ASm.png" style="width: 303px;"></p><p><br></p><ol><li style="text-align: left;">A</li><li style="text-align: left;">B</li><li style="text-align: left;">C</li></ol><p><a href="http://www.google.com/" target="_blank">Text to display</a></p>', 1521879232, 1522454400, 0);
 
 -- --------------------------------------------------------
 
@@ -293,10 +292,20 @@ INSERT INTO `newsletter` (`id`, `email`, `lang`) VALUES
 
 CREATE TABLE `news_dl_files` (
   `nf_id` int(11) NOT NULL,
-  `n_id` int(11) NOT NULL,
+  `hash_id` varchar(64) NOT NULL,
   `file_hash` varchar(64) NOT NULL,
   `file_name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Sťahujem dáta pre tabuľku `news_dl_files`
+--
+
+INSERT INTO `news_dl_files` (`nf_id`, `hash_id`, `file_hash`, `file_name`) VALUES
+(1, 'ae1ce18ffa690701c84ea741fd7bd9d3', 'nk7rJYZ3nNK0GDf3KXMu5mi0jZ42mRmhk3D0pILF.zip', 'water.jpg.zip'),
+(2, 'ae1ce18ffa690701c84ea741fd7bd9d3', 'akgMLVwuMwYWNm44rmH5URsI6nm5hQAH8iBSTeLX.zip', 'water.jpg.zip'),
+(3, '57dc309931519c635af6b0769979f998', '1kOuSGr6x742EYhhJgzgsyZwW0zUTgAzwhfsTJhL.zip', 'water.jpg.zip'),
+(4, '8b7d219cfde1f178ff9c1cee7658ce81', 'h4IEYQMO7ywWKxoDjLDYswEROqfpFcI4qRRkuW9l.zip', 'water.jpg.zip');
 
 -- --------------------------------------------------------
 
@@ -320,9 +329,9 @@ CREATE TABLE `photos` (
 
 CREATE TABLE `photo_gallery` (
   `pg_id` int(11) NOT NULL,
-  `title_SK` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `title_EN` varchar(100) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
-  `folder` varchar(50) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `title_SK` varchar(128) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `title_EN` varchar(128) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
+  `folder` varchar(64) CHARACTER SET utf8 COLLATE utf8_slovak_ci NOT NULL,
   `date` int(11) NOT NULL,
   `activated` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -369,7 +378,7 @@ INSERT INTO `project` (`pr_id`, `projectType`, `number`, `titleSK`, `titleEN`, `
 (13, 'other', 'TB ', 'Softvérové riadenie smerovej dynamiky vozidla UGV 6x6 \r\n', 'Softvérové riadenie smerovej dynamiky vozidla UGV 6x6 \r\n', '2015', 'Ing. Martin Bugár, PhD. \r\n', NULL, NULL, '7506', NULL, NULL, 1),
 (14, 'other', 'VW ', 'Predlžovanie životnosti akumulátorového systému \r\n', 'Predlžovanie životnosti akumulátorového systému \r\n', '2015', 'Ing. Martin Bugár, PhD. \r\n', NULL, NULL, '7509', NULL, NULL, 1),
 (15, 'other', 'MV ', 'REST platforma pre online riadenie experimentov \r\n', 'REST Platform for Online Control of Experiments \r\n', '2015', 'Ing. Miroslav Gula \r\n', NULL, NULL, '1361', '"Tento projekt je súčasťou rozsiahlejšieho cieľa o vytvorenie univerzálneho protokolu pre vzdialené riadenie reálnych sústav a tiež balíka softvérových nástrojov na jeho implementáciu. Hlavným cieľom celého úsilia je zjednodušiť a urýchliť budovanie modulárnych online laboratórií.\r\nÚlohami projektu sú návrh a vytvorenie nástroaj pre vzdialený prístup k softvéru Scilab, zavŕšenie implementácie podobného nástroja určeného pre softvérový balík Matlab/Simulink, a návrh a čiastočná implementácia mechatronického systému, ktorý bude v budúcnosti slúžiť na demonštráciu spomenutých nástrojov a následne ako učebná pomôcka."\r\n', 'The project is a part of an extensive endeavor to create universal protocol for remote control of real plants, and a suite of software tools to implement this protocol. The main objective of this whole endeavor is to simplify and accelerate implementation of modular online laboratories. Tasks of this project include design and implementation of a software tool for remote access to Scilab, completion of implementation of a similar tool for Matlab/Simulink, and design and partial implementation of a mechatronic system which will serve for demonstration of mentioned tools and later on as teaching aid.\r\n', 1),
-(16, 'VEGA', 'test2', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 1);
+(19, 'VEGA', 'dfgsd', 'fdgdfds', NULL, NULL, 'gsdfgsdfgs', NULL, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -383,7 +392,7 @@ CREATE TABLE `staff` (
   `surname` varchar(64) COLLATE utf8_slovak_ci DEFAULT NULL,
   `title1` varchar(32) COLLATE utf8_slovak_ci DEFAULT NULL,
   `title2` varchar(32) COLLATE utf8_slovak_ci DEFAULT NULL,
-  `ldapLogin` varchar(32) COLLATE utf8_slovak_ci DEFAULT NULL,
+  `ldapLogin` varchar(64) COLLATE utf8_slovak_ci DEFAULT NULL,
   `photo` varchar(128) COLLATE utf8_slovak_ci DEFAULT NULL,
   `room` varchar(128) COLLATE utf8_slovak_ci DEFAULT NULL,
   `phone` varchar(16) COLLATE utf8_slovak_ci DEFAULT NULL,
@@ -418,7 +427,7 @@ INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`,
 (16, 'Miroslav', 'Gula', 'Ing.', NULL, 'xgulam', 'gula.jpg', 'D 103', '628', 'OIKR', 'doktorand', '', '', '', 1),
 (17, 'Oto', 'Haffner', 'Ing.', ' PhD.', NULL, 'haffner.jpg', 'D 125', '315', 'OIKR ', 'teacher', '', '', '', 1),
 (18, 'Juraj', 'Hrabovský', 'Ing.', ' PhD.', NULL, NULL, 'A 706', '559', 'OAMM', 'teacher', '', '', '', 1),
-(19, 'Mikuláš', 'Huba', 'prof. Ing.', ' PhD.', NULL, 'huba.jpg', 'D 112', '771', 'OEAP', 'teacher', '', '', '', 1),
+(19, 'Mikuláš', 'Huba', 'prof. Ing.', 'PhD.', NULL, 'default_male_img.png', 'D 112', '771', 'OEAP', 'teacher', '[]', NULL, NULL, 1),
 (20, 'Mária', 'Hypiusová', 'Ing.', ' PhD.', NULL, NULL, 'D 122', '193', 'OIKR', 'teacher', '', '', '', 1),
 (21, 'Štefan', 'Chamraz', 'Ing.', ' PhD.', NULL, NULL, 'D 107', '848', 'OEMP', 'teacher', '', '', '', 1),
 (22, 'Jakub', 'Jakubec', 'Ing.', ' PhD.', NULL, NULL, 'A 707', '452', 'OAMM ', 'researcher', '', '', '', 1),
@@ -426,12 +435,12 @@ INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`,
 (24, 'Katarína', 'Kermietová', NULL, NULL, NULL, NULL, 'D 116', '598', 'AHU', 'teacher', '', '', '', 1),
 (25, 'Ivan', 'Klimo', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', '', '', '', 1),
 (26, 'Michal', 'Kocúr', 'Ing.', ' PhD.', 'xkocurm2', 'kocur.jpg', 'D 104', '686', 'OIKR ', 'teacher', '', '', '', 1),
-(27, 'Štefan', 'Kozák', 'prof. Ing.', ' PhD.', NULL, 'kozak.jpg', 'D 115', '281', 'OEMP', 'teacher', '', '', '', 1),
+(27, 'Štefan', 'Kozák', 'prof. Ing.', 'PhD.', NULL, 'default_male_img.png', 'D 115', '281', 'OEMP', 'teacher', '[]', NULL, NULL, 1),
 (28, 'Alena', 'Kozáková', 'doc. Ing.', ' PhD.', NULL, NULL, 'D 111', '563', 'OIKR', 'teacher', '', '', '', 1),
 (29, 'Erik', 'Kučera', 'Ing.', ' PhD.', NULL, NULL, 'D 125', '315', 'OIKR ', 'teacher', '', '', '', 1),
 (30, 'Vladimír', 'Kutiš', 'doc. Ing.', ' PhD.', NULL, 'kutis.jpg', 'A 701', '562', 'OAMM ', 'teacher', '', '', '', 1),
 (31, 'Alek', 'Lichtman', 'Ing.', NULL, NULL, NULL, 'D 101', '509', 'OEMP', 'doktorand', '', '', '', 1),
-(32, 'Justín', 'Murín', 'prof. Ing.', ' DrSc.', NULL, 'murin.jpg', 'A 704', '611', 'OAMM', 'teacher', '', '', '', 1),
+(32, 'Justín', 'Murín', 'prof. Ing.', 'DrSc.', NULL, 'default_male_img.png', 'A 704', '611', 'OAMM', 'teacher', '[]', NULL, NULL, 1),
 (33, 'Jakub', 'Osuský', 'Ing.', ' PhD.', NULL, 'osusky.jpg', 'D 123', '356', 'OIKR ', 'teacher', '', '', '', 1),
 (34, 'Tomáš', 'Paciga', 'Ing.', NULL, NULL, NULL, 'A 707', '452', 'OAMM', 'doktorand', '', '', '', 1),
 (35, 'Juraj', 'Paulech', 'Ing.', ' PhD.', NULL, 'paulech.jpg', 'A 701', '562', 'OAMM', 'teacher', '', '', '', 1),
@@ -439,12 +448,12 @@ INSERT INTO `staff` (`s_id`, `name`, `surname`, `title1`, `title2`, `ldapLogin`,
 (37, 'Tibor', 'Sedlár', 'Ing. ', NULL, NULL, NULL, 'A 803', '399', 'OAMM', 'teacher', '', '', '', 1),
 (38, 'Erich', 'Stark', 'Ing.', NULL, NULL, 'stark.jpg', 'C 014', '', 'OIKR', 'doktorand', '', '', '', 1),
 (39, 'Peter', 'Ťapák', 'Ing.', ' PhD.', NULL, NULL, 'D 121', '569', 'OEAP', 'teacher', '', '', '', 1),
-(40, 'Katarína', 'Žáková', 'doc. Ing.', ' PhD.', 'zakova', 'zakova.jpg', 'D 119', '742', 'OIKR', 'teacher', '', '', '', 1),
+(40, 'Katarína', 'Žáková', 'doc. Ing.', 'PhD.', 'zakova', 'default_male_img.png', 'D 119', '742', 'OIKR', 'teacher', '[]', NULL, NULL, 1),
 (41, 'Danica', 'Rosinová', 'doc. Ing.', ' PhD.', NULL, 'rosinova.jpg', 'D 111', '563', 'OIKR', 'teacher', '', '', '', 1),
 (42, 'Admin', 'Admin', NULL, NULL, 'xdzacovsky', NULL, '', NULL, '', '', '', '', '', 1),
-(43, 'Laravel', 'Laravel', 'Prof.', 'PhD.', 'xtrocha', NULL, '456', '123', 'ABC', 'developer', '', '', '', 1),
-(55, 'aaaa', 'aaa', 'aaaa', 'aaaa', 'xaaa', 'default_male_img.png', 'aaaa', 'aaaaa', 'AHU', 'doktorand', '["admin"]', 'aaa@aaa', 'http://aaaa.com', 1),
-(56, 'bbb', 'bbbová', 'bbb', 'bbb', 'xss', 'default_female_img.png', 'bbb', 'bbbbbb', 'AHU', 'doktorand', '["admin"]', NULL, NULL, 1);
+(43, 'Laravel', 'Laravel', 'Prof.', 'PhD.', 'xtrocha', NULL, '456', '123', 'ABC', 'developer', '["admin"]', '', '', 1),
+(44, 'Tester', 'Tester', NULL, NULL, 'xtester', 'default_male_img.png', NULL, NULL, 'AHU', 'doktorand', '["hr"]', NULL, NULL, 1),
+(51, 'Tester2', 'Tester2', NULL, NULL, NULL, 'default_male_img.png', NULL, NULL, 'AHU', 'doktorand', '[]', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -463,19 +472,17 @@ CREATE TABLE `staff_function` (
 --
 
 INSERT INTO `staff_function` (`id`, `id_staff`, `id_func`) VALUES
-(1, 3, 3),
-(2, 12, 3),
-(3, 19, 1),
-(4, 19, 2),
-(5, 24, 3),
-(6, 27, 4),
-(7, 27, 2),
-(8, 30, 3),
-(9, 32, 5),
-(10, 32, 2),
-(11, 40, 6),
-(12, 40, 3),
-(13, 41, 2);
+(23, 50, 1),
+(24, 50, 2),
+(25, 50, 3),
+(26, 50, 4),
+(27, 50, 5),
+(28, 50, 6),
+(29, 19, 1),
+(30, 32, 5),
+(31, 27, 4),
+(32, 40, 6),
+(33, 51, 2);
 
 -- --------------------------------------------------------
 
@@ -551,6 +558,49 @@ CREATE TABLE `subjects_files` (
   `file_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Sťahujem dáta pre tabuľku `subjects_files`
+--
+
+INSERT INTO `subjects_files` (`sf_id`, `hash_id`, `hash_name`, `file_name`) VALUES
+(1, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'k4uM56SAUVmZN2tXOyMtKfSC1myzBgm4O93uNfHi.jpeg', 'test.jpg'),
+(2, '0c923a6d87fddabcd4f5cb5b2f3a58b2', '5WBA4d7AKq6p2M53RwLBDbY4Dj8PSwYRXfnm4upl.jpeg', 'test2.jpg'),
+(3, '0c923a6d87fddabcd4f5cb5b2f3a58b2', '6bXW71cE4AAMVcKGv8Wu386jU9jIYOYnVFrveTLT.jpeg', 'water.jpg'),
+(4, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'SrClODk9z242cTtp1HPL51eMQBmcEc594yTdacrH.jpeg', 'banana.jpg'),
+(5, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'Cqq5I5cfn3RrIZAL3CviWqchgnVIDHWwGiz0K2Uk.png', 'we_me_tags_valid.png'),
+(6, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'uYTVxu6DYOfg2Qt4AzhpZjuInBBY71RGvjIlQ8dE.jpeg', 'monkey.jpg'),
+(7, '0c923a6d87fddabcd4f5cb5b2f3a58b2', '2pZ4pJVlFPx9zqT3wbORUNNHfVEWSTvENMJlwjdl.png', 'monkey1.png'),
+(8, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'IABNeQup2GZzt5fPbc47nevKQasfnOLZSgPWuxkz.jpeg', 'water.jpg'),
+(9, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'TSabRNZkhgY1daviWhsJYvVKxm5CKI2cb2vTvv9H.png', 'we_me_tags_valid.png'),
+(10, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'sXoJHBjAQtqSUsn5hCGkP7xgA3G6t3QIUCSaq5ce.jpeg', 'test.jpg'),
+(11, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'ennun9BxHVKvC36CgvfMWD7fHYG7sFOuKTyLlpSG.jpeg', 'test2.jpg'),
+(12, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'qxW3mhVwpREIxT7nRHuJedEmzcavWcpiXV1uVFFO.jpeg', 'water.jpg'),
+(13, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'KaOZpLCS5Dyz4baRWvTQRJtiVnHH7x3lnUpnFPS3.png', 'we_me_tags_valid.png'),
+(14, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'A2TLUWKUMpkCDiGirpGnZ3f3Q1g0qu4kZEi75nnb.jpeg', 'water.jpg'),
+(15, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'oJVd6qIb4h6Hkgr87Q3MbE8E95X6km80GX6OvM2H.zip', 'water.jpg.zip'),
+(16, '0c923a6d87fddabcd4f5cb5b2f3a58b2', 'CUekIvhJBXitnhq3CQnBD8rTUlBhg2vCv0N46rD5.png', 'we_me_tags_valid.png');
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `subjects_staff_rel`
+--
+
+CREATE TABLE `subjects_staff_rel` (
+  `sus_id` int(11) NOT NULL,
+  `sub_id` int(11) NOT NULL,
+  `s_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Sťahujem dáta pre tabuľku `subjects_staff_rel`
+--
+
+INSERT INTO `subjects_staff_rel` (`sus_id`, `sub_id`, `s_id`) VALUES
+(1, 1, 51),
+(2, 2, 51),
+(3, 3, 51);
+
 -- --------------------------------------------------------
 
 --
@@ -616,11 +666,10 @@ INSERT INTO `video_gallery` (`v_id`, `title_SK`, `title_EN`, `url`, `type_sk`, `
 (3, 'Študuj mechatroniku a budeš úspešný!', 'Study mechatronics and you will be successful!', 'vCYq4JspSCI', 'Propagačné videá', 'Promotional videos'),
 (4, 'Mechatronické kresliace rameno mScara - Makeblock mDrawBot kit ', 'mScara mechatronic drawing arm - Makeblock mDrawBot kit', 'qmijnl8jwaw', 'Naše zariadenie', 'Our facility'),
 (5, 'Riadenie modelu výrobného systému cez PLC', 'Managing the production system model via the PLC', 'ymqYxRYt5sY', 'Naše zariadenie', 'Our facility'),
-(6, 'Inžinierska informatika v mechatronike - Ing. ŠP Aplikovaná mechatronika a elektromobilita ', 'Engineering informatics in mechatronics - Engineering SP Applied mechatronics and electromobility', 'CLwEjKN9ixg', 'Propagačné videá', 'Our facility'),
+(6, 'Inžinierska informatika v mechatronike - Ing. ŠP Aplikovaná mechatronika a elektromobilita ', 'Engineering informatics in mechatronics - Engineering SP Applied mechatronics and electromobility', 'CLwEjKN9ixg', 'Propagačné videá', 'Promotional videos'),
 (7, 'Ústav automobilovej mechatroniky FEI STU ', 'Department of automobile mechatronics FEI STU', 'IiNXYgbOKxw', 'Propagačné videá', 'Promotional videos'),
 (8, 'videjo', 'videjo in ingliš', '57BJvTZK6Vc', 'Naše laboratóriá', 'Our laboratories'),
-(9, 'FPFA', 'FPGA', 'xEkg96rcwsE', 'Predmety', 'Subjects'),
-(10, 'testeste', 'testewre', 'http://google.com', 'Naše laboratóriá', 'Our labs');
+(9, 'FPFA', 'FPGA', 'xEkg96rcwsE', 'Predmety', 'Subjects');
 
 --
 -- Kľúče pre exportované tabuľky
@@ -654,7 +703,7 @@ ALTER TABLE `events`
 -- Indexy pre tabuľku `functions`
 --
 ALTER TABLE `functions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`f_id`);
 
 --
 -- Indexy pre tabuľku `media`
@@ -736,6 +785,12 @@ ALTER TABLE `subjects_files`
   ADD PRIMARY KEY (`sf_id`);
 
 --
+-- Indexy pre tabuľku `subjects_staff_rel`
+--
+ALTER TABLE `subjects_staff_rel`
+  ADD PRIMARY KEY (`sus_id`);
+
+--
 -- Indexy pre tabuľku `subjects_subcategories`
 --
 ALTER TABLE `subjects_subcategories`
@@ -761,47 +816,47 @@ ALTER TABLE `video_gallery`
 -- AUTO_INCREMENT pre tabuľku `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `d_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `documents_categories`
 --
 ALTER TABLE `documents_categories`
-  MODIFY `dc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `dc_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `documents_files`
 --
 ALTER TABLE `documents_files`
-  MODIFY `df_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `df_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pre tabuľku `events`
 --
 ALTER TABLE `events`
-  MODIFY `e_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `e_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pre tabuľku `functions`
 --
 ALTER TABLE `functions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pre tabuľku `media`
 --
 ALTER TABLE `media`
-  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `media_files`
 --
 ALTER TABLE `media_files`
-  MODIFY `mf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `mf_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pre tabuľku `nepritomnosti`
 --
 ALTER TABLE `nepritomnosti`
-  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=541;
+  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=669;
 --
 -- AUTO_INCREMENT pre tabuľku `news`
 --
 ALTER TABLE `news`
-  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pre tabuľku `newsletter`
 --
@@ -811,7 +866,7 @@ ALTER TABLE `newsletter`
 -- AUTO_INCREMENT pre tabuľku `news_dl_files`
 --
 ALTER TABLE `news_dl_files`
-  MODIFY `nf_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pre tabuľku `photos`
 --
@@ -826,17 +881,17 @@ ALTER TABLE `photo_gallery`
 -- AUTO_INCREMENT pre tabuľku `project`
 --
 ALTER TABLE `project`
-  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pre tabuľku `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `s_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `s_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT pre tabuľku `staff_function`
 --
 ALTER TABLE `staff_function`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT pre tabuľku `subjects`
 --
@@ -846,7 +901,12 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT pre tabuľku `subjects_files`
 --
 ALTER TABLE `subjects_files`
-  MODIFY `sf_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sf_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT pre tabuľku `subjects_staff_rel`
+--
+ALTER TABLE `subjects_staff_rel`
+  MODIFY `sus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pre tabuľku `subjects_subcategories`
 --
@@ -861,7 +921,7 @@ ALTER TABLE `typ_nepritomnosti`
 -- AUTO_INCREMENT pre tabuľku `video_gallery`
 --
 ALTER TABLE `video_gallery`
-  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
