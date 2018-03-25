@@ -3,7 +3,6 @@
 @section('additional_headers_admin')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/intranet.css') }}" rel="stylesheet">
-<script src="{{ URL::asset('js/jquery-ui.js') }}"></script>
 @stop
 
 @section('content_admin')
@@ -23,41 +22,32 @@
 	.ho{
 		background-color: #70a78f;
 	}
-	
 </style>
-
-@if(has_permission('hr'))
-<style>
-tbody tr:hover{
-	background-color: #8cb3d9;
-}
-
-</style>
-@endif
 
 <div id="emPAGEcontent" class="container">
 <br><br>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<select id="year" class="form-control">
 					@foreach($years as $y)
 						<option value="{{ $y }}" @if($y == $curr_year) {{ 'selected' }} @endif>{{ $y }}</option> 
 					@endforeach
 				</select>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<select id="month" class="form-control">
 					@for($i = 1; $i < 13; $i++)
 						<option value="{{ $i }}" @if($i == $curr_month) {{ 'selected' }} @endif>{{ $i }}</option> 
 					@endfor
 				</select>
 			</div>
-			@if(has_permission('hr'))
 			<div class="col-md-4">
 				<input class="form-control" type="text" id="searchbox" placeholder="Search name ...">
 			</div>
-			@endif
+			<div class="col-md-2">
+				<button class="btn btn-success pull-right" id="PDF">Generate PDF</button>
+			</div>
 		</div>
 	</div>
 	<hr>
@@ -72,9 +62,6 @@ tbody tr:hover{
 				<span style="background-color: {{ $a->farba }};">{{ $a->nazov }}</span>
 			</label>
 		@endforeach
-		@if(has_permission('hr'))
-		<button class="btn btn-success pull-right" id="PDF">Generate PDF</button>
-		@endif
 	</div>
 	<label class="checkbox-inline"><input type="checkbox" id="overwrite" >AllowOverwrite</label>
 	<hr>
@@ -143,7 +130,6 @@ tbody tr:hover{
 		window.location = "{{ url('/attendance-admin') }}/" + year + "/" + month;
 	});
 	
-	@if(has_permission('hr'))
 	$('#searchbox').on('keyup', function(){
 		var val = $(this).val().toUpperCase();
 
@@ -154,7 +140,6 @@ tbody tr:hover{
 		});
 	});
 
-	
 	$('#PDF').on('click', function(){
 		var data = { 'table' : $('#rdata').html(), 'year' : year, 'month' : month };
 		$.ajax({
@@ -169,14 +154,11 @@ tbody tr:hover{
 		});
 	});
 
-	@endif
-
 	$(function () {
 		var isMouseDown = false;
-		var clicked_id;
+		
 		$("#attendance td")
 			.mousedown(function () {
-				clicked_id = $(this).parent().attr('id');
 				var staff = $(this).parent().attr('id');
 				var day = $(this).data('dateDay');
 				year = $('#year').val();
@@ -192,6 +174,7 @@ tbody tr:hover{
 				isMouseDown = true;
 				if($('#overwrite').is(':checked')) {
 					if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
+						console.log($(this).text().length);
 						if($(this).data('dateDay')){
 							$(this).empty()
 							$(this).removeClass();
@@ -228,7 +211,8 @@ tbody tr:hover{
 						'type'	: type
 					};
 					if($('#overwrite').is(':checked')) {
-						if( ($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()) && staff == clicked_id ){
+						if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
+							console.log($(this).text().length);
 							if($(this).data('dateDay')){
 								$(this).empty()
 								$(this).removeClass();
@@ -238,7 +222,7 @@ tbody tr:hover{
 							}
 						}
 					}else{
-						if($(this).text().length == 0 && staff == clicked_id){
+						if($(this).text().length == 0){
 							if($(this).data('dateDay')){
 								$(this).empty()
 								$(this).removeClass();
@@ -249,7 +233,9 @@ tbody tr:hover{
 						}
 					}
 				}
-		}).mouseup(function () {
+		});
+		
+		$('#attendance td').mouseup(function () {
 			isMouseDown = false;
 		});
 	});

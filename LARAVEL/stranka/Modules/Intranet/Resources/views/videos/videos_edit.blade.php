@@ -28,6 +28,7 @@
             <form action="{{ url('/videos-admin-edit-action/'.$video->v_id) }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
+                    <label for="tzpe">* Kategória:</label>
                     <select class="form-control" id="type" name="type" >
                         @foreach($types as $key => $t)
                             <option value="{{ $key }}" @if($key == $video->type) {{ 'selected' }} @endif>{{ $t }}</option>
@@ -46,7 +47,7 @@
                     <label for="url">URL:</label>
                     <input type="text" class="form-control" id="url" name="url" placeholder="URL" value="{{ $video->url }}" required />
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Uloz" />
+                <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
             </form>
 		</div>
 	</div>
