@@ -13,7 +13,7 @@
 		<div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="pull-left">
+                    <div class="pull-left" style="margin-top: 20px">
                         <a href="{{ url('/photos-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
@@ -25,14 +25,14 @@
             <form action="{{ url('/photos-admin-add-action') }}" method="post">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="title_sk">Slovenský nadpis:</label>
+                    <label for="title_sk">* Slovenský nadpis:</label>
                     <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
                 </div>
                 <div class="form-group">
-                    <label for="title_en">Anglický nadpis:</label>
+                    <label for="title_en">* Anglický nadpis:</label>
                     <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Ulož" />
+                <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
             </form>
 		</div>
 	</div>

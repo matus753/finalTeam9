@@ -19,7 +19,7 @@
 		<div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="pull-left">
+                    <div class="pull-left" style="margin-top: 20px">
                         <a href="{{ url('/photos-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
@@ -34,11 +34,12 @@
             <label for="title_en">Anglický nadpis galérie:</label>
             <span id="title_en">{{ $gallery->title_EN }}</span>
             <br>
-            <a href="{{ url('/photos-admin') }}" class="btn btn-primary"> Pridaj obrázky neskôr </a>
             <br>
+            <span>Obrázky sa po prídaní automaticky uložia na server bez potreby potvrdzovania.</span>
             <br>
             <br>
             <div class="dropzone" id="dropzone"></div>
+            <a href="{{ url('/photos-admin') }}" class="btn btn-primary" style="float: right; margin-top: 20px"> Pridaj obrázky neskôr </a>
 		</div>
 	</div>
 

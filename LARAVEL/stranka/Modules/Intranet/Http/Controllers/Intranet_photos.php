@@ -278,7 +278,7 @@ class Intranet_photos extends Controller
         return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB delete error!']);
     }
 
-    public function photos_single_delete_action($p_id = 0){
+    public function photos_single_delete_action($p_id = 0, $g_id){
         if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
@@ -295,7 +295,7 @@ class Intranet_photos extends Controller
             if(is_file($path)){
                 unlink($path); 
             }
-            return redirect('/photos-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted successfuly!']); 
+            return redirect('/photos-admin-edit/' . $g_id)->with('err_code', ['type' => 'success', 'msg' => 'Item deleted successfuly!']);
         }else{
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']); 
         }

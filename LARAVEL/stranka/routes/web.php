@@ -126,7 +126,7 @@ Route::post('/videos-admin-edit-action/{id}', '\Modules\Intranet\Http\Controller
 /* Intranet photos OK treba test + dropzone */
 Route::get('/photos-admin', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_all');
 Route::get('/photos-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_delete_action');
-Route::get('/photos-admin-delete-item-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_single_delete_action');
+Route::get('/photos-admin-delete-item-action/{id}/{gid}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_single_delete_action');
 Route::get('/photos-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_add');
 Route::post('/photos-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_add_action');
 Route::get('/photos-admin-edit/{id}', '\Modules\Intranet\Http\Controllers\Intranet_photos@photos_edit');
