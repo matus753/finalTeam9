@@ -77,39 +77,6 @@
                 }
             );
         });
-        /*function validateForm() {
-            var x = document.forms["projectForm"]["title_sk"].value;
-            var y = document.forms["projectForm"]["title_en"].value;
-            var z = document.forms["projectForm"]["preview_sk"].value;
-            var w = document.forms["projectForm"]["preview_en"].value;
-            if (!x.trim()) {
-                $("#req1").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req1").css("display", "none");
-            }
-
-            if (!y.trim()) {
-                $("#req2").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req2").css("display", "none");
-            }
-
-            if (!z.trim()) {
-                $("#req3").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req3").css("display", "none");
-            }
-
-            if (!w.trim()) {
-                $("#req4").css("display", "block");
-                event.preventDefault();
-            } else {
-                $("#req4").css("display", "none");
-            }
-        }*/
     </script>
     <div class="container">
         <div class="intra-div">
@@ -121,7 +88,7 @@
                     <h2>{{ $item->title_sk }}</h2>
                 </div>
             </div>
-                <form name="projectForm"  action="{{ url('/news-admin-edit-action/'.$item->n_id) }}" method="post" enctype="multipart/form-data" onsubmit="validateForm()">
+                <form name="projectForm"  action="{{ url('/news-admin-edit-action/'.$item->n_id) }}" method="post" enctype="multipart/form-data" >
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-5 col-md-offset-1">
@@ -141,22 +108,20 @@
                             <div class="form-group">
                                 <label for="title_sk">* Slovenský nadpis:</label>
                                 <input type="text" class="form-control" id="title_sk" name="title_sk" value="{{ $item->title_sk }}" placeholder="Slovenský nadpis" required />
-                                <p class="required" id="req1">Tato položka musí byť vyplnená.</p>
                             </div>
                             <div class="form-group">
                                 <label for="title_en">* Anglický nadpis:</label>
                                 <input type="text" class="form-control" id="title_en" name="title_en" value="{{ $item->title_en }}" placeholder="Anglický nadpis" required />
-                                <p class="required" id="req2">Tato položka musí byť vyplnená.</p>
                             </div>
                             <div class="form-group">
                                 <label for="preview_sk">* Ukážkový text SK:</label>
-                                <input type="text" class="form-control" id="preview_sk" name="preview_sk" value="{{ $item->preview_sk }}" placeholder="Slovenský preview text" required />
-                                <p class="required" id="req3">Tato položka musí byť vyplnená.</p>
+                                <textarea class="form-control" rows="10" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required >{{ $item->preview_sk }}</textarea>
+                                {{--<input type="text" class="form-control" id="preview_sk" name="preview_sk" value="{{ $item->preview_sk }}" placeholder="Slovenský preview text" required />--}}
                             </div>
                             <div class="form-group">
                                 <label for="preview_en">* Ukážkový text EN:</label>
-                                <input type="text" class="form-control" id="preview_en" name="preview_en" value="{{ $item->preview_en }}" placeholder="Anglický preview text" required />
-                                <p class="required" id="req4">Tato položka musí byť vyplnená.</p>
+                                <textarea class="form-control" rows="10" id="preview_en" name="preview_en" placeholder="Anglický preview text" required >{{ $item->preview_en }}</textarea>
+{{--                                <input type="text" class="form-control" id="preview_en" name="preview_en" value="{{ $item->preview_en }}" placeholder="Anglický preview text" required />--}}
                             </div>
                             <div class="form-group">
                                 <label for="orig_img">Ponechať obrázok:</label>
@@ -179,30 +144,35 @@
                         <div class="col-md-5 col-md-offset-1">
                             <div class="form-group">
                                 <label for="sk-editor">Dlhý text SK:</label>
-                                <textarea class="form-control" rows="4" id="sk-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
+                                <textarea class="form-control" rows="15" id="sk-editor" name="editor_content_sk">{{ $item->editor_content_sk }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="en-editor">Dlhý text EN:</label>
-                                <textarea class="form-control" rows="4" id="en-editor" name="editor_content_en">{{ $item->editor_content_en }}</textarea>
+                                <textarea class="form-control" rows="15" id="en-editor" name="editor_content_en">{{ $item->editor_content_en }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="dropzone">Dodatočné súbory:</label>
                                 <div class="dropzone" id="dropzone"></div>
                             </div>
+                            @if(count($add_files) > 0)
+                            <div class="form-group">
+                                <label for="additionalFiles">Nahraté súbory:</label>
+                                @foreach($add_files as $added)
+                                    <div class="row" style="margin-right: 0; margin-bottom: 10px;">
+                                        <div class="col-md-9 col-sm-12" style="margin-top: 8px;">{{ $added->file_name }}</div>
+                                        <div class="col-md-3 col-sm-12" style=" padding-right: 0">
+                                            <a class=" btn btn-danger" href="{{ url('/news-admin-delete-added/'.$added->nf_id) }}">Odstrániť</a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @endif
                         </div>
                     </div>
-                <div class="row text-center">
+                <div class="row text-center lastButton">
                     <input type="submit" class="btn btn-success" value="Ulož zmeny" />
                 </div>
             </form>
-            @if($add_files)
-                @foreach($add_files as $added)
-                    <div>
-                        <p>{{ $added->file_name }}</p>
-                        <a href="{{ url('/news-admin-delete-added/'.$added->nf_id) }}" class="btn btn-danger">Delete</a>
-                    </div>
-                @endforeach
-            @endif
         </div>
     </div>
 @stop

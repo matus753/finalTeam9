@@ -102,13 +102,12 @@
                     </div>
                     @if(has_permission('admin'))
                     <div class="form-group">
-                        <label for="perms">Permissions:</label>
+                        <label for="perms">Oprávnenia:</label>
                         <div id="perms">
                             @foreach($permission_roles as $key => $pr)
-                                <div >
-                                    <label><input type="checkbox" name="perm[]" value="{{ $key }}" />
-                                    {{ $pr }}</label>
-                                </div>
+                                <div class="perms"><input type="checkbox" name="perm[]" value="{{ $key }}" />
+                                        {{ $pr }}
+                                    </div>
                             @endforeach
                         </div>
                     </div>
@@ -118,12 +117,12 @@
                             @foreach($subjects as $s)
                                 <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" >{{ $s->title }}</option>
                             @endforeach
-                        <select>
+                        </select>
                     </div>
                     @endif
                 </div>
             </div>
-            <div class="row">
+            <div class="row lastButton">
                 <input type="submit" class="btn btn-success text-center staff-intra__add" value="Pridať zamestnanca" />
             </div>
         </form>

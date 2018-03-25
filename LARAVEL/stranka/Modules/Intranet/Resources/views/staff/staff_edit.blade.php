@@ -123,12 +123,12 @@
                     </div>
                     @if(has_permission('admin'))
                     <div class="form-group">
-                        <label for="perms">Permissions:</label>
+                        <label for="perms">Oprávnenia:</label>
                         <div id="perms">
                             @foreach($permission_roles as $key => $pr)
-                                <label><div class="perms"><input type="checkbox" name="perm[]" value="{{ $key }}" @if($item->roles) @foreach($item->roles as $r) @if($r == $key) {{ 'checked' }} @endif  @endforeach @endif/>
+                                <div class="perms"><input type="checkbox" name="perm[]" value="{{ $key }}" @if($item->roles) @foreach($item->roles as $r) @if($r == $key) {{ 'checked' }} @endif  @endforeach @endif/>
                                     {{ $pr }}
-                                </div></label>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                                 @foreach($subjects as $s)
                                     <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" @foreach($selected_subs as $ss) @if($s->sub_id == $ss) {{ 'selected' }} @endif @endforeach >{{ $s->title }}</option>
                                 @endforeach
-                            <select>
+                            </select>
                         </div>
                     @endif
                 </div>

@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <form name="projectForm" action="{{ url('/projects-admin-edit-action/'.$item->pr_id) }}" method="post" onsubmit="validateForm()">
+        <form name="projectForm" action="{{ url('/projects-admin-edit-action/'.$item->pr_id) }}" method="post" >
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-5 col-md-offset-1">

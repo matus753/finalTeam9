@@ -30,7 +30,7 @@
             </div>
         </div>
 
-            <form name="projectForm" action="{{ url('/projects-admin-add-action') }}" method="post" onsubmit="validateForm()">
+            <form name="projectForm" action="{{ url('/projects-admin-add-action') }}" method="post" >
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
@@ -68,7 +68,7 @@
                                 @foreach($staff as $s)
                                 <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                                 @endforeach
-                            <select>
+                            </select>
                             <br><br>
                             <input name="custom_coordinator" type='text' placeholder='Vlastný záznam...' class='form-control' />
                         </div>

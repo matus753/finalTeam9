@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <form name="projectForm" action="{{ url('/news-admin-add-action') }}" method="post" enctype="multipart/form-data" onsubmit="validateForm()">
+        <form name="projectForm" action="{{ url('/news-admin-add-action') }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" name="news_id_hash" value="{{ $hash_id }}"/>
             <div class="row">
@@ -122,11 +122,11 @@
                     </div>
                     <div class="form-group">
                         <label for="preview_sk">* Ukážkový text SK:</label>
-                        <textarea class="form-control" style="resize:vertical;" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required ></textarea>
+                        <textarea class="form-control" rows="10" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required ></textarea>
                     </div>
                     <div class="form-group">
                         <label for="preview_en">* Ukážkový text EN:</label>
-                        <textarea class="form-control" style="resize:vertical;" id="preview_en" name="preview_en" placeholder="Anglický preview text" required ></textarea>
+                        <textarea class="form-control" rows="10" id="preview_en" name="preview_en" placeholder="Anglický preview text" required ></textarea>
                     </div>
                     <div class="form-group">
                         <label for="image">Ukážkový obrázok:</label>
@@ -137,11 +137,11 @@
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label for="sk-editor">Dlhý text SK:</label>
-                        <textarea class="form-control" rows="5" id="sk-editor" name="editor_content_sk"></textarea>
+                        <textarea class="form-control" rows="14" id="sk-editor" name="editor_content_sk"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="en-editor">Dlhý text EN:</label>
-                        <textarea class="form-control" rows="5" id="en-editor"  name="editor_content_en"></textarea>
+                        <textarea class="form-control" rows="14" id="en-editor"  name="editor_content_en"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="dropzone">Dodatočné súbory:</label>
@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row text-center">
+            <div class="row text-center lastButton">
                 <input type="submit" class="btn btn-success" value="Pridať aktualitu" />
             </div>
         </form>

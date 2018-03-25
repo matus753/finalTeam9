@@ -251,27 +251,6 @@ class Intranet_staff extends Controller
 
             }
         }
-            /*$fcs = [];
-            foreach($func as $p){
-                array_push($fcs, $p);
-            }
-            foreach ($db_func as $f) {
-                $check = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->exists();
-                if(in_array($f, $fcs)) {
-                    if(!$check) {
-                        $resFunc = DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
-                    }
-                } else {
-                    if($check) {
-                        $tmp = DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->first();
-                        $resFunc = DB::table('staff_function')->where('id', $tmp->id)->delete();
-                    }
-                }
-            }*/
-            /*else {
-            $resFunc = DB::table('staff_function')->where('id_staff', $s_id)->delete();
-        }*/
-
         if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
         }
@@ -508,23 +487,25 @@ class Intranet_staff extends Controller
         $myFunc = $this->getFunctions($s_id);
         $myFunc = (!$myFunc) ? [] : $myFunc;
         if(is_array($func)) {
-            if(count($myFunc) > 0){
-                DB::table('staff_function')->where('id_staff', $s_id)->delete();  
-            }
-            foreach($func as $f){
-                if(in_array($f,$db_func)){
-                    $resFunc = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
-                    if(!$resFunc){
-                        DB::table('staff')->where('s_id', $s_id)->delete();
+            foreach ($db_func as $f) {
+                if (in_array($f, $func) && !in_array($f, $myFunc)) {
+                    $res = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
+                    if (!$res){
                         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
                     }
-                }else{
-                    DB::table('staff')->where('s_id', $s_id)->delete();
-                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                } else if (!in_array($f, $func) && in_array($f, $myFunc)){
+                    $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->where('id_func', $f)->delete();
+                    if (!$res){
+                        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                    }
                 }
             }
+
         } else {
-            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB Error!']);
+            $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->delete();
+            if (!$res){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+            }
         }
 
         $data = [
@@ -566,11 +547,16 @@ class Intranet_staff extends Controller
             }
         }
 
-        $res = (bool) DB::table('staff')->where('s_id', $s_id)->delete();
-        if($res){
-            return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted successfuly!']);
+        $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->delete();
+        if (!$res){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
         }
-        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+
+        $res = (bool) DB::table('staff')->where('s_id', $s_id)->delete();
+        if(!$res){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        }
+        return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted successfuly!']);
     }
 
     public function staff_activate_user($s_id = 0){
