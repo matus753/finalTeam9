@@ -39,10 +39,10 @@ function format_time_event($timestamp = 0){
  * return news image uri by hash name
  */
 function get_news_image($news_hash = '', $hash_name = ''){
-		if ($hash_name && $news_hash){
-			return asset('storage/news/'.$news_hash.'/'.$hash_name);
-		}
-		return asset('storage/news/info.png');
+	if ($hash_name && $news_hash){
+		return asset('storage/news/'.$news_hash.'/'.$hash_name);
+	}
+	return asset('images/info.png');
 }
 
 function get_events_image($img_hash = ''){
@@ -240,10 +240,11 @@ function get_gallery_photo($hash_name_folder = '', $photo_hash){
 	Returns photo uri from staff folder
 */
 function get_profile_photo($photo_hash = ''){
+	
 	if ($photo_hash && is_string($photo_hash)){
 		return asset('storage/staff/'.$photo_hash);
 	}
-	return false;
+	return asset('images/default_male_img.png');
 }
 
 function has_permission($perm){

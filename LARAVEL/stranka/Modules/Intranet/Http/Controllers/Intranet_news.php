@@ -97,12 +97,12 @@ class Intranet_news extends Controller
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
         
-        if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 65535){
-            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
+        if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 1024){
+            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text bad format - empty string or max length 1024 characters']);
         }
         
-        if(!is_string($preview_en) || strlen($preview_en) < 1 || strlen($preview_en) > 65535){
-                return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
+        if(!is_string($preview_en) || strlen($preview_en) < 1 || strlen($preview_en) > 1024){
+                return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text bad format - empty string or max length 1024 characters']);
         }
 
         if($request->filled('editor_content_sk')){
@@ -133,9 +133,9 @@ class Intranet_news extends Controller
         if($image){
             $image->store('public/news/'.$hash_id);
             $image_hash_name = $image->hashName();
-        }else{
+        }/*else{
             $image_hash_name = config('news_admin.default_image');
-        }
+        }*/
 
         $data = [
             'hash_id' => $hash_id,
@@ -185,6 +185,7 @@ class Intranet_news extends Controller
         }
         
         if($valid){
+            
             if(news_create_folder($hash_name) && $image){
                 $image->store('/public/news/'.$hash_name);
                 $response->link = url('/storage/news/'.$hash_name.'/'.$image->hashName());
@@ -225,7 +226,7 @@ class Intranet_news extends Controller
                     $valid = true;
                 }
             }
-
+            
             if($valid){
                 if(news_create_folder($hash_name) && $file){
                     $data = [
@@ -314,12 +315,12 @@ class Intranet_news extends Controller
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
 
-        if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 65535){
-            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
+        if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 1024){
+            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max bad format - empty string or length 1024 characters']);
         }
 
-        if(!is_string($preview_en) || strlen($preview_en) < 1 || strlen($preview_en) > 65535){
-            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max length 65535 characters']);
+        if(!is_string($preview_en) || strlen($preview_en) < 1 || strlen($preview_en) > 1024){
+            return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview text max bad format - empty string or length 1024 characters']);
         }
 
         if($request->filled('editor_content_sk')){
@@ -364,9 +365,9 @@ class Intranet_news extends Controller
                     $image->store('public/news/'.$hash_id.'/');
                     $image_hash_name = $image->hashName();
                 }
-            }else{
+            }/*else{
                 $image_hash_name = config('news_admin.default_image');
-            }
+            }*/
         }
            
         $data = [
@@ -383,11 +384,8 @@ class Intranet_news extends Controller
         ];
         
         $res = (bool) DB::table('news')->where('n_id', $n_id)->update($data);
-
-        if($res){
-            return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
-        }
-        return redirect('/news-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
+        return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
+        
 
     }
 
@@ -418,13 +416,17 @@ class Intranet_news extends Controller
         return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 
-    public function news_delete_single_action($nf_id = 0){
+    public function news_delete_single_action($nf_id = 0, $n_id = 0){
         if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
         
         if(!is_numeric($nf_id)){
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        if(!is_numeric($n_id)){
+            return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB Error']);
         }
 
         $item = DB::table('news_dl_files')->where('nf_id', $nf_id)->first();
@@ -440,9 +442,9 @@ class Intranet_news extends Controller
             if(is_file($path)){
                 unlink($path);
             }
-            return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
+            return redirect('/news-admin-edit/'.$n_id)->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
         }
-        return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+        return redirect('/news-admin-edit/'.$n_id)->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
     
 }

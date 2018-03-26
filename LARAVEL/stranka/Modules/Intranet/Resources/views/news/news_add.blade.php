@@ -80,8 +80,43 @@
                 }
 			}
 		);
+        var p_sk = 1024;
+        $('#skc').text(p_sk);
+        $("#preview_sk").on('keyup paste', function(){
+            let tmp = $(this).val().length;
+            if(tmp > 1024){
+                tmp = limitText(this, 1024);
+            }else{
+                tmp = p_sk - tmp;
+                
+            }
+            $('#skc').text(tmp);
+        });
+
+        var p_en = 1024;
+        $('#ske').text(p_en);
+        $("#preview_en").on('keyup paste', function(){
+            let tmp = $(this).val().length;
+            if(tmp > 1024){
+                tmp = limitText(this, 1024);    
+            }else{
+                tmp = p_en - tmp;
+            }
+            $('#ske').text(tmp);
+        });
+        
 
     });
+
+   function limitText(field, maxChar){
+        var ref = $(field),
+            val = ref.val();
+        if(val.length >= maxChar ){
+            ref.val(function() {
+                return val.substr(0, maxChar);       
+            });
+        }
+    }
 </script>
 
 <div class="container">
@@ -101,6 +136,27 @@
             <div class="row">
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
+                            <label for="title_sk">* Slovenský nadpis:</label>
+                            <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="title_en">* Anglický nadpis:</label>
+                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preview_sk">* Ukážkový text SK: <small id="skc" ></small></label>
+                        <textarea class="form-control" rows="10" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required ></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="image">Ukážkový obrázok:</label>
+                        <input type="file"  id="image" name="image" />
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-md-offset-1">
+                    <div class="form-group">
                         <label for="role">* Typ:</label>
                         <select class="form-control" name="type" id="type">
                             @foreach($types as $key => $t)
@@ -113,28 +169,15 @@
                         <input type="date" class="form-control" id="expiration" name="expiration" placeholder="Expiration" />
                     </div>
                     <div class="form-group">
-                        <label for="title_sk">* Slovenský nadpis:</label>
-                        <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="title_en">* Anglický nadpis:</label>
-                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="preview_sk">* Ukážkový text SK:</label>
-                        <textarea class="form-control" rows="10" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required ></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="preview_en">* Ukážkový text EN:</label>
+                        <label for="preview_en">* Ukážkový text EN: <small id="ske" ></small></label>
                         <textarea class="form-control" rows="10" id="preview_en" name="preview_en" placeholder="Anglický preview text" required ></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="image">Ukážkový obrázok:</label>
-                        <input type="file"  id="image" name="image" />
-                    </div>
                 </div>
+            </div>
 
-                <div class="col-md-5 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-11 col-md-offset-1">
+                     <hr>
                     <div class="form-group">
                         <label for="sk-editor">Dlhý text SK:</label>
                         <textarea class="form-control" rows="14" id="sk-editor" name="editor_content_sk"></textarea>
@@ -150,7 +193,9 @@
                 </div>
             </div>
             <div class="row text-center lastButton">
-                <input type="submit" class="btn btn-success" value="Pridať aktualitu" />
+                <div class="col-md-11 col-md-offset-1">
+                    <input type="submit" class="btn btn-success" value="Pridať aktualitu" />
+                </div>
             </div>
         </form>
     </div>

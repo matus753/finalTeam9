@@ -82,7 +82,7 @@ class Login extends Controller
 			];
 
 			session()->put('user', $user);
-			return redirect('/login')->with('err_code', ['type' => 'success', 'msg' => 'Authentification success!']);
+			return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Authentification success!']);
 		}
 	
 		return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Authentification failed!']);

@@ -49,9 +49,9 @@ class Staff extends Controller
     public function getFunctions($id){
         $functions = DB::table('staff_function')
             ->join('staff', 'staff_function.id_staff', '=', 'staff.s_id')
-            ->join('functions', 'staff_function.id_func', '=', 'functions.id')
+            ->join('functions', 'staff_function.id_func', '=', 'functions.f_id')
             ->where('staff_function.id_staff', '=', $id)
-            ->pluck('functions.id');
+            ->pluck('functions.f_id');
         $myFuncs = [];
         //SELECT f.title FROM staff_function sf INNER JOIN staff s on sf.id_staff = s.s_id LEFT JOIN functions f on sf.id_func = f.id WHERE s.s_id = 12;
         if (count($functions) != 0) {

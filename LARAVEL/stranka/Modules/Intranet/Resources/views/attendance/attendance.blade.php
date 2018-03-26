@@ -3,6 +3,7 @@
 @section('additional_headers_admin')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/intranet.css') }}" rel="stylesheet">
+<script src="{{ URL::asset('js/jquery-ui.js') }}"></script>
 @stop
 
 @section('content_admin')
@@ -23,6 +24,15 @@
 		background-color: #70a78f;
 	}
 </style>
+
+@if(has_permission('hr')) 
+<style> 
+tbody tr:hover{ 
+  background-color: #8cb3d9; 
+} 
+ 
+</style> 
+@endif 
 
 <div id="emPAGEcontent" class="container">
 <br><br>
@@ -45,9 +55,11 @@
 			<div class="col-md-4">
 				<input class="form-control" type="text" id="searchbox" placeholder="Search name ...">
 			</div>
+			@if(has_permission('hr')) 
 			<div class="col-md-2">
 				<button class="btn btn-success pull-right" id="PDF">Generate PDF</button>
 			</div>
+			@endif
 		</div>
 	</div>
 	<hr>
@@ -63,7 +75,7 @@
 			</label>
 		@endforeach
 	</div>
-	<label class="checkbox-inline"><input type="checkbox" id="overwrite" >AllowOverwrite</label>
+	<label class="checkbox-inline"><input type="checkbox" id="overwrite">AllowOverwrite</label>
 	<hr>
 	<div class="row">
 		<div class="col-md-12">
@@ -129,7 +141,8 @@
 		month = $('#month').val();
 		window.location = "{{ url('/attendance-admin') }}/" + year + "/" + month;
 	});
-	
+
+	@if(has_permission('hr')) 
 	$('#searchbox').on('keyup', function(){
 		var val = $(this).val().toUpperCase();
 
@@ -153,12 +166,14 @@
 			window.location = '{{ url("/attendance-pdf-download") }}'
 		});
 	});
+	@endif
 
 	$(function () {
 		var isMouseDown = false;
-		
+		var clicked_id;
 		$("#attendance td")
 			.mousedown(function () {
+				clicked_id = $(this).parent().attr('id'); 
 				var staff = $(this).parent().attr('id');
 				var day = $(this).data('dateDay');
 				year = $('#year').val();
@@ -174,7 +189,6 @@
 				isMouseDown = true;
 				if($('#overwrite').is(':checked')) {
 					if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
-						console.log($(this).text().length);
 						if($(this).data('dateDay')){
 							$(this).empty()
 							$(this).removeClass();
@@ -211,8 +225,7 @@
 						'type'	: type
 					};
 					if($('#overwrite').is(':checked')) {
-						if($(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()){
-							console.log($(this).text().length);
+						if(( $(this).text().length == 0 || $(this).text().trim() != $('input[name=absence]:checked').val()) && staff == clicked_id ){
 							if($(this).data('dateDay')){
 								$(this).empty()
 								$(this).removeClass();
@@ -222,7 +235,7 @@
 							}
 						}
 					}else{
-						if($(this).text().length == 0){
+						if($(this).text().length == 0 && staff == clicked_id){
 							if($(this).data('dateDay')){
 								$(this).empty()
 								$(this).removeClass();
@@ -233,11 +246,10 @@
 						}
 					}
 				}
-		});
-		
-		$('#attendance td').mouseup(function () {
+		}).mouseup(function () {
 			isMouseDown = false;
 		});
+		
 	});
 	
 	function sendData(data){

@@ -16,8 +16,12 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_all(){
-        $subjects = DB::table('subjects')->get();
-        $subjects = (!$subjects) ? [] : $subjects;
+        if(has_permission('admin')){
+            $subjects = DB::table('subjects')->get();
+            $subjects = (!$subjects) ? [] : $subjects;
+        }else{
+            $subjects = DB::table('subjects')->join('subjects_staff_rel', 'subjects_staff_rel.sub_id', '=', 'subjects.sub_id')->where('s_id', get_user_id())->get();
+        }
 
         foreach($subjects as $subject){
             $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
@@ -256,7 +260,7 @@ class Intranet_subjects extends Controller
         if($res){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
         }
-        return redirect('/subjects-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
     }
 
     ///////////////////////////////////////////////////////////////

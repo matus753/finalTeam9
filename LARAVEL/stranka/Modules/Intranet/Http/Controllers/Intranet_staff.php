@@ -187,7 +187,7 @@ class Intranet_staff extends Controller
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
-            $photo = config('staff_admin.default_imgs')['default_male_img'];
+            $photo = null;/*config('staff_admin.default_imgs')['default_male_img'];*/
         }
 
         
@@ -235,7 +235,7 @@ class Intranet_staff extends Controller
                 DB::table('staff')->where('s_id', $s_id)->delete();
                 return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
             }
-            // Prepoj na predmety
+            
             $subjects_staff = $request->input('subjects_staff');
             if($request->filled('subjects_staff')){
                 if(!is_array($subjects_staff)){
@@ -344,7 +344,7 @@ class Intranet_staff extends Controller
             'subjects' => $all_subs,
             'selected_subs' => $subjects_staff
         ];
-        
+    
         return view('intranet::staff/staff_edit', $data);
     }
 
@@ -470,17 +470,17 @@ class Intranet_staff extends Controller
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
-            $original_img = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
-            if(!$original_img){
+            $photo = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
+            /*if(!$original_img){
                 return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal DB error!']);
-            }
-            if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
+            }*/
+            /*if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
                 $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
                 if(is_file($path)){
                     unlink($path);
                 }
-            }
-            $photo = config('staff_admin.default_imgs')['default_male_img'];
+            }*/
+            //$photo = /*config('staff_admin.default_imgs')['default_male_img'];*/
         }
 
         $db_func = DB::table('functions')->pluck('f_id')->toArray();

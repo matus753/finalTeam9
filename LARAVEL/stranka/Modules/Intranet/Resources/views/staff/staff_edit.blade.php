@@ -135,7 +135,7 @@
 
                     <div class="form-group">
                             <label for="subjects_staff">Predmety k vyučujúcemu:</label>
-                            <select class="form-control selectpicker" data-size="5" data-width="auto" data-live-search="true" multiple id="subjects_staff" name="subjects_staff[]" tabindex="2">  
+                            <select class="form-control selectpicker" data-size="5" data-live-search="true" multiple id="subjects_staff" name="subjects_staff[]" tabindex="2">  
                                 @foreach($subjects as $s)
                                     <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" @foreach($selected_subs as $ss) @if($s->sub_id == $ss) {{ 'selected' }} @endif @endforeach >{{ $s->title }}</option>
                                 @endforeach

@@ -62,7 +62,7 @@ function check(){
 		</div>
 		
 		<div class="col-md-6">
-            <form class="form-inline" method="GET" action="{{ url('/news') }}" >
+            <form class="form-inline pull-right" method="GET" action="{{ url('/news') }}" >
                 <div class="form-group">
                     <label for="type_sel">Type:</label>
                     <select class="form-control" id="type_sel" name="type" onchange="this.form.submit()">
@@ -88,12 +88,10 @@ function check(){
                 <div class="row carousel-row img-rounded {{ $today > $n->date_expiration ? 'expired' : '' }}">
                     <div class="col-md-12">
                         <div class="col-md-2">
-                                        <img src="{{ get_news_image($n->hash_id, $n->image_hash_name) }}" alt="Image" height="240">
-
+                                <img class="img-responsive" src="{{ get_news_image($n->hash_id, $n->image_hash_name) }}" alt="Image" >
                         </div>
                         <div class="col-md-8">
                             <div id="carousel-1" class="carousel " data-ride="carousel">
-                                <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active">
                                     </div>
@@ -150,7 +148,6 @@ function check(){
 </div>
 <script>
     function optin(toggle){
-        // data-dismiss="modal"
         var mail = $('#ib-newsletter-email').val();
         var lang = $('#ib-newsletter-select').val();
         var data = { 'toggle' : toggle, 'mail' : mail, 'lang' : lang };

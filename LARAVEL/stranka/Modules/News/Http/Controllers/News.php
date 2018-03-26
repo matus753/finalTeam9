@@ -66,7 +66,7 @@ class News extends Controller
 			'expired' => $expired,
             'today' => $today
 		];
-
+		
         return view('news::news', $data);
     }
 

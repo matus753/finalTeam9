@@ -237,7 +237,7 @@ class Intranet_photos extends Controller
         if($res){
             return redirect('/photos-admin-upload/'.$pg_id)->with('err_code', ['type' => 'success', 'msg' => 'Record updated!']);
         }
-        return redirect('/photos-admin')->with('err_code', ['type' => 'Warning', 'msg' => 'Any data has been changed!']);
+        return redirect('/photos-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
     }
 
     // OK OK OK OK OK OK OK 
@@ -278,9 +278,13 @@ class Intranet_photos extends Controller
         return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB delete error!']);
     }
 
-    public function photos_single_delete_action($p_id = 0, $g_id){
+    public function photos_single_delete_action($p_id = 0, $g_id = 0){
         if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
+        if(!is_numeric($g_id) || $g_id == 0){
+            return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB Error!']);
         }
 
         if(!is_numeric($p_id) || $p_id == 0){

@@ -19,9 +19,6 @@
     <hr>
 	<div class="row">
 		<div class="col-md-12">
-            <div class="pull-right">
-                <a href="#" class="btn btn-primary">TUTO BY SOM DAL UPLOAD CSV FILE S PREDMETMI PRE NEJAKU ROLU -> UPDATE DB</a>
-            </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
@@ -34,9 +31,9 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>{{ $subject->abbrev }}</th>
-                                <th>{{ $subject->title }}</th>
-                                <th><a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-sm" ><span class="fa fa-plus-square fa-2x" ></span></a></th>
+                                <th class="col-md-2">{{ $subject->abbrev }}</th>
+                                <th class="col-md-9">{{ $subject->title }}</th>
+                                <th class="col-md-1 text-center"><a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-xs" ><span class="fa fa-plus" ></span></a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,8 +42,8 @@
                                 <td>{{ $subject->abbrev }}</td>
                                 <td>{{ $s->name_sk }}</td>
                                 <td>
-                                    <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil fa-2x" ></span></a>
-                                    <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o fa-2x" ></span></a>
+                                    <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
+                                    <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-xs" ><span class="fa fa-trash-o" ></span></a>
                                 </td>
                             </tr>
                         @endforeach
