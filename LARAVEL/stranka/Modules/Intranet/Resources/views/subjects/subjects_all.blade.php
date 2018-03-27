@@ -25,7 +25,6 @@
             <br>
             <br>
             <br>
-
             @foreach($subjects as $key => $subject)
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">

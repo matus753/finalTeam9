@@ -19,7 +19,7 @@ class Intranet_documents extends Controller
         if(!isLogged()){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
-
+        storage_deletor('documents');
         $categories = DB::table('documents_categories')->get();
         $categories = (!$categories) ? [] : $categories;
 
@@ -174,6 +174,7 @@ class Intranet_documents extends Controller
   
         $res = DB::table('documents')->insertGetId($data);
         if($res){
+            DB::table('deletor')->where('type', 'documents')->where('path', $category.'/'.$hash_id)->delete();
             return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
         return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -195,7 +196,7 @@ class Intranet_documents extends Controller
         $valid = false;
         $allowed_types = explode(',', config('documents_admin.img_types_allowed'));
         foreach($allowed_types as $at){
-            $extension = explode('.', $file->hashName());
+            $extension = explode('.', $image->hashName());
             $extension = $extension[count($extension)-1];
             if($at == $extension){
                 $valid = true;
@@ -210,6 +211,7 @@ class Intranet_documents extends Controller
                     'file_name' => $image->getClientOriginalName()
                 ];
                 DB::table('documents_files')->insert($data);
+                DB::table('deletor')->insert(['type' => 'documents', 'path' => $category.'/'.$hash_id]);
                 $image->store('/public/documents/'.$category.'/'.$hash_id);
                 $response->link = url('/storage/documents/'.$category.'/'.$hash_id.'/'.$image->hashName());
                 return stripslashes(json_encode($response->link));
@@ -236,9 +238,9 @@ class Intranet_documents extends Controller
                 return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error']);
             }
             $category = $request->input('category');
-        
+            
             $valid = false;
-            $allowed_types = explode(',', config('documents_admin.img_types_allowed'));
+            $allowed_types = explode(',', config('documents_admin.file_types_allowed'));
             foreach($allowed_types as $at){
                 $extension = explode('.', $file->hashName());
                 $extension = $extension[count($extension)-1];
@@ -254,6 +256,7 @@ class Intranet_documents extends Controller
                         'file_hash' => $file->hashName(),
                         'file_name' => $file->getClientOriginalName()
                     ];
+                    DB::table('deletor')->insert(['type' => 'documents', 'path' => $category.'/'.$hash_id]);
                     $file->store('/public/documents/'.$category.'/'.$hash_id);   
                     DB::table('documents_files')->insert($data);
                     return response()->json(['error' => 'Success'], 200);
@@ -407,6 +410,7 @@ class Intranet_documents extends Controller
   
         $res = DB::table('documents')->where('d_id', $d_id)->update($data);
         if($res){
+            DB::table('deletor')->where('type', 'documents')->where('path', $category.'/'.$hash_id)->delete();
             return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']); 
         }
         return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);   

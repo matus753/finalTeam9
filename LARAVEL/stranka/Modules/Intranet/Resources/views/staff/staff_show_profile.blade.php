@@ -33,8 +33,12 @@
 							<p><span>@lang('staff::staff.room'): </span>{{ $ais->room }}</p>
 							<p><span>@lang('staff::staff.phone'): </span>+421 60291 {{ $ais->phone }}</p>
 							<p><span>@lang('staff::staff.department'): </span>{{ $ais->department }}</p>
-							@if( $ais->function ) 
-								<p><span>@lang('staff::staff.function'): </span>{{ $ais->function }}</p>
+							@if( is_object($ais->function) ) 
+								<p><span>@lang('staff::staff.function'):</span>
+								@foreach($ais->function as $f)
+									{{ $f->title }} <br>
+								@endforeach
+								</p>
 							@endif
 						</div>
 					</div>

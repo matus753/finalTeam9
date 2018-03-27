@@ -29,7 +29,7 @@
         $('#en-editor').summernote({
             callbacks: {
                 onImageUpload: function(files, editor, welEditable) {
-                    sendFile(files[0], this, hghgwelEditable);
+                    sendFile(files[0], this, welEditable);
                 }
             }
         });
@@ -37,7 +37,7 @@
         function sendFile(file, editor, welEditable) {
             data = new FormData();
             data.append("image", file);
-            data.append("save_to", '{{ $hash_id }}');
+            data.append("save_to", '{{ $sub_hash }}');
             data.append("category", '{{ $subject->hash_name }}');
             $.ajax({
                 data: data,
@@ -72,7 +72,7 @@
                 init: function() {
                     this.on("sending", function(file, xhr, formData){
                             formData.append("category", "{{ $subject->hash_name }}");
-                            formData.append("save_to", "{{ $hash_id }}");
+                            formData.append("save_to", "{{ $sub_hash }}");
                     });
                 }
 			}
@@ -98,7 +98,7 @@
             <br>
             <form action="{{ url('/subjects-admin-add-item-action') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <input type="hidden" name="save_to" value="{{ $hash_id }}" />
+                <input type="hidden" name="save_to" value="{{ $sub_hash }}" />
                 <input type="hidden" name="subject" value="{{ $subject->hash_name }}" />
                 <input type="hidden" name="subject_id" value="{{ $subject->sub_id }}" />
                 <div class="form-group">
