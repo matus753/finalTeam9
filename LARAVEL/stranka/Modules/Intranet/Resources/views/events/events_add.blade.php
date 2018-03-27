@@ -23,11 +23,11 @@
             <div class="row">
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
-                        <label for="title_sk">Slovenský nadpis:</label>
+                        <label for="title_sk">* Slovenský nadpis:</label>
                         <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
                     </div>
                     <div class="form-group">
-                        <label for="title_en">Anglický nadpis:</label>
+                        <label for="title_en">* Anglický nadpis:</label>
                         <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
                     </div>
                     <div class="form-group">
@@ -42,15 +42,15 @@
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label for="place">Miesto:</label>
-                        <input type="text" class="form-control" id="place" name="place" placeholder="place" />
+                        <input type="text" class="form-control" id="place" name="place" placeholder="Miesto" />
                     </div>
                     <div class="form-group">
-                        <label for="date">Dátum:</label>
+                        <label for="date">* Dátum:</label>
                         <input type="date" class="form-control" id="date" name="date" placeholder="Datum" required />
                     </div>
                     <div class="form-group">
                         <label for="time">Čas:</label>
-                        <input type="text" class="form-control" id="time" name="time" placeholder="Time" />
+                        <input type="text" class="form-control" id="time" name="time" placeholder="Čas" />
                     </div>
                     <div class="form-group">
                         <label for="link">Link:</label>

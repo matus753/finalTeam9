@@ -23,11 +23,11 @@
             <div class="row">
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
-                        <label for="title_sk">Slovenský nadpis:</label>
+                        <label for="title_sk">* Slovenský nadpis:</label>
                         <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $events->name_sk }}" required />
                     </div>
                     <div class="form-group">
-                        <label for="title_en">Anglický nadpis:</label>
+                        <label for="title_en">* Anglický nadpis:</label>
                         <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $events->name_en }}" required />
                     </div>
                     <div class="form-group">
@@ -42,15 +42,15 @@
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label for="place">Miesto:</label>
-                        <input type="text" class="form-control" id="place" name="place" placeholder="place" value="{{ $events->place }}" />
+                        <input type="text" class="form-control" id="place" name="place" placeholder="Miesto" value="{{ $events->place }}" />
                     </div>
                     <div class="form-group">
-                        <label for="date">Dátum:</label>
-                        <input type="date" class="form-control" id="date" name="date" placeholder="Datum" value="{{ format_time($events->date, true) }}"  required />
+                        <label for="date">* Dátum:</label>
+                        <input type="date" class="form-control" id="date" name="date" placeholder="Dátum" value="{{ format_time($events->date, true) }}"  required />
                     </div>
                     <div class="form-group">
-                        <label for="time">Cas:</label>
-                        <input type="text" class="form-control" id="time" name="time" placeholder="Time" value="{{ $events->time }}"  />
+                        <label for="time">Čas</label>
+                        <input type="text" class="form-control" id="time" name="time" placeholder="Čas" value="{{ $events->time }}"  />
                     </div>
                     <div class="form-group">
                         <label for="link">Link:</label>

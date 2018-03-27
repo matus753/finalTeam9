@@ -108,8 +108,10 @@
 }
 
 @media screen and (max-width: 1999px) {
-    iframe {
-        width: 230px !important;
+    .fb-page {
+        iframe {
+            width: 264px !important;
+        }
     }
 }
 

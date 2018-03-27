@@ -124,7 +124,7 @@
 							@foreach($event as $e)
 								@if ($maxEvents < 5)
 								@if($e->url != null)
-									<a href="{{ url($e->url) }}" target="_blank">{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</a> 
+									<h4><a href="{{ url($e->url) }}" target="_blank">{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</a></h4>
 								@else
 									<h4>{{  $e->name_sk }} @if ($e->text_sk)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text_sk }}" class="fa fa-info-circle"></i> @endif	</h4> 
 								@endif

@@ -129,7 +129,7 @@ $(document).ready(function() {
 					<tbody>
 						@foreach($staff as $s)
 						<tr class="staff__table-row" data-href="{{ url('/staff') }}/{{ $s->s_id }}">
-							<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;{{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2) ,{{ $s->title2 }} @endif</td>
+							<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;<span aria-hidden="true" class="hidden" >{{ $s->surname }}</span> {{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2) ,{{ $s->title2 }} @endif</td>
 							<td>{{ $s->room }}</td>
 							<td>{{ $s->phone }}</td>
 							<td>{{ $s->department }}</td>
