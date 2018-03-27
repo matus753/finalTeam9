@@ -123,10 +123,13 @@
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
             </form>
+           
             @if($files)
                 <br><br><br>
                 <p>Prilozene subory</p>
+              
                 @foreach($files as $f)
+                
                 <div class="row">
                     <div class="col-md-12" style="background-color: lightgrey">            
                         <a href="{{ get_subjects_file($subject->hash_name, $hash_id, $f->hash_name) }}" class="pull-left">{{ $f->file_name }}</a>

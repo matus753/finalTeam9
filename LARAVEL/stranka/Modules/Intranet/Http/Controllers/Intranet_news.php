@@ -21,6 +21,7 @@ class Intranet_news extends Controller
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
         
+        storage_deletor('news');
         $all_news = DB::table('news')->get();
         $all_news = (!$all_news) ? [] : $all_news;
 
@@ -153,6 +154,7 @@ class Intranet_news extends Controller
         
         $res = DB::table('news')->insertGetId($data);
         if($res){
+            DB::table('deletor')->where('type', 'news')->where('path', $hash_id)->delete();
             return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
         return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -177,7 +179,7 @@ class Intranet_news extends Controller
         $valid = false;
         $allowed_types = explode(',', config('news_admin.img_types_allowed')); 
         foreach($allowed_types as $at){
-            $extension = explode('.', $file->hashName());
+            $extension = explode('.', $image->hashName());
             $extension = $extension[count($extension)-1];
             if($at == $extension){
                 $valid = true;
@@ -188,6 +190,7 @@ class Intranet_news extends Controller
             
             if(news_create_folder($hash_name) && $image){
                 $image->store('/public/news/'.$hash_name);
+                DB::table('deletor')->insert(['type' => 'news', 'path' => $hash_name]);
                 $response->link = url('/storage/news/'.$hash_name.'/'.$image->hashName());
                 return stripslashes(json_encode($response->link));
             }
@@ -235,6 +238,7 @@ class Intranet_news extends Controller
                         'file_name' => $file->getClientOriginalName()
                     ];
                     $file->store('/public/news/'.$hash_name);
+                    DB::table('deletor')->insert(['type' => 'news', 'path' => $hash_name]);
                     DB::table('news_dl_files')->insert($data);
                     return response()->json(['error' => 'Success'], 200);
                 }
@@ -384,6 +388,7 @@ class Intranet_news extends Controller
         ];
         
         $res = (bool) DB::table('news')->where('n_id', $n_id)->update($data);
+        DB::table('deletor')->where('type', 'news')->where('path', $hash_id)->delete();
         return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);
         
 

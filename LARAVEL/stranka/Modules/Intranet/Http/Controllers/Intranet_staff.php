@@ -16,6 +16,9 @@ class Intranet_staff extends Controller
     }
 
     public function staff_all(){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
 
         $staff = DB::table('staff')->get();
         $staff = (!$staff) ? [] : $staff;
@@ -30,19 +33,30 @@ class Intranet_staff extends Controller
     }
 
     public function staff_show_profile($s_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
 
         if(!is_numeric($s_id) || $s_id == 0){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
 
         $staff = DB::table('staff')->where('s_id', $s_id)->first();
+        if(!$staff){
+            return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
+        }
+
+        $function = DB::table('staff_function')->join('functions', 'staff_function.id_func', '=', 'functions.f_id')->where('staff_function.id_staff', $s_id)->get();
+
+        
         $ais = (!$staff) ? [] : $staff;
+        $ais->function = (!$function) ? [] : $function;
 
         $data = [ 
                 'title' => $this->module_name, 
                 'ais' => $ais,
             ];
-
+        //debug($data, true);
         return view('intranet::staff/staff_show_profile', $data);
     }
 

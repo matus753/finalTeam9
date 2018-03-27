@@ -22,7 +22,7 @@ class Intranet_subjects extends Controller
         }else{
             $subjects = DB::table('subjects')->join('subjects_staff_rel', 'subjects_staff_rel.sub_id', '=', 'subjects.sub_id')->where('s_id', get_user_id())->get();
         }
-
+        storage_deletor('subjects');
         foreach($subjects as $subject){
             $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
         }
@@ -54,11 +54,13 @@ class Intranet_subjects extends Controller
             $hash_id = $subject->hash_name;
         }
 
-        
+        $sub_hash = md5(uniqid());
+
         $data = [
             'title' => $this->module_name,
             'subject' => $subject,
-            'hash_id' => $hash_id
+            'hash_id' => $hash_id,
+            'sub_hash' => $sub_hash
         ];
 
         return view('intranet::subjects/subjects_add_item', $data);
@@ -100,6 +102,7 @@ class Intranet_subjects extends Controller
   
         $res = DB::table('subjects_subcategories')->insertGetId($data);
         if($res){
+            DB::table('deletor')->where('type', 'subjects')->where('path', $subject.'/'.$hash_id)->delete();
             return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
         return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -117,7 +120,7 @@ class Intranet_subjects extends Controller
         $valid = false;
         $allowed_types = explode(',', config('subjects_admin.img_types_allowed'));
         foreach($allowed_types as $at){
-            $extension = explode('.', $file->hashName());
+            $extension = explode('.', $image->hashName());
             $extension = $extension[count($extension)-1];
             if($at == $extension){
                 $valid = true;
@@ -133,8 +136,9 @@ class Intranet_subjects extends Controller
                 ];
 
                 $image->store('/public/subjects/'.$subject.'/'.$hash_id);
+                DB::table('deletor')->insert(['type' => 'subjects', 'path' => $subject.'/'.$hash_id]);
                 $response->link = url('/storage/subjects/'.$subject.'/'.$hash_id.'/'.$image->hashName());
-                DB::table('subjects_files')->insert($data);
+                //DB::table('subjects_files')->insert($data);
                 return stripslashes(json_encode($response->link));
             }
             else{
@@ -148,7 +152,6 @@ class Intranet_subjects extends Controller
 
     public function subjects_file_upload(Request $request, Response $response){
         $files = $request->file('file');
-
         foreach($files as $file){
             
             $hash_id = $request->input('save_to');
@@ -174,7 +177,8 @@ class Intranet_subjects extends Controller
                         'hash_name' => $file->hashName(),
                         'file_name' => $file->getClientOriginalName()
                     ];
-                    $file->store('/public/subjects/'.$category.'/'.$hash_id);        
+                    $file->store('/public/subjects/'.$category.'/'.$hash_id);      
+                    DB::table('deletor')->insert(['type' => 'subjects', 'path' => $category.'/'.$hash_id]);
                     DB::table('subjects_files')->insert($data);
                 }
                 else{
@@ -202,8 +206,8 @@ class Intranet_subjects extends Controller
         }
 
         $subject = DB::table('subjects')->where('sub_id', $subjects_subcategories->sub_id)->first();
-        $subject_files = DB::table('subjects_files')->where('hash_id', $subjects_subcategories->hash_name)->first();
-        $hash_id = $subject->hash_name;
+        $subject_files = DB::table('subjects_files')->where('hash_id', $subjects_subcategories->hash_name)->get();
+        $hash_id = $subjects_subcategories->hash_name;
         $subject_files = (!$subject_files) ? [] : $subject_files;
 
         $data = [
@@ -213,7 +217,7 @@ class Intranet_subjects extends Controller
             'files' => $subject_files,
             'hash_id' => $hash_id
         ];
- 
+     
         return view('intranet::subjects/subjects_edit_item', $data);
     }
 
@@ -228,7 +232,7 @@ class Intranet_subjects extends Controller
         $editor_en = $request->input('editor_content_sk');
         $editor_sk = $request->input('editor_content_en');
         $hash_id = $request->input('save_to');
-        $category = $request->input('subject');
+        $subject = $request->input('subject');
         $category_id = $request->input('subject_id');
         
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
@@ -257,10 +261,10 @@ class Intranet_subjects extends Controller
         ];
   
         $res = DB::table('subjects_subcategories')->where('ss_id', $ss_id)->update($data);
-        if($res){
-            return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
-        }
-        return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
+
+        DB::table('deletor')->where('type', 'subjects')->where('path', $subject.'/'.$hash_id)->delete();
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
+      
     }
 
     ///////////////////////////////////////////////////////////////
@@ -283,17 +287,11 @@ class Intranet_subjects extends Controller
         }
 
         $path = base_path('storage/app/public/subjects/').$parent->hash_name.'/'.$item->hash_name;
-        $files = DB:: table('subjects_files')->where('hash_id', $item->hash_name)->get();
-        foreach($files as $f){
-            $tmp = $path.'/'.$f->hash_name;
-            if(is_file($tmp)){
-                unlink($tmp);
-            }
-        }
+        
         if(is_dir($path)){
+			array_map('unlink', glob("$path/*.*"));
             rmdir($path);
         }
-
 
         $res = (bool) DB::table('subjects_subcategories')->where('ss_id', $ss_id)->delete();
         if($res){
