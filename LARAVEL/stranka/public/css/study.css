@@ -256,3 +256,18 @@ span.fa.fa-microchip, span.fa.fa-desktop{
     padding: 10px;
     font-weight: bold;
 }
+.cNotClickable{
+    /*width: 100%;*/
+    padding: 10px;
+    font-weight: bold;
+    /*margin: 10px;*/
+    /*border-bottom: 1px solid rgb(10, 97, 188);*/
+}
+.cNotClickable:hover{
+    background-color: rgb(150, 150, 150);
+    transition: 0.3s ease background-color;
+    cursor: default;
+}
+.cNotClickable:hover .aLink{
+    color: #fff;
+}

@@ -16,12 +16,20 @@
     <div id="emPAGEcontent">
         <div class="container subjectsAll">
             @foreach($subjects as $key => $subject)
-                <div class="cSubject " >
+                <div class="@if($subject->subcategories->count() != 0){{'cSubject'}}@else{{'cNotClickable'}}@endif" >
+                    @if($subject->subcategories->count() != 0)
                     <a class="aLink" href="{{ url('/subject') }}/{{ $subject->sub_id }}">
-                    <i class="fa fa-search-plus cArrow" aria-hidden="true"></i>
-                    <p class="cAbbrev" >{{$subject->abbrev}}</p>
-                    <p class="cTitle" >{{$subject->title}}</p>
-                        </a>
+                    @else
+                    <a class="aLink">
+                    @endif
+                        <i class="fa fa-search-plus cArrow" aria-hidden="true"></i>
+                        <p class="cAbbrev" >{{$subject->abbrev}}</p>
+                        @if(session()->get('locale') === 'sk')
+                            <p class="cTitle" >{{$subject->title}}</p>
+                        @else
+                            <p class="cTitle" >{{$subject->title_en}}</p>
+                        @endif
+                    </a>
                 </div>
                 <div class="cDevider"></div>
             @endforeach
