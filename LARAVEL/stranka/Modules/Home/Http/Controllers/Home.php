@@ -26,12 +26,17 @@ class Home extends Controller
     public function index()
     {	
 		$module_name = config('home.name');
+		$locale = session()->get('locale');
 		$date = DB::table('events')->select('date')->distinct()->orderBy('date')->get();
 		
 		$events = [];
 		if($date){
 			foreach($date as $d){
-				$events[$d->date] = DB::table('events')->where('date', $d->date)->get();
+				if($locale == 'sk'){
+					$events[$d->date] = DB::table('events')->select( 'name_sk as name', 'text_sk as text', 'url', 'place', 'time' ,'date')->where('date', $d->date)->get();
+				}else{
+					$events[$d->date] = DB::table('events')->select( 'name_en as name', 'text_en as text', 'url', 'place', 'time' ,'date')->where('date', $d->date)->get();
+				}
 			}
 		}
 
@@ -40,7 +45,7 @@ class Home extends Controller
 			'date' => $date,
 			'events' => $events
 		];
-
+		
 		return view('home::home', $data);
     }
 

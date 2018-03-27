@@ -316,4 +316,33 @@ function getYear( $date ){
 	return (int)explode(".", $date)[2];
 }
 
+function storage_deletor($type = "", $folder_hash = ''){
+	if(!is_string($type) || !is_string($folder_hash)){
+		return false;
+	}
 
+	$path = base_path('storage/app/public/');
+	$redirect = null;
+	switch($type){
+		case 'news':
+			$path .= 'news/'.$folder_hash;
+			$redirect = '/news-admin';
+		break;
+		case 'documents':
+			$path .= 'documents/'.$folder_hash;
+			$redirect = '/documents-admin';
+		break;
+		case 'subjects':
+			$path .= 'subjects/'.$folder_hash;
+			$redirect = '/subjects-admin';
+		break;
+		default:
+			return false;
+	}
+	array_map('unlink', glob("$path/*.*"));
+	if(is_dir($path)){
+		rmdir($path);
+		return redirect($redirect);
+	}
+	return false;
+}
