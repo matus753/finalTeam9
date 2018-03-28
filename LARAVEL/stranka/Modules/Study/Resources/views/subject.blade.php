@@ -11,30 +11,22 @@
     </section>
     <div id="emPAGEcontent">
         <div class="container">
-
-            @if(count($subcats) == 0)
-            <h3 style="text-align: center">@lang('study::study.no_data')</h3>
-            @else
-            @foreach($subcats as $s)
-                <div>
-                    @if(session()->get('locale') === 'sk')
-                        <h5 class="ustavTitle" id="secH32">{{$s->name_sk}}</h5>
-                    @else
-                        <h5 class="ustavTitle" id="secH32">{{$s->name_en}}</h5>
-                    @endif
-
-                    <div>
-                        @if(session()->get('locale') === 'sk')
-                            {{$s->text_sk}}
-                        @else
-                            {{$s->text_en}}
-                        @endif
+            @if($info)
+                <div class="row">
+                    <div class="col-md-12">
+                        {!! $info->info !!}
                     </div>
                 </div>
-            @endforeach
             @endif
-
-
+            @if(count($subcats) == 0)
+                <h3 style="text-align: center">@lang('study::study.no_data')</h3>
+            @else
+                @foreach($subcats as $s)
+                    <div>
+                        <h5 class="ustavTitle" id="secH32"><a href="{{ url('/show-subject-item/'.$s->ss_id) }}" style="color: white;" >{{ $s->name }}</a></h5>
+                    </div>
+                @endforeach
+            @endif
             </div>
         </div>
 @stop

@@ -184,7 +184,7 @@ class Study extends Controller
         return view('study::doctoral', $data);
     }
 
-    public function subjects($id){
+    public function subjects($id = 0){
         if(!is_numeric($id)){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
         }
@@ -218,26 +218,72 @@ class Study extends Controller
         return view('study::subjects', $data);
     }
 
-    public function subject($id) {
+    public function subject($id = 0) {
         if(!is_numeric($id)){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
         }
 
         $module_name = config('study.name');
         $subject = DB::table('subjects')->where('sub_id', $id)->first();
+
         if($subject){
-            $subcats = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
-            $subcats = (!$subcats) ? [] : $subcats;
+            $locale = session()->get('locale');
+            if($locale == 'sk'){
+                $info = DB::table('subjects_info')->select('info_sk as info')->where('sub_id', $subject->sub_id)->first();    
+                $subcats = DB::table('subjects_subcategories')->select('ss_id', 'name_sk as name')->where('sub_id', $subject->sub_id)->get();
+            }else{
+                $info = DB::table('subjects_info')->select('info_en as info')->where('sub_id', $subject->sub_id)->first();    
+                $subcats = DB::table('subjects_subcategories')->select('ss_id', 'name_en as name')->where('sub_id', $subject->sub_id)->get();
+            }
         }else{
             return redirect('/')->with('err_code', ['type' => 'warning', 'msg' => 'Subject does not exists!']);
         }
-        
+
+        if(!$info){
+            $info = null;
+        }
+        $subcats = (!$subcats) ? [] : $subcats;
         $data = [
             'title' => $module_name,
             'subject' => $subject->title,
-            'subcats' => $subcats
+            'subcats' => $subcats,
+            'info' => $info
         ];
 
         return view('study::subject', $data);
+    }
+
+    public function show_subject_item($ss_id = 0){
+        if(!is_numeric($ss_id)){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
+
+        $module_name = config('study.name');
+        
+
+
+        $locale = session()->get('locale');
+        if($locale == 'sk'){
+            $subcat = DB::table('subjects_subcategories')->select('sub_id', 'hash_name', 'name_sk as name', 'text_sk as text')->where('ss_id', $ss_id)->first();
+        }else{
+            $subcat = DB::table('subjects_subcategories')->select('sub_id', 'hash_name', 'name_en as name', 'text_en as text')->where('ss_id', $ss_id)->first();
+        }
+       
+        if($subcat){
+            $subject = DB::table('subjects')->where('sub_id', $subcat->sub_id)->first();
+            $files = DB::table('subjects_files')->where('hash_id', $subcat->hash_name)->get();
+        }else{
+            return redirect('/')->with('err_code', ['type' => 'warning', 'msg' => 'Item does not exists!']);
+        }
+        $files = (!$files) ? [] : $files;
+
+        $data = [
+            'title' => $module_name,
+            'subcat' => $subcat,
+            'subject' => $subject,
+            'files' => $files
+        ];
+
+        return view('study::subject_subcategory', $data);
     }
 }
