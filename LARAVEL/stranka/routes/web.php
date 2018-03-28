@@ -78,7 +78,9 @@ Route::get('/login', '\Modules\Login\Http\Controllers\Login@index');
 Route::post('/login-action', '\Modules\Login\Http\Controllers\Login@login_action');
 Route::post('/logout-action', '\Modules\Login\Http\Controllers\Login@logout_action');
 
-Route::get('/developer', '\Modules\Login\Http\Controllers\Login@developer');
+
+// TODO remove this 
+//Route::get('/developer', '\Modules\Login\Http\Controllers\Login@developer');
 
 
 /* Intranet ZMENA viewu */

@@ -251,6 +251,9 @@ function has_permission($perm){
 	if(is_string($perm) && strlen($perm) > 0){
 		if(isLogged()){
 			$user = session()->get('user');
+			if($user['role'][0] == 'locale' ){
+				return true;
+			}
 
 			if(!is_array($user['role'])){
 				return false;
@@ -278,6 +281,10 @@ function isLogged(){
 	if(session()->has('user')){
 		$user = session()->get('user');
 		if($user['logged']){
+			if($user['role'][0] == 'locale' ){
+				return true;
+			}
+
 			if($user['check'] == '' || !is_string($user['check'])){
 				return false;
 			}

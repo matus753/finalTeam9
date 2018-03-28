@@ -27,7 +27,11 @@ class Login extends Controller
 		if(!is_string($login) || strlen($login) == 0 || !is_string($password) || strlen($password) == 0 ){
 			return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Bad login parameters!']);
 		}
-
+	
+		if($this->local_login($login, $password)){
+			return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Authentification success!']);
+		}
+	
 		$in_table = DB::table('staff')->where('ldapLogin', $login)->first();
 		
 		if($in_table == null){
@@ -98,7 +102,7 @@ class Login extends Controller
 		return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error']);
 	}
 
-	public function developer(){
+	/*public function developer(){
 
 		$in_table = DB::table('staff')->where('s_id', 43)->first();
 
@@ -116,6 +120,29 @@ class Login extends Controller
 
 		session()->put('user', $user);
 		return redirect('/')->with('err_code', ['type' => 'info', 'msg' => 'Mal by si mat prava']);
+	}*/
+
+	private function local_login($login = '', $password = ''){
+		if(!is_string($login) || strlen($login) == 0 || !is_string($password) || strlen($password) == 0 ){
+			return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Bad login parameters!']);
+		}
+
+		$local_name = config('login.locale_admin_name');
+		$local_pass = config('login.locale_admin_pass');
+		$salt = config('login.locale_admin_salt');
+											
+		if($local_name == $login && sha1($login.sha1(sha1($password)).$salt) == sha1($local_name.sha1($local_pass).$salt) ){
+			$user = [
+				'id' => 0,
+				'logged' => true,
+				'role' => ['locale']
+			];
+			session()->put('user', $user);
+			return true;
+		}else{
+			return false;
+		}
+		return false;
 	}
 	
 }
