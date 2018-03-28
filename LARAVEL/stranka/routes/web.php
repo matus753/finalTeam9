@@ -193,7 +193,10 @@ Route::get('/subjects-admin-edit-item/{id}', '\Modules\Intranet\Http\Controllers
 Route::post('/subjects-admin-edit-item-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_edit_item_action');
 Route::get('/delete-subject-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_delete_single_file_action');
 Route::get('/subjects-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_delete_single_action');
-
+Route::get('/subjects-admin-edit-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@edit_subjects_info');
+Route::post('/subjects-admin-edit-item-info-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@edit_subjects_info_action');
+Route::get('/subjects-admin-info-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@show_subjects_info');
+Route::get('/subjects-admin-subcategory-show/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@show_subcategory_info');
 
 /* Intranet schedule */
 Route::get('/schedule-admin', '\Modules\Intranet\Http\Controllers\Intranet_schedule@index');

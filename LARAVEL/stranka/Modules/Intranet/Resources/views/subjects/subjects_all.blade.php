@@ -31,16 +31,19 @@
                         <thead>
                             <tr>
                                 <th class="col-md-2">{{ $subject->abbrev }}</th>
-                                <th class="col-md-9">{{ $subject->title }}</th>
-                                <th class="col-md-1 text-center"><a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-xs" ><span class="fa fa-plus" ></span></a></th>
+                                <th class="col-md-9"><a href="{{ url('/subjects-admin-info-item/'.$subject->sub_id) }}" >{{ $subject->title }}</a></th>
+                                <th class="col-md-1 text-center">
+                                    <a href ="{{ url('/subjects-admin-edit-item/'.$subject->sub_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
+                                    <a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-xs" ><span class="fa fa-plus" ></span></a>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($subject->subcategories as $s)
                             <tr>
-                                <td>{{ $subject->abbrev }}</td>
-                                <td>{{ $s->name_sk }}</td>
-                                <td>
+                                <th class="col-md-2">{{ $subject->abbrev }}</td>
+                                <th class="col-md-9"><a href="{{ url('/subjects-admin-subcategory-show/'.$s->ss_id) }}">{{ $s->name_sk }}</a></td>
+                                <th class="col-md-1 text-center">
                                     <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
                                     <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-xs" ><span class="fa fa-trash-o" ></span></a>
                                 </td>

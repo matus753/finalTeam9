@@ -267,6 +267,109 @@ class Intranet_subjects extends Controller
       
     }
 
+    public function edit_subjects_info($sub_id = 0){
+        if(!is_numeric($sub_id)){
+            return false;
+        }
+
+        $info = DB::table('subjects_info')->where('sub_id', $sub_id)->first();
+
+        $subject = DB::table('subjects')->where('sub_id', $sub_id)->first();
+
+        $data = [
+            'title' => $this->module_name,
+            'info' => $info,
+            'sub_id' => $sub_id,
+            'subject' => $subject
+        ];
+        
+        return view('intranet::subjects/subjects_edit_item_info', $data);
+    }
+
+    public function edit_subjects_info_action(Request $request, $sub_id = 0){
+        if(!is_numeric($sub_id)){
+            return false;
+        }
+
+        $info_sk = $request->input('editor_content_sk');
+        $info_en = $request->input('editor_content_en');
+
+        $info = DB::table('subjects_info')->where('sub_id', $sub_id)->first();
+        if($info){
+            $data = [
+                'info_sk' => $info_sk,
+                'info_en' => $info_en
+            ];
+
+            DB::table('subjects_info')->where('sub_id', $sub_id)->update();
+        }else{
+            $data = [
+                'sub_id' => $sub_id,
+                'info_sk' => $info_sk,
+                'info_en' => $info_en
+            ];
+
+            DB::table('subjects_info')->insert($data);
+        }
+        
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);   
+        
+    }
+
+    public function show_subjects_info($sub_id = 0){
+        if(!is_numeric($sub_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+
+        $locale = session()->get('locale');
+        if($locale == 'sk'){
+            $info = DB::table('subjects_info')->select('info_sk as info')->where('sub_id', $sub_id)->first();
+        }else{
+            $info = DB::table('subjects_info')->select('info_en as info')->where('sub_id', $sub_id)->first();
+        }
+        
+        if(!$info){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Subject has no description!']);
+        }
+
+        $subject = DB::table('subjects')->where('sub_id', $sub_id)->first();
+
+        $data =[
+            'title' => $this->module_name,
+            'info' => $info,
+            'subject' => $subject
+        ];
+
+
+        return view('intranet::subjects/subjects_show_item_info', $data);
+    }
+
+    public function show_subcategory_info($ss_id = 0){
+        if(!is_numeric($ss_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $locale = session()->get('locale');
+        if($locale == 'sk'){
+            $info = DB::table('subjects_subcategories')->select('name_sk as name', 'text_sk as text')->where('ss_id', $ss_id)->first();
+        }else{
+            $info = DB::table('subjects_subcategories')->select('name_en as name', 'text_en as text')->where('ss_id', $ss_id)->first();
+        }
+        
+        if(!$info){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Subject has no description!']);
+        }
+
+        $data =[
+            'title' => $this->module_name,
+            'info' => $info
+        ];
+
+        return view('intranet::subjects/subjects_show_subcategory_info', $data);
+    }
+
+
     ///////////////////////////////////////////////////////////////
     //////////////////////// DELETE ///////////////////////////////
     ///////////////////////////////////////////////////////////////
