@@ -77,7 +77,7 @@ tbody tr:hover{
 	</div>
 	<label class="checkbox-inline"><input type="checkbox" id="overwrite">AllowOverwrite</label>
 	<hr>
-	<div class="row">
+	<div class="row attendance-row">
 		<div class="col-md-12">
 			<div class="text-center" id="rdata" >	
 				<div class="table-responsive">

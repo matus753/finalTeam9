@@ -48,37 +48,57 @@
             <br>
             <form action="{{ url('/media-admin-edit-action/'.$media->m_id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <div class="form-group">
-                    <select class="form-control" id="type" name="type" onchange="type_change()" >
-                        @foreach($types as $key => $t)
-                            <option value="{{ $key }}" @if($key == $media->type) {{ 'selected' }} @endif>{{ $t }}</option>
-                        @endforeach
-                    </select>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="type">Typ:</label>
+                            <select class="form-control" id="type" name="type" onchange="type_change()" >
+                                @foreach($types as $key => $t)
+                                    <option value="{{ $key }}" @if($key == $media->type) {{ 'selected' }} @endif>{{ $t }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="media">Zdroj:</label>
+                            <input type="text" class="form-control" id="media" name="media" placeholder="Zdroj" value="{{ $media->media }}" required />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $media->title }}" required />
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="title_sk">Slovenský nadpis:</label>
+                            <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $media->title }}" required />
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="date">Dátum:</label>
+                            <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" value="{{ format_time($media->date, true) }}" required />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $media->title_EN }}" required />
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="title_en">Anglický nadpis:</label>
+                            <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $media->title_EN }}" required />
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div id="div_link" class="form-group @if($media->type == 'server') {{ 'hidden' }} @endif">
+                            <label for="link">Link:</label>
+                            <input type="text" class="form-control" id="link" name="link" value="{{ $media->url }}" placeholder="Link" />
+                        </div>
+                        <div id="div_file" class="form-group @if($media->type == 'link' ) {{ 'hidden' }} @endif">
+                            <label for="file">{{ 'Súbor(y):' }}</label>
+                            <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" multiple/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="media">Zdroj:</label>
-                    <input type="text" class="form-control" id="media" name="media" placeholder="Zdroj" value="{{ $media->media }}" required />
-                </div>
-                <div class="form-group">
-                    <label for="date">Dátum:</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" value="{{ format_time($media->date, true) }}" required />
-                </div>
-                <div id="div_link" class="form-group @if($media->type == 'server') {{ 'hidden' }} @endif">
-                    <label for="link">Link:</label>
-                    <input type="text" class="form-control" id="link" name="link" value="{{ $media->url }}" placeholder="Link" />
-                </div>
-                <div id="div_file" class="form-group @if($media->type == 'link' ) {{ 'hidden' }} @endif">
-                    <label for="file">{{ 'Súbor(y):' }}</label>
-                    <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" multiple/>
-                </div>
+
                 @if(count($files))
                 <input type="hidden" name="has_files" value="1" />
                 @else
@@ -86,16 +106,19 @@
                 @endif
                 <input type="submit" class="btn btn-success pull-right" value="Ulož" />
             </form>
-            @if(count($files))
-                Súbory pri uploadnutí nových budú zmazané.
-                @foreach($files as $f)
-                <div class="row">
-                    <div class="pull-left">
-                        <h4>Tento záznam obsahuje súbors názvom: <small>{{ $f->file_name }}</small></h4>
+            <div style="margin-top: 50px">
+                @if(count($files))
+                    <h3>Súbory pri uploadnutí nových budú zmazané!</h3>
+                    @foreach($files as $f)
+                    <div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-10">
+                            <h4>Tento záznam obsahuje súbor s názvom: <small>{{ $f->file_name }}</small></h4>
+                        </div>
                     </div>
-                </div>
-                @endforeach
-            @endif
+                    @endforeach
+                @endif
+            </div>
 		</div>
 	</div>
 

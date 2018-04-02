@@ -61,38 +61,57 @@
             <br>
             <form action="{{ url('/media-admin-add-action') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <div class="form-group">
-                    <select class="form-control" id="type" name="type" onchange="type_change()" >
-                        @foreach($types as $key => $t)
-                            <option value="{{ $key }}">{{ $t }}</option>
-                        @endforeach
-                    </select>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="type">* Typ:</label>
+                            <select class="form-control" id="type" name="type" onchange="type_change()" >
+                                @foreach($types as $key => $t)
+                                    <option value="{{ $key }}">{{ $t }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="media">* Zdroj:</label>
+                            <input type="text" class="form-control" id="media" name="media" placeholder="Zdroj" required />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="title_sk">* Slovenský nadpis:</label>
+                            <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="date">* Dátum:</label>
+                            <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="title_en">* Anglický nadpis:</label>
+                            <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div id="div_link" class="form-group hidden">
+                            <label for="link">* Link:</label>
+                            <input type="text" class="form-control" id="link" name="link" placeholder="Link" />
+                        </div>
+                        <div id="div_file" class="form-group hidden">
+                            <label for="file">* Súbor:</label>
+                            <input type="file" class="form-control" id="file" name="files[]" placeholder="Súbor" multiple/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="media">Zdroj:</label>
-                    <input type="text" class="form-control" id="media" name="media" placeholder="Zdroj" required />
-                </div>
-                <div class="form-group">
-                    <label for="date">Dátum:</label>
-                    <input type="date" class="form-control" id="date" name="date" placeholder="Zdroj" />
-                </div>
-                <div id="div_link" class="form-group hidden">
-                    <label for="link">Link:</label>
-                    <input type="text" class="form-control" id="link" name="link" placeholder="Link" />
-                </div>
-                <div id="div_file" class="form-group hidden">
-                    <label for="file">Súbor:</label>
-                    <input type="file" class="form-control" id="file" name="files[]" placeholder="Súbor" multiple/>
-                </div>
-                <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
+                <input type="submit" class="btn btn-success pull-right" value="Pridať" />
             </form>
 		</div>
 	</div>

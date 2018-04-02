@@ -27,25 +27,37 @@
             <br>
             <form action="{{ url('/videos-admin-edit-action/'.$video->v_id) }}" method="post">
                 {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="tzpe">* Kategória:</label>
-                    <select class="form-control" id="type" name="type" >
-                        @foreach($types as $key => $t)
-                            <option value="{{ $key }}" @if($key == $video->type) {{ 'selected' }} @endif>{{ $t }}</option>
-                        @endforeach
-                    </select>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="tzpe">* Kategória:</label>
+                            <select class="form-control" id="type" name="type" >
+                                @foreach($types as $key => $t)
+                                    <option value="{{ $key }}" @if($key == $video->type) {{ 'selected' }} @endif>{{ $t }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="title_sk">Slovenský nadpis:</label>
+                            <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $video->title_SK }}" required />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $video->title_SK }}" required />
-                </div>
-                <div class="form-group">
-                    <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $video->title_EN }}" required />
-                </div>
-                <div class="form-group">
-                    <label for="url">URL:</label>
-                    <input type="text" class="form-control" id="url" name="url" placeholder="URL" value="{{ $video->url }}" required />
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="url">YouTube ID:</label>
+                            <input type="text" class="form-control" id="url" name="url" placeholder="URL" value="{{ $video->url }}" required />
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="title_en">Anglický nadpis:</label>
+                            <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $video->title_EN }}" required />
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
             </form>

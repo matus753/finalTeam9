@@ -45,6 +45,11 @@ td, th{
     white-space: nowrap;
 }
 
+.attendance-row{
+    width: 130%;
+    margin-left: -15%;
+}
+
 .fixed {
     max-width: 37.5px;
     min-width: 37.5px;
