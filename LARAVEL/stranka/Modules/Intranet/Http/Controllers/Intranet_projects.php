@@ -325,7 +325,7 @@ class Intranet_projects extends Controller
             return redirect('/projects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item edited successfuly!']);
         }
 
-        return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Any data has been changed!']);
+        return redirect('/projects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'No data has been changed!']);
 
     }
 

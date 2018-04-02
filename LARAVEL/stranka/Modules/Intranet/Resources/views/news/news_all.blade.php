@@ -25,7 +25,7 @@
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <h2>Administácia aktualít</h2>
+            <h2>Administrácia aktualít</h2>
 			<div class="text-center">
                 <div class="table-responsive">
                     <table id="news-table" class="table table-stripped table-bordered intranet-table">

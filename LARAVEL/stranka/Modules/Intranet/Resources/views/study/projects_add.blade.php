@@ -64,12 +64,12 @@
                        
                         <div class="form-group">
                             <label for="coordinator">Koordinátor:</label>
-                            <select placeholder="Choose a Country" class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">  
+                            <select class="form-control selectpicker" data-size="5" data-live-search="true" id="coordinator" name="coordinator" tabindex="2">
                                 @foreach($staff as $s)
                                 <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                                 @endforeach
                             </select>
-                            <br><br>
+                            <p style="font-size: 12px; margin-bottom: 0; margin-top: 10px; color: red;">Ak je vložený vlastný záznam koordinátora, tento záznam bude uprednostnený.</p>
                             <input name="custom_coordinator" type='text' placeholder='Vlastný záznam...' class='form-control' />
                         </div>
 
@@ -90,16 +90,16 @@
                         </div>
                         <div class="form-group">
                             <label for="annotationSK">Slovenská anotácia:</label>
-                            <textarea rows="10" class="form-control" id="annotationSK"  name="annotationSK"></textarea>
+                            <textarea rows="12" class="form-control" id="annotationSK"  name="annotationSK"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="annotationEN">Anglická anotácia:</label>
-                            <textarea rows="10" class="form-control" id="annotationEN" name="annotationEN"></textarea>
+                            <textarea rows="12" class="form-control" id="annotationEN" name="annotationEN"></textarea>
                         </div>
                     </div>
 
                 </div>
-                <div class="row text-center">
+                <div class="row text-center lastButton">
                     <input type="submit" class="btn btn-success" value="Pridať projekt"/>
                 </div>
             </form>

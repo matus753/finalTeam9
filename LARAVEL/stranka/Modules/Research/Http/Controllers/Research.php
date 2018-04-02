@@ -34,6 +34,25 @@ class Research extends Controller
 			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->get();
 		}
 
+		$arr = array($projects_db_international, $projects_db_kega, $projects_db_vega, $projects_db_apvv, $projects_db_other);
+
+		foreach ($arr as $p_cat){
+		    foreach ($p_cat as $p) {
+                if (is_numeric($p->coordinator)) {
+                    $tmp = $p->coordinator;
+                    $p->coordinator = '';
+                    $s = DB::table('staff')->where('s_id', $tmp)->first();
+                if(strcmp($s->title1, '' > 1)){
+                    $p->coordinator = $s->title1.' ';
+                }
+                $p->coordinator = $p->coordinator.$s->name.' '.$s->surname;
+                if(strcmp($s->title2, '' > 1)){
+                    $p->coordinator = $p->coordinator.', '.$s->title2;
+                }
+                }
+            }
+        }
+
 		$data = [
 			'title' => $module_name,
 			'international' => $projects_db_international,
