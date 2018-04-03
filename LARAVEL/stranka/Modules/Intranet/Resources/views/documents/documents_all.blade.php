@@ -12,39 +12,33 @@
 @section('content_admin')
 <div id="emPAGEcontent" class="container">
     <div class="row">
-        <div class="text-center">
-            <h1>Administácia dokumentov</h1>
-        </div>
-    </div>
-    <hr>
-	<div class="row">
-		<div class="col-md-12">
+        <div class="intra-div">
             <div class="pull-right">
                 <a href="{{ url('/documents-admin-add-category') }}" class="btn btn-primary">Pridaj kategoriu</a>
             </div>
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <br>
-            <br>
-            <ul class="nav nav-tabs" id="tabs">
-            @foreach($categories as $key => $c)
-                @if($key == 0)
-                <li class="active"><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
-                @else
-                <li><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
-                @endif
-            @endforeach
-            </ul>
-            <div id="add_item" >
-
+            <h2>Administácia dokumentov</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs" id="tabs">
+                        @foreach($categories as $key => $c)
+                            @if($key == 0)
+                                <li class="active"><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
+                            @else
+                                <li><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
+                            @endif
+                        @endforeach
+                    </ul>
+                    <div id="add_item" ></div>
+                    <div class="table-responsive tableIntra">
+                        <table id="items" class="table-stripped table-bordered" style="width: 100%;"></table>
+                    </div>
+                </div>
             </div>
-            <div id="items" >
-               
-            </div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>   
 
 <script>
@@ -60,17 +54,18 @@
         }).done(function(data){
             if(data['tab'] != null){
                 $('#add_item').empty().append('<a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary">Pridaj zaznam</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger pull-right">Zmazanie kategorie</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success pull-right">Edit kategorie</a>');
+                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger">Zmazanie kategorie</a>');
+                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success">Edit kategorie</a>');
             }
             if(data['docs'] != null){
                 console.log(data['docs']);
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
-                    $('#items').append('<div class="well well-default"><a href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a>'+                           
-                                '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
-                                '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
-                                '</div>');
+                    $('#items').append('<tr class="well well-default">' +
+                        '<td class=""><a style="padding-left: 20px;" href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a></td>'+
+                        '<td class="" style="width: 100px;"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right"><span class="fa fa-trash-o "></span></a>'+
+                        '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right"><span class="fa fa-pencil-square-o "></span></a></td>'+
+                        '</tr>');
                 }
             }
         });
@@ -92,16 +87,17 @@
             
             if(data['tab'] != null){
                 $('#add_item').empty().append('<a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary">Pridaj zaznam</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger pull-right">Zmazanie kategorie</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success pull-right">Edit kategorie</a>');
+                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger">Zmazanie kategorie</a>');
+                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success">Edit kategorie</a>');
             }
             if(data['docs'] != null){
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
-                    $('#items').append('<div class="well well-default"><a href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a>'+                           
-                                '<a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right">Delete item</a>'+
-                                '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right">Edit item</a>'+
-                                '</div>');
+                    $('#items').append('<tr class="well well-default">' +
+                        '<td class="col-lg-10"><a href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a></td>'+
+                        '<td class="col-lg-2"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right"><span class="fa fa-trash-o "></span></a>'+
+                        '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right"><span class="fa fa-pencil-square-o "></span></a></td>'+
+                        '</tr>');
                 }
             }
         });
