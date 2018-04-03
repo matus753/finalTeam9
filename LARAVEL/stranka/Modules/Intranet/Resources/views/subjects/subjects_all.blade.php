@@ -10,26 +10,26 @@
 @stop
 
 @section('content_admin')
-<div id="emPAGEcontent" class="container">
-    <div class="row">
-        <div class="text-center">
-            <h1>Administácia predmetov</h1>
-        </div>
-    </div>
-    <hr>
+<div class="container">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="intra-div">
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <br>
-            <br>
-            <br>
-            @foreach($subjects as $key => $subject)
+            <h2>Administácia predmetov</h2>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered">
                         <thead>
-                            <tr>
+                        <tr>
+                            <th class="col-md-2">Skratka</th>
+                            <th class="col-md-9">Nazov</th>
+                            <th class="col-md-1 text-center">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($subjects as $key => $subject)
+                            <tr style="background-color: #f5f5f5">
                                 <th class="col-md-2">{{ $subject->abbrev }}</th>
                                 <th class="col-md-9"><a href="{{ url('/subjects-admin-info-item/'.$subject->sub_id) }}" >{{ $subject->title }}</a></th>
                                 <th class="col-md-1 text-center">
@@ -37,23 +37,20 @@
                                     <a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-xs" ><span class="fa fa-plus" ></span></a>
                                 </th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($subject->subcategories as $s)
-                            <tr>
-                                <th class="col-md-2">{{ $subject->abbrev }}</td>
-                                <th class="col-md-9"><a href="{{ url('/subjects-admin-subcategory-show/'.$s->ss_id) }}">{{ $s->name_sk }}</a></td>
-                                <th class="col-md-1 text-center">
-                                    <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
-                                    <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-xs" ><span class="fa fa-trash-o" ></span></a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach($subject->subcategories as $s)
+                                <tr>
+                                    <td class="col-md-2" style="padding-left:20px;">{{ $subject->abbrev }}</td>
+                                    <td class="col-md-9"><a href="{{ url('/subjects-admin-subcategory-show/'.$s->ss_id) }}">{{ $s->name_sk }}</a></td>
+                                    <td class="col-md-1 text-center">
+                                        <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
+                                        <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-xs" ><span class="fa fa-trash-o" ></span></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                        @endforeach
                     </table>
                 </div>
-            @endforeach
-            </ul>
             <div id="add_item" >
 
             </div>
