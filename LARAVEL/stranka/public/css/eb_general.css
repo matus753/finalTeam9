@@ -280,6 +280,12 @@ footer.nb-footer a:hover{
     min-height: 71vh;
 }
 
+@media screen and (max-width: 767px) {
+    .general-content {
+        min-height: 50vh;
+    }
+}
+
 /*@media screen and (max-width: 992px){
     .navbar-toggle {
         display: block !important;

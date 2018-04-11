@@ -7,7 +7,7 @@ return [
 	'room' => 'Miestnosť',
 	'phone' => 'Klapka',
 	'department' => 'Oddelenie',
-	'role' => 'Pracovná pozícia',
+	'role' => 'Rola',
 	'function' => 'Funkcia',
 	'back' => 'Späť na všetkých zamestnancov',
 

@@ -105,16 +105,16 @@ function showPubs(){
 	</div>
 </section>
 
+@if( $ais->ldapLogin )
 <section class="staff-publications">
-	<div class="staff-publications__button">
-		@if( $ais->ldapLogin )
-		<button onclick="showPubs()">@lang('staff::staff.show_publications')</button>
-		@else
-		<br>
-		@endif
+	<div class="staff-publications__button">		
+		<button onclick="showPubs()">@lang('staff::staff.show_publications')</button>		
 	</div>
 	<div class="staff-publications__loading"></div>
 </section>
+@else
+<br>
+@endif
 <section class="staff staff--publications staff--hidden">
 	<div class="container">
 		<div class="row">
