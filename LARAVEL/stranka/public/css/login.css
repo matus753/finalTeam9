@@ -119,3 +119,21 @@
 .forgot-password:focus{
     color: rgb(12, 97, 33);
 }
+
+.login h1 {
+    font-weight: bold;
+    color: black;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.login-form {
+    posiion: relative;
+}
+
+.login-input {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+}
