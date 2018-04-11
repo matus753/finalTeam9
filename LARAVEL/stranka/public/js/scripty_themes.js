@@ -59,7 +59,7 @@ $(document).on('click', '.m', function() {
 function callAjax(urlText, id) {
     $.ajax ({
         type: 'GET',
-        url: '/thesis/anotation',
+        url: $('#anotHref').data('href'),
         data: { 'urlka': urlText },
         success: function(response) {
             document.getElementById('div'+id).innerHTML = response;

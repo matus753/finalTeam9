@@ -54,7 +54,7 @@
                                 <th onclick="sortTable(2)" style="cursor:pointer; text-align: center" class="center col-rm-2"><i class="fa fa-sort"></i> @lang('study::study.studyProgram')</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="anotHref" data-href="{{url('/thesis/anotation')}}">
                             </tbody>
                         </table>
                     </div>
