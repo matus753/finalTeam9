@@ -7,7 +7,11 @@
 @section('content')
     <link rel="stylesheet" href="{{ URL::asset('css/study.css') }}">
     <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner7.jpg') }}')">
+        @if(session()->get('locale') === 'sk')
             <h1 >{{$subject->title}}</h1>
+        @else
+            <h1 >{{$subject->title_en}}</h1>
+        @endif
     </section>
     <div id="emPAGEcontent">
         <div class="container">

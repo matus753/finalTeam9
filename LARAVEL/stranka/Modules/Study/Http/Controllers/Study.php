@@ -198,7 +198,6 @@ class Study extends Controller
             $titleEN = 'Master courses';
             $find = 'I-%';
         }
-//        TODO mozno pridat do DB aj title_en a dotahovat aj ten
         $subjects = DB::table('subjects')->where('abbrev', 'like', $find)->get();
         if($subjects){
             foreach($subjects as $subject){
@@ -245,7 +244,7 @@ class Study extends Controller
         $subcats = (!$subcats) ? [] : $subcats;
         $data = [
             'title' => $module_name,
-            'subject' => $subject->title,
+            'subject' => $subject,
             'subcats' => $subcats,
             'info' => $info
         ];
