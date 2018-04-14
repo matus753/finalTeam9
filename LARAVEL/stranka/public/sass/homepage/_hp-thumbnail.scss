@@ -142,3 +142,15 @@
         }
     }
 }
+
+@media print { 
+    .hp-thumbnail {
+        &__wrapper {
+            height: 200px;
+            margin-bottom: 0;
+        }
+        &__item {
+            background: none;
+        }
+    }
+}

@@ -64,3 +64,20 @@
 		}
 	}
 }
+
+@media print { 
+	.banner {
+		height: 20px;
+		margin-bottom: 0;
+		margin-top: 30px;
+		&::after {
+			height: 20px;
+		}
+		>h1 {
+			font-size: 20px;
+		}
+	}
+	#myCarousel {
+		display: none;
+	}
+}
