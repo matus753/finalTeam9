@@ -15,8 +15,6 @@
                 <div>
                     <img src="http://uamt.fei.stuba.sk/web/sites/images/vozidlo6x6/dve_vozidla.png" alt="Autonómne vozidlo 6×6" style="width:100%;height:100%">
 
-                    <p>&nbsp;</p>
-
                     <h3>@lang('research::research.techudaj'):</h3>
                     <ul style="list-style-type:square; display: inline-block">
                         <li>@lang('research::research.hmotnost')</li>
@@ -29,10 +27,9 @@
                         <li>@lang('research::research.kapacita')</li>
                     </ul>  <img src="http://uamt.fei.stuba.sk/web/sites/images/Render_ISO.jpg" alt="Autonómne vozidlo 6×6" style="width:40%;height:40%;float:right;">
 
-                    <p>&nbsp;</p>
                 </div>
             </div>
         </div>
     </div>
-</div>   
+</div>
 @stop

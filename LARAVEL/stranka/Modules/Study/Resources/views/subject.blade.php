@@ -13,7 +13,7 @@
             <h1 >{{$subject->title_en}}</h1>
         @endif
     </section>
-    <div id="emPAGEcontent">
+    <div id="emPAGEcontent" class="printDiv">
         <div class="container">
             @if($info)
                 <div class="row">

@@ -204,6 +204,11 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
 }
 
 /**************************        FOOTER        ***********************************/
+@media print {
+    footer.nb-footer{
+        display:none;
+    }
+}
 footer.nb-footer {
     background: #333;
     border-top: 4px solid rgb(255, 212, 70);

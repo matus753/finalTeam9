@@ -5,7 +5,11 @@
     width: 100%;
     z-index: 9999999999999999;
 }
-
+@media print {
+    #return-to-top{
+        display:none !important;
+    }
+}
 #return-to-top {
     position: fixed;
     bottom: 20px;

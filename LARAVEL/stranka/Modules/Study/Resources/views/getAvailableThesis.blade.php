@@ -49,9 +49,9 @@
                         <table id="SS-table-themes-BP" class="table table-hover">
                             <thead>
                             <tr class="category">
-                                <th onclick="sortTable(0)" style="cursor:pointer" class="col-sm-8"><i class="fa fa-sort"></i> @lang('study::study.thesisTitle')</th>
-                                <th onclick="sortTable(1)" style="cursor:pointer; text-align: center" class="center col-sm-2"><i class="fa fa-sort"></i> @lang('study::study.skolitel')</th>
-                                <th onclick="sortTable(2)" style="cursor:pointer; text-align: center" class="center col-rm-2"><i class="fa fa-sort"></i> @lang('study::study.studyProgram')</th>
+                                <th onclick="sortTable(0)" style="cursor:pointer" class="printCol1 col-sm-8"><i class="fa fa-sort"></i> @lang('study::study.thesisTitle')</th>
+                                <th onclick="sortTable(1)" style="cursor:pointer; text-align: center" class="printCol2 center col-sm-2"><i class="fa fa-sort"></i> @lang('study::study.skolitel')</th>
+                                <th onclick="sortTable(2)" style="cursor:pointer; text-align: center" class="printCol3 center col-rm-2"><i class="fa fa-sort"></i> @lang('study::study.studyProgram')</th>
                             </tr>
                             </thead>
                             <tbody id="anotHref" data-href="{{url('/thesis/anotation')}}">

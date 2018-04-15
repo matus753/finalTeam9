@@ -271,3 +271,31 @@ span.fa.fa-microchip, span.fa.fa-desktop{
 .cNotClickable:hover .aLink{
     color: #fff;
 }
+/*---------------------------print--------------------------*/
+@media print {
+    .printCol1{
+        width: 70% !important;
+    }
+    .printCol2{
+        width: 20% !important;
+    }
+    .printCol3{
+        width: 10% !important;
+    }
+    #thesisBtn{
+        display: none;
+    }
+    /*subjects*/
+    .cAbbrev{
+        width: 20%;
+    }
+    .cArrow{
+        display: none;
+    }
+    .cSubject, .cNotClickable{
+        padding: 5px;
+    }
+    .printDiv{
+        margin-top: 50px;
+    }
+}

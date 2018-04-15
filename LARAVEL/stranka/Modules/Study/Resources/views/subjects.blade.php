@@ -13,7 +13,7 @@
             <h1 >{{$titleEN}}</h1>
         @endif
     </section>
-    <div id="emPAGEcontent">
+    <div id="emPAGEcontent printDiv">
         <div class="container subjectsAll">
             @foreach($subjects as $key => $subject)
                 <div class="@if($subject->subcategories->count() != 0){{'cSubject'}}@else{{'cNotClickable'}}@endif" >
