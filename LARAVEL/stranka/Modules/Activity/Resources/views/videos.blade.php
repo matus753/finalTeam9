@@ -41,7 +41,7 @@
         var content = document.getElementById('links');
         content.innerHTML = '';
         for(v in videos){
-            content.innerHTML += '<p class="video"><button type="button" class="btn video-btn" data-toggle="modal" data-src="' + videos[v].url + '" data-target="#myModal"><i class="fa fa-youtube-play" aria-hidden="true"></i>YouTube</button>' + videos[v].title + '</p>';
+            content.innerHTML += '<div class="row video"><div class="col-xs-3"> <button type="button" class="btn video-btn" data-toggle="modal" data-src="' + videos[v].url + '" data-target="#myModal"><i class="fa fa-youtube-play" aria-hidden="true"></i>YouTube</button></div><div class="col-xs-9"> ' + videos[v].title + '</div></div>';
         }
     }
 	

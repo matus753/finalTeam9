@@ -18,6 +18,7 @@
 		@yield('additional_headers')
 	</head>
 	<body>
+    <div id="alert-div">
             @if(session()->has('err_code'))
             @if(session()->get('err_code')['type'] == 'success')
             <div id="alert" class="alert alert-success alert-dismissable fade in" style="position: fixed; z-index: 999999999999; top:8em; right:2em;">
@@ -41,6 +42,7 @@
             </div>
             @endif
         @endif
+    </div>
 	<a id="return-to-top" onclick="scrollToTop()"><i class="fa fa-arrow-up"></i></a>
 	<nav class="navbar navbar-default" id="navbar-custom">
         <div class="container">

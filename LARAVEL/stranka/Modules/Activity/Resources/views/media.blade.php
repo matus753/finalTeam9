@@ -10,8 +10,10 @@
     <h1>@lang('activity::activity.media')</h1>
 </section>
 <div id="emPAGEcontent" class="container">
-@foreach($media as $m)
-    <row>
+@foreach($media as $indexKey => $m)
+    @if($indexKey % 2 == 0)
+        <div class="row panel2">
+    @endif
         <div class="col-xs-6">
             <h4 class="title-media"> {{$m->title}} {{ format_time($m->date) }}</h4> - <p class="title-media">@lang('activity::activity.name'):  {{$m->media}}</p>
             <div class="panel">
@@ -33,7 +35,9 @@
                 @endif
             </div>
         </div>
-    </row>
+    @if($indexKey % 2 == 1)
+         </div>
+    @endif
 @endforeach
 </div>
 @stop

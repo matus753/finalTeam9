@@ -110,6 +110,13 @@ img.hover-shadow {
 .panel{
     padding-bottom: 35px;
     margin-bottom: 15px;
+    box-shadow: none;
+}
+
+.panel2{
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
 .video{

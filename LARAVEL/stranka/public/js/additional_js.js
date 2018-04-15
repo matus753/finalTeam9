@@ -133,3 +133,27 @@ function initMap() {
         });
     }
 }
+
+function myAlert(type, message) {
+    var div = document.getElementById('alert-div');
+    if(type === 'success') {
+        div.innerHTML = "<div id='alert' class='alert alert-success alert-dismissable fade in' style='position: fixed; z-index: 999999999999; top:8em; right:2em;'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong><br>" + message;
+        div.innerHTML += ".</div>";
+    }
+    if(type === 'warning') {
+        div.innerHTML = "<div id='alert' class='alert alert-warning alert-dismissable fade in' style='position: fixed; z-index: 999999999999; top:8em; right:2em;'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Warning!</strong><br>" + message;
+        div.innerHTML += ".</div>";
+    }
+    if(type === 'error') {
+        div.innerHTML = "<div id='alert' class='alert alert-error alert-dismissable fade in' style='position: fixed; z-index: 999999999999; top:8em; right:2em;'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Error!</strong><br>" + message;
+        div.innerHTML += ".</div>";
+    }
+    if(type === 'info') {
+        div.innerHTML = "<div id='alert' class='alert alert-info alert-dismissable fade in' style='position: fixed; z-index: 999999999999; top:8em; right:2em;'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Info!</strong><br>" + message;
+        div.innerHTML += ".</div>";
+    }
+    setTimeout(function() {
+        div.innerHTML = '';
+    }, 2000);
+}
+

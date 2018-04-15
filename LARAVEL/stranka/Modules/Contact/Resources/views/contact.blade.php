@@ -12,7 +12,7 @@
     <section class="banner banner--center" style="background-image: url('{{ URL::asset('images/banners/banner17.jpg') }}')">
         <h1>@lang('contact::contact.contact')</h1>
     </section>
-    <div id="emPAGEcontent" class="container" style="min-height: 530px">
+    <div id="emPAGEcontent" class="container contact">
         <div class="col-md-6">
             <div class="contact-left">
                 <fieldset>
