@@ -133,8 +133,8 @@
 							@endforeach
                         </ul>
                     </li>
-					<li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
-				</ul>
+                    <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
+                </ul>
             </div>
         </div>
     </nav>
