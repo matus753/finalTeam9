@@ -273,7 +273,6 @@ class Intranet_subjects extends Controller
         }
 
         $info = DB::table('subjects_info')->where('sub_id', $sub_id)->first();
-
         $subject = DB::table('subjects')->where('sub_id', $sub_id)->first();
 
         $data = [
@@ -293,6 +292,8 @@ class Intranet_subjects extends Controller
 
         $info_sk = $request->input('editor_content_sk');
         $info_en = $request->input('editor_content_en');
+        $duration_p = $request->input('prednaska');
+        $duration_c = $request->input('cvicenie');
 
         $info = DB::table('subjects_info')->where('sub_id', $sub_id)->first();
         if($info){
@@ -301,7 +302,7 @@ class Intranet_subjects extends Controller
                 'info_en' => $info_en
             ];
 
-            DB::table('subjects_info')->where('sub_id', $sub_id)->update();
+            DB::table('subjects_info')->where('sub_id', $sub_id)->update($data);
         }else{
             $data = [
                 'sub_id' => $sub_id,
@@ -312,6 +313,13 @@ class Intranet_subjects extends Controller
             DB::table('subjects_info')->insert($data);
         }
         
+        $data_s = [
+            'duration_p' => $duration_p,
+            'duration_c' => $duration_c
+        ];
+
+        DB::table('subjects')->where('sub_id', $sub_id)->update($data_s);
+
         return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);   
         
     }

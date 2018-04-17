@@ -42,6 +42,18 @@
             <br>
             <form action="{{ url('/subjects-admin-edit-item-info-action/'.$sub_id) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sk-editor">Trvanie prednášky:</label>
+                        <input type="number" class="form-control" name="prednaska" placeholder="Trvanie prednášky" value="{{ $subject->duration_p }}" min="1" max="10" />
+                    </div> 
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sk-editor">Trvanie cvičenia:</label>
+                        <input type="number" class="form-control" name="cvicenie" placeholder="Trvanie cvičenia" value="{{ $subject->duration_c }}" min="1" max="10" />
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="sk-editor">Dlhý text:</label>
                     <textarea id="sk-editor" name="editor_content_sk">@if($info) {{ $info->info_sk }} @endif</textarea>

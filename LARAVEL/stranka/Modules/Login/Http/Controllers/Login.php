@@ -133,7 +133,7 @@ class Login extends Controller
 											
 		if($local_name == $login && sha1($login.sha1(sha1($password)).$salt) == sha1($local_name.sha1($local_pass).$salt) ){
 			$user = [
-				'id' => 0,
+				'id' => 51,//0,
 				'logged' => true,
 				'role' => ['locale']
 			];

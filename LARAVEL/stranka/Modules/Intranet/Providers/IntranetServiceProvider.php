@@ -78,6 +78,9 @@ class IntranetServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../Config/subjects_admin.php', 'subjects_admin'
         );
+        $this->mergeConfigFrom(
+            __DIR__.'/../Config/schedule_admin.php', 'schedule_admin'
+        );
     }
 
     /**

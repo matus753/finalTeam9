@@ -186,7 +186,6 @@ Route::get('/documents-admin-delete-category/{id}', '\Modules\Intranet\Http\Cont
 Route::get('//documents-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_action');
 Route::get('/delete-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_file_action');
 
-// TODO prepojit subjects s ucitelmi
 /* Intranet Subjects OK */
 Route::get('/subjects-admin', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_all');
 Route::get('/subjects-admin-add-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_item');
@@ -197,10 +196,37 @@ Route::get('/subjects-admin-edit-item/{id}', '\Modules\Intranet\Http\Controllers
 Route::post('/subjects-admin-edit-item-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_edit_item_action');
 Route::get('/delete-subject-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_delete_single_file_action');
 Route::get('/subjects-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_delete_single_action');
-Route::get('/subjects-admin-edit-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@edit_subjects_info');
+Route::get('/subjects-admin-edit-info-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@edit_subjects_info');
 Route::post('/subjects-admin-edit-item-info-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@edit_subjects_info_action');
 Route::get('/subjects-admin-info-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@show_subjects_info');
 Route::get('/subjects-admin-subcategory-show/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@show_subcategory_info');
 
 /* Intranet schedule */
-Route::get('/schedule-admin', '\Modules\Intranet\Http\Controllers\Intranet_schedule@index');
+Route::get('/schedule-admin-subject', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_subject');
+
+// room
+Route::get('/schedule-admin-rooms', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_admin_rooms');
+Route::post('/schedule-admin-add-room-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_room_action');
+Route::post('/schedule-admin-edit-room-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_edit_room_action');
+Route::get('/schedule-admin-delete-room-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_delete_room_action');
+
+
+// year
+Route::get('/schedule-admin-season', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_admin_season');
+Route::post('/schedule-admin-activate-season', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_admin_activate_season');
+Route::post('/schedule-admin-add-school-year-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_year_action');
+
+// schedule
+Route::get('/schedule-admin-add-choose', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_choose');
+Route::post('/schedule-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add');
+Route::post('/schedule-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_action');
+Route::post('/schedule-admin-update-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_update_action');
+Route::post('/schedule-admin-delete', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_delete_action');
+
+// consultations
+Route::get('/schedule-admin-consultations', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_consultations');
+Route::post('/schedule-admin-consultations-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_consultations_action');
+
+
+Route::post('/ajax-get-subject-info', '\Modules\Intranet\Http\Controllers\Intranet_schedule@ajax_get_subject_info');
+

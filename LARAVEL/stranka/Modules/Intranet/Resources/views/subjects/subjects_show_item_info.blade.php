@@ -24,6 +24,12 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
+                    <p>Trvanie prednášky: {{ $subject->duration_p}} </p>
+                    <p>Trvanie cvičenia: {{ $subject->duration_c}} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     {!! $info->info !!}
                 </div>
             </div>
