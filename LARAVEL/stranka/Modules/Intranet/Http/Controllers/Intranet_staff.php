@@ -504,15 +504,15 @@ class Intranet_staff extends Controller
                     }
                 }
             }
-        } /*else {
-           
+        } else {
+
             $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->delete();
-            debug($res);
-            debug('lala', true);
+//            debug($res);
+//            debug('lala', true);
             if (!$res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
             }
-        }*/
+        }
         
         $data = [
             'name' => $name,
