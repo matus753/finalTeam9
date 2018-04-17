@@ -120,7 +120,7 @@ class About extends Controller
             'zOEAP' => $zOEAP
 
         ];
-        
+
         return view('about::institutes', $data);
     }
 }

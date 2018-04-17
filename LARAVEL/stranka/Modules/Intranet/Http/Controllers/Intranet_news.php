@@ -90,11 +90,11 @@ class Intranet_news extends Controller
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
 
-        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 32){
+        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 256){
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
 
-        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 32){
+        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
         
@@ -311,11 +311,11 @@ class Intranet_news extends Controller
             return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
 
-        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 32){
+        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 256){
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
 
-        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 32){
+        if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
             return redirect('/news-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max length 256 characters']);
         }
 
