@@ -319,6 +319,10 @@ function get_user_id(){
 	return false;
 }
 
+function getDay( $date ){
+	return (int)explode(".", $date)[0];
+}
+
 function getMonth( $date ){
 	return (int)explode(".", $date)[1];
 }

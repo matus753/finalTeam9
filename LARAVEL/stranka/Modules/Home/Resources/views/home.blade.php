@@ -120,18 +120,23 @@
 						$maxEvents = 0;
 					@endphp
 					@foreach($events as $key => $event)
-						@if ((getMonth(date("d.m.Y")) <= getMonth(format_time($key))) && (getYear(date("d.m.Y")) <= getYear(format_time($key))))
+						@if (((getMonth(date("d.m.Y")) < getMonth(format_time($key))) && (getYear(date("d.m.Y")) <= getYear(format_time($key)))) || ((getMonth(date("d.m.Y")) == getMonth(format_time($key))) && (getYear(date("d.m.Y")) <= getYear(format_time($key))) && (getDay(date("d.m.Y")) <= getDay(format_time($key)))))
 							@foreach($event as $e)
 								@if ($maxEvents < 5)
-								@if($e->url != null)
-									<h4><a href="{{ url($e->url) }}" target="_blank">{{  $e->name }} @if ($e->text)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text }}" class="fa fa-info-circle"></i> @endif	</a></h4>
-								@else
-									<h4>{{  $e->name }} @if ($e->text)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text }}" class="fa fa-info-circle"></i> @endif	</h4> 
-								@endif
-								<p>{{  format_time($key) }} 
+								<div class="title-date-row">
+									@if($e->url != null)
+										<h4 class="title"><a href="{{ url($e->url) }}" target="_blank">{{  $e->name }} @if ($e->text)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text }}" class="fa fa-info-circle"></i> @endif	</a></h4>
+									@else
+										<h4 class="title">{{  $e->name }} @if ($e->text)<i data-toggle="tooltip" data-placement="top" title="{{  $e->text }}" class="fa fa-info-circle"></i> @endif	</h4> 
+									@endif
+									<span class="date">{{  format_time($key) }} </span>
+								</div>
+								@if (($e->time) || ($e->place))
+								<p>
 									@if ($e->time), {{  $e->time }} @endif 
 									@if ($e->place), {{  $e->place }} @endif
 								</p>
+								@endif
 								@endif	
 								@php
 									if ($maxEvents > 4) {

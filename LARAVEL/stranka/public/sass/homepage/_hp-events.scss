@@ -41,7 +41,12 @@
 				cursor: pointer;
 			}
 		}
-		p {
+		.title-date-row {
+			.title, .date {
+				display: inline-block;
+			}
+		}
+		p, span {
 			font-size: 12px;
 		}
 		@media screen and (max-width: 991px) {
