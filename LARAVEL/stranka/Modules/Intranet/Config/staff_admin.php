@@ -32,10 +32,14 @@ return [
     ],
 
     'permission_roles' => [
-        //'user' => 'User', logicky neni automaticky kazdy user ?
+        'user' => 'User',
         'hr' => 'HR',
         'reporter' => 'Reporter',
         'editor' => 'Editor',
         'admin' => 'Admin',
+        'events' => 'Events',
+        'projects' => 'Projects',
+        'staff' => 'Staff',
+        'schedule' => 'Schedule'
     ]
 ];

@@ -123,7 +123,7 @@
                     </li>
                     <li><a href="{{ url('/contact') }}" class="navbarItem">@lang('menu.contact')</a></li>
                     @if(isLogged())
-					<li><a href="{{ url('/intranet') }}" class="navbarItem">Intranet</a></li> 
+					<li><a href="{{ url('/documents-admin') }}" class="navbarItem">Intranet</a></li> 
                     @endif
 					<li class="dropdown navbarIconSm">
                         <a href="#" class="dropdown-toggle navbarItem" data-toggle="dropdown"><span class="fa fa-globe"></span></a>
