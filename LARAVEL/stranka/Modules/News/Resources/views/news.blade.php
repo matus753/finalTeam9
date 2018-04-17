@@ -61,7 +61,7 @@ function check(){
 			</div>
 		</div>
 		
-		<div class="col-md-6">
+		<div id="no_print_div1" class="col-md-6">
             <form class="form-inline pull-right" method="GET" action="{{ url('/news') }}" >
                 <div class="form-group">
                     <label for="type_sel">Type:</label>

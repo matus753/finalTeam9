@@ -59,6 +59,18 @@
     .contact{
         min-height: inherit;
     }
+
+    .img-responsive{
+        max-width: 100px !important;
+    }
+
+    .btn{
+        display: none !important;
+    }
+
+    #no_print_div1{
+        display: none !important;
+    }
 }
 
 .slide-row {
