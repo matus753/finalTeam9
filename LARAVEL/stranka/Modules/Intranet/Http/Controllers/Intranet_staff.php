@@ -204,9 +204,6 @@ class Intranet_staff extends Controller
             $photo = null;/*config('staff_admin.default_imgs')['default_male_img'];*/
         }
 
-        
-
-
         $data = [
             'name' => $name,
             'surname' => $surname,
@@ -363,14 +360,15 @@ class Intranet_staff extends Controller
     }
 
     public function staff_edit_action( $s_id = 0, Request $request ){
+        
         if(!has_permission('admin')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
-
+       
         if(!is_numeric($s_id)){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item error!']);
         }
-        
+    
         $name = $request->input('name');
         $surname = $request->input('surname');
         $title1 = $request->input('title1');
@@ -484,25 +482,17 @@ class Intranet_staff extends Controller
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
-            $photo = DB::table('staff')->select('photo')->where('s_id', $s_id)->first();
-            /*if(!$original_img){
-                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal DB error!']);
-            }*/
-            /*if(array_search($original_img->photo, config('staff_admin.default_imgs')) == null){
-                $path = $path = base_path('storage/app/public/staff/').$original_img->photo;
-                if(is_file($path)){
-                    unlink($path);
-                }
-            }*/
-            //$photo = /*config('staff_admin.default_imgs')['default_male_img'];*/
+            $photo = DB::table('staff')->select('photo')->where('s_id', $s_id)->first()->photo;
         }
-
+        
         $db_func = DB::table('functions')->pluck('f_id')->toArray();
         $myFunc = $this->getFunctions($s_id);
         $myFunc = (!$myFunc) ? [] : $myFunc;
+        //var_dump($func);
         if(is_array($func)) {
             foreach ($db_func as $f) {
                 if (in_array($f, $func) && !in_array($f, $myFunc)) {
+                    
                     $res = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
                     if (!$res){
                         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -514,14 +504,16 @@ class Intranet_staff extends Controller
                     }
                 }
             }
-
-        } else {
+        } /*else {
+           
             $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->delete();
+            debug($res);
+            debug('lala', true);
             if (!$res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
             }
-        }
-
+        }*/
+        
         $data = [
             'name' => $name,
             'surname' => $surname,
@@ -537,6 +529,7 @@ class Intranet_staff extends Controller
             'email' => $email,
             'web' => $url
         ];
+        //debug($data, true);
 
         $res = DB::table('staff')->where('s_id', $s_id)->update($data);
         
