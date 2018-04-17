@@ -74,10 +74,11 @@ th{
 }
 .tableHead{
     font-size: 12px;
+    text-transform: uppercase;
 }
 .projectTitle{
     font-weight: bold;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .projectInfo{
     padding-left: 40px;
