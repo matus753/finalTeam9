@@ -33,12 +33,20 @@
                         <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                     </div>
                     <div class=" col-md-10">
-                        @foreach ($vOAMM as $s)
-                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                        @endforeach
-                        @foreach ($zOAMM as $s)
-                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                        @endforeach
+                        @if(count($vOAMM) == 0)
+                            <p>-</p>
+                        @else
+                            @foreach ($vOAMM as $s)
+                                <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                            @endforeach
+                        @endif
+                        @if(count($vOAMM) == 0)
+                            <p>-</p>
+                        @else
+                            @foreach ($zOAMM as $s)
+                                <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                            @endforeach
+                         @endif
                     </div>
                 </div>
                 <p class="sectText">@lang('about::aboutUs.oamm1')</p>
@@ -55,12 +63,20 @@
                         <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                     </div>
                     <div class="col-md-10">
+                        @if(count($vOIKR) == 0)
+                            <p>-</p>
+                        @else
                         @foreach ($vOIKR as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
+                        @endif
+                        @if(count($zOIKR) == 0)
+                            <p>-</p>
+                        @else
                         @foreach ($zOIKR as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
+                            @endif
                     </div>
                 </div>            
             <h5>@lang('about::aboutUs.depOIKRTitle1')</h5>
@@ -87,12 +103,20 @@
                     <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                 </div>
                 <div class="col-md-10">
+                    @if(count($vOEMP) == 0)
+                        <p>-</p>
+                    @else
                     @foreach ($vOEMP as $s)
                         <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                     @endforeach
+                    @endif
+                    @if(count($zOEMP) == 0)
+                        <p>-</p>
+                    @else
                     @foreach ($zOEMP as $s)
                         <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                     @endforeach
+                        @endif
                 </div>
             </div>
             <h5>@lang('about::aboutUs.depOEMPTitle1')</h5>
@@ -115,12 +139,20 @@
                         <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                     </div>
                     <div class="col-md-10">
+                        @if(count($vOEAP) == 0)
+                            <p>-</p>
+                        @else
                         @foreach ($vOEAP as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
+                        @endif
+                        @if(count($zOEAP) == 0)
+                            <p>-</p>
+                        @else
                         @foreach ($zOEAP as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
+                            @endif
                     </div>
                 </div>
                 <p class="sectText">@lang('about::aboutUs.later')</p>
