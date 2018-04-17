@@ -34,7 +34,15 @@
                         <label for="role">* Typ:</label>
                         <select class="form-control" name="type">
                             @foreach($types as $t)
-                                <option value="{{ $t }}" @if($item->projectType == $t) {{ 'selected' }} @endif >{{ $t }}</option>
+                                <option value="{{ $t }}" @if($item->projectType == $t) {{ 'selected' }} @endif >
+                                    @if(strcmp($t, 'other') == 0)
+                                        Iné domáce projekty
+                                    @elseif(strcmp($t, 'otherInternational') == 0)
+                                        Program EHP Slovakia – Mobility projects among universities
+                                    @else
+                                        {{ $t }}
+                                        @endif
+                                </option>
                             @endforeach
                         </select>
                     </div>

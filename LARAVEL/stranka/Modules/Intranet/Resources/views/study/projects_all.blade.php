@@ -32,8 +32,8 @@
                     <table id="projects-table" class="table table-stripped table-bordered intranet-table">
                         <thead>
                             <tr class="intranet-table__table-title">
-                                <th class="pCol1">Nadpis</th>
-                                <th class="pCol2">Typ</th>
+                                <th class="pCol1 projectType">Nadpis</th>
+                                <th class="pCol2 projectType">Typ</th>
                                 <th class="pCol3">Číslo projektu</th>
                                 <th class="pCol4"></th>
                             </tr>
@@ -41,8 +41,16 @@
                         <tbody>
                             @foreach($projects as $p)
                             <tr>
-                                <td class="pCol1">{{ $p->titleSK }}</td>
-                                <td class="pCol2">{{ $p->projectType }}</td>
+                                <td class="pCol1 projectType">{{ $p->titleSK }}</td>
+                                <td class="pCol2 projectType">
+                                    @if(strcmp($p->projectType, 'other') == 0)
+                                        Iné domáce projekty
+                                    @elseif(strcmp($p->projectType, 'otherInternational') == 0)
+                                        Program EHP Slovakia – Mobility projects among universities
+                                    @else
+                                        {{ $p->projectType }}
+                                    @endif
+                                </td>
                                 <td class="pCol3">{{ $p->number }}</td>
                                 <td class="pCol4">
                                     <a title="Edit" href="{{ url('/projects-admin-edit/'.$p->pr_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil-square-o "></span></a>

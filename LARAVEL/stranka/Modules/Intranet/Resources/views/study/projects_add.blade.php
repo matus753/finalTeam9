@@ -38,7 +38,13 @@
                             <label for="role">* Typ:</label>
                             <select class="form-control" name="type">
                                 @foreach($types as $t)
-                                    <option value="{{ $t }}">{{ $t }}</option>
+                                    @if(strcmp($t, 'other') == 0)
+                                        <option value="{{ $t }}">Iné domáce projekty</option>
+                                    @elseif(strcmp($t, 'otherInternational') == 0)
+                                        <option value="{{ $t }}">Program EHP Slovakia – Mobility projects among universities</option>
+                                    @else
+                                        <option value="{{ $t }}">{{ $t }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

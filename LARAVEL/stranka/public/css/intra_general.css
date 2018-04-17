@@ -297,8 +297,14 @@ ul.nav.navbar-nav.navbar-right.scrollable-menu{
 .pCol1{
     width: 55%;
 }
+.pCol1.projectType{
+    width: 45%;
+}
 .pCol2{
     width: 10%;
+}
+.pCol2.projectType{
+    width: 20%;
 }
 .pCol3{
     width: 20%;

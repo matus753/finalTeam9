@@ -26,7 +26,7 @@ return [
     'kocka' => '3D LED kocka',
     'biomech' => 'Biomechatronika',
     'cart' => 'Elektrická motokára',
-    'international' => 'MEDZINÁRODNÉ',
-    'other' => 'OSTATNÉ',
+    'otherInternational' => 'Program EHP Slovakia – Mobility projects among universities ',
+    'other' => 'Iné domáce projekty',
     'kockaPopis' => 'Zobrazená kocka bola vytvorená v rámci diplomovej práce. Bol k nej vytvorený vzdialený prístup cez Internet, čo umožňuje užívateľovi vkladať do kocky vlastný kód, ktorý ovplyvňuje jej správanie sa.'
 ];

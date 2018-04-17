@@ -45,7 +45,6 @@ class Intranet_projects extends Controller
             'types' => $types,
             'staff' => $staff
         ];
-        
         return view('intranet::study/projects_add', $data);
     }
 

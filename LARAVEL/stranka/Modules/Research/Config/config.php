@@ -2,7 +2,7 @@
 
 return [
     'name' => 'Research',
-	'db_international' => 'International',
+	'db_otherInternational' => 'otherInternational',
 	'db_kega' => 'KEGA',
 	'db_vega' => 'VEGA',
 	'db_apvv' => 'APVV',
