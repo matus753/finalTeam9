@@ -132,9 +132,10 @@ class Intranet_schedule extends Controller
             $all_days = false;
         }
         
-        if($year && is_numeric($year) && $year > 0 && is_numeric($semester)){
-            $year = DB::table('schedule_season')->where('sy_id', $year)->first();
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;
+            
         }else{
             $year = DB::table('schedule_season')->where('active', 1)->first();
             
@@ -219,7 +220,7 @@ class Intranet_schedule extends Controller
             'day_names' => $day_names,
             'semester' => $semester
         ];
-        debug($data, true);
+        //debug($data, true);
         return view('intranet::schedule/schedule_staff', $data);
     }
 
@@ -239,21 +240,23 @@ class Intranet_schedule extends Controller
             $all_days = false;
         }
         
-        if($year && is_numeric($year) && $year > 0){
-            $year = DB::table('schedule_season')->where('sy_id', $year)->first();
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
         }else{
             $year = DB::table('schedule_season')->where('active', 1)->first();
+            
             if(!$year){
                 $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
             }
         }
         
         if($room && is_numeric($room) && $room > 0){
             $room = DB::table('schedule_rooms')->where('sr_id', $room)->first();
-            $days_db = DB::table('lectures')
-                            ->where('room_id', $room->room)
-                            ->get();
-            
         }else{
             $room = null;
         }
@@ -264,7 +267,13 @@ class Intranet_schedule extends Controller
         if($room){
             foreach($day_names as $key => $dn){
                 $day_data = [];
-                $my_room = DB::table('lectures')->where('room_id', $room->sr_id)->where('day', $key)->get();
+                $my_room = DB::table('lectures')
+                                ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                ->where('lectures.room_id', $room->sr_id)
+                                ->where('lectures.day', $key)
+                                ->where('lectures.year', $year->sy_id)
+                                ->where('subjects.semester', $semester)
+                                ->get();
                 if(count($my_room)){
                     for($i = 0; $i < 15; $i++){
                         foreach($my_room as $m){
@@ -305,8 +314,7 @@ class Intranet_schedule extends Controller
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
 
         $all_rooms = DB::table('schedule_rooms')->get();
-        $other_years_db = DB::table('schedule_season')->pluck('year', 'sy_id')->toArray();
-        sort($other_years_db);
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
 
         $data = [ 
             'schedule_data' => $schedule_data,
@@ -340,23 +348,23 @@ class Intranet_schedule extends Controller
             $all_days = false;
         }
         
-        if($year && is_numeric($year) && $year > 0){
-            $year = DB::table('schedule_season')->where('sy_id', $year)->first();
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
         }else{
             $year = DB::table('schedule_season')->where('active', 1)->first();
+            
             if(!$year){
                 $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
             }
         }
-       
+        
         if($department && is_string($department) && strlen($department) > 0){
             $department = DB::table('staff')->where('department', $department)->first();
-            /*$days_db = DB::table('lectures')
-                            ->join('subjects_staff_rel', 'subjects_staff_rel.sub_id', '=', 'lectures.sub_id')
-                            ->join('staff', 'staff.s_id', '=', 'subjects_staff_rel.s_id')
-                            ->where('staff.department', $department->department)
-                            ->get();*/
-            
         }else{
             $department = null;
         }
@@ -368,7 +376,10 @@ class Intranet_schedule extends Controller
             $my_subjects_ids = DB::table('subjects')
                                 ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
                                 ->join('staff', 'staff.s_id', '=', 'subjects_staff_rel.s_id')
+                                ->join('lectures', 'subjects.sub_id', '=', 'lectures.sub_id')
                                 ->where('staff.department', $department->department)
+                                ->where('year', $year->sy_id)
+                                ->where('semester', $semester)
                                 ->pluck('subjects_staff_rel.sub_id');
             
             foreach($day_names as $key => $dn){
@@ -415,14 +426,13 @@ class Intranet_schedule extends Controller
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
 
         $all_departments = DB::table('staff')->select('department')->groupBy('department')->get();
-        $other_years_db = DB::table('schedule_season')->pluck('year', 'sy_id')->toArray();
-        sort($other_years_db);
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
 
         $data = [ 
             'schedule_data' => $schedule_data,
             'title' => $this->module_name, 
             'all_departments' => $all_departments,
-            'department' => $department,
+            'department' => $department->department,
             'other_years_db' => $other_years_db,
             'all_days' => $all_days,
             'year'  => $year,
@@ -430,7 +440,7 @@ class Intranet_schedule extends Controller
             'day_names' => $day_names,
             'semester' => $semester
         ];
-        
+       
         return view('intranet::schedule/schedule_departments', $data);
     }
     
@@ -450,12 +460,18 @@ class Intranet_schedule extends Controller
             $voidRooms = false;
         }
         
-        if($year && is_numeric($year) && $year > 0){
-            $year = DB::table('schedule_season')->where('sy_id', $year)->first();
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
         }else{
             $year = DB::table('schedule_season')->where('active', 1)->first();
+            
             if(!$year){
                 $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
             }
         }
        
@@ -470,7 +486,13 @@ class Intranet_schedule extends Controller
         if(is_numeric($day) && $day >= 0){   
             foreach($all_rooms as $r){
                 $day_data = [];
-                $my_schedule = DB::table('lectures')->where('room_id', $r->sr_id)->where('day', $day)->get();
+                $my_schedule = DB::table('lectures')
+                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                    ->where('room_id', $r->sr_id)
+                                    ->where('day', $day)
+                                    ->where('year', $year->sy_id)
+                                    ->where('semester', $semester)
+                                    ->get();
                
                 if(count($my_schedule)){
                     for($i = 0; $i < 15; $i++){
@@ -509,8 +531,7 @@ class Intranet_schedule extends Controller
         }
         
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
-        $other_years_db = DB::table('schedule_season')->pluck('year', 'sy_id')->toArray();
-        sort($other_years_db);
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
 
         $data = [ 
             'schedule_data' => $schedule_data,

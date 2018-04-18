@@ -55,7 +55,7 @@
             <form class="form-horizontal" method="GET" action="{{ url('/schedule-admin-departments') }}">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="select">Zamestnanci</label>
+                        <label for="select">Oddelenie</label>
                         <select class="form-control" id="select" name="department">
                             @foreach ($all_departments as $d) 
                                 <option value="{{ $d->department }}" @if($department) @if($d->department == $department) {{ 'selected' }} @endif @endif>{{ $d->department }}</option>
@@ -67,8 +67,8 @@
                     <div class="form-group">
                         <label for="select">Rok</label>                      
                         <select class="form-control" id="select" name="year">
-                            @foreach ($other_years_db as $key => $y) 
-                                <option value="{{ $key }}" @if($y == $year->year) {{ 'selected' }} @endif>{{ $y }}</option>
+                            @foreach ($other_years_db as $y) 
+                                <option value="{{ $y->year }}" @if($y->year == $year->year) {{ 'selected' }} @endif>{{ $y->year }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -78,7 +78,7 @@
                         <label for="select">Semester</label>                      
                         <select class="form-control" id="select" name="semester">
                             @foreach ($seasons as $s) 
-                                <option value="{{ $s->semester }}" @if($s->active) {{ 'selected' }} @endif>@if($s->semester == 0){{ 'Zimný' }}@else{{ 'Letný' }}@endif</option>
+                                <option value="{{ $s->semester }}" @if($s->semester == $semester) {{ 'selected' }} @endif>@if($s->semester == 0){{ 'Zimný' }}@else{{ 'Letný' }}@endif</option>
                             @endforeach
                         </select>
                     </div>
