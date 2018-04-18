@@ -28,6 +28,9 @@
                         <li><a href="{{ url('/schedule-admin-rooms') }}">Rozvrhy miestností</a></li>
                         <li><a href="{{ url('/schedule-admin-days') }}">Rozvrhy dňa v týždni</a></li>
                         <li><a href="{{ url('/schedule-admin-departments') }}">Rozvrhy oddelení</a></li>
+                        @if(has_permission('admin'))
+                        <li><a href="#">Skontrolovať rozvrhy</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -49,13 +52,13 @@
     <div class="row">
         <br>
         <div class="intra-div">
-            <form class="form-horizontal" method="GET" action="{{ url('/schedule-admin-subject') }}">
+            <form class="form-horizontal" method="GET" action="{{ url('/schedule-admin-staff') }}">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="select">Predmet</label>
-                        <select class="form-control" id="select" name="predmet">
-                            @foreach ($subjects as $s) 
-                                <option value="{{ $s->sub_id }}" @if($subject) @if($s->sub_id == $subject->sub_id) {{ 'selected' }} @endif @endif>{{ $s->title }}</option>
+                        <label for="select">Zamestnanci</label>
+                        <select class="form-control" id="select" name="staff">
+                            @foreach ($all_staff as $s) 
+                                <option value="{{ $s->s_id }}" @if($staff) @if($s->s_id == $staff->s_id) {{ 'selected' }} @endif @endif>{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -130,6 +133,8 @@
             </div>
         </div>
         @endif
+
+
     </div>
 </div>
 <script>

@@ -203,13 +203,18 @@ Route::get('/subjects-admin-subcategory-show/{id}', '\Modules\Intranet\Http\Cont
 
 /* Intranet schedule */
 Route::get('/schedule-admin-subject', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_subject');
+Route::get('/schedule-admin-staff', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_staff');
+Route::get('/schedule-admin-rooms', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_rooms');
+Route::get('/schedule-admin-departments', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_departments');
+Route::get('/schedule-admin-days', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_days');
+
+Route::post('/ajax-get-subject-info', '\Modules\Intranet\Http\Controllers\Intranet_schedule@ajax_get_subject_info');
 
 // room
-Route::get('/schedule-admin-rooms', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_admin_rooms');
+Route::get('/schedule-admin-rooms-add', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_admin_rooms');
 Route::post('/schedule-admin-add-room-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_room_action');
 Route::post('/schedule-admin-edit-room-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_edit_room_action');
 Route::get('/schedule-admin-delete-room-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_delete_room_action');
-
 
 // year
 Route::get('/schedule-admin-season', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_admin_season');
@@ -226,7 +231,8 @@ Route::post('/schedule-admin-delete', '\Modules\Intranet\Http\Controllers\Intran
 // consultations
 Route::get('/schedule-admin-consultations', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_consultations');
 Route::post('/schedule-admin-consultations-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_add_consultations_action');
+Route::post('/schedule-admin-consultations-edit-action', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_edit_consultations_action');
+Route::get('/schedule-admin-consultations-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_delete_consultations_action');
 
 
-Route::post('/ajax-get-subject-info', '\Modules\Intranet\Http\Controllers\Intranet_schedule@ajax_get_subject_info');
 

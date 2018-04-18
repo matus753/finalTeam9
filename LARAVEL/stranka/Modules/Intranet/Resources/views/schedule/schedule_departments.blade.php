@@ -28,6 +28,9 @@
                         <li><a href="{{ url('/schedule-admin-rooms') }}">Rozvrhy miestností</a></li>
                         <li><a href="{{ url('/schedule-admin-days') }}">Rozvrhy dňa v týždni</a></li>
                         <li><a href="{{ url('/schedule-admin-departments') }}">Rozvrhy oddelení</a></li>
+                        @if(has_permission('admin'))
+                        <li><a href="#">Skontrolovať rozvrhy</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -49,13 +52,13 @@
     <div class="row">
         <br>
         <div class="intra-div">
-            <form class="form-horizontal" method="GET" action="{{ url('/schedule-admin-subject') }}">
+            <form class="form-horizontal" method="GET" action="{{ url('/schedule-admin-departments') }}">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="select">Predmet</label>
-                        <select class="form-control" id="select" name="predmet">
-                            @foreach ($subjects as $s) 
-                                <option value="{{ $s->sub_id }}" @if($subject) @if($s->sub_id == $subject->sub_id) {{ 'selected' }} @endif @endif>{{ $s->title }}</option>
+                        <label for="select">Zamestnanci</label>
+                        <select class="form-control" id="select" name="department">
+                            @foreach ($all_departments as $d) 
+                                <option value="{{ $d->department }}" @if($department) @if($d->department == $department) {{ 'selected' }} @endif @endif>{{ $d->department }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -64,8 +67,8 @@
                     <div class="form-group">
                         <label for="select">Rok</label>                      
                         <select class="form-control" id="select" name="year">
-                            @foreach ($other_years_db as $y) 
-                                <option value="{{ $y->year }}" @if($y->year == $year->year) {{ 'selected' }} @endif>{{ $y->year }}</option>
+                            @foreach ($other_years_db as $key => $y) 
+                                <option value="{{ $key }}" @if($y == $year->year) {{ 'selected' }} @endif>{{ $y }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -75,7 +78,7 @@
                         <label for="select">Semester</label>                      
                         <select class="form-control" id="select" name="semester">
                             @foreach ($seasons as $s) 
-                                <option value="{{ $s->semester }}" @if($s->semester == $semester) {{ 'selected' }} @endif>@if($s->semester == 0){{ 'Zimný' }}@else{{ 'Letný' }}@endif</option>
+                                <option value="{{ $s->semester }}" @if($s->active) {{ 'selected' }} @endif>@if($s->semester == 0){{ 'Zimný' }}@else{{ 'Letný' }}@endif</option>
                             @endforeach
                         </select>
                     </div>
@@ -114,7 +117,7 @@
                                 @for($i =0; $i < 15; $i++)
                                 <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
                                     @if(is_array($sd[$i+7]))
-                                        {{ $sd[$i+7]['room'] }}
+                                        {{ $sd[$i+7]['subject'] }}
                                         @php
                                             
                                             $i += ($sd[$i+7]['duration'] - 1);
@@ -130,6 +133,8 @@
             </div>
         </div>
         @endif
+
+
     </div>
 </div>
 <script>

@@ -509,9 +509,9 @@ class Intranet_staff extends Controller
             $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->delete();
 //            debug($res);
 //            debug('lala', true);
-            if (!$res){
+            /*if (!$res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-            }
+            }*/
         }
         
         $data = [

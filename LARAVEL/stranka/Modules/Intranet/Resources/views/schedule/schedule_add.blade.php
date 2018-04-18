@@ -248,6 +248,7 @@
             'duration_c' : '{{ $subject->duration_c }}',
             'duration_p' : '{{ $subject->duration_p }}',
             'day' : $('#day').val(),
+            'year' : "{{ $active_year->sy_id }}"
         };
 
         $.ajax({
