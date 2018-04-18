@@ -40,10 +40,10 @@
                             @foreach($subject->subcategories as $s)
                                 <tr>
                                     <td class="col-md-2" style="padding-left:20px;">{{ $subject->abbrev }}</td>
-                                    <td class="col-md-9"><a href="{{ url('/subjects-admin-subcategory-show/'.$s->ss_id) }}">{{ $s->name_sk }}</a></td>
-                                    <td class="col-md-1 text-center">
-                                        <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil" ></span></a>
-                                        <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-sm" ><span class="fa fa-trash-o" ></span></a>
+                                    <td class="col-md-9" style="text-align: left;"><a href="{{ url('/subjects-admin-subcategory-show/'.$s->ss_id) }}">{{ $s->name_sk }}</a></td>
+                                    <td class="col-md-1">
+                                        <a href="{{ url('/subjects-admin-edit-item/'.$s->ss_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
+                                        <a href="{{ url('/subjects-admin-delete-item/'.$s->ss_id) }}" class="btn btn-danger btn-xs" ><span class="fa fa-trash-o" ></span></a>
                                     </td>
                                 </tr>
                             @endforeach
