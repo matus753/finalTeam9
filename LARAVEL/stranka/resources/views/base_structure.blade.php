@@ -90,6 +90,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ url('/doctoral') }}" class="navbarItem sectItemS">@lang('menu.phd_study')</a></li>
+                            <li><a href="{{ url('/schedule-subject') }}" class="navbarItem sectItemS">@lang('menu.schedule')</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

@@ -53,6 +53,14 @@ Route::get('/subjects/{id}', '\Modules\Study\Http\Controllers\Study@subjects');
 Route::get('/subject/{id}', '\Modules\Study\Http\Controllers\Study@subject');
 Route::get('/show-subject-item/{id}', '\Modules\Study\Http\Controllers\Study@show_subject_item');
 
+Route::get('/schedule-subject', '\Modules\Study\Http\Controllers\Study@schedule_subject');
+Route::get('/schedule-staff', '\Modules\Study\Http\Controllers\Study@schedule_staff');
+Route::get('/schedule-rooms', '\Modules\Study\Http\Controllers\Study@schedule_rooms');
+Route::get('/schedule-departments', '\Modules\Study\Http\Controllers\Study@schedule_departments');
+Route::get('/schedule-days', '\Modules\Study\Http\Controllers\Study@schedule_days');
+
+
+
 
 /* Research OK */
 Route::get('/projects', '\Modules\Research\Http\Controllers\Research@projects');

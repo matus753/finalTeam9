@@ -15,6 +15,12 @@ class Study extends Controller
      * @return Response
      */
 
+    private $module_name;
+ 
+    public function __construct(){
+        $this->module_name = config('study.name');
+    }
+
     public function getAvailableThesis($id){
         if(!is_numeric($id)){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
@@ -284,5 +290,525 @@ class Study extends Controller
         ];
 
         return view('study::subject_subcategory', $data);
+    }
+
+    /*
+    
+    SCHEDULE FRONT END
+    
+    */
+
+    public function schedule_subject( Request $request ){  
+        $year = $request->input('year');
+        $sel_subject = $request->input('predmet');
+        $semester = $request->input('semester');
+        $all_days = $request->input('voidDays');
+        
+        if($all_days){
+            $all_days = true;
+        }else{
+            $all_days = false;
+        }
+        
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+        }else{
+            $year = DB::table('schedule_season')->where('active', 1)->first();
+            
+            if(!$year){
+                $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
+            }
+        }
+        
+        if($sel_subject && is_numeric($sel_subject) && $sel_subject > 0 && $year){
+            $subject = DB::table('subjects')->where('sub_id', $sel_subject)->where('semester', $semester)->orWhere('semester', 2)->first();
+        }else{
+            $subject = null;
+        }
+        
+        $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
+        $schedule_data = [];
+        if($subject){
+            foreach($day_names as $key => $dn){
+                $day_data = [];
+                $tmp = DB::table('lectures')->where('sub_id', $subject->sub_id)->where('day', $key)->where('year', $year->sy_id)->select('start_time', 'room_id', 'type')->get();
+                if(count($tmp) > 0){
+                    for($i = 0; $i < 15; $i++){
+                        foreach($tmp as $t){
+                            if($t->start_time == ($i+7)){
+                                if($t->type == 'prednaska'){
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $subject->sub_id)->first()->duration_p,
+                                        'room' => DB::table('schedule_rooms')->where('sr_id', $t->room_id)->first()->room,
+                                        'color' => config('schedule_admin.prednaska_color')
+
+                                    ];
+                                }else{
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $subject->sub_id)->first()->duration_c,
+                                        'room' => DB::table('schedule_rooms')->where('sr_id', $t->room_id)->first()->room,
+                                        'color' => config('schedule_admin.cvicenie_color')
+                                    ];
+                                }
+                            
+                                break;
+                            }else{
+                                $day_data[$i+7] = null;
+                            }
+                        }
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+
+                if($all_days && !isset($schedule_data[$dn]) ){
+                    for($i = 0; $i < 15; $i++){
+                        $day_data[$i+7] = null;
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+            }
+        }
+       
+        $seasons = DB::table('schedule_season')->groupBy('semester')->get();
+        
+        
+        $all_subjects = DB::table('subjects')->where('semester', $semester)->orWhere('semester', 2)->get();
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get();
+     
+        $data = [ 
+            'schedule_data' => $schedule_data,
+            'title' => $this->module_name, 
+            'subjects' => $all_subjects,
+            'subject' => $subject,
+            'other_years_db' => $other_years_db,
+            'all_days' => $all_days,
+            'year'  => $year,
+            'seasons' => $seasons,  
+            'day_names' => $day_names,
+            'semester' => $semester
+        ];
+        //debug($data, true);
+        return view('study::schedule_subject', $data);
+    }
+
+    public function schedule_staff( Request $request ){     
+        $year = $request->input('year');
+        $staff = $request->input('staff');
+        $semester = $request->input('semester');
+        $all_days = $request->input('voidDays');
+        
+        if($all_days){
+            $all_days = true;
+        }else{
+            $all_days = false;
+        }
+        
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
+        }else{
+            $year = DB::table('schedule_season')->where('active', 1)->first();
+            
+            if(!$year){
+                $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
+            }
+        }
+        
+        if($staff && is_numeric($staff) && $staff > 0){
+            $staff = DB::table('staff')->where('s_id', $staff)->where('activated', 1)->first();
+        }else{
+            $staff = null;
+        }
+        
+        $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
+        $schedule_data = [];
+
+        if($staff){
+            $my_subjects_ids = DB::table('subjects')
+                                ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
+                                ->where('subjects_staff_rel.s_id', $staff->s_id)
+                                ->where('subjects.semester', $semester)
+                                ->pluck('subjects_staff_rel.sub_id');
+            
+            foreach($day_names as $key => $dn){
+                $day_data = [];
+                $my_schedule = DB::table('lectures')->whereIn('sub_id', $my_subjects_ids)->where('day', $key)->where('year', $year->sy_id)->get();
+                if(count($my_schedule)){
+                    for($i = 0; $i < 15; $i++){
+                        foreach($my_schedule as $m){
+                            if($m->start_time == ($i+7) && $m->day == $key){
+                                if($m->type == 'prednaska'){
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
+                                        'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'color' => config('schedule_admin.prednaska_color')
+
+                                    ];
+                                }else{
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
+                                        'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'color' => config('schedule_admin.cvicenie_color')
+                                    ];
+                                }
+                            
+                                break;
+                            }else{
+                                $day_data[$i+7] = null;
+                            }
+                        }
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+
+                if($all_days && !isset($schedule_data[$dn]) ){
+                    for($i = 0; $i < 15; $i++){
+                        $day_data[$i+7] = null;
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+            }
+        }
+        
+        $seasons = DB::table('schedule_season')->groupBy('semester')->get();
+
+        $all_staff = DB::table('staff')->where('activated', 1)->get();
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
+
+        $data = [ 
+            'schedule_data' => $schedule_data,
+            'title' => $this->module_name, 
+            'all_staff' => $all_staff,
+            'staff' => $staff,
+            'other_years_db' => $other_years_db,
+            'all_days' => $all_days,
+            'year'  => $year,
+            'seasons' => $seasons,  
+            'day_names' => $day_names,
+            'semester' => $semester
+        ];
+        //debug($data, true);
+        return view('study::schedule_staff', $data);
+    }
+
+    public function schedule_rooms( Request $request ){
+        $year = $request->input('year');
+        $room = $request->input('room');
+        $semester = $request->input('semester');
+        $all_days = $request->input('voidDays');
+        
+        if($all_days){
+            $all_days = true;
+        }else{
+            $all_days = false;
+        }
+        
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
+        }else{
+            $year = DB::table('schedule_season')->where('active', 1)->first();
+            
+            if(!$year){
+                $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
+            }
+        }
+        
+        if($room && is_numeric($room) && $room > 0){
+            $room = DB::table('schedule_rooms')->where('sr_id', $room)->first();
+        }else{
+            $room = null;
+        }
+        
+        $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
+        $schedule_data = [];
+        
+        if($room){
+            foreach($day_names as $key => $dn){
+                $day_data = [];
+                $my_room = DB::table('lectures')
+                                ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                ->where('lectures.room_id', $room->sr_id)
+                                ->where('lectures.day', $key)
+                                ->where('lectures.year', $year->sy_id)
+                                ->where('subjects.semester', $semester)
+                                ->get();
+                if(count($my_room)){
+                    for($i = 0; $i < 15; $i++){
+                        foreach($my_room as $m){
+                            if($m->start_time == ($i+7) && $m->day == $key){
+                                if($m->type == 'prednaska'){
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
+                                        'subject' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'color' => config('schedule_admin.prednaska_color')
+
+                                    ];
+                                }else{
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
+                                        'subject' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'color' => config('schedule_admin.cvicenie_color')
+                                    ];
+                                }
+                            
+                                break;
+                            }else{
+                                $day_data[$i+7] = null;
+                            }
+                        }
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+
+                if($all_days && !isset($schedule_data[$dn]) ){
+                    for($i = 0; $i < 15; $i++){
+                        $day_data[$i+7] = null;
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+            }
+        }
+        
+        $seasons = DB::table('schedule_season')->groupBy('semester')->get();
+
+        $all_rooms = DB::table('schedule_rooms')->get();
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
+
+        $data = [ 
+            'schedule_data' => $schedule_data,
+            'title' => $this->module_name, 
+            'all_rooms' => $all_rooms,
+            'room' => $room,
+            'other_years_db' => $other_years_db,
+            'all_days' => $all_days,
+            'year'  => $year,
+            'seasons' => $seasons,  
+            'day_names' => $day_names,
+            'semester' => $semester
+        ];
+    
+        return view('study::schedule_rooms', $data);
+    }
+
+    public function schedule_departments( Request $request ){
+        $year = $request->input('year');
+        $department = $request->input('department');
+        $semester = $request->input('semester');
+        $all_days = $request->input('voidDays');
+        
+        if($all_days){
+            $all_days = true;
+        }else{
+            $all_days = false;
+        }
+        
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
+        }else{
+            $year = DB::table('schedule_season')->where('active', 1)->first();
+            
+            if(!$year){
+                $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
+            }
+        }
+        
+        if($department && is_string($department) && strlen($department) > 0){
+            $department = DB::table('staff')->where('department', $department)->first();
+        }else{
+            $department = null;
+        }
+        
+        $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
+        $schedule_data = [];
+        
+        if($department){
+            $my_subjects_ids = DB::table('subjects')
+                                ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
+                                ->join('staff', 'staff.s_id', '=', 'subjects_staff_rel.s_id')
+                                ->join('lectures', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                ->where('staff.department', $department->department)
+                                ->where('year', $year->sy_id)
+                                ->where('semester', $semester)
+                                ->pluck('subjects_staff_rel.sub_id');
+            
+            foreach($day_names as $key => $dn){
+                $day_data = [];
+                $my_schedule = DB::table('lectures')->whereIn('sub_id', $my_subjects_ids)->where('day', $key)->get();
+              
+                if(count($my_schedule)){
+                    for($i = 0; $i < 15; $i++){
+                        foreach($my_schedule as $m){
+                            if($m->start_time == ($i+7) && $m->day == $key){
+                                if($m->type == 'prednaska'){
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
+                                        'subject' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'color' => config('schedule_admin.prednaska_color')
+
+                                    ];
+                                }else{
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
+                                        'subject' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'color' => config('schedule_admin.cvicenie_color')
+                                    ];
+                                }
+                            
+                                break;
+                            }else{
+                                $day_data[$i+7] = null;
+                            }
+                        }
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+
+                if($all_days && !isset($schedule_data[$dn]) ){
+                    for($i = 0; $i < 15; $i++){
+                        $day_data[$i+7] = null;
+                    }
+                    $schedule_data[$dn] = $day_data;
+                }
+            }
+            $department = $department->department;
+        }
+       
+        $seasons = DB::table('schedule_season')->groupBy('semester')->get();
+
+        $all_departments = DB::table('staff')->select('department')->groupBy('department')->get();
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
+       
+        $data = [ 
+            'schedule_data' => $schedule_data,
+            'title' => $this->module_name, 
+            'all_departments' => $all_departments,
+            'department' => $department,
+            'other_years_db' => $other_years_db,
+            'all_days' => $all_days,
+            'year'  => $year,
+            'seasons' => $seasons,  
+            'day_names' => $day_names,
+            'semester' => $semester
+        ];
+        
+        return view('study::schedule_departments', $data);
+    }
+    
+    public function schedule_days( Request $request ){
+        $year = $request->input('year');
+        $day = $request->input('day');
+        $semester = $request->input('semester');
+        $voidRooms = $request->input('voidRooms');
+        
+        if($voidRooms){
+            $voidRooms = true;
+        }else{
+            $voidRooms = false;
+        }
+        
+        if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
+            $year = DB::table('schedule_season')->where('year', $year)->first();
+            $semester = $semester;
+            
+        }else{
+            $year = DB::table('schedule_season')->where('active', 1)->first();
+            
+            if(!$year){
+                $year = null;
+                $semester = 0;
+            }else{
+                $semester = $year->semester;
+            }
+        }
+       
+        if(!$day && !is_numeric($day) && $day < 0){
+            $day = null;
+        }
+        
+        $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
+        $all_rooms = DB::table('schedule_rooms')->get();
+        $schedule_data = [];
+    
+        if(is_numeric($day) && $day >= 0){   
+            foreach($all_rooms as $r){
+                $day_data = [];
+                $my_schedule = DB::table('lectures')
+                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                    ->where('room_id', $r->sr_id)
+                                    ->where('day', $day)
+                                    ->where('year', $year->sy_id)
+                                    ->where('semester', $semester)
+                                    ->get();
+               
+                if(count($my_schedule)){
+                    for($i = 0; $i < 15; $i++){
+                        foreach($my_schedule as $m){
+                            if($m->start_time == ($i+7) && $m->day == $day){
+                                if($m->type == 'prednaska'){
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
+                                        'subject' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'color' => config('schedule_admin.prednaska_color')
+
+                                    ];
+                                }else{
+                                    $day_data[$i+7] = [
+                                        'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
+                                        'subject' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'color' => config('schedule_admin.cvicenie_color')
+                                    ];
+                                }
+                            
+                                break;
+                            }else{
+                                $day_data[$i+7] = null;
+                            }
+                        }
+                    }
+                    $schedule_data[$r->room] = $day_data;
+                }
+                if($voidRooms && !isset($schedule_data[$r->room]) ){
+                    for($i = 0; $i < 15; $i++){
+                        $day_data[$i+7] = null;
+                    }
+                    $schedule_data[$r->room] = $day_data;
+                }
+            }
+        }
+        
+        $seasons = DB::table('schedule_season')->groupBy('semester')->get();
+        $other_years_db = DB::table('schedule_season')->select('year')->distinct()->orderBy('year')->get()->toArray();
+
+        $data = [ 
+            'schedule_data' => $schedule_data,
+            'title' => $this->module_name, 
+            'day' => $day,
+            'other_years_db' => $other_years_db,
+            'voidRooms' => $voidRooms,
+            'year'  => $year,
+            'seasons' => $seasons,  
+            'day_names' => $day_names,
+            'semester' => $semester
+        ];
+        
+        return view('study::schedule_days', $data);
     }
 }

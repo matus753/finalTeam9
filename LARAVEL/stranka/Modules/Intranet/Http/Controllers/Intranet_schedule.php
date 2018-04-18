@@ -421,6 +421,7 @@ class Intranet_schedule extends Controller
                     $schedule_data[$dn] = $day_data;
                 }
             }
+            $department = $department->department;
         }
        
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
@@ -432,7 +433,7 @@ class Intranet_schedule extends Controller
             'schedule_data' => $schedule_data,
             'title' => $this->module_name, 
             'all_departments' => $all_departments,
-            'department' => $department->department,
+            'department' => $department,
             'other_years_db' => $other_years_db,
             'all_days' => $all_days,
             'year'  => $year,

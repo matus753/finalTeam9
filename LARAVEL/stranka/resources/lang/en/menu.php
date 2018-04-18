@@ -40,7 +40,7 @@ return [
     'subjects' => 'Predmety',
     'events' => 'Udalosti',
     'news' => 'Aktuality',
-    'schedule' => 'Rozvrh',
+    'schedule' => 'Schedule',
 
 
 ];
