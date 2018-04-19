@@ -31,10 +31,12 @@
                             @endif
                         @endforeach
                     </ul>
-                    <div id="add_item" ></div>
-                    <div class="table-responsive tableIntra">
-                        <table id="items" class="table-stripped table-bordered" style="width: 100%;"></table>
-                    </div>
+                    <div id="add_item" class="row"></div>
+                    <table class="table table-bordered table-stripped" id="items">
+                        <tbody>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -53,9 +55,9 @@
             },
         }).done(function(data){
             if(data['tab'] != null){
-                $('#add_item').empty().append('<a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary">Pridaj zaznam</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger">Zmazanie kategorie</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success">Edit kategorie</a>');
+                $('#add_item').empty().append('<div class="col-md-4"><a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary full-w">Pridaj záznam</a></div>');
+                $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger full-w">Zmazanie kategórie</a></div>');
+                $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success full-w">Edit kategórie</a></div>');
             }
             if(data['docs'] != null){
                 console.log(data['docs']);
@@ -63,8 +65,8 @@
                 for(let i = 0; i < data['docs'].length; i++){
                     $('#items').append('<tr class="well well-default">' +
                         '<td class=""><a style="padding-left: 20px;" href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a></td>'+
-                        '<td class="" style="width: 100px;"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right"><span class="fa fa-trash-o "></span></a>'+
-                        '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right"><span class="fa fa-pencil-square-o "></span></a></td>'+
+                        '<td class="text-center" style="width: 100px;"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger btn-sm"><span class="fa fa-trash-o "></span></a>'+
+                        '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success btn-sm"><span class="fa fa-pencil-square-o "></span></a></td>'+
                         '</tr>');
                 }
             }
@@ -86,9 +88,9 @@
             $clicked_tab.parent().addClass('active');
             
             if(data['tab'] != null){
-                $('#add_item').empty().append('<a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary">Pridaj zaznam</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger">Zmazanie kategorie</a>');
-                $('#add_item').append('<a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success">Edit kategorie</a>');
+                $('#add_item').empty().append('<div class="col-md-4"><a href="{{ url("/documents-admin-add-item") }}/'+data['tab']+'" class="btn btn-primary full-w">Pridaj záznam</a></div>');
+                $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-delete-category") }}/'+data['tab']+'" class="btn btn-danger full-w">Zmazanie kategórie</a></div>');
+                $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success full-w">Edit kategórie</a></div>');
             }
             if(data['docs'] != null){
                 $('#items').empty();

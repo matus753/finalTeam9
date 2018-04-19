@@ -82,49 +82,59 @@
 
 </script>
 <div id="emPAGEcontent" class="container">
-    <br>
-	<div class="row">
-		<div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="pull-left">
-                        <a href="{{ url('/documents-admin') }}" class="btn btn-primary"> Späť </a>
+    <div class="intra-div">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="pull-left">
+                    <a href="{{ url('/documents-admin') }}" class="btn btn-primary btn-back"> Späť </a>
+                </div>
+                <h2>Pridanie noveho zaznamu do kategórie {{ $category->name_sk }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <form action="{{ url('/documents-admin-add-item-action') }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="hidden" name="save_to" value="{{ $hash_id }}" />
+        <input type="hidden" name="category" value="{{ $category->hash_name }}" />
+        <input type="hidden" name="category_id" value="{{ $category->dc_id }}" />
+
+        <div class="row">
+            <div class="col-md-5 col-md-offset-1">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="title_sk">Slovenský nadpis:</label>
+                        <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
                     </div>
-                    <div class="text-center">
-                        <h3>Pridanie noveho zaznamu do kategorie {{ $category->name_sk }}</h3>
+                    <div class="form-group">
+                        <label for="sk-editor">Dlhý text:</label>
+                        <textarea rows="8" class="form-control" id="sk-editor" name="editor_content_sk"></textarea>
                     </div>
                 </div>
             </div>
-            <br>
-            <form action="{{ url('/documents-admin-add-item-action') }}" method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <input type="hidden" name="save_to" value="{{ $hash_id }}" />
-                <input type="hidden" name="category" value="{{ $category->hash_name }}" />
-                <input type="hidden" name="category_id" value="{{ $category->dc_id }}" />
+
+            <div class="col-md-5 col-md-offset-1">
                 <div class="form-group">
-                    <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                    <div class="form-group">
+                        <label for="title_en">Anglický nadpis:</label>
+                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="en-editor">Long text:</label>
+                        <textarea rows="8" class="form-control" id="en-editor"  name="editor_content_en"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
-                </div>
-                <div class="form-group">
-                    <label for="sk-editor">Dlhý text:</label>
-                    <textarea id="sk-editor" name="editor_content_sk"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="en-editor">Long text:</label>
-                    <textarea id="en-editor"  name="editor_content_en"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="dropzone">Additional files:</label>
-                    <div class="dropzone" id="dropzone"></div>
-                </div>
-                <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
-            </form>
-		</div>
-	</div>
-</div>  
+            </div>
+        </div>
+
+        <div class="row text-center lastButton">
+            <div class="form-group col-md-offset-1">
+                <label for="dropzone">Additional files:</label>
+                <div class="dropzone" id="dropzone"></div>
+            </div>
+            <input type="submit" class="btn btn-success" value="Pridaj" />
+        </div>
+    </form>
+</div>
 
 @stop
