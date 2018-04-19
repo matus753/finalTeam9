@@ -33,8 +33,8 @@
                                 <th class="col-md-2">{{ $subject->abbrev }}</th>
                                 <th class="col-md-9"><a href="{{ url('/subjects-admin-info-item/'.$subject->sub_id) }}" >{{ $subject->title }}</a></th>
                                 <th class="col-md-1 text-center">
-                                    <a href ="{{ url('/subjects-admin-edit-info-item/'.$subject->sub_id) }}" class="btn btn-success btn-xs" ><span class="fa fa-pencil" ></span></a>
-                                    <a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-xs" ><span class="fa fa-plus" ></span></a>
+                                    <a href ="{{ url('/subjects-admin-edit-info-item/'.$subject->sub_id) }}" class="btn btn-success btn-sm" ><span class="fa fa-pencil" ></span></a>
+                                    <a href ="{{ url('/subjects-admin-add-item/'.$subject->sub_id) }}" class="btn btn-primary btn-sm" ><span class="fa fa-plus" ></span></a>
                                 </th>
                             </tr>
                             @foreach($subject->subcategories as $s)
