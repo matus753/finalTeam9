@@ -11,13 +11,13 @@
 <div id="emPAGEcontent">
     <div class="container">
         <div class="sectContent row">
-            <div class="col-md-6">
+            <div id="about_div_1" class="col-md-6">
                 <p class="sectText2 bold">@lang('about::aboutUs.head')</p>
                 <p class="sectText2 bold">@lang('about::aboutUs.deputy1')</p>
                 <p class="sectText2 bold">@lang('about::aboutUs.deputy2')</p>
                 <p class="sectText2 bold">@lang('about::aboutUs.deputy3')</p>
             </div>
-            <div class="col-md-6">
+            <div id="about_div_2" class="col-md-6">
                 @foreach ($staff1all as $staff1)
                     <p class="sectText2">@if(strcmp($staff1->title1, '' > 1)){{$staff1->title1}}@endif {{$staff1->name}} {{$staff1->surname}}@if(strcmp($staff1->title2, '' > 1)), @endif{{$staff1->title2}}</p>
                 @endforeach
