@@ -86,19 +86,19 @@
                 </div>
                 <div class="form-group">
                     <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="* Slovenský nadpis" required />
                 </div>
                 <div class="form-group">
                     <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="* Anglický nadpis" required />
                 </div>
                 <div class="form-group">
                     <label for="preview_sk">Ukážkový text SK:</label>
-                    <input type="text" class="form-control" id="preview_sk" name="preview_sk" placeholder="Slovenský preview text" required />
+                    <input type="text" class="form-control" id="preview_sk" name="preview_sk" placeholder="* Slovenský preview text" required />
                 </div>
                 <div class="form-group">
                     <label for="preview_en">Ukážkový text EN:</label>
-                    <input type="text" class="form-control" id="preview_en" name="preview_en" placeholder="Anglický preview text" required />
+                    <input type="text" class="form-control" id="preview_en" name="preview_en" placeholder="* Anglický preview text" required />
                 </div>
                 <div class="form-group">
                     <label for="image">Ukážkový obrázok:</label>

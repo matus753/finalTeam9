@@ -104,7 +104,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="title_sk">Slovenský nadpis:</label>
-                        <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                        <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="* Slovenský nadpis" required />
                     </div>
                     <div class="form-group">
                         <label for="sk-editor">Dlhý text:</label>
@@ -117,7 +117,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="title_en">Anglický nadpis:</label>
-                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                        <input type="text" class="form-control" id="title_en" name="title_en" placeholder="* Anglický nadpis" required />
                     </div>
                     <div class="form-group">
                         <label for="en-editor">Long text:</label>

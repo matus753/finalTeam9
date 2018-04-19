@@ -22,13 +22,13 @@
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label for="title_sk">Slovenský nadpis:</label>
-                        <input type="text" class="form-control" id="title_sk" name="title_sk" value="{{ $item->name_sk }}" placeholder="Slovenský nadpis" required />
+                        <input type="text" class="form-control" id="title_sk" name="title_sk" value="{{ $item->name_sk }}" placeholder="* Slovenský nadpis" required />
                     </div>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
                         <label for="title_en">Anglický nadpis:</label>
-                        <input type="text" class="form-control" id="title_en" name="title_en" value="{{ $item->name_en }}" placeholder="Anglický nadpis" required />
+                        <input type="text" class="form-control" id="title_en" name="title_en" value="{{ $item->name_en }}" placeholder="* Anglický nadpis" required />
                     </div>
                 </div>
                 <div class="row text-center lastButton">
