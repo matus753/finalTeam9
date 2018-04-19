@@ -228,8 +228,12 @@ class Intranet_staff extends Controller
         }
         
         $db_func = DB::table('functions')->pluck('f_id')->toArray();
+        
         if($res){
-            if(is_array($func)) {
+            debug($func);
+            debug($s_id);
+            if($func && is_array($func) && count($func) > 0) {
+                
                 foreach($func as $f){
                     if(in_array($f,$db_func)){
                         $resFunc = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
@@ -243,8 +247,9 @@ class Intranet_staff extends Controller
                     }
                 }
             } else{
-                DB::table('staff')->where('s_id', $s_id)->delete();
-                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                //debug('lala', true);
+                DB::table('staff_function')->where('id_staff', $s_id)->delete();
+                //return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
             }
             
             $subjects_staff = $request->input('subjects_staff');
@@ -555,9 +560,9 @@ class Intranet_staff extends Controller
         }
 
         $res = (bool)DB::table('staff_function')->where('id_staff', $s_id)->delete();
-        if (!$res){
+        /*if (!$res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-        }
+        }*/
 
         $res = (bool) DB::table('staff')->where('s_id', $s_id)->delete();
         if(!$res){

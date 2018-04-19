@@ -112,7 +112,23 @@ class Intranet_attendance extends Controller
         if(!is_string($table)){
             return response()->json(['error' => 'Failed'], 400);
         }
-        $table = '<html><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><style>*{ font-family: DejaVu Sans !important;}</style>'.$table.'</html>';
+        $table = '<html>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                    <style>
+                        *{ 
+                            font-family: DejaVu Sans !important;
+                            font-size: 50%;
+                        }
+                        table th tr{
+                            border: 2px solid black;
+                            
+                        }
+                        td{
+                            border: 1px solid darkgrey;
+                            width: 3%;
+                        }
+                    </style>'.$table.'</html>';
+                    
         $dompdf = new Dompdf();
         $dompdf->loadHtml($table);
         $dompdf->setPaper('A4', 'landscape');
