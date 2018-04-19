@@ -17,9 +17,13 @@ class News extends Controller
 		$module_name = config('news.name');
 		$pages_count = config('news.items_per_page');
 		
-		$filter = -1;
+		/*$filter = -1;
 		if($request->input('type')){
-			$filter = $_GET['type'];
+			$filter = $request->input('type');
+		}*/
+		$filter = $request->input('type');
+		if(!is_numeric($filter)){
+			$filter = -1;
 		}
 
 		$expired = 0;
@@ -66,7 +70,7 @@ class News extends Controller
 			'expired' => $expired,
             'today' => $today
 		];
-		
+		//debug($data);
         return view('news::news', $data);
     }
 
