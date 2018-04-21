@@ -4,6 +4,7 @@
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/intranet.css') }}" rel="stylesheet">
 <script src="{{ URL::asset('js/jquery-ui.js') }}"></script>
+<link rel="stylesheet" href="{{ URL::asset('css/study.css') }}">
 @stop
 
 @section('content_admin')
@@ -57,7 +58,15 @@ tbody tr:hover{
 			</div>
 			@if(has_permission('hr')) 
 			<div class="col-md-2">
-				<button class="btn btn-success pull-right" id="PDF">Generate PDF</button>
+				<div class="dropdown">
+					<button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Generate PDF
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu" style="padding: 0;">
+					  	<li><a onclick="teachers()">Vyučujúci</a></li>
+					  	<li><a onclick="doktorands()">Doktoranti</a></li>
+					</ul>
+					<i id="loading" class="fa fa-spinner fa-pulse fa-fw waitIcon" style="visibility: hidden;"></i>
+				</div>
 			</div>
 			@endif
 		</div>
@@ -127,8 +136,8 @@ tbody tr:hover{
 	</div>
 </div>   
 <script>
-	var year;
-	var month;
+	var year = {{ $curr_year }};
+	var month = {{ $curr_month }};
 
 	$('#year').on('change', function(){
 		year = $('#year').val();
@@ -153,8 +162,9 @@ tbody tr:hover{
 		});
 	});
 
-	$('#PDF').on('click', function(){
-		var data = { 'table' : $('#rdata').html(), 'year' : year, 'month' : month };
+	function teachers(){
+		var data = { 'type' : 'teacher', 'year' : year, 'month' : month };
+		$('#loading').css('visibility','visible');
 		$.ajax({
 			url : '{{ url("/attendance-pdf-admin-ajax") }}',
 			data : data,
@@ -163,9 +173,30 @@ tbody tr:hover{
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
 		}).done(function(data){
+			$('#loading').css('visibility','hidden');
 			window.location = '{{ url("/attendance-pdf-download") }}'
+		}).fail(function(data){
+			$('#loading').css('visibility','hidden');
 		});
-	});
+	}
+
+	function doktorands(){
+		var data = { 'type' : 'doktorand', 'year' : year, 'month' : month };
+		$('#loading').css('visibility','visible');
+		$.ajax({
+			url : '{{ url("/attendance-pdf-admin-ajax") }}',
+			data : data,
+			type : "POST",
+			headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+		}).done(function(data){
+			$('#loading').css('visibility','hidden');
+			window.location = '{{ url("/attendance-pdf-download") }}'
+		}).fail(function(data){
+			$('#loading').css('visibility','hidden');
+		});
+	}
 	@endif
 
 	$(function () {

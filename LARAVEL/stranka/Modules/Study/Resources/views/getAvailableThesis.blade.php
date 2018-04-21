@@ -2,10 +2,11 @@
 
 @section('additional_headers')
     <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('css/study.css') }}">
 @stop
 
 @section('content')
-    <link rel="stylesheet" href="{{ URL::asset('css/study.css') }}">
+    
     <section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner_study3.jpeg') }}')">
         @if(session()->get('locale') === 'sk')
             <h1 >@lang('study::study.available') {{$typ}} @lang('study::study.thesis')</h1>

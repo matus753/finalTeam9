@@ -107,28 +107,61 @@ class Intranet_attendance extends Controller
         if(!has_permission('hr')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
+        
+        $type = $request->input('type');
+        $year = $request->input('year');
+        $month = $request->input('month');
 
-        $table = $request->input('table');
-        if(!is_string($table)){
+        if(!$type || !is_string($type) || !is_numeric($year) || $year < 0 || !is_numeric($month) || $month > 12 || $month < 1){
             return response()->json(['error' => 'Failed'], 400);
         }
-        $table = '<html>
-                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-                    <style>
-                        *{ 
-                            font-family: DejaVu Sans !important;
-                            font-size: 50%;
+
+        if($type == 'teacher'){
+            $staff = $staff = DB::table('staff')->where('staffRole', '!=', 'doktorand')->get();
+        }elseif($type == 'doktorand'){
+            $staff = $staff = DB::table('staff')->where('staffRole', 'doktorand')->get();
+        }else{
+            return response()->json(['error' => 'Failed'], 400);
+        }
+
+        $mesiace = [
+            'Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December',
+        ];
+        $n_curr_month_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $staff_attendance = DB::table('nepritomnosti')
+                            ->join('typ_nepritomnosti', 'id_typu', '=', 't_id')
+                            ->where('rok', $year)
+                            ->where('mesiac', $month)
+                            ->orderBy('den')
+                            ->get();
+
+        $staff_attendance = (!$staff_attendance) ? [] : $staff_attendance;
+        foreach($staff as $s){
+            $tmp2 = [];
+            $skratky = [];
+
+            foreach($staff_attendance as $sa){
+                if($s->s_id == $sa->id_zamestnanca){
+                    for($i = 1; $i < $n_curr_month_days+1; $i++){
+                        if($sa->den == $i){
+                            $skratky[$i] = strtolower($sa->skratka);
                         }
-                        table th tr{
-                            border: 2px solid black;
-                            
-                        }
-                        td{
-                            border: 1px solid darkgrey;
-                            width: 3%;
-                        }
-                    </style>'.$table.'</html>';
-                    
+                    }
+                }
+            }
+            $tmp2['skratky'] = $skratky;
+            $s->att = $tmp2;
+        }
+
+        $data = [
+            'mesiace' => $mesiace,
+            'staff' => $staff,
+            'mesiac' => $month,
+            'rok' => $year,
+            'num_days' => $n_curr_month_days,
+        ];
+        
+        $table =  view('intranet::attendance/pdf_table', $data)->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($table);
         $dompdf->setPaper('A4', 'landscape');
