@@ -154,9 +154,16 @@ class Intranet_news extends Controller
         
         $res = DB::table('news')->insertGetId($data);
         if($res){
+            if($editor_sk != null && $editor_en != null){
+                sendNews($title_sk, $editor_sk, $title_en, $editor_en);
+            }else{
+                sendNews($title_sk, $preview_sk, $title_en, $preview_en);
+            }
+            
             DB::table('deletor')->where('type', 'news')->where('path', $hash_id)->delete();
             return redirect('/news-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item inserted!']);
         }
+
         return redirect('/news-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
 

@@ -383,3 +383,23 @@ function storage_deletor($type = ""){
 	
 	return false;
 }
+
+
+function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
+    $recepients  = DB::table('newsletter')->get();
+    $header = "From: UAM FEI \r\n";
+
+	$email = $recepients['email'];
+	$lang_db = $recepients['lang'];
+
+	if($lang_db == "SK"){
+		if(!empty($_title_sk) && !empty($_content_sk)){
+			mail($email, $_title_sk, $_content_sk, $header);
+		}
+	}
+	if($lang_db == "EN"){
+		if(!empty($_title_en) && !empty($_content_en)){
+			mail($email, $_title_en, $_content_en, $header);
+		}
+	}
+}
