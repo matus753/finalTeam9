@@ -386,20 +386,21 @@ function storage_deletor($type = ""){
 
 
 function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
-    $recepients  = DB::table('newsletter')->get();
-    $header = "From: UAM FEI \r\n";
+	$recepients  = DB::table('newsletter')->get();
+	$header = "From: UAM FEI \r\n";
+	foreach($recepients as $r){
+		$email = $r->email;
+		$lang_db = $r->lang;
 
-	$email = $recepients['email'];
-	$lang_db = $recepients['lang'];
-
-	if($lang_db == "SK"){
-		if(!empty($_title_sk) && !empty($_content_sk)){
-			mail($email, $_title_sk, $_content_sk, $header);
+		if($lang_db == "SK"){
+			if(!empty($_title_sk) && !empty($_content_sk)){
+				mail($email, $_title_sk, $_content_sk, $header);
+			}
 		}
-	}
-	if($lang_db == "EN"){
-		if(!empty($_title_en) && !empty($_content_en)){
-			mail($email, $_title_en, $_content_en, $header);
+		if($lang_db == "EN"){
+			if(!empty($_title_en) && !empty($_content_en)){
+				mail($email, $_title_en, $_content_en, $header);
+			}
 		}
 	}
 }
