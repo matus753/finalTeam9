@@ -34,6 +34,7 @@ class Research extends Controller
 			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->get();
 		}
 
+
 		$arr = array($projects_db_international, $projects_db_kega, $projects_db_vega, $projects_db_apvv, $projects_db_other);
 
 		foreach ($arr as $p_cat){
@@ -53,6 +54,12 @@ class Research extends Controller
             }
         }
 
+        $projects_db_kega = $this->sortProjectsByDate($projects_db_kega);
+        $projects_db_international = $this->sortProjectsByDate($projects_db_international);
+        $projects_db_vega = $this->sortProjectsByDate($projects_db_vega);
+        $projects_db_apvv = $this->sortProjectsByDate($projects_db_apvv);
+        $projects_db_other = $this->sortProjectsByDate($projects_db_other);
+
 		$data = [
 			'title' => $module_name,
 			'international' => $projects_db_international,
@@ -62,6 +69,49 @@ class Research extends Controller
 			'other' => $projects_db_other
 		];
         return view('research::projects', $data);
+    }
+
+    function sortFunction( $a, $b ) {
+        return strtotime($a) - strtotime($b);
+    }
+
+    public function sortProjectsByDate($arr){
+        $map = array();
+        foreach ($arr as $key=>$value){
+            $duration = $value->duration;
+            $duration = explode("-", $duration);
+            //iba rok
+            $tmp = array();
+            $tmp["index"] = $key;
+            if(count($duration) == 1){
+                if (is_numeric($duration[0])){
+                    $tmp["date"] = "12.12.".$duration[0];
+                } else{
+                    $duration[0] = str_replace(' ', '', $duration[0]);
+                    $tmp["date"] = $duration[0];
+                }
+            } else {
+                if (is_numeric($duration[1])){
+                    $tmp["date"] = "12.12.".$duration[1];
+                } else{
+                    $duration[1] = str_replace(' ', '', $duration[1]);
+                    $tmp["date"] = $duration[1];
+                }
+            }
+            array_push($map, $tmp);
+        }
+
+        usort($map, function($a, $b) {
+            return strtotime($a["date"]) - strtotime($b["date"]);
+        });
+
+        $newArr = array();
+        for ($i = count($map)-1; $i > -1; $i--){
+            array_push($newArr, $arr[$map[$i]["index"]]);
+        }
+
+
+        return $newArr;
     }
 
 	public function ekart()
