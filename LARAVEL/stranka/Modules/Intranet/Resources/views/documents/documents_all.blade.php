@@ -19,7 +19,7 @@
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
-            <h2>Administácia dokumentov</h2>
+            <h2>Administrácia dokumentov</h2>
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" id="tabs">

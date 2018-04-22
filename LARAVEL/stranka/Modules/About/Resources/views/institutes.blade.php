@@ -25,62 +25,76 @@
 <div>
     <div class="container">
         <!--Department 1 -->
-        <div class="sectContent" id="dep_OAMM">
-                <h4 class="ustavTitle">@lang('about::aboutUs.depOAMM')</h4>
-                <div class="sectText row col-lg-12">
-                    <div class="col-md-2">
-                        <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                        <p class="bold">@lang('about::aboutUs.depHead2'): </p>
-                    </div>
-                    <div class=" col-md-10">
-                        @if(count($vOAMM) == 0)
-                            <p>-</p>
-                        @else
-                            @foreach ($vOAMM as $s)
-                                <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                            @endforeach
-                        @endif
-                        @if(count($vOAMM) == 0)
-                            <p>-</p>
-                        @else
-                            @foreach ($zOAMM as $s)
-                                <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                            @endforeach
-                         @endif
-                    </div>
+        <div id="dep_OAMM" class="institute">
+            <h4 class="ustavTitle">@lang('about::aboutUs.depOAMM')</h4>
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead')</p>
                 </div>
-                <p class="sectText">@lang('about::aboutUs.oamm1')</p>
-                <p class="sectText">@lang('about::aboutUs.oamm2')</p>
-                <p class="sectText">@lang('about::aboutUs.oamm3')</p>
+                <div  class="col-md-10">
+                    @if(count($vOAMM) == 0)
+                        <p>-</p>
+                    @else
+                        @foreach ($vOAMM as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead2')</p>
+                </div>
+                <div  class="col-md-10">
+                    @if(count($vOAMM) == 0)
+                        <p>-</p>
+                    @else
+                        @foreach ($zOAMM as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+            <p class="sectText">@lang('about::aboutUs.oamm1')</p>
+            <p class="sectText">@lang('about::aboutUs.oamm2')</p>
+            <p class="sectText">@lang('about::aboutUs.oamm3')</p>
         </div>
 
+
         <!--Department 2 -->
-        <div class="sectContent" id="dep_OIKR">
+        <div id="dep_OIKR" class="institute">
             <h4 class="ustavTitle" id="secH32">@lang('about::aboutUs.depOIKR')</h4>
-                <div class="sectText row col-lg-12">
-                    <div class="col-md-2">
-                        <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                        <p class="bold">@lang('about::aboutUs.depHead2'): </p>
-                    </div>
-                    <div class="col-md-10">
-                        @if(count($vOIKR) == 0)
-                            <p>-</p>
-                        @else
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead')</p>
+                </div>
+                <div  class="col-md-10">
+                    @if(count($vOIKR) == 0)
+                        <p>-</p>
+                    @else
                         @foreach ($vOIKR as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
-                        @endif
-                        @if(count($zOIKR) == 0)
-                            <p>-</p>
-                        @else
+                    @endif
+                </div>
+            </div>
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead2')</p>
+                </div>
+                <div  class="col-md-10">
+                    @if(count($zOIKR) == 0)
+                        <p>-</p>
+                    @else
                         @foreach ($zOIKR as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
-                            @endif
-                    </div>
-                </div>            
-            <h5>@lang('about::aboutUs.depOIKRTitle1')</h5>
-            <ul>                   
+                    @endif
+                </div>
+            </div>
+            <div class="sectContent">
+            <h5 class="sectText">@lang('about::aboutUs.depOIKRTitle1')</h5>
+            <ul>
                 <li>@lang('about::aboutUs.depOIKRT_li1')</li>
                 <li>@lang('about::aboutUs.depOIKRT_li2')</li>
                 <li>@lang('about::aboutUs.depOIKRT_li3')</li>
@@ -93,34 +107,44 @@
             <img src="images/oddelenia/OIKR1.png" alt="img">
             <img src="images/oddelenia/OIKR2.jpg" alt="img">
             <img src="images/oddelenia/OIKR3.png" alt="img">
-        </div>
-        <!--Department 3 -->
-        <div class="sectContent" id="dep_OEMP">
-            <h4 class="ustavTitle" >@lang('about::aboutUs.depOEMP')</h4>
-            <div class="sectText row col-lg-12">
-                <div class="col-md-2">
-                    <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                    <p class="bold">@lang('about::aboutUs.depHead2'): </p>
                 </div>
-                <div class="col-md-10">
+        </div>
+
+
+        <!--Department 3 -->
+        <div id="dep_OEMP" class="institute">
+            <h4 class="ustavTitle" >@lang('about::aboutUs.depOEMP')</h4>
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead')</p>
+                </div>
+                <div  class="col-md-10">
                     @if(count($vOEMP) == 0)
                         <p>-</p>
                     @else
-                    @foreach ($vOEMP as $s)
-                        <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                    @endforeach
+                        @foreach ($vOEMP as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
                     @endif
+                </div>
+            </div>
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead2')</p>
+                </div>
+                <div  class="col-md-10">
                     @if(count($zOEMP) == 0)
                         <p>-</p>
                     @else
-                    @foreach ($zOEMP as $s)
-                        <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
-                    @endforeach
-                        @endif
+                        @foreach ($zOEMP as $s)
+                            <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
+                        @endforeach
+                    @endif
                 </div>
             </div>
-            <h5>@lang('about::aboutUs.depOEMPTitle1')</h5>
-            <ul>                   
+            <div class="sectContent">
+            <h5 class="sectText">@lang('about::aboutUs.depOEMPTitle1')</h5>
+            <ul>
                 <li>@lang('about::aboutUs.depOEMP_li1')</li>
                 <li>@lang('about::aboutUs.depOEMP_li2')</li>
                 <li>@lang('about::aboutUs.depOEMP_li3')</li>
@@ -128,35 +152,43 @@
                 <li>@lang('about::aboutUs.depOEMP_li5')</li>
                 <li>@lang('about::aboutUs.depOEMP_li6')</li>
                 <li class="sectContentLi">@lang('about::aboutUs.depOEMP_li7')</li>
-            </ul>                
+            </ul>
+                </div>
         </div>
+
         <!--Department 4 -->
-        <div class="sectContent" id="dep_OEAP">
+        <div id="dep_OEAP" class="institute">
             <h4 class="ustavTitle" >@lang('about::aboutUs.depOEAP')</h4>
-                <div class=" sectText row col-lg-12">
-                    <div class="col-md-2">
-                        <p class="bold">@lang('about::aboutUs.depHead'): </p>
-                        <p class="bold">@lang('about::aboutUs.depHead2'): </p>
-                    </div>
-                    <div class="col-md-10">
-                        @if(count($vOEAP) == 0)
-                            <p>-</p>
-                        @else
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead')</p>
+                </div>
+                <div  class="col-md-10">
+                    @if(count($vOEAP) == 0)
+                        <p>-</p>
+                    @else
                         @foreach ($vOEAP as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
-                        @endif
-                        @if(count($zOEAP) == 0)
-                            <p>-</p>
-                        @else
+                    @endif
+                </div>
+            </div>
+            <div class="sectContent row">
+                <div class="col-md-2">
+                    <p class="bold">@lang('about::aboutUs.depHead2')</p>
+                </div>
+                <div  class="col-md-10">
+                    @if(count($zOEAP) == 0)
+                        <p>-</p>
+                    @else
                         @foreach ($zOEAP as $s)
                             <p>@if(strcmp($s->title1, '' > 1)){{$s->title1}}@endif {{$s->name}} {{$s->surname}}@if(strcmp($s->title2, '' > 1)), @endif{{$s->title2}}</p>
                         @endforeach
-                            @endif
-                    </div>
+                    @endif
                 </div>
-                <p class="sectText">@lang('about::aboutUs.later')</p>
-        </div>
+            </div>
+            <p class="sectText">@lang('about::aboutUs.later')</p>
+            </div>
     </div>
 
 @stop
