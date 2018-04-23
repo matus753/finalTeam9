@@ -8,7 +8,7 @@ return [
     '' => '',
     'contact' => 'Contact',
     'e_mobility' => 'Electromobility',
-    'web_pages' => 'TODO Thematic web pages',
+    'web_pages' => 'Thematic web pages',
     'photogalery' => 'Photogalery',
     'activities' => 'Activities',
     'biomechatronics' => 'Biomechatronics',
