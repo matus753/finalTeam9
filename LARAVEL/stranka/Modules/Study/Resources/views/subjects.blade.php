@@ -15,9 +15,23 @@
     </section>
     <div id="emPAGEcontent printDiv">
         <div class="container subjectsAll">
+            <div class="row">
+                <div class="col-md-4">
+                    <form class="form-inline" action="{{ url('/subjects/'.$id) }}" method="GET">
+                        {{ csrf_field() }}
+                        <label for="semester"></label>
+                        <select class="form-control" name="semester" id="semester">
+                            <option value="0" @if($act_sem == 0) {{ 'selected' }} @endif>@lang('study::study.winterTerm')</option>
+                            <option value="1" @if($act_sem == 1) {{ 'selected' }} @endif>@lang('study::study.summerTerm')</option>
+                        </select>
+                        <input type="submit" class="btn btn-primary" value="@lang('study::study.submit')">
+                    </form>
+                </div>
+            </div>
+            <br>
             @foreach($subjects as $key => $subject)
-                <div class="@if($subject->subcategories->count() != 0){{'cSubject'}}@else{{'cNotClickable'}}@endif" >
-                    @if($subject->subcategories->count() != 0)
+                <div class="@if($subject->info){{'cSubject'}}@else{{'cNotClickable'}}@endif" >
+                    @if($subject->info)
                     <a class="aLink" href="{{ url('/subject') }}/{{ $subject->sub_id }}">
                     @else
                     <a class="aLink">
@@ -33,26 +47,6 @@
                 </div>
                 <div class="cDevider"></div>
             @endforeach
-            {{--@foreach($subjects as $key => $subject)--}}
-            {{--<div class="table-responsive">--}}
-                {{--<table class="table table-bordered table-striped">--}}
-                    {{--<thead>--}}
-                        {{--<tr>--}}
-                            {{--<th>{{ $subject->abbrev }}</th>--}}
-                            {{--<th>{{ $subject->title }}</th>--}}
-                        {{--</tr>--}}
-                    {{--</thead>--}}
-                    {{--<tbody>--}}
-                    {{--@foreach($subject->subcategories as $s)--}}
-                        {{--<tr>--}}
-                            {{--<td>{{ $subject->abbrev }}</td>--}}
-                            {{--<td>{{ $s->name_sk }}</td>--}}
-                        {{--</tr>--}}
-                    {{--@endforeach--}}
-                    {{--</tbody>--}}
-                {{--</table>--}}
-            {{--</div>--}}
-            {{--@endforeach--}}
             </div>
         </div>
     <script src="{{ URL::asset('js/scripty_study.js') }}"></script>

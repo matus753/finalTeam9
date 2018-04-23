@@ -26,6 +26,9 @@
                 <div class="col-md-12">
                     <p>Trvanie prednášky: {{ $subject->duration_p}} </p>
                     <p>Trvanie cvičenia: {{ $subject->duration_c}} </p>
+                    <p>Semester: 
+                        @if($subject->semester == 0) {{ 'Zimný' }} @elseif($subject->semester == 1) {{ 'Letný' }} @else {{ 'Nezvolené' }} @endif
+                    </p>
                 </div>
             </div>
             <div class="row">

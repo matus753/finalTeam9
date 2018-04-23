@@ -12,7 +12,9 @@
 @section('content_admin')
 <script>
     $(document).ready(function(){
-        $('#projects-table').DataTable();  
+        $('#projects-table').DataTable({
+            stateSave: true
+        });  
     });
 </script>
 

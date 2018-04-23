@@ -48,7 +48,8 @@ return [
     'subject14Info' => 'vyrovnávací predmet z automatizácie',
     'examDate' => 'Prijímacie skúšky na inžinierske štúdium',
     'examComitee' => 'Prijímacia komisia',
-
+    'submit' => 'Submit',
+    
     'titleBS' => 'Bakalárske štúdium',
     'generalInfo' => 'Všeobecné informácie',
     'scheduleBS' => 'Harmonogram bakalárskeho štúdia',

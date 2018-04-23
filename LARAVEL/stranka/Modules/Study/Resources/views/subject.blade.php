@@ -22,6 +22,14 @@
                     </div>
                 </div>
             @endif
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Trvanie prednášky: {{ $subject->duration_p }}</p>
+                    <p>Trvanie cvičenia: {{ $subject->duration_c }}</p>
+                </div>
+            </div>
+            <hr>
             @if(count($subcats) == 0)
                 <h3 style="text-align: center">@lang('study::study.no_data')</h3>
             @else
@@ -31,6 +39,7 @@
                     </div>
                 @endforeach
             @endif
-            </div>
         </div>
+        <br>
+    </div>
 @stop

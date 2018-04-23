@@ -92,7 +92,9 @@ Route::post('/logout-action', '\Modules\Login\Http\Controllers\Login@logout_acti
 
 
 /* Intranet ZMENA viewu */
-Route::get('/intranet', '\Modules\Intranet\Http\Controllers\Intranet@intranet');
+Route::get('/intranet', function(){
+    return redirect('/documents-admin');
+});
 
 //Reporter
 /* Intranet news OK ?? */
@@ -196,6 +198,8 @@ Route::get('/delete-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intr
 
 /* Intranet Subjects OK */
 Route::get('/subjects-admin', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_all');
+Route::get('/subjects-admin-add', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add');
+Route::post('/subjects-admin-add-action', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_action');
 Route::get('/subjects-admin-add-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_item');
 Route::post('/subjects-admin-add-item-action', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_add_item_action');
 Route::post('/subjects-admin/subjects_image_upload', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_image_upload');
@@ -208,6 +212,7 @@ Route::get('/subjects-admin-edit-info-item/{id}', '\Modules\Intranet\Http\Contro
 Route::post('/subjects-admin-edit-item-info-action/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@edit_subjects_info_action');
 Route::get('/subjects-admin-info-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@show_subjects_info');
 Route::get('/subjects-admin-subcategory-show/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@show_subcategory_info');
+Route::get('/subjects-admin-delete/{id}', '\Modules\Intranet\Http\Controllers\Intranet_subjects@delete_whole_subject');
 
 /* Intranet schedule */
 Route::get('/schedule-admin-subject', '\Modules\Intranet\Http\Controllers\Intranet_schedule@schedule_subject');

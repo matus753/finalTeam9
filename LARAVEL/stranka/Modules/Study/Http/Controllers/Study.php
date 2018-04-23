@@ -190,9 +190,16 @@ class Study extends Controller
         return view('study::doctoral', $data);
     }
 
-    public function subjects($id = 0){
+    public function subjects($id = 0, Request $request){
         if(!is_numeric($id)){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Bad request!']);
+        }
+        
+        $sem = $request->input('semester');
+        if(!is_numeric($sem) || $sem < 0 || $sem > 1){
+            $active_semester = DB::table('schedule_season')->where('active', 1)->first()->semester;
+        }else{
+            $active_semester = $sem;
         }
 
         if($id == 1) {
@@ -204,10 +211,12 @@ class Study extends Controller
             $titleEN = 'Master courses';
             $find = 'I-%';
         }
-        $subjects = DB::table('subjects')->where('abbrev', 'like', $find)->get();
+
+        $subjects = DB::table('subjects')->where('semester', $active_semester)->where('abbrev', 'like', $find)->get();
         if($subjects){
             foreach($subjects as $subject){
                 $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
+                $subject->info = DB::table('subjects_info')->where('sub_id', $subject->sub_id)->first();
             }
         }else{
             return redirect('/')->with('err_code', ['type' => 'warning', 'msg' => 'Item does not exists!']);
@@ -217,9 +226,11 @@ class Study extends Controller
                 'title' => config('study.name'), 
                 'subjects' => $subjects,
                 'titleSK' => $titleSK,
-                'titleEN' => $titleEN
+                'titleEN' => $titleEN,
+                'act_sem' => $active_semester,
+                'id' => $id
             ];
-        
+        //debug($data, true);
         return view('study::subjects', $data);
     }
 

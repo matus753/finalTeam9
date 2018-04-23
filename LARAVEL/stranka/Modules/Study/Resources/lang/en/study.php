@@ -48,6 +48,7 @@ return [
     'subject14Info' => 'automation evening up course',
     'examDate' => 'Admission examinations for engineering studies',
     'examComitee' => 'Admission committee',
+    'submit' => 'Submit',
 
 
     'titleBS' => 'Bachelor study',

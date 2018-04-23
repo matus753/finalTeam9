@@ -35,6 +35,75 @@ class Intranet_subjects extends Controller
         return view('intranet::subjects/subjects_all', $data);
     }
 
+    public function subjects_add(){
+        $semester = DB::table('schedule_season')->where('active', 1)->first()->semester;
+
+        $data = [
+            'title' => $this->module_name,
+            'semester' => $semester
+        ];
+        return view('intranet::subjects/subjects_add', $data);
+    }
+
+    public function subjects_add_action(Request $request){
+        $sk_title = $request->input('sk_title');
+        $en_title = $request->input('en_title');
+        $abbr = $request->input('abbr');
+        $prednaska = $request->input('prednaska');
+        $cvicenie = $request->input('cvicenie');
+        $semester = $request->input('semester');
+        $editor_content_sk = $request->input('editor_content_sk');
+        $editor_content_en = $request->input('editor_content_en');
+        
+        if(!is_string($sk_title) || strlen($sk_title) < 1 || strlen($sk_title) > 256){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Slovenský nadpis, prázdny reťazec alebo väčší ako 256 znakov']);
+        }
+        if(!is_string($en_title) || strlen($en_title) < 1 || strlen($en_title) > 256){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Anglický nadpis , prázdny reťazec alebo väčší ako 256 znakov']);
+        }
+        
+        if(!is_string($abbr) || strlen($abbr) < 1 || strlen($abbr) > 16 ){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Skratka , prázdny reťazec alebo väčší ako 16 znakov']);
+        }
+        
+        if(!is_numeric($prednaska) || $prednaska < 1 || $prednaska > 10){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Prednáška , min 1 max 10']);
+        }
+      
+        if(!is_numeric($cvicenie) || $cvicenie < 1 || $cvicenie > 10 ){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Cvičenie , min 1 max 10']);
+        }
+
+        if(!is_numeric($semester) || $semester > 1 || $semester < 0 ){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Semester']);
+        }
+
+        $data = [
+            'abbrev' => $abbr,
+            'title' => $sk_title,
+            'title_en' => $en_title,
+            'hash_name' => '',
+            'duration_p' => $prednaska,
+            'duration_c' => $cvicenie,
+            'semester' => $semester
+        ];
+
+        $sub_id = DB::table('subjects')->insertGetId($data);
+        if(!$sub_id){
+            return redirect('/subjects-admin-add')->with('err_code', ['type' => 'error', 'msg' => 'Internal error']);
+        }
+
+        $info = [
+            'sub_id' => $sub_id,
+            'info_sk' => $editor_content_sk,
+            'info_en' => $editor_content_en,
+        ];
+
+        DB::table('subjects_info')->insertGetId($info);
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Pridané']);
+
+    }
+
     public function subjects_add_item($sub_id = 0){
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
@@ -261,12 +330,15 @@ class Intranet_subjects extends Controller
         ];
   
         $res = DB::table('subjects_subcategories')->where('ss_id', $ss_id)->update($data);
-
         DB::table('deletor')->where('type', 'subjects')->where('path', $subject.'/'.$hash_id)->delete();
         return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated!']);    
       
     }
 
+
+    ////////////////////////////////////////////////////////////////////
+    ///////////////////////// Informacie o predmete ////////////////////
+    ////////////////////////////////////////////////////////////////////
     public function edit_subjects_info($sub_id = 0){
         if(!is_numeric($sub_id)){
             return false;
@@ -281,19 +353,48 @@ class Intranet_subjects extends Controller
             'sub_id' => $sub_id,
             'subject' => $subject
         ];
-        
+       
         return view('intranet::subjects/subjects_edit_item_info', $data);
     }
 
     public function edit_subjects_info_action(Request $request, $sub_id = 0){
         if(!is_numeric($sub_id)){
-            return false;
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad request']);
         }
+
+        $sk_title = $request->input('sk_title');
+        $en_title = $request->input('en_title');
+        $abbr = $request->input('abbr');
 
         $info_sk = $request->input('editor_content_sk');
         $info_en = $request->input('editor_content_en');
         $duration_p = $request->input('prednaska');
         $duration_c = $request->input('cvicenie');
+        $semester = $request->input('semester');
+
+        if(!is_string($sk_title) || strlen($sk_title) < 1 || strlen($sk_title) > 256){
+            return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Slovenský nadpis, prázdny reťazec alebo väčší ako 256 znakov']);
+        }
+        if(!is_string($en_title) || strlen($en_title) < 1 || strlen($en_title) > 256){
+            return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Anglický nadpis , prázdny reťazec alebo väčší ako 256 znakov']);
+        }
+        
+        if(!is_string($abbr) || strlen($abbr) < 1 || strlen($abbr) > 16 ){
+            return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Skratka , prázdny reťazec alebo väčší ako 16 znakov']);
+        }
+        
+        if(!is_numeric($prednaska) || $prednaska < 1 || $prednaska > 10){
+            return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Prednáška , min 1 max 10']);
+        }
+      
+        if(!is_numeric($cvicenie) || $cvicenie < 1 || $cvicenie > 10 ){
+            return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Cvičenie , min 1 max 10']);
+        }
+
+        if(!is_numeric($semester) || $semester > 1 || $semester < 0 ){
+            return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Semester']);
+        }
+
 
         $info = DB::table('subjects_info')->where('sub_id', $sub_id)->first();
         if($info){
@@ -314,8 +415,12 @@ class Intranet_subjects extends Controller
         }
         
         $data_s = [
+            'title' => $sk_title,
+            'title_en' => $en_title,
+            'abbrev' => $abbr,
             'duration_p' => $duration_p,
-            'duration_c' => $duration_c
+            'duration_c' => $duration_c,
+            'semester' => $semester
         ];
 
         DB::table('subjects')->where('sub_id', $sub_id)->update($data_s);
@@ -438,4 +543,43 @@ class Intranet_subjects extends Controller
         }
         return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
     }
+
+    public function delete_whole_subject($sub_id = 0){
+        if(!is_numeric($sub_id)){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $curr_sub = DB::table('subjects')->where('sub_id', $sub_id)->first();
+        if(!$curr_sub){
+            return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
+        }
+
+        $sub_sub = DB::table('subjects_subcategories')->where('sub_id', $sub_id)->get();
+
+        foreach($sub_sub as $s){
+            $path = base_path('storage/app/public/subjects/').$curr_sub->hash_name.'/'.$s->hash_name;
+            array_map('unlink', glob("$path/*.*"));
+            if(is_dir($path)){
+                rmdir($path);
+            }
+
+            $files = DB::table('subjects_files')->where('hash_id', $s->hash_name)->delete();
+        }
+
+        
+        $path = base_path('storage/app/public/subjects/').$curr_sub->hash_name;
+        array_map('unlink', glob("$path/*.*"));
+        if(is_dir($path)){
+            rmdir($path);
+        }
+
+        DB::table('subjects_subcategories')->where('sub_id', $sub_id)->delete();
+        DB::table('subjects')->where('sub_id', $sub_id)->delete();
+        DB::table('subjects_info')->where('sub_id', $sub_id)->delete();
+        DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->delete();
+        DB::table('lectures')->where('sub_id', $sub_id)->delete();
+
+        return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);
+    }
+
 }

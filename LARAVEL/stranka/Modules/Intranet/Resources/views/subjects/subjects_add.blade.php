@@ -35,31 +35,31 @@
                         <a href="{{ url('/subjects-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
-                        <h3>Editacia informácií o predmete {{ $subject->title }}</h3>
+                        <h3>Pridanie predmetu</h3>
                     </div>
                 </div>
             </div>
             <br>
-            <form action="{{ url('/subjects-admin-edit-item-info-action/'.$sub_id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/subjects-admin-add-action') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="sk_title">Slovenský názov</label>
-                                <input type="text" id="sk_title" class="form-control" name="sk_title" placeholder="Slovenský názov" value="{{ $subject->title }}" required />
+                                <input type="text" id="sk_title" class="form-control" name="sk_title" placeholder="Slovenský názov" required />
                             </div> 
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="en_title">Anglický názov:</label>
-                                <input type="text" id="en_title" class="form-control" name="en_title" placeholder="Anglický názov" value="{{ $subject->title_en }}" required/>
+                                <input type="text" id="en_title" class="form-control" name="en_title" placeholder="Anglický názov" required/>
                             </div> 
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="abbr">Skratka:</label>
-                                <input type="text" id="abbr" class="form-control" name="abbr" placeholder="Skratka" value="{{ $subject->abbrev }}" required/>
+                                <input type="text" id="abbr" class="form-control" name="abbr" placeholder="Skratka" required/>
                             </div> 
                         </div>
                     </div>
@@ -67,31 +67,31 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="prednaska">Trvanie prednášky:</label>
-                        <input type="number" id="prednaska" class="form-control" name="prednaska" value="{{ $subject->duration_p }}" min="1" max="10" />
+                        <input type="number" id="prednaska" class="form-control" name="prednaska" value="1" min="1" max="10" required/>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="cvicenie">Trvanie cvičenia:</label>
-                        <input type="number" id="cvicenie" class="form-control" name="cvicenie" value="{{ $subject->duration_c }}" min="1" max="10" />
+                        <input type="number" id="cvicenie" class="form-control" name="cvicenie" value="1" min="1" max="10" required/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="semester">Semester:</label>
-                        <select id="semester" class="form-control" name="semester" >
-                            <option value="0" @if($subject->semester == 0) {{ 'selected' }} @endif>Zimný</option>
-                            <option value="1" @if($subject->semester == 1) {{ 'selected' }} @endif>Letný</option>
+                        <select id="semester" class="form-control" name="semester" required>
+                            <option value="0" @if($semester == 0) {{ 'selected' }} @endif>Zimný</option>
+                            <option value="1" @if($semester == 1) {{ 'selected' }} @endif>Letný</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="sk-editor">Dlhý text:</label>
-                    <textarea id="sk-editor" name="editor_content_sk">@if($info) {{ $info->info_sk }} @endif</textarea>
+                    <textarea id="sk-editor" name="editor_content_sk"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="en-editor">Long text:</label>
-                    <textarea id="en-editor"  name="editor_content_en">@if($info) {{ $info->info_en }} @endif</textarea>
+                    <textarea id="en-editor"  name="editor_content_en"></textarea>
                 </div>
                 <input type="submit" class="btn btn-success pull-right" value="Ulož" />
             </form>
