@@ -54,7 +54,7 @@ class Intranet_attendance extends Controller
         }
 
         if(has_permission('hr')){
-            $staff = DB::table('staff')->get();
+            $staff = DB::table('staff')->where('activated', 1)->get();
         }else{   
             $s_id = get_user_id();
             if($s_id){
@@ -117,9 +117,9 @@ class Intranet_attendance extends Controller
         }
 
         if($type == 'teacher'){
-            $staff = $staff = DB::table('staff')->where('staffRole', '!=', 'doktorand')->get();
+            $staff = $staff = DB::table('staff')->where('activated', 1)->where('staffRole', '!=', 'doktorand')->get();
         }elseif($type == 'doktorand'){
-            $staff = $staff = DB::table('staff')->where('staffRole', 'doktorand')->get();
+            $staff = $staff = DB::table('staff')->where('activated', 1)->where('staffRole', 'doktorand')->get();
         }else{
             return response()->json(['error' => 'Failed'], 400);
         }

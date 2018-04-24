@@ -373,8 +373,8 @@ class Intranet_documents extends Controller
 
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
-        $editor_en = $request->input('editor_content_sk');
-        $editor_sk = $request->input('editor_content_en');
+        $editor_sk = $request->input('editor_content_sk');
+        $editor_en = $request->input('editor_content_en');
         $hash_id = $request->input('save_to');
         $category = $request->input('category');
         $category_id = $request->input('category_id');
@@ -547,7 +547,7 @@ class Intranet_documents extends Controller
             'docs' => $docs,
             'tab'  => $dc_id
         ];  
-
+        //debug($data);
         return response()->json($data);
     }
     

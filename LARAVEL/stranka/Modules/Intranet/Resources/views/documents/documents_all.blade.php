@@ -60,7 +60,6 @@
                 $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success full-w">Edit kategórie</a></div>');
             }
             if(data['docs'] != null){
-                console.log(data['docs']);
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
                     $('#items').append('<tr class="well well-default">' +
@@ -95,6 +94,7 @@
             if(data['docs'] != null){
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
+                    let first_p = data['docs'][i]['text_sk'];
                     $('#items').append('<tr class="well well-default">' +
                         '<td class="col-lg-10"><a href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a></td>'+
                         '<td class="col-lg-2"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right"><span class="fa fa-trash-o "></span></a>'+
