@@ -49,7 +49,7 @@
                         <div class="col-md-3">
                             <div class="text-center">
                                 <a href="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" data-lightbox="{{$gallery->folder}}" data-title="{{ $gallery->title_SK }}">
-                                    <img src="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" class="hover-shadow">
+                                    <img src="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" class="hover-shadow edit-image">
                                     <a href="{{ url('/photos-admin-delete-item-action/'.$p->p_id.'/'.$gallery->pg_id) }}" class="delete-photo"> <span class="glyphicon glyphicon-trash"></span> Vymazať obrázok </a>
                                 </a>
                             </div>
