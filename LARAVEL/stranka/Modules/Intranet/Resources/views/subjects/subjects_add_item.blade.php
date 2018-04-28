@@ -91,7 +91,7 @@
                         <a href="{{ url('/subjects-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
-                        <h3>Pridanie noveho zaznamu do kategorie {{ $subject->title }}</h3>
+                        <h3>Pridanie nového záznamu do kategórie {{ $subject->title }}</h3>
                     </div>
                 </div>
             </div>
@@ -118,10 +118,11 @@
                     <textarea id="en-editor"  name="editor_content_en"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="dropzone">Additional files:</label>
+                    <label for="dropzone">Ďalšie súbory:</label>
+                    <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .zip, .rar, .pdf, .doc, .docx, .xls, .xlsx, .jpg, .png, .jpeg, .giff.</p>
                     <div class="dropzone" id="dropzone"></div>
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
+                <input type="submit" class="btn btn-success pull-right" value="Pridať záznam" />
             </form>
 		</div>
 	</div>

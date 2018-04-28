@@ -129,15 +129,16 @@
 
         <div class="row text-center lastButton">
             <div class="form-group col-md-offset-1">
-                <label for="dropzone">Additional files:</label>
+                <label for="dropzone">Ďalšie súbory:</label>
+                <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .zip, .rar, .pdf, .doc, .docx, .xls, .xlsx, .jpg, .png, .jpeg, .giff.</p>
                 <div class="dropzone" id="dropzone"></div>
             </div>
 
-            <input type="submit" class="btn btn-success" value="Ulož" />
+            <input type="submit" class="btn btn-success" value="Uložiť" />
         </div>
     </form>
     <div class="row text-center lastButton">
-        <p>Prilozene subory</p>
+        <p>Priložené súbory</p>
         @foreach($files as $f)
         <div class="row">
             <div class="col-md-12" style="background-color: lightgrey">

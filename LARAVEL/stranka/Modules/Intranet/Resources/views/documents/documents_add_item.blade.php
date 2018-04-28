@@ -88,7 +88,7 @@
                 <div class="pull-left">
                     <a href="{{ url('/documents-admin') }}" class="btn btn-primary btn-back"> Späť </a>
                 </div>
-                <h2>Pridanie noveho zaznamu do kategórie {{ $category->name_sk }}</h2>
+                <h2>Pridanie nového záznamu do kategórie {{ $category->name_sk }}</h2>
             </div>
         </div>
     </div>
@@ -129,10 +129,11 @@
 
         <div class="row text-center lastButton">
             <div class="form-group col-md-offset-1">
-                <label for="dropzone">Additional files:</label>
+                <label for="dropzone">Ďalšie súbory:</label>
+                <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .zip, .rar, .pdf, .doc, .docx, .xls, .xlsx, .jpg, .png, .jpeg, .giff.</p>
                 <div class="dropzone" id="dropzone"></div>
             </div>
-            <input type="submit" class="btn btn-success" value="Pridaj" />
+            <input type="submit" class="btn btn-success" value="Pridať záznam" />
         </div>
     </form>
 </div>

@@ -17,9 +17,9 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <div class="pull-right">
-                <a href="{{ url('/subjects-admin-add') }}" class="btn btn-primary"> Pridaj predmet </a>
+                <a href="{{ url('/subjects-admin-add') }}" class="btn btn-primary"> Pridať predmet </a>
             </div>
-            <h2>Administácia predmetov</h2>
+            <h2>Administrácia predmetov</h2>
                 <div class="table-responsive tableIntra">
                     <table class="table table-bordered table-stripped intranet-table">
                         <thead>
