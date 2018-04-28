@@ -18,7 +18,7 @@
 		<div class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="pull-left">
+                    <div class="pull-left" style="margin-top: 20px">
                         <a href="{{ url('/videos-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">

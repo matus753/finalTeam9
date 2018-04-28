@@ -119,7 +119,7 @@ function limitText(field, maxChar){
                 <div class="pull-left">
                     <a href="{{ url('/news-admin') }}" class="btn btn-primary btn-back"> Späť </a>
                 </div>
-                <h2>{{ $item->title_sk }}</h2>
+                <h2 style=" margin-left: 10%;">{{ $item->title_sk }}</h2>
             </div>
         </div>
             <form name="projectForm"  action="{{ url('/news-admin-edit-action/'.$item->n_id) }}" method="post" enctype="multipart/form-data" >

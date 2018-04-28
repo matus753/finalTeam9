@@ -41,7 +41,7 @@
                         <a href="{{ url('/media-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
-                        <h3>Editácia média: {{ $media->title }}</h3>
+                        <h3 style=" margin-left: 10%;">Editácia média: {{ $media->title }}</h3>
                     </div>
                 </div>
             </div>

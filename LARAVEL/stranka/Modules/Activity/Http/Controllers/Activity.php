@@ -101,7 +101,7 @@ class Activity extends Controller
     {
 		$module_name = config('activity.name');
 		
-		$media_db = DB::table('media')->get();
+		$media_db = DB::table('media')->orderBy('date', 'desc')->get();
 
 		if($media_db){
 			$media_db = (!$media_db) ? [] : $media_db;

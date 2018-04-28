@@ -42,19 +42,21 @@
                 <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
             </form>
             <a href="{{ url('/photos-admin-upload/'.$gallery->pg_id) }}" class="btn btn-primary">Pridaj fotky</a>
-            @foreach($photos as $p)
-            <div class="row" style="background-color: rgba({{ rand(0,255) }}, {{ rand(0,255) }}, {{ rand(0,255) }}, {{ rand(0,10)/10 }}); margin-top: 10px; padding: 10px">
-                <div class="col-md-12 ">
-                    <div class="col-md-6 text-center">
-                        <a href="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" data-lightbox="{{$gallery->folder}}" data-title="{{ $gallery->title_SK }}">
-                            <img src="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" class="hover-shadow">
-                        </a>
+            @foreach($photos as $key=>$p)
+                @if($key % 4 == 0)
+                    <div class="row" style="margin-top: 25px; margin-bottom: 25px">
+                @endif
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <a href="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" data-lightbox="{{$gallery->folder}}" data-title="{{ $gallery->title_SK }}">
+                                    <img src="{{ get_gallery_photo($gallery->folder, $p->hash_name) }}" class="hover-shadow">
+                                    <a href="{{ url('/photos-admin-delete-item-action/'.$p->p_id.'/'.$gallery->pg_id) }}" class="delete-photo"> <span class="glyphicon glyphicon-trash"></span> Vymazať obrázok </a>
+                                </a>
+                            </div>
+                        </div>
+                @if($key % 4 == 3)
                     </div>
-                    <div class="col-md-6 text-center">
-                        <a href="{{ url('/photos-admin-delete-item-action/'.$p->p_id.'/'.$gallery->pg_id) }}" class="btn btn-danger"> Vymazať obrázok </a>
-                    </div>
-                </div>
-            </div>
+                @endif
             @endforeach
 		</div>
 	</div>

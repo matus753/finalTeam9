@@ -14,7 +14,7 @@
                     <a href="{{ url('/events-admin') }}" class="btn btn-primary btn-back"> Späť </a>
                 </div>
                 <div class="text-center">
-                    <h2>Editácia udalosti: {{ $events->name_sk }}</h2>
+                    <h2 style=" margin-left: 10%;">Editácia udalosti: {{ $events->name_sk }}</h2>
                 </div>
             </div>
         </div>
