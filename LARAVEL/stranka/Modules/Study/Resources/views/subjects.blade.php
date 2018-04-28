@@ -33,10 +33,11 @@
                 <div class="@if($subject->info){{'cSubject'}}@else{{'cNotClickable'}}@endif" >
                     @if($subject->info)
                     <a class="aLink" href="{{ url('/subject') }}/{{ $subject->sub_id }}">
+                        <i class="fa fa-search-plus cArrow" aria-hidden="true"></i>
                     @else
                     <a class="aLink">
+                        <i class="cArrow" style="padding-right: 18px"></i>
                     @endif
-                        <i class="fa fa-search-plus cArrow" aria-hidden="true"></i>
                         <p class="cAbbrev" >{{$subject->abbrev}}</p>
                         @if(session()->get('locale') === 'sk')
                             <p class="cTitle" >{{$subject->title}}</p>
