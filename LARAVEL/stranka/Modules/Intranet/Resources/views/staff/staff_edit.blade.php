@@ -75,6 +75,10 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="web">ID v informačnom systéme:</label>
+                        <input type="number" class="form-control" id="is_id" name="is_id" placeholder="IS ID" value="{{ $item->is_id }}" />
+                    </div>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
