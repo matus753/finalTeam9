@@ -16,7 +16,7 @@ class Intranet_projects extends Controller
     }
 
     public function projects_all(){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -33,7 +33,7 @@ class Intranet_projects extends Controller
     }
 
     public function projects_add(){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -49,7 +49,7 @@ class Intranet_projects extends Controller
     }
 
     public function projects_add_action( Request $request ){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
        
@@ -172,7 +172,7 @@ class Intranet_projects extends Controller
     }
 
     public function projects_edit( $pr_id = 0 ){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -198,7 +198,7 @@ class Intranet_projects extends Controller
     }
 
     public function projects_edit_action( $pr_id = 0, Request $request ){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -329,7 +329,7 @@ class Intranet_projects extends Controller
     }
 
     public function projects_delete_action( $pr_id = 0 ){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -345,7 +345,7 @@ class Intranet_projects extends Controller
     }
 
     public function project_activate_action($pr_id = 0){
-        if(!has_permission('editor')){
+        if(!has_permission('projects')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
         

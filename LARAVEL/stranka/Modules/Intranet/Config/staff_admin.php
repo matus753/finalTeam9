@@ -32,7 +32,7 @@ return [
     ],
 
     'permission_roles' => [
-        'user' => 'User',
+        //'user' => 'User',
         'hr' => 'HR',
         'reporter' => 'Reporter',
         'editor' => 'Editor',

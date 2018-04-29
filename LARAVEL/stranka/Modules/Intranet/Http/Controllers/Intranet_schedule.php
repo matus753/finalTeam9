@@ -569,6 +569,9 @@ class Intranet_schedule extends Controller
         najprv sa vyberie predmet
     */
     public function schedule_add_choose(){
+        if(!has_permission('schedule')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
 
         $active_year = DB::table('schedule_season')->where('active', 1)->first();
         $subjects_with_schedule = DB::table('lectures')
@@ -611,6 +614,9 @@ class Intranet_schedule extends Controller
     */
 
     public function schedule_add( Request $request ){
+        if(!has_permission('schedule')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
 
         $sub_id = $request->input('sub');
 
@@ -694,6 +700,9 @@ class Intranet_schedule extends Controller
     *   pridanie action
     */
     public function schedule_add_action(Request $request){
+        if(!has_permission('schedule')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
         $type = $request->input('type');
         $start_time = $request->input('start_time');
         $room_id = $request->input('room');
@@ -776,6 +785,9 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_update_action(Request $request){
+        if(!has_permission('schedule')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
         $item = $request->input('item');
         $start_time = $request->input('start_time');
         $room_id = $request->input('room');
@@ -860,6 +872,9 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_delete_action(Request $request){
+        if(!has_permission('schedule')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
         $l_id = $request->input('item');
         if(!is_numeric($l_id)){
             return redirect('/schedule-admin-add-choose')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
@@ -877,6 +892,9 @@ class Intranet_schedule extends Controller
      */
 
     public function ajax_get_subject_info( Request $request ){
+        if(!has_permission('schedule')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
         $sub_id = $request->input('id');
 
         if(!is_numeric($sub_id)){
@@ -898,7 +916,7 @@ class Intranet_schedule extends Controller
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function schedule_admin_rooms(){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Permission denied!']);
         }
 
@@ -913,7 +931,7 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_add_room_action( Request $request ){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -933,7 +951,7 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_edit_room_action(Request $request){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -954,16 +972,14 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_delete_room_action($sr_id = 0){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Operation not permitted!']);
         }
 
         if(!$sr_id || !is_numeric($sr_id)){
             return redirect('/schedule-admin-rooms-add')->with('err_code', ['type' => 'warning', 'msg' => 'Bad item selected']);
         }
-
-        //TODO delete lectures s danou miestnostou
-
+        
         DB::table('schedule_rooms')->where('sr_id', $sr_id)->delete();
         return redirect('/schedule-admin-rooms-add')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted']);
     }
@@ -973,7 +989,7 @@ class Intranet_schedule extends Controller
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function schedule_admin_season(){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Permission denied!']);
         }
 
@@ -990,7 +1006,7 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_admin_activate_season(Request $request){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Operation not permitted!']);
         }
        
@@ -1008,7 +1024,7 @@ class Intranet_schedule extends Controller
 
  
     public function schedule_add_year_action( Request $request ){
-        if(!has_permission('admin')){
+        if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -1029,9 +1045,10 @@ class Intranet_schedule extends Controller
         return redirect('/schedule-admin-subject')->with('err_code', ['type' => 'success', 'msg' => 'Item added']);
     }
 
-    // TODO pridavanie hodiny - kontrola ucitela - nemoze byt na 2 miestach naraz
-
     public function schedule_add_consultations(){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
         $my_consultations = DB::table('consultations')->where('staff_id', get_user_id())->orderBy('day')->get();
         $my_consultations_sched = DB::table('consultations')->where('staff_id', get_user_id())->orderBy('start_time', 'desc')->get();
         $my_subjects_ids = DB::table('subjects')
@@ -1102,6 +1119,9 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_add_consultations_action(Request $request){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
         $start_time = $request->input('add_start_time');
         $end_time = $request->input('add_end_time');
         $name = $request->input('add_name');
@@ -1188,6 +1208,9 @@ class Intranet_schedule extends Controller
     }
 
     public function schedule_edit_consultations_action(Request $request){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
         $id = $request->input('id');
         if(!is_numeric($id)){
             return redirect('/schedule-admin-consultations')->with('err_code', ['type' => 'error', 'msg' => 'Error occured']);
@@ -1275,47 +1298,17 @@ class Intranet_schedule extends Controller
 
 
     public function schedule_delete_consultations_action($c_id = 0){
-        if(!has_permission('admin')){
-            return redirect('/')->with('err_code', ['type' => 'Error', 'msg' => 'Operation not permitted!']);
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
         if(!$c_id || !is_numeric($c_id)){
             return redirect('/schedule-admin-rooms-add')->with('err_code', ['type' => 'warning', 'msg' => 'Bad item selected']);
         }
 
-        //TODO delete lectures s danou miestnostou
-
         DB::table('consultations')->where('c_id', $c_id)->delete();
         return redirect('/schedule-admin-consultations')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted']);
     }
 
-
-
-
-
-
 }
 
-
-/*
-        if(!$year){
-            $year = DB::table('schedule_season')->where('active', 1)->first();
-            if(!$year){
-                $curr_year = date('Y-n');
-                $curr_year = explode('-', $curr_year);
-                if($curr_year[1] > 0 && $curr_year[1] < 8){
-                    $year = ($curr_year[0]-1).'/'.$curr_year[0];
-                }else{
-                    $year = ($curr_year[0]).'/'.$curr_year[0]+1;
-                }
-                DB::table('schedule_season')->insert(['year' => $year, 'active' => 1]);
-            }
-        }
-        
-           /*$my_subjects_ids = DB::table('subjects')
-                                ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                ->join('staff', 'staff.s_id', '=', 'subjects_staff_rel.s_id')
-                                ->where('staff.department', $department->department)
-                                ->pluck('subjects_staff_rel.sub_id');
-        
-        */

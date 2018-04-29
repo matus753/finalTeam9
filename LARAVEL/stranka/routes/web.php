@@ -59,9 +59,6 @@ Route::get('/schedule-rooms', '\Modules\Study\Http\Controllers\Study@schedule_ro
 Route::get('/schedule-departments', '\Modules\Study\Http\Controllers\Study@schedule_departments');
 Route::get('/schedule-days', '\Modules\Study\Http\Controllers\Study@schedule_days');
 
-
-
-
 /* Research OK */
 Route::get('/projects', '\Modules\Research\Http\Controllers\Research@projects');
 Route::get('/ekart', '\Modules\Research\Http\Controllers\Research@ekart');

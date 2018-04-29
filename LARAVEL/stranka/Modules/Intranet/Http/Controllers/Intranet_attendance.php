@@ -170,10 +170,15 @@ class Intranet_attendance extends Controller
         $dompdf->render();
         $output = $dompdf->output();
         
-        Storage::put('public/pdf_attendance.pdf', $output);
+       
         $exists = Storage::disk('public')->exists('pdf_attendance.pdf');
 
         if($exists){
+            Storage::delete('public/pdf_attendance.pdf');
+            Storage::put('public/pdf_attendance.pdf', $output);
+            return response()->json(['error' => 'Success'], 200);
+        }else{
+            Storage::put('public/pdf_attendance.pdf', $output);
             return response()->json(['error' => 'Success'], 200);
         }
         return response()->json(['error' => 'Failed'], 400);

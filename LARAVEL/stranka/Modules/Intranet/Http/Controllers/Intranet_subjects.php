@@ -36,6 +36,9 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_add(){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
         $semester = DB::table('schedule_season')->where('active', 1)->first()->semester;
 
         $data = [
@@ -46,6 +49,9 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_add_action(Request $request){
+        if(!has_permission('admin')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
         $sk_title = $request->input('sk_title');
         $en_title = $request->input('en_title');
         $abbr = $request->input('abbr');
@@ -105,6 +111,18 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_add_item($sub_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
         }
@@ -136,6 +154,7 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_add_item_action( Request $request ){
+        
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
         $editor_en = $request->input('editor_content_sk');
@@ -144,6 +163,18 @@ class Intranet_subjects extends Controller
         $subject = $request->input('subject');
         $subject_id = $request->input('subject_id');
         
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $subject_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
         }
@@ -178,6 +209,9 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_image_upload( Request $request, Response $response ){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
         $image = $request->file('image');
         $hash_id = $request->input('save_to');
         $subject = $request->input('category');
@@ -220,6 +254,10 @@ class Intranet_subjects extends Controller
     }
 
     public function subjects_file_upload(Request $request, Response $response){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         $files = $request->file('file');
         foreach($files as $file){
             
@@ -265,6 +303,10 @@ class Intranet_subjects extends Controller
     //////////////////////// EDIT /////////////////////////////////
     ///////////////////////////////////////////////////////////////
     public function subjects_edit_item($ss_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         if(!is_numeric($ss_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -279,6 +321,14 @@ class Intranet_subjects extends Controller
         $hash_id = $subjects_subcategories->hash_name;
         $subject_files = (!$subject_files) ? [] : $subject_files;
 
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $subjects_subcategories->sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         $data = [
             'title' => $this->module_name,
             'subject' => $subject,
@@ -292,6 +342,9 @@ class Intranet_subjects extends Controller
 
 
     public function subjects_edit_item_action($ss_id = 0, Request $request){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
         if(!is_numeric($ss_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
@@ -320,6 +373,14 @@ class Intranet_subjects extends Controller
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
         }
 
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $category_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         $data = [
             'sub_id' => $category_id,
             'hash_name' => $hash_id,
@@ -340,6 +401,18 @@ class Intranet_subjects extends Controller
     ///////////////////////// Informacie o predmete ////////////////////
     ////////////////////////////////////////////////////////////////////
     public function edit_subjects_info($sub_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         if(!is_numeric($sub_id)){
             return false;
         }
@@ -358,6 +431,18 @@ class Intranet_subjects extends Controller
     }
 
     public function edit_subjects_info_action(Request $request, $sub_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+        
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad request']);
         }
@@ -497,6 +582,18 @@ class Intranet_subjects extends Controller
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+        
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $item->sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         $parent = DB::table('subjects')->where('sub_id', $item->sub_id)->first();
         if(!$parent){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error!']);
@@ -533,6 +630,18 @@ class Intranet_subjects extends Controller
         $subject_hash = DB::table('subjects')->where('sub_id', $sub_sub->sub_id)->first()->hash_name;
         $path = base_path('storage/app/public/subjects/').$subject_hash.'/'.$file_db->hash_id.'/'.$file_db->hash_name;
 
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+        
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_sub->sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+
         if(is_file($path)){
             unlink($path);
         }
@@ -545,6 +654,18 @@ class Intranet_subjects extends Controller
     }
 
     public function delete_whole_subject($sub_id = 0){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+        
+        if(!has_permission('admin')){
+            $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+        }   
+        
+        if(!$check){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+        }
+        
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }

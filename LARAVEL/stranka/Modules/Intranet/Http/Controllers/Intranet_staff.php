@@ -61,7 +61,7 @@ class Intranet_staff extends Controller
     }
 
     public function staff_add(){
-        if(!has_permission('admin')){
+        if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
@@ -90,7 +90,7 @@ class Intranet_staff extends Controller
     }
 
     public function staff_add_action( Request $request ){  
-        if(!has_permission('admin')){
+        if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
         
@@ -283,9 +283,9 @@ class Intranet_staff extends Controller
     }
 
     public function getFunctions($id = 0){
-        if(!has_permission('admin')){
+        /**if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
-        }
+        }*/
 
 
 
@@ -325,7 +325,7 @@ class Intranet_staff extends Controller
     }
 
     public function staff_edit( $s_id = 0 ){
-        if(!has_permission('admin')){
+        if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
@@ -375,7 +375,7 @@ class Intranet_staff extends Controller
 
     public function staff_edit_action( $s_id = 0, Request $request ){
         
-        if(!has_permission('admin')){
+        if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
        
@@ -579,7 +579,7 @@ class Intranet_staff extends Controller
     }
 
     public function staff_delete_action( $s_id = 0 ){
-        if(!has_permission('admin')){
+        if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -608,7 +608,7 @@ class Intranet_staff extends Controller
     }
 
     public function staff_activate_user($s_id = 0){
-        if(!has_permission('admin')){
+        if(!has_permission('staff')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
         

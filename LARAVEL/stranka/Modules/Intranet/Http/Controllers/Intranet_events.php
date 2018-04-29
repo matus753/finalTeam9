@@ -16,7 +16,7 @@ class Intranet_events extends Controller
     }
 
     public function events_all(){
-        if(!has_permission('reporter')){
+        if(!has_permission('events')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
@@ -32,7 +32,7 @@ class Intranet_events extends Controller
     }
 
     public function events_add(){    
-        if(!has_permission('reporter')){
+        if(!has_permission('events')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
@@ -43,7 +43,7 @@ class Intranet_events extends Controller
     }
 
     public function events_add_action( Request $request ){
-        if(!has_permission('reporter')){
+        if(!has_permission('events')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -129,7 +129,7 @@ class Intranet_events extends Controller
     }
 
     public function events_edit( $e_id = 0 ){
-        if(!has_permission('reporter')){
+        if(!has_permission('events')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
 
@@ -151,7 +151,7 @@ class Intranet_events extends Controller
     }
 
     public function events_edit_action( $e_id = 0, Request $request){
-        if(!has_permission('reporter')){
+        if(!has_permission('events')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -243,7 +243,7 @@ class Intranet_events extends Controller
     }
 
     public function events_delete_action( $e_id = 0 ){
-        if(!has_permission('reporter')){
+        if(!has_permission('events')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
