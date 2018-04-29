@@ -107,6 +107,7 @@ class Intranet_staff extends Controller
         $img = $request->file('img');
         $perm = $request->input('perm');
         $func = $request->input('func');
+        $is_id = $request->input('is_id');
        
         // povinne
         if(!is_string($name) || strlen($name) < 1 || strlen($name) > 64 ){
@@ -164,6 +165,14 @@ class Intranet_staff extends Controller
         }else{
             $email = null;
         }
+
+        if($request->filled('is_id')){
+            if(!is_string($is_id) || strlen($is_id) < 1 || strlen($is_id) > 6 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'IS ID max 6 characters!']);
+            }
+        }else{
+            $is_id = null;
+        }
         
         $permissions = [];
         if(is_array($perm) && count($perm) > 0){
@@ -217,7 +226,8 @@ class Intranet_staff extends Controller
             'staffRole' => $role,
             'roles' => json_encode($permissions),
             'email' => $email,
-            'web' => $url
+            'web' => $url,
+            'is_id' => $is_id
         ];
 
         $s_id = DB::table('staff')->insertGetId($data);
@@ -384,6 +394,7 @@ class Intranet_staff extends Controller
         $func = $request->input('func');
         $email = $request->input('email');
         $url = $request->input('web');
+        $is_id = $request->input('is_id');
 
         $img = $request->file('img');
         $default_photo = $request->input('default_photo');
@@ -443,6 +454,14 @@ class Intranet_staff extends Controller
             } 
         }else{
             $email = null;
+        }
+
+        if($request->filled('is_id')){
+            if(!is_string($is_id) || strlen($is_id) < 1 || strlen($is_id) > 6 ){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'warning', 'msg' => 'IS ID max 6 characters!']);
+            }
+        }else{
+            $is_id = null;
         }
 
         $permissions = [];
@@ -531,7 +550,8 @@ class Intranet_staff extends Controller
             'staffRole' => $role,
             'roles' => json_encode($permissions),
             'email' => $email,
-            'web' => $url
+            'web' => $url,
+            'is_id' => $is_id
         ];
         //debug($data, true);
 
