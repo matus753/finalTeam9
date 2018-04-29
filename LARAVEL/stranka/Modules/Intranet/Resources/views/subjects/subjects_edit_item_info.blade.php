@@ -56,12 +56,14 @@
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
-                        <label for="prednaska">*Trvanie prednášky:</label>
-                        <input type="number" id="prednaska" class="form-control" name="prednaska" min="1" max="10" value="{{ $subject->duration_p }}" required/>
-                    </div>
+                        <label for="prednaska">Trvanie prednášky:</label>
+                        <input type="number" id="prednaska" class="form-control" name="prednaska" value="{{ $subject->duration_p }}" min="2" max="10" />
+                    </div> 
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cvicenie">*Trvanie cvičenia:</label>
-                        <input type="number" id="cvicenie" class="form-control" name="cvicenie" min="1" max="10" value="{{ $subject->duration_c }}" required/>
+                        <label for="cvicenie">Trvanie cvičenia:</label>
+                        <input type="number" id="cvicenie" class="form-control" name="cvicenie" value="{{ $subject->duration_c }}" min="2" max="10" />
                     </div>
                     <div class="form-group">
                         <label for="semester">*Semester:</label>

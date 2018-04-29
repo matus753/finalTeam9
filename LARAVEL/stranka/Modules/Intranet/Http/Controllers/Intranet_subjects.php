@@ -368,8 +368,8 @@ class Intranet_subjects extends Controller
 
         $info_sk = $request->input('editor_content_sk');
         $info_en = $request->input('editor_content_en');
-        $duration_p = $request->input('prednaska');
-        $duration_c = $request->input('cvicenie');
+        $prednaska = $request->input('prednaska');
+        $cvicenie = $request->input('cvicenie');
         $semester = $request->input('semester');
 
         if(!is_string($sk_title) || strlen($sk_title) < 1 || strlen($sk_title) > 256){
@@ -383,11 +383,11 @@ class Intranet_subjects extends Controller
             return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Skratka , prázdny reťazec alebo väčší ako 16 znakov']);
         }
         
-        if(!is_numeric($prednaska) || $prednaska < 1 || $prednaska > 10){
+        if(!is_numeric($prednaska) || $prednaska < 2 || $prednaska > 10){
             return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Prednáška , min 1 max 10']);
         }
       
-        if(!is_numeric($cvicenie) || $cvicenie < 1 || $cvicenie > 10 ){
+        if(!is_numeric($cvicenie) || $cvicenie < 2 || $cvicenie > 10 ){
             return redirect('/subjects-admin-edit-info-item/'.$sub_id)->with('err_code', ['type' => 'error', 'msg' => 'Zlý formát - Cvičenie , min 1 max 10']);
         }
 
@@ -418,8 +418,8 @@ class Intranet_subjects extends Controller
             'title' => $sk_title,
             'title_en' => $en_title,
             'abbrev' => $abbr,
-            'duration_p' => $duration_p,
-            'duration_c' => $duration_c,
+            'duration_p' => $prednaska,
+            'duration_c' => $cvicenie,
             'semester' => $semester
         ];
 

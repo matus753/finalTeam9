@@ -23,10 +23,12 @@ class Intranet_documents extends Controller
         $categories = DB::table('documents_categories')->get();
         $categories = (!$categories) ? [] : $categories;
 
+
         $data = [ 
                 'title' => $this->module_name, 
                 'categories' => $categories,
-            ];
+
+        ];
         return view('intranet::documents/documents_all', $data);
     }
 
@@ -135,10 +137,11 @@ class Intranet_documents extends Controller
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
-        $title_en = $request->input('title_en');
+        
         $title_sk = $request->input('title_sk');
-        $editor_en = $request->input('editor_content_en');
+        $preview_sk = $request->input('preview_sk');
         $editor_sk = $request->input('editor_content_sk');
+
         $hash_id = $request->input('save_to');
         $category = $request->input('category');
         $category_id = $request->input('category_id');
@@ -147,8 +150,8 @@ class Intranet_documents extends Controller
             return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
         }
 
-        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 64){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
+        if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 4096){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 4096 characters!']);
         }
 
         if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 64){
@@ -166,9 +169,8 @@ class Intranet_documents extends Controller
         $data = [
             'dc_id' => $category_id,
             'hash_name' => $hash_id,
-            'name_en' => $title_en,
             'name_sk' => $title_sk,
-            'text_en' => $editor_en,
+            'preview_sk' => $preview_sk,
             'text_sk' => $editor_sk
         ];
   
@@ -371,10 +373,10 @@ class Intranet_documents extends Controller
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
-        $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
+        $preview_sk = $request->input('preview_sk');
         $editor_sk = $request->input('editor_content_sk');
-        $editor_en = $request->input('editor_content_en');
+
         $hash_id = $request->input('save_to');
         $category = $request->input('category');
         $category_id = $request->input('category_id');
@@ -383,8 +385,8 @@ class Intranet_documents extends Controller
             return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
         }
 
-        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 64){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
+        if(!is_string($preview_sk) || strlen($preview_sk) < 1 || strlen($preview_sk) > 4096){
+            return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Preview max 4096 characters!']);
         }
 
         if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 64){
@@ -402,9 +404,8 @@ class Intranet_documents extends Controller
         $data = [
             'dc_id' => $category_id,
             'hash_name' => $hash_id,
-            'name_en' => $title_en,
             'name_sk' => $title_sk,
-            'text_en' => $editor_en,
+            'preview_sk' => $preview_sk,
             'text_sk' => $editor_sk
         ];
   

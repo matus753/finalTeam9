@@ -122,10 +122,10 @@ class Intranet_schedule extends Controller
         }
         
         $year = $request->input('year');
-        $staff = $request->input('staff');
+        $selected_staff = $request->input('staff');
         $semester = $request->input('semester');
         $all_days = $request->input('voidDays');
-        
+       
         if($all_days){
             $all_days = true;
         }else{
@@ -147,19 +147,19 @@ class Intranet_schedule extends Controller
             }
         }
         
-        if($staff && is_numeric($staff) && $staff > 0){
-            $staff = DB::table('staff')->where('s_id', $staff)->where('activated', 1)->first();
+        if($selected_staff && is_array($selected_staff) && count($selected_staff) > 0){
+            $staff = DB::table('staff')->whereIn('s_id', $selected_staff)->where('activated', 1)->get();
         }else{
             $staff = null;
         }
-        
+       
         $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
         $schedule_data = [];
 
         if($staff){
             $my_subjects_ids = DB::table('subjects')
                                 ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                ->where('subjects_staff_rel.s_id', $staff->s_id)
+                                ->whereIn('subjects_staff_rel.s_id', $selected_staff)
                                 ->where('subjects.semester', $semester)
                                 ->pluck('subjects_staff_rel.sub_id');
             
@@ -173,6 +173,7 @@ class Intranet_schedule extends Controller
                                 if($m->type == 'prednaska'){
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
+                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
                                         'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
                                         'color' => config('schedule_admin.prednaska_color')
 
@@ -181,6 +182,7 @@ class Intranet_schedule extends Controller
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
                                         'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
                                         'color' => config('schedule_admin.cvicenie_color')
                                     ];
                                 }
@@ -202,6 +204,15 @@ class Intranet_schedule extends Controller
                 }
             }
         }
+        $subject_assignment = [];
+        foreach($selected_staff as $ss){
+            $subject_assignment[] = DB::table('subjects_staff_rel')
+                                    ->join('subjects', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
+                                    ->where('subjects_staff_rel.s_id', $ss)
+                                    ->get();
+        }
+
+       
         
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
 
@@ -218,9 +229,11 @@ class Intranet_schedule extends Controller
             'year'  => $year,
             'seasons' => $seasons,  
             'day_names' => $day_names,
-            'semester' => $semester
+            'semester' => $semester,
+            'selected_staff' => $selected_staff,
+            'subject_assignment' => $subject_assignment
         ];
-        //debug($data, true);
+        debug($data, true);
         return view('intranet::schedule/schedule_staff', $data);
     }
 

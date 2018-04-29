@@ -56,12 +56,14 @@
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <div class="form-group">
-                        <label for="prednaska">*Trvanie prednášky:</label>
-                        <input type="number" id="prednaska" class="form-control" name="prednaska" value="1" min="1" max="10" required/>
-                    </div>
+                        <label for="prednaska">Trvanie prednášky:</label>
+                        <input type="number" id="prednaska" class="form-control" name="prednaska" value="2" min="2" max="10" required/>
+                    </div> 
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cvicenie">*Trvanie cvičenia:</label>
-                        <input type="number" id="cvicenie" class="form-control" name="cvicenie" value="1" min="1" max="10" required/>
+                        <label for="cvicenie">Trvanie cvičenia:</label>
+                        <input type="number" id="cvicenie" class="form-control" name="cvicenie" value="2" min="2" max="10" required/>
                     </div>
                     <div class="form-group">
                         <label for="semester">*Semester:</label>

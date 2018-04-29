@@ -8,6 +8,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Array_;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 class Intranet_news extends Controller
 {
     private $module_name;

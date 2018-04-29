@@ -230,8 +230,6 @@ class Intranet_staff extends Controller
         $db_func = DB::table('functions')->pluck('f_id')->toArray();
         
         if($res){
-            debug($func);
-            debug($s_id);
             if($func && is_array($func) && count($func) > 0) {
                 
                 foreach($func as $f){
@@ -253,6 +251,7 @@ class Intranet_staff extends Controller
             }
             
             $subjects_staff = $request->input('subjects_staff');
+            //debug($subjects_staff, true);
             if($request->filled('subjects_staff')){
                 if(!is_array($subjects_staff)){
                     return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -535,6 +534,23 @@ class Intranet_staff extends Controller
             'web' => $url
         ];
         //debug($data, true);
+
+        $subjects_staff = $request->input('subjects_staff');
+        if($request->filled('subjects_staff')){
+            if(!is_array($subjects_staff)){
+                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+            }
+
+            $check = DB::table('subjects_staff_rel')->whereIn('sub_id', $subjects_staff)->delete();
+
+            foreach($subjects_staff as $ss){
+                $res = DB::table('subjects_staff_rel')->insertGetId(['sub_id' => $ss , 's_id' => $s_id]);
+                if(!$res){
+                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+                }
+            }
+
+        }
 
         $res = DB::table('staff')->where('s_id', $s_id)->update($data);
         

@@ -26,13 +26,6 @@
                 }
             }
         });
-        $('#en-editor').summernote({
-            callbacks: {
-                onImageUpload: function(files, editor, welEditable) {
-                    sendFile(files[0], this, welEditable);
-                }
-            }
-        });
 
         function sendFile(file, editor, welEditable) {
             data = new FormData();
@@ -78,7 +71,32 @@
 			}
 		);
 
+        var p_sk = 4096;
+
+        $('#skc').text(p_sk - $('#preview_sk').text().length);
+        $("#preview_sk").on('keyup paste', function(){
+            let tmp = $(this).val().length;
+            if(tmp > 4096){
+                tmp = limitText(this, 4096);
+            }else{
+                tmp = p_sk - tmp;
+                
+            }
+            $('#skc').text(tmp);
+        });
+
+
     });    
+
+    function limitText(field, maxChar){
+        var ref = $(field),
+            val = ref.val();
+        if(val.length >= maxChar ){
+            ref.val(function() {
+                return val.substr(0, maxChar);       
+            });
+        }
+    }
 
 </script>
 <div id="emPAGEcontent" class="container">
@@ -100,11 +118,15 @@
         <input type="hidden" name="category_id" value="{{ $category->dc_id }}" />
 
         <div class="row">
-            <div class="col-md-5 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="form-group">
                     <div class="form-group">
                         <label for="title_sk">Slovenský nadpis:</label>
                         <input type="text" class="form-control" id="title_sk" name="title_sk" value="{{ $document->name_sk }}" placeholder="* Slovenský nadpis" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="preview_sk">Ukážkový text: <small id="skc" ></small></label>
+                        <textarea rows="10" class="form-control" id="preview_sk" name="preview_sk">{{ $document->preview_sk }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="sk-editor">Dlhý text:</label>
@@ -112,17 +134,13 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-5 col-md-offset-1">
+        <div class="row text-center lastButton">
+            <div class="col-md-12">
                 <div class="form-group">
-                    <div class="form-group">
-                        <label for="title_en">Anglický nadpis:</label>
-                        <input type="text" class="form-control" id="title_en" name="title_en" value="{{ $document->name_en }}" placeholder="* Anglický nadpis" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="en-editor">Long text:</label>
-                        <textarea rows="8" class="form-control" id="en-editor"  name="editor_content_en">{{ $document->text_en }}</textarea>
-                    </div>
+                    <label for="dropzone">Additional files:</label>
+                    <div class="dropzone" id="dropzone"></div>
                 </div>
             </div>
         </div>

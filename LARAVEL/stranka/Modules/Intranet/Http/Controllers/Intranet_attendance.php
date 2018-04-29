@@ -153,12 +153,14 @@ class Intranet_attendance extends Controller
             $s->att = $tmp2;
         }
 
+        $current_day = date('j');
         $data = [
             'mesiace' => $mesiace,
             'staff' => $staff,
             'mesiac' => $month,
             'rok' => $year,
             'num_days' => $n_curr_month_days,
+            'current_day' => $current_day
         ];
         
         $table =  view('intranet::attendance/pdf_table', $data)->render();

@@ -386,20 +386,40 @@ function storage_deletor($type = ""){
 
 
 function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
+	$mail = new PHPMailer\PHPMailer\PHPMailer();
+	$mail->isSMTP();
+	$mail->Host = 'smtp.googlemail.com';  //gmail SMTP server
+	$mail->SMTPAuth = true;
+	$mail->Username = 'fei.uamt@gmail.com';   //username
+	$mail->Password = 'Fei2018Uamt$';   //password
+	$mail->SMTPSecure = 'ssl';
+	$mail->Port = 465;                    //SMTP port
+	$mail->setFrom('fei.uamt@gmail.com', 'FEI UAMT');
+
 	$recepients  = DB::table('newsletter')->get();
-	$header = "From: UAM FEI \r\n";
+	//$header = "From: UAM FEI \r\n";
 	foreach($recepients as $r){
 		$email = $r->email;
 		$lang_db = $r->lang;
 
 		if($lang_db == "SK"){
 			if(!empty($_title_sk) && !empty($_content_sk)){
-				mail($email, $_title_sk, $_content_sk, $header);
+				//mail($email, $_title_sk, $_content_sk, $header);
+				$mail->addAddress($email, $email);
+				$mail->isHTML(true);
+				$mail->Subject = $_title_sk;
+				$mail->Body    = $_content_sk;
+				$mail->send();
 			}
 		}
 		if($lang_db == "EN"){
 			if(!empty($_title_en) && !empty($_content_en)){
-				mail($email, $_title_en, $_content_en, $header);
+				//mail($email, $_title_en, $_content_en, $header);
+				$mail->addAddress($email, $email);
+				$mail->isHTML(true);
+				$mail->Subject = $_title_en;
+				$mail->Body    = $_content_en;
+				$mail->send();
 			}
 		}
 	}

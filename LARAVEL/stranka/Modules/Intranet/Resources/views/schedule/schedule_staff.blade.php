@@ -3,7 +3,8 @@
 @section('additional_headers_admin')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
-
+<script src="{{ URL::asset('js/bootstrap-select.js') }}"></script>
+<link href="{{ URL::asset('css/bootstrap-select.css') }}" rel="stylesheet">
 @stop
 @section('content_admin')
 
@@ -56,9 +57,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="select">Zamestnanci</label>
-                        <select class="form-control" id="select" name="staff">
+                        <select class="form-control selectpicker" data-live-search="true" multiple id="select" name="staff[]">
                             @foreach ($all_staff as $s) 
-                                <option value="{{ $s->s_id }}" @if($staff) @if($s->s_id == $staff->s_id) {{ 'selected' }} @endif @endif>{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                                <option value="{{ $s->s_id }}" data-tokens="{{ $s->title1 }} {{ $s->name }} {{ $s->surname }} {{ $s->title2 }}" @if(count($selected_staff) > 0) @foreach($selected_staff as $ss ) @if($s->s_id == $ss) {{ 'selected' }} @endif @endforeach @endif>{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -117,9 +118,9 @@
                                 @for($i =0; $i < 15; $i++)
                                 <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
                                     @if(is_array($sd[$i+7]))
-                                        {{ $sd[$i+7]['room'] }}
+                                        <p>{{ $sd[$i+7]['abb'] }}</p>
+                                        <p>{{ $sd[$i+7]['room'] }}</p>
                                         @php
-                                            
                                             $i += ($sd[$i+7]['duration'] - 1);
                                         @endphp
                                     @endif 
@@ -132,6 +133,18 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                @foreach($subject_assignment as $sub)
+                    @foreach($all_staff as $as)
+                        @if($ss->s_id == $as->s_id)
+                        <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss->title }}</small></h4>
+                        
+                        @endif
+                    @endforeach
+                @endforeach
+            </div>
+        </div>
         @endif
 
 
@@ -140,7 +153,9 @@
 <script>
     $(document).ready(function(){
         $('#schedule_table').fadeIn("slow");
+        $('.selectpicker').selectpicker();
     });
+    
 
 </script>
 @stop

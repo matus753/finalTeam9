@@ -108,7 +108,7 @@
 
     });
 
-   function limitText(field, maxChar){
+    function limitText(field, maxChar){
         var ref = $(field),
             val = ref.val();
         if(val.length >= maxChar ){

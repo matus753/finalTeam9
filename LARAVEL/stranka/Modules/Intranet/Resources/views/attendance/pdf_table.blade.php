@@ -131,7 +131,7 @@
                                 @if(isset($s->att['skratky'][$i]))
                                     <td class="text-center fixed" id="{{ $s->s_id }}" style="" >{{ strtoupper($s->att['skratky'][$i]) }}</td>
                                 @else
-                                    <td class="text-center fixed" id="{{ $s->s_id }}"></td>
+                                    <td class="text-center fixed" id="{{ $s->s_id }}">@if($i <= $current_day) {{ '|' }} @endif</td>
                                 @endif
                             @endif
                         @endfor

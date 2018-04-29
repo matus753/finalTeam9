@@ -20,23 +20,29 @@
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
             <h2>Administrácia dokumentov</h2>
+            <ul class="nav nav-tabs" id="tabs">
+                @foreach($categories as $key => $c)
+                    @if($key == 0)
+                        <li class="active"><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
+                    @else
+                        <li><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
+                    @endif
+                @endforeach
+            </ul>
+            <div id="add_item"></div> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="intra-div">
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="nav nav-tabs" id="tabs">
-                        @foreach($categories as $key => $c)
-                            @if($key == 0)
-                                <li class="active"><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
-                            @else
-                                <li><a id="{{ $c->dc_id }}">{{ $c->name_sk }}</a></li>
-                            @endif
-                        @endforeach
-                    </ul>
-                    <div id="add_item" class="row"></div>
-                    <table class="table table-bordered table-stripped" id="items">
-                        <tbody>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-stripped" id="items">
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,8 +68,8 @@
             if(data['docs'] != null){
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
-                    $('#items').append('<tr class="well well-default">' +
-                        '<td class=""><a style="padding-left: 20px;" href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a></td>'+
+                    $('#items').append('<tr>'+
+                        '<td class=""><a style="padding-left: 20px;" href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a><p style="padding-left: 20px;">'+data['docs'][i].preview_sk+'</p></td>'+
                         '<td class="text-center" style="width: 100px;"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger btn-sm"><span class="fa fa-trash-o "></span></a>'+
                         '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success btn-sm"><span class="fa fa-pencil-square-o "></span></a></td>'+
                         '</tr>');
