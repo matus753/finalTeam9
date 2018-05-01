@@ -32,7 +32,7 @@ class Login extends Controller
 			return redirect('/documents-admin')->with('err_code', ['type' => 'success', 'msg' => 'Authentification success!']);
 		}
 	
-		$in_table = DB::table('staff')->where('ldapLogin', $login)->first();
+		$in_table = DB::table('staff')->where('ldapLogin', $login)->where('activated', 1)->first();
 		
 		if($in_table == null){
 			return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Authentification failed!']);
@@ -102,25 +102,6 @@ class Login extends Controller
 		return redirect('/login')->with('err_code', ['type' => 'error', 'msg' => 'Internal server error']);
 	}
 
-	/*public function developer(){
-
-		$in_table = DB::table('staff')->where('s_id', 43)->first();
-
-		$id = $in_table->s_id;
-		$check = sha1(md5($in_table->name.$in_table->surname).$in_table->surname);
-		$role = json_decode($in_table->roles);
-
-		$role = (!$role) ? [] : $role;
-		$user = [
-			'id' => $id,
-			'logged' => true,
-			'role' => $role,
-			'check' => $check,
-		];
-
-		session()->put('user', $user);
-		return redirect('/')->with('err_code', ['type' => 'info', 'msg' => 'Mal by si mat prava']);
-	}*/
 
 	private function local_login($login = '', $password = ''){
 		if(!is_string($login) || strlen($login) == 0 || !is_string($password) || strlen($password) == 0 ){
@@ -133,7 +114,7 @@ class Login extends Controller
 											
 		if($local_name == $login && sha1($login.sha1(sha1($password)).$salt) == sha1($local_name.sha1($local_pass).$salt) ){
 			$user = [
-				'id' => 51,//0,
+				'id' => 10001,
 				'logged' => true,
 				'role' => ['locale']
 			];

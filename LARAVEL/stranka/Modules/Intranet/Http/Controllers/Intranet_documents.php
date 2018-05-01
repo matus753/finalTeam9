@@ -78,14 +78,9 @@ class Intranet_documents extends Controller
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
-        $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
 
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 64){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
-        }
-
-        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 64){
             return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
         }
 
@@ -94,7 +89,6 @@ class Intranet_documents extends Controller
 
         $data = [
             'hash_name' => $hash_id,
-            'name_en' => $title_en,
             'name_sk' => $title_sk,
         ];
         
@@ -122,11 +116,13 @@ class Intranet_documents extends Controller
 
         $hash_id = md5(uniqid());
         documents_create_folder($hash_id);
-
+        $allowed = config('documents_admin.file_types_allowed');
+        $allowed = str_replace(',', ' .', $allowed);
         $data = [
             'title' => $this->module_name,
             'category' => $category,
-            'hash_id' => $hash_id
+            'hash_id' => $hash_id,
+            'allowed' => $allowed
         ];
 
         return view('intranet::documents/documents_add_item', $data);
@@ -309,19 +305,13 @@ class Intranet_documents extends Controller
             return redirect('/documents-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
         }
 
-        $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
            
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 64){
             return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
         }
 
-        if(!is_string($title_en) || strlen($title_en) < 1 || strlen($title_en) > 64){
-            return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
-        }
-
         $data = [
-            'name_en' => $title_en,
             'name_sk' => $title_sk
         ];
         
@@ -353,12 +343,16 @@ class Intranet_documents extends Controller
 
         $files = (!$files) ? [] : $files;
 
+        $allowed = config('documents_admin.file_types_allowed');
+        $allowed = str_replace(',', ' .', $allowed);
+
         $data = [
             'title' => $this->module_name,
             'document' => $document,
             'category' => $category,
             'hash_id' => $document->hash_name,
-            'files' => $files
+            'files' => $files,
+            'allowed' => $allowed
         ];
         
         return view('intranet::documents/documents_edit_category_item', $data);

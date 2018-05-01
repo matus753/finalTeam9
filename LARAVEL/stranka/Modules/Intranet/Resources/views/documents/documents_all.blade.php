@@ -101,10 +101,10 @@
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
                     let first_p = data['docs'][i]['text_sk'];
-                    $('#items').append('<tr class="well well-default">' +
-                        '<td class="col-lg-10"><a href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a></td>'+
-                        '<td class="col-lg-2"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger pull-right"><span class="fa fa-trash-o "></span></a>'+
-                        '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success pull-right"><span class="fa fa-pencil-square-o "></span></a></td>'+
+                    $('#items').append('<tr>'+
+                        '<td class=""><a style="padding-left: 20px;" href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a><p style="padding-left: 20px;">'+data['docs'][i].preview_sk+'</p></td>'+
+                        '<td class="text-center" style="width: 100px;"><a href="{{ url("/documents-admin-delete-item") }}/'+data['docs'][i].d_id+'" class="btn btn-danger btn-sm"><span class="fa fa-trash-o "></span></a>'+
+                        '<a href="{{ url("/documents-admin-edit-category-item") }}/'+data['docs'][i].d_id+'" class="btn btn-success btn-sm"><span class="fa fa-pencil-square-o "></span></a></td>'+
                         '</tr>');
                 }
             }

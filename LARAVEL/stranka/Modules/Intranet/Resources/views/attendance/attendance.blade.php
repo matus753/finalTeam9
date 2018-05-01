@@ -174,7 +174,7 @@ tbody tr:hover{
                 },
 		}).done(function(data){
 			$('#loading').css('visibility','hidden');
-			window.location = '{{ url("/attendance-pdf-download") }}'
+			window.location = '{{ url("/attendance-pdf-download") }}';	
 		}).fail(function(data){
 			$('#loading').css('visibility','hidden');
 		});

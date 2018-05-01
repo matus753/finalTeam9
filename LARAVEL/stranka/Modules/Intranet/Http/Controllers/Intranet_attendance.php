@@ -163,6 +163,8 @@ class Intranet_attendance extends Controller
             'current_day' => $current_day
         ];
         
+        ini_set('memory_limit','256M');
+        
         $table =  view('intranet::attendance/pdf_table', $data)->render();
         $dompdf = new Dompdf();
         $dompdf->loadHtml($table);
@@ -176,9 +178,11 @@ class Intranet_attendance extends Controller
         if($exists){
             Storage::delete('public/pdf_attendance.pdf');
             Storage::put('public/pdf_attendance.pdf', $output);
+            ini_set('memory_limit','128M');
             return response()->json(['error' => 'Success'], 200);
         }else{
             Storage::put('public/pdf_attendance.pdf', $output);
+            ini_set('memory_limit','128M');
             return response()->json(['error' => 'Success'], 200);
         }
         return response()->json(['error' => 'Failed'], 400);
@@ -193,9 +197,9 @@ class Intranet_attendance extends Controller
         if($exists){
             $file = public_path(). "/storage/pdf_attendance.pdf";
             $headers = [
-                "Content-type :application/pdf",
+                "Content-type : application/pdf",
                 "Cache-Control : no-store, no-cache",
-                "Content-disposition", "attachment; filename=pdf_attendance.pdf"
+                "Content-disposition : attachment; filename=pdf_attendance.pdf"
             ];
             return response()->download($file, 'pdf_attendance.pdf', $headers);
         }

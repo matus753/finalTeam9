@@ -340,9 +340,7 @@ function storage_deletor($type = ""){
 	if(!$res){
 		return true;
 	}
-
 	
-
 	$path = base_path('storage/app/public/');
 	foreach($res as $r){
 		switch($type){
@@ -397,14 +395,12 @@ function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
 	$mail->setFrom('fei.uamt@gmail.com', 'FEI UAMT');
 
 	$recepients  = DB::table('newsletter')->get();
-	//$header = "From: UAM FEI \r\n";
 	foreach($recepients as $r){
 		$email = $r->email;
 		$lang_db = $r->lang;
 
 		if($lang_db == "SK"){
 			if(!empty($_title_sk) && !empty($_content_sk)){
-				//mail($email, $_title_sk, $_content_sk, $header);
 				$mail->addAddress($email, $email);
 				$mail->isHTML(true);
 				$mail->Subject = $_title_sk;
@@ -414,7 +410,6 @@ function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
 		}
 		if($lang_db == "EN"){
 			if(!empty($_title_en) && !empty($_content_en)){
-				//mail($email, $_title_en, $_content_en, $header);
 				$mail->addAddress($email, $email);
 				$mail->isHTML(true);
 				$mail->Subject = $_title_en;
