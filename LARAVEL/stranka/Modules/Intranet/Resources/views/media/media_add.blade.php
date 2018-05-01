@@ -106,7 +106,7 @@
                             <input type="text" class="form-control" id="link" name="link" placeholder="Link" />
                         </div>
                         <div id="div_file" class="form-group hidden">
-                            <label for="file">* Súbor:</label>
+                            <label for="file">* Súbor: <small>Povolené typy súborov: {{ $allowed }}</small></label>
                             <input type="file" class="form-control" id="file" name="files[]" placeholder="Súbor" multiple/>
                         </div>
                     </div>

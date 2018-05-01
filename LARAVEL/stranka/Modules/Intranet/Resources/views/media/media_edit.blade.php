@@ -93,7 +93,7 @@
                             <input type="text" class="form-control" id="link" name="link" value="{{ $media->url }}" placeholder="Link" />
                         </div>
                         <div id="div_file" class="form-group @if($media->type == 'link' ) {{ 'hidden' }} @endif">
-                            <label for="file">{{ 'Súbor(y):' }}</label>
+                            <label for="file">Súbor(y) <small>Povolené typy súborov: {{ $allowed }}</small></label>
                             <input type="file" class="form-control" id="file" name="files[]" value="" placeholder="Súbor" multiple/>
                         </div>
                     </div>

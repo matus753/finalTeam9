@@ -38,7 +38,7 @@
             <span>Obrázky sa po prídaní automaticky uložia na server bez potreby potvrdzovania.</span>
             <br>
             <br>
-            <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .jpg, .jpeg, .png, .giff.</p>
+            <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .{{ $allowed }}</p>
             <div class="dropzone" id="dropzone"></div>
             <a href="{{ url('/photos-admin') }}" class="btn btn-primary" style="float: right; margin-top: 20px"> Pridaj obrázky neskôr </a>
 		</div>

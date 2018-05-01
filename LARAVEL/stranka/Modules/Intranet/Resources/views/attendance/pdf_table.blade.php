@@ -160,7 +160,7 @@
 
         <span style="position:absolute;left:600px;bottom:100px;">
             <p>
-                dotiahnut z DB 
+                {{ $leader->title1 }}&nbsp;{{ $leader->name }}&nbsp;{{ $leader->surname }}&nbsp;{{ $leader->title2 }}
             </p>
             <p>
                 riaditeľ ÚAMT

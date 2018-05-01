@@ -188,7 +188,7 @@
                     </div>
                     <div class="form-group">
                         <label for="dropzone">Dodatočné súbory:</label>
-                        <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .jpg, .jpeg, .png, .giff.</p>
+                        <p style="font-weight: bold; color: #d81d19; text-align: left">Povolené je vkladať iba súbory s príponami .{{ $allowed }}.</p>
                         <div class="dropzone" id="dropzone"></div>
                     </div>
                 </div>

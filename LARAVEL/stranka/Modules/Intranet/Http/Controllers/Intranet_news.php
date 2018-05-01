@@ -61,10 +61,14 @@ class Intranet_news extends Controller
         $types = config('news_admin.types');
         $hash_id = md5(uniqid());
 
+        $allowed = config('news_admin.add_files_types_allowed');
+        $allowed = str_replace(',', ' .', $allowed);
+
         $data = [
             'title' => $this->module_name,
             'types' => $types,
             'hash_id' => $hash_id,
+            'allowed' => $allowed
         ];
     
         return view('intranet::news/news_add', $data);
@@ -282,12 +286,17 @@ class Intranet_news extends Controller
 
         $items = (!$items) ? [] : $items;
        
+        $allowed = config('news_admin.add_files_types_allowed');
+        $allowed = str_replace(',', ' .', $allowed);
+
+
         $data = [
             'title' => $this->module_name,
             'item' => $item,
             'types' => $types,
             'add_files' => $items,
-            'hash_id' => $item->hash_id
+            'hash_id' => $item->hash_id,
+            'allowed' => $allowed
         ];
       
         return view('intranet::news/news_edit', $data);

@@ -152,6 +152,11 @@ class Intranet_attendance extends Controller
             $tmp2['skratky'] = $skratky;
             $s->att = $tmp2;
         }
+        
+        $current_leader = DB::table('staff')
+                            ->join('staff_function', 'staff.s_id', '=', 'staff_function.id_staff')
+                            ->where('staff_function.id_func', 1)
+                            ->first();
 
         $current_day = date('j');
         $data = [
@@ -160,7 +165,8 @@ class Intranet_attendance extends Controller
             'mesiac' => $month,
             'rok' => $year,
             'num_days' => $n_curr_month_days,
-            'current_day' => $current_day
+            'current_day' => $current_day,
+            'leader' => $current_leader
         ];
         
         ini_set('memory_limit','256M');

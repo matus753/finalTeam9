@@ -38,9 +38,13 @@ class Intranet_media extends Controller
 
         $types = config('media_admin.types');
 
+        $allowed = config('media_admin.media_allowed_types');
+        $allowed = str_replace(',', ' .', $allowed);
+
         $data = [
             'title' => $this->module_name,
-            'types' => $types
+            'types' => $types,
+            'allowed' => $allowed
         ];
         return view('intranet::media/media_add', $data);
     }
@@ -184,11 +188,15 @@ class Intranet_media extends Controller
     
         $types = config('media_admin.types');
 
+        $allowed = config('media_admin.media_allowed_types');
+        $allowed = str_replace(',', ' .', $allowed);
+
         $data = [
             'media' => $media,
             'files' => $files,
             'title' => $this->module_name,
-            'types' => $types
+            'types' => $types,
+            'allowed' => $allowed
         ];
 
         return view('intranet::media/media_edit', $data);

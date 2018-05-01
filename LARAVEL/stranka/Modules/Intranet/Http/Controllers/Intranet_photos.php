@@ -100,11 +100,14 @@ class Intranet_photos extends Controller
         }
 
         $gallery = DB::table('photo_gallery')->where('pg_id', $pg_id)->first();
+        $allowed = config('photos_admin.allowed_types');
+        $allowed = str_replace(',', ' .', $allowed);
 
         if($gallery){
             $data = [
                 'title' => $this->module_name,
-                'gallery' => $gallery
+                'gallery' => $gallery,
+                'allowed' => $allowed
             ];
     
             return view('intranet::photos/photos_upload', $data);

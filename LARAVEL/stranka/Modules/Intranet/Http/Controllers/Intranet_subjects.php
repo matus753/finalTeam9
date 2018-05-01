@@ -143,11 +143,15 @@ class Intranet_subjects extends Controller
 
         $sub_hash = md5(uniqid());
 
+        $allowed = config('sunjects_admin.file_types_allowed');
+        $allowed = str_replace(',', ' .', $allowed);
+
         $data = [
             'title' => $this->module_name,
             'subject' => $subject,
             'hash_id' => $hash_id,
-            'sub_hash' => $sub_hash
+            'sub_hash' => $sub_hash,
+            'allowed' => $allowed
         ];
 
         return view('intranet::subjects/subjects_add_item', $data);
@@ -329,12 +333,16 @@ class Intranet_subjects extends Controller
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
         }
 
+        $allowed = config('sunjects_admin.file_types_allowed');
+        $allowed = str_replace(',', ' .', $allowed);
+
         $data = [
             'title' => $this->module_name,
             'subject' => $subject,
             'item' => $subjects_subcategories,
             'files' => $subject_files,
-            'hash_id' => $hash_id
+            'hash_id' => $hash_id,
+            'allowed' => $allowed
         ];
      
         return view('intranet::subjects/subjects_edit_item', $data);
