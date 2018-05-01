@@ -144,7 +144,7 @@ class Intranet_subjects extends Controller
 
         $sub_hash = md5(uniqid());
 
-        $allowed = config('sunjects_admin.file_types_allowed');
+        $allowed = config('subjects_admin.file_types_allowed');
         $allowed = str_replace(',', ' .', $allowed);
 
         $data = [
@@ -336,7 +336,7 @@ class Intranet_subjects extends Controller
         
         
 
-        $allowed = config('sunjects_admin.file_types_allowed');
+        $allowed = config('subjects_admin.file_types_allowed');
         $allowed = str_replace(',', ' .', $allowed);
 
         $data = [
