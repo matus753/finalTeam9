@@ -117,11 +117,12 @@ class Intranet_subjects extends Controller
 
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
@@ -173,11 +174,12 @@ class Intranet_subjects extends Controller
 
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $subject_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
@@ -327,11 +329,12 @@ class Intranet_subjects extends Controller
 
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $subjects_subcategories->sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         $allowed = config('sunjects_admin.file_types_allowed');
         $allowed = str_replace(',', ' .', $allowed);
@@ -383,11 +386,12 @@ class Intranet_subjects extends Controller
 
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $category_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         $data = [
             'sub_id' => $category_id,
@@ -415,11 +419,12 @@ class Intranet_subjects extends Controller
 
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         if(!is_numeric($sub_id)){
             return false;
@@ -445,11 +450,12 @@ class Intranet_subjects extends Controller
         
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad request']);
@@ -596,11 +602,12 @@ class Intranet_subjects extends Controller
         
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $item->sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         $parent = DB::table('subjects')->where('sub_id', $item->sub_id)->first();
         if(!$parent){
@@ -644,11 +651,12 @@ class Intranet_subjects extends Controller
         
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_sub->sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+        
 
         if(is_file($path)){
             unlink($path);
@@ -668,11 +676,12 @@ class Intranet_subjects extends Controller
         
         if(!has_permission('admin')){
             $check = DB::table('subjects_staff_rel')->where('sub_id', $sub_id)->where('s_id', get_user_id())->first();
+            if(!$check){
+                return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
+            }
         }   
         
-        if(!$check){
-            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
-        }
+       
         
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'Bad item selected!']);
