@@ -20,7 +20,7 @@
                         <a href="{{ url('/videos-admin') }}" class="btn btn-primary"> Späť </a>
                     </div>
                     <div class="text-center">
-                        <h3>Pridanie nového videa</h3>
+                        <h3>Editácia videa</h3>
                     </div>
                 </div>
             </div>
