@@ -13,7 +13,7 @@
 <script>
     $(document).ready(function(){
         $('#news-table').DataTable({
-            stateSave: true
+            stateSave: true,
         });  
     });
 </script>

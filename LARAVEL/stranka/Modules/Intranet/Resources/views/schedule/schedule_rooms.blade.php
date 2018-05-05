@@ -55,7 +55,7 @@
             <form class="form-horizontal" method="GET" action="{{ url('/schedule-admin-rooms') }}">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="select">Zamestnanci</label>
+                        <label for="select">Miestnosti</label>
                         <select class="form-control" id="select" name="room">
                             @foreach ($all_rooms as $r) 
                                 <option value="{{ $r->sr_id }}" @if($room) @if($r->sr_id == $room->sr_id) {{ 'selected' }} @endif @endif>{{ $r->room }}</option>

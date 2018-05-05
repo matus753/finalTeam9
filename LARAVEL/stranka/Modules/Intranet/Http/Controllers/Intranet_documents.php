@@ -533,6 +533,8 @@ class Intranet_documents extends Controller
             return response()->json(['error' => 'Bad request'], 400);
         }
         
+        session()->put('cat_tab', $dc_id);
+
         $docs = DB::table('documents')->where('dc_id', $dc_id)->get();
         if(!$docs){
             return response()->json(['error' => 'Bad request'], 400);

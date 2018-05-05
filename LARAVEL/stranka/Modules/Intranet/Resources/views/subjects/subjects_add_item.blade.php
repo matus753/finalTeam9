@@ -71,7 +71,7 @@
                 autoProcessQueue: true,
                 init: function() {
                     this.on("sending", function(file, xhr, formData){
-                            formData.append("category", "{{ $subject->hash_name }}");
+                            formData.append("category", "{{ $hash_id }}");
                             formData.append("save_to", "{{ $sub_hash }}");
                     });
                 }
@@ -99,7 +99,7 @@
             <form action="{{ url('/subjects-admin-add-item-action') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="save_to" value="{{ $sub_hash }}" />
-                <input type="hidden" name="subject" value="{{ $subject->hash_name }}" />
+                <input type="hidden" name="subject" value="{{ $hash_id }}" />
                 <input type="hidden" name="subject_id" value="{{ $subject->sub_id }}" />
                 <div class="form-group">
                     <label for="title_sk">Slovenský nadpis:</label>

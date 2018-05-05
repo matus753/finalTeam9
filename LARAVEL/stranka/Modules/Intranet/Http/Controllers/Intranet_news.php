@@ -25,7 +25,7 @@ class Intranet_news extends Controller
         }
         
         storage_deletor('news');
-        $all_news = DB::table('news')->get();
+        $all_news = DB::table('news')->orderBy('date_expiration', 'desc')->get();
         $all_news = (!$all_news) ? [] : $all_news;
 
         foreach($all_news as $a){

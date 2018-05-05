@@ -16,7 +16,7 @@ class Intranet_media extends Controller
     }
 
     public function media_all(){
-        if(!has_permission('repoter')){
+        if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -32,7 +32,7 @@ class Intranet_media extends Controller
     }
 
     public function media_add(){    
-        if(!has_permission('repoter')){
+        if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -50,7 +50,7 @@ class Intranet_media extends Controller
     }
 
     public function media_add_action( Request $request ){
-        if(!has_permission('repoter')){
+        if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -170,7 +170,7 @@ class Intranet_media extends Controller
     }
 
     public function media_edit( $id = 0 ){
-        if(!has_permission('repoter')){
+        if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -203,7 +203,7 @@ class Intranet_media extends Controller
     }
 
     public function media_edit_action( Request $request, $m_id = 0 ){
-        if(!has_permission('repoter')){
+        if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -351,7 +351,7 @@ class Intranet_media extends Controller
     }
 
     public function media_delete_action( $id = 0 ){
-        if(!has_permission('repoter')){
+        if(!has_permission('reporter')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
         

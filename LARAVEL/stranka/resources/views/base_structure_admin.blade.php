@@ -60,13 +60,13 @@
                 <ul class="nav navbar-nav navbar-right scrollable-menu">
                     <li><a href="{{ url('/schedule-admin-subject') }}" class="navbarItem">@lang('menu.schedule')</a></li>
 					@if(has_permission('reporter')) <li><a href="{{ url('/news-admin') }}" class="navbarItem">@lang('menu.news')</a></li> @endif
-                    @if(has_permission('reporter')) <li><a href="{{ url('/events-admin') }}" class="navbarItem">@lang('menu.events')</a></li> @endif
-                    <li><a href="{{ url('/subjects-admin') }}" class="navbarItem">@lang('menu.subjects')</a></li>
+                    @if(has_permission('events')) <li><a href="{{ url('/events-admin') }}" class="navbarItem">@lang('menu.events')</a></li> @endif
+                    @if(has_user_subjects())<li><a href="{{ url('/subjects-admin') }}" class="navbarItem">@lang('menu.subjects')</a></li>@endif
                     <li><a href="{{ url('/attendance-admin') }}" class="navbarItem">@lang('menu.attendance')</a></li>
                     <li><a href="{{ url('/documents-admin') }}" class="navbarItem">@lang('menu.documents')</a></li>
-                    @if(has_permission('editor')) <li><a href="{{ url('/projects-admin') }}" class="navbarItem">@lang('menu.projects')</a></li> @endif
-                    @if(has_permission('admin')) <li><a href="{{ url('/staff-admin') }}" class="navbarItem">@lang('menu.staff')</a></li> @endif
-                    @if(has_permission('hr')) <li><a href="{{ url('/media-admin') }}" class="navbarItem">@lang('menu.media')</a></li> @endif
+                    @if(has_permission('projects')) <li><a href="{{ url('/projects-admin') }}" class="navbarItem">@lang('menu.projects')</a></li> @endif
+                    @if(has_permission('staff')) <li><a href="{{ url('/staff-admin') }}" class="navbarItem">@lang('menu.staff')</a></li> @endif
+                    @if(has_permission('reporter')) <li><a href="{{ url('/media-admin') }}" class="navbarItem">@lang('menu.media')</a></li> @endif
                     @if(has_permission('reporter')) <li><a href="{{ url('/videos-admin') }}" class="navbarItem">@lang('menu.videos')</a></li> @endif
                     @if(has_permission('reporter')) <li><a href="{{ url('/photos-admin') }}" class="navbarItem">@lang('menu.photos')</a></li> @endif
                     <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>

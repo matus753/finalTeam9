@@ -141,4 +141,6 @@ return [
     'in' => 'in',
     'head' => 'head',
     'no_data' => 'No data available.',
+    'SubjectShortcut' => 'Shortcut',
+    'SubjectTitle' => 'Title',
 ];

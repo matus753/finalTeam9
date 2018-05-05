@@ -419,3 +419,18 @@ function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
 		}
 	}
 }
+
+function has_user_subjects(){
+	if(isLogged()){
+		$user = session()->get('user');
+		if(has_permission('admin')){
+			return true;
+		}
+		$subjects = DB::table('subjects_staff_rel')->where('s_id', $user['id'])->count();
+		if($subjects > 0){
+			return true;
+		}
+		return false;
+	}
+	return false;
+}

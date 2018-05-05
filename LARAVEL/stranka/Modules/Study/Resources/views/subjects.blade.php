@@ -16,15 +16,21 @@
     <div id="emPAGEcontent printDiv">
         <div class="container subjectsAll">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <form class="form-inline" action="{{ url('/subjects/'.$id) }}" method="GET">
                         {{ csrf_field() }}
-                        <label for="semester"></label>
-                        <select class="form-control" name="semester" id="semester">
-                            <option value="0" @if($act_sem == 0) {{ 'selected' }} @endif>@lang('study::study.winterTerm')</option>
-                            <option value="1" @if($act_sem == 1) {{ 'selected' }} @endif>@lang('study::study.summerTerm')</option>
-                        </select>
-                        <input type="submit" class="btn btn-primary" value="@lang('study::study.submit')">
+                        <div class="form-group">
+                            <label for="semester">Filter: </label>
+                            <select class="form-control" name="semester" id="semester">
+                                <option value="0" @if($act_sem == 0) {{ 'selected' }} @endif>@lang('study::study.winterTerm')</option>
+                                <option value="1" @if($act_sem == 1) {{ 'selected' }} @endif>@lang('study::study.summerTerm')</option>
+                            </select>                            
+                            <select class="form-control" name="filter" id="">
+                                <option value="abbr" @if($filter == 'abbr') {{ 'selected' }} @endif>@lang('study::study.SubjectShortcut')</option>
+                                <option value="name" @if($filter == 'name') {{ 'selected' }} @endif>@lang('study::study.SubjectTitle')</option>
+                            </select>
+                            <input type="submit" class="btn btn-primary" value="@lang('study::study.submit')">
+                        </div>
                     </form>
                 </div>
             </div>

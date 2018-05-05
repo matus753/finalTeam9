@@ -16,9 +16,11 @@
             <div class="pull-left">
                 <a href="{{ url('/intranet') }}" class="btn btn-primary"> Späť </a>
             </div>
+            @if(has_permission('admin'))
             <div class="pull-right">
                 <a href="{{ url('/subjects-admin-add') }}" class="btn btn-primary"> Pridať predmet </a>
             </div>
+            @endif
             <h2>Administrácia predmetov</h2>
                 <div class="table-responsive tableIntra">
                     <table class="table table-bordered table-stripped intranet-table">

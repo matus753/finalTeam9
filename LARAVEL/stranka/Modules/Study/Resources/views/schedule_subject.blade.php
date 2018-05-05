@@ -34,46 +34,21 @@
         <br>
         <div class="intra-div">
             <form class="form-horizontal" method="GET" action="{{ url('/schedule-subject') }}">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="select">Predmet</label>
-                        <select class="form-control" id="select" name="predmet">
-                            @foreach ($subjects as $s) 
-                                <option value="{{ $s->sub_id }}" @if($subject) @if($s->sub_id == $subject->sub_id) {{ 'selected' }} @endif @endif>{{ $s->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2 col-md-offset-1">
-                    <div class="form-group">
-                        <label for="select">Rok</label>                      
-                        <select class="form-control" id="select" name="year">
-                            @foreach ($other_years_db as $y) 
-                                <option value="{{ $y->year }}" @if($y->year == $year->year) {{ 'selected' }} @endif>{{ $y->year }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2 col-md-offset-1 ">
-                    <div class="form-group">
-                        <label for="select">Semester</label>                      
-                        <select class="form-control" id="select" name="semester">
-                            @foreach ($seasons as $s) 
-                                <option value="{{ $s->semester }}" @if($s->semester == $semester) {{ 'selected' }} @endif>@if($s->semester == 0){{ 'Zimný' }}@else{{ 'Letný' }}@endif</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="select">Predmet</label>
+                    <select class="form-control" id="select" name="predmet">
+                        @foreach ($subjects as $s) 
+                            <option value="{{ $s->sub_id }}" @if($subject) @if($s->sub_id == $subject->sub_id) {{ 'selected' }} @endif @endif>{{ $s->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary">Zobraz</button>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="voidDays" @if($all_days) {{ 'checked' }} @endif>Zobraz prázdne dni</label>
-                        </div>
+                    <button type="submit" class="btn btn-primary">Zobraz</button>
+                    <div class="checkbox" style="display:inline-block; padding-left: 0.5em;">
+                        <label><input type="checkbox" name="voidDays" @if($all_days) {{ 'checked' }} @endif>Zobraz prázdne dni</label>
                     </div>
                 </div>
+               
             </form>
         </div>
         @if(count($schedule_data))

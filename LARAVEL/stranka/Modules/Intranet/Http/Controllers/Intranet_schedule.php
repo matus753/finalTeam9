@@ -147,6 +147,7 @@ class Intranet_schedule extends Controller
             }
         }
         
+        $selected_staff = !$selected_staff ? [] : $selected_staff;
         if($selected_staff && is_array($selected_staff) && count($selected_staff) > 0){
             $staff = DB::table('staff')->whereIn('s_id', $selected_staff)->where('activated', 1)->get();
         }else{
@@ -204,6 +205,7 @@ class Intranet_schedule extends Controller
                 }
             }
         }
+
         $subject_assignment = [];
         foreach($selected_staff as $ss){
             $subject_assignment[] = DB::table('subjects_staff_rel')
@@ -233,7 +235,7 @@ class Intranet_schedule extends Controller
             'selected_staff' => $selected_staff,
             'subject_assignment' => $subject_assignment
         ];
-        debug($data, true);
+        //debug($data, true);
         return view('intranet::schedule/schedule_staff', $data);
     }
 
@@ -243,7 +245,7 @@ class Intranet_schedule extends Controller
         }
         
         $year = $request->input('year');
-        $room = $request->input('room');
+        $room = $request->input('r_adminom');
         $semester = $request->input('semester');
         $all_days = $request->input('voidDays');
         

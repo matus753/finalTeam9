@@ -136,11 +136,13 @@
         <div class="row">
             <div class="col-md-12">
                 @foreach($subject_assignment as $sub)
-                    @foreach($all_staff as $as)
-                        @if($ss->s_id == $as->s_id)
-                        <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss->title }}</small></h4>
-                        
-                        @endif
+                    @foreach($sub as $ss)
+                        @foreach($all_staff as $as)
+                            @if($ss->s_id == $as->s_id)
+                            <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss->title }}</small></h4>
+                            
+                            @endif
+                        @endforeach
                     @endforeach
                 @endforeach
             </div>

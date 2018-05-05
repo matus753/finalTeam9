@@ -12,6 +12,11 @@
 </section>
 <div id="emPAGEcontent" class="container">
     <div class="row">
+        <div class="pull-left">
+            <button onclick="window.history.back();" class="btn btn-primary">Späť</button>
+        </div>
+    </div>
+    <div class="row">
         <h1 class="display-4">
             {{ $title }}
         </h1>

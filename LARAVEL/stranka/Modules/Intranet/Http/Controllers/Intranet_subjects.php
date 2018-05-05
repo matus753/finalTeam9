@@ -52,6 +52,7 @@ class Intranet_subjects extends Controller
         if(!has_permission('admin')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
         }
+
         $sk_title = $request->input('sk_title');
         $en_title = $request->input('en_title');
         $abbr = $request->input('abbr');
@@ -122,8 +123,6 @@ class Intranet_subjects extends Controller
             }
         }   
         
-        
-
         if(!is_numeric($sub_id)){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
         }
@@ -132,8 +131,10 @@ class Intranet_subjects extends Controller
         if(!$subject){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB bad item!']);
         }
-
-        if(strlen($subject->hash_name) == 0){
+        
+       
+        
+        if($subject->hash_name == null){
             $hash_id = md5(uniqid());
             subjects_category_create_folder($hash_id);
             DB::table('subjects')->where('sub_id', $sub_id)->update(['hash_name' => $hash_id]);
@@ -143,7 +144,6 @@ class Intranet_subjects extends Controller
         }
 
         $sub_hash = md5(uniqid());
-
         $allowed = config('subjects_admin.file_types_allowed');
         $allowed = str_replace(',', ' .', $allowed);
 
@@ -178,8 +178,6 @@ class Intranet_subjects extends Controller
                 return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
             }
         }   
-        
-        
 
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 256){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 256 characters!']);
@@ -266,7 +264,7 @@ class Intranet_subjects extends Controller
 
         $files = $request->file('file');
         foreach($files as $file){
-            
+
             $hash_id = $request->input('save_to');
             if(!is_string($hash_id) || strlen($hash_id) < 1 || strlen($hash_id) > 128){
                 return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Internal server error!']);
@@ -278,12 +276,13 @@ class Intranet_subjects extends Controller
             foreach($allowed_types as $at){
                 $extension = explode('.', $file->hashName());
                 $extension = $extension[count($extension)-1];
-                if($at == $extension){
+                if(trim($at) == trim($extension)){
                     $valid = true;
                 }
             }
 
             if($valid){
+               
                 if(subjects_create_folder($category, $hash_id) && $file){
                     $data = [
                         'hash_id'   => $hash_id,
@@ -362,8 +361,8 @@ class Intranet_subjects extends Controller
 
         $title_en = $request->input('title_en');
         $title_sk = $request->input('title_sk');
-        $editor_en = $request->input('editor_content_sk');
-        $editor_sk = $request->input('editor_content_en');
+        $editor_sk = $request->input('editor_content_sk');
+        $editor_en = $request->input('editor_content_en');
         $hash_id = $request->input('save_to');
         $subject = $request->input('subject');
         $category_id = $request->input('subject_id');
@@ -564,20 +563,28 @@ class Intranet_subjects extends Controller
 
         $locale = session()->get('locale');
         if($locale == 'sk'){
-            $info = DB::table('subjects_subcategories')->select('name_sk as name', 'text_sk as text')->where('ss_id', $ss_id)->first();
+            $info = DB::table('subjects_subcategories')->select('name_sk as name', 'text_sk as text', 'hash_name', 'sub_id')->where('ss_id', $ss_id)->first();
         }else{
-            $info = DB::table('subjects_subcategories')->select('name_en as name', 'text_en as text')->where('ss_id', $ss_id)->first();
+            $info = DB::table('subjects_subcategories')->select('name_en as name', 'text_en as text', 'hash_name', 'sub_id')->where('ss_id', $ss_id)->first();
         }
         
         if(!$info){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Subject has no description!']);
         }
 
+        $files = [];
+        if($info->hash_name){
+            $files = DB::table('subjects_files')->where('hash_id', $info->hash_name)->get();
+        }
+        $subject_hash = DB::table('subjects')->where('sub_id', $info->sub_id)->select('hash_name')->first()->hash_name;
+
         $data =[
             'title' => $this->module_name,
-            'info' => $info
+            'info' => $info,
+            'files' => $files,
+            'subject_hash' => $subject_hash
         ];
-
+        //debug($data, true);
         return view('intranet::subjects/subjects_show_subcategory_info', $data);
     }
 
@@ -606,8 +613,6 @@ class Intranet_subjects extends Controller
                 return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted']);
             }
         }   
-        
-        
 
         $parent = DB::table('subjects')->where('sub_id', $item->sub_id)->first();
         if(!$parent){
@@ -621,6 +626,7 @@ class Intranet_subjects extends Controller
             rmdir($path);
         }
 
+        DB::table('subjects_files')->where('hash_id', $item->hash_name)->delete();
         $res = (bool) DB::table('subjects_subcategories')->where('ss_id', $ss_id)->delete();
         if($res){
             return redirect('/subjects-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item deleted!']);

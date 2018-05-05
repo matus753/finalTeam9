@@ -196,12 +196,17 @@ class Study extends Controller
         }
         
         $sem = $request->input('semester');
+        $filter = $request->input('filter');
         if(!is_numeric($sem) || $sem < 0 || $sem > 1){
             $active_semester = DB::table('schedule_season')->where('active', 1)->first()->semester;
         }else{
             $active_semester = $sem;
         }
-
+        
+        if(!is_string($filter) || strlen($filter) < 1){
+            $filter = 'name';
+        }
+        
         if($id == 1) {
             $titleSK = 'Bakalárske predmety';
             $titleEN = 'Bachelor courses';
@@ -212,7 +217,12 @@ class Study extends Controller
             $find = 'I-%';
         }
 
-        $subjects = DB::table('subjects')->where('semester', $active_semester)->where('abbrev', 'like', $find)->get();
+        if($filter == 'name'){
+            $subjects = DB::table('subjects')->where('semester', $active_semester)->where('abbrev', 'like', $find)->orderBy('title')->get();
+        }else{
+            $subjects = DB::table('subjects')->where('semester', $active_semester)->where('abbrev', 'like', $find)->orderBy('abbrev')->get();
+        }
+        
         if($subjects){
             foreach($subjects as $subject){
                 $subject->subcategories = DB::table('subjects_subcategories')->where('sub_id', $subject->sub_id)->get();
@@ -228,9 +238,10 @@ class Study extends Controller
                 'titleSK' => $titleSK,
                 'titleEN' => $titleEN,
                 'act_sem' => $active_semester,
-                'id' => $id
+                'id' => $id,
+                'filter' => $filter
             ];
-        //debug($data, true);
+
         return view('study::subjects', $data);
     }
 
@@ -310,9 +321,9 @@ class Study extends Controller
     */
 
     public function schedule_subject( Request $request ){  
-        $year = $request->input('year');
+        //$year = $request->input('year');
         $sel_subject = $request->input('predmet');
-        $semester = $request->input('semester');
+        //$semester = $request->input('semester');
         $all_days = $request->input('voidDays');
         
         if($all_days){
@@ -320,7 +331,8 @@ class Study extends Controller
         }else{
             $all_days = false;
         }
-        
+        $year = null;
+        $semester = null;
         if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
             $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;
@@ -407,9 +419,9 @@ class Study extends Controller
     }
 
     public function schedule_staff( Request $request ){     
-        $year = $request->input('year');
-        $staff = $request->input('staff');
-        $semester = $request->input('semester');
+        //$year = $request->input('year');
+        $selected_staff = $request->input('staff');
+        //$semester = $request->input('semester');
         $all_days = $request->input('voidDays');
         
         if($all_days){
@@ -417,7 +429,8 @@ class Study extends Controller
         }else{
             $all_days = false;
         }
-        
+        $year = null;
+        $semester = null;
         if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
             $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;
@@ -432,9 +445,10 @@ class Study extends Controller
                 $semester = $year->semester;
             }
         }
-        
-        if($staff && is_numeric($staff) && $staff > 0){
-            $staff = DB::table('staff')->where('s_id', $staff)->where('activated', 1)->first();
+
+        $selected_staff = !$selected_staff ? [] : $selected_staff;
+        if($selected_staff && is_array($selected_staff) && count($selected_staff) > 0){
+            $staff = DB::table('staff')->whereIn('s_id', $selected_staff)->where('activated', 1)->first();
         }else{
             $staff = null;
         }
@@ -445,7 +459,7 @@ class Study extends Controller
         if($staff){
             $my_subjects_ids = DB::table('subjects')
                                 ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                ->where('subjects_staff_rel.s_id', $staff->s_id)
+                                ->whereIn('subjects_staff_rel.s_id', $selected_staff)
                                 ->where('subjects.semester', $semester)
                                 ->pluck('subjects_staff_rel.sub_id');
             
@@ -460,14 +474,17 @@ class Study extends Controller
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
                                         'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
-                                        'color' => config('schedule_admin.prednaska_color')
+                                        'color' => config('schedule_admin.prednaska_color'),
+                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
 
                                     ];
                                 }else{
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
                                         'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
-                                        'color' => config('schedule_admin.cvicenie_color')
+                                        'color' => config('schedule_admin.cvicenie_color'),
+                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+
                                     ];
                                 }
                             
@@ -488,6 +505,14 @@ class Study extends Controller
                 }
             }
         }
+
+        $subject_assignment = [];
+        foreach($selected_staff as $ss){
+            $subject_assignment[] = DB::table('subjects_staff_rel')
+                                    ->join('subjects', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
+                                    ->where('subjects_staff_rel.s_id', $ss)
+                                    ->get();
+        }
         
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
 
@@ -504,16 +529,18 @@ class Study extends Controller
             'year'  => $year,
             'seasons' => $seasons,  
             'day_names' => $day_names,
-            'semester' => $semester
+            'semester' => $semester,
+            'selected_staff' => $selected_staff,
+            'subject_assignment' => $subject_assignment
         ];
         //debug($data, true);
         return view('study::schedule_staff', $data);
     }
 
     public function schedule_rooms( Request $request ){
-        $year = $request->input('year');
+        //$year = $request->input('year');
         $room = $request->input('room');
-        $semester = $request->input('semester');
+        //$semester = $request->input('semester');
         $all_days = $request->input('voidDays');
         
         if($all_days){
@@ -521,7 +548,8 @@ class Study extends Controller
         }else{
             $all_days = false;
         }
-        
+        $year = null;
+        $semester = null;
         if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
             $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;
@@ -615,9 +643,9 @@ class Study extends Controller
     }
 
     public function schedule_departments( Request $request ){
-        $year = $request->input('year');
+        //$year = $request->input('year');
         $department = $request->input('department');
-        $semester = $request->input('semester');
+        //$semester = $request->input('semester');
         $all_days = $request->input('voidDays');
         
         if($all_days){
@@ -625,7 +653,8 @@ class Study extends Controller
         }else{
             $all_days = false;
         }
-        
+        $year = null;
+        $semester = null;
         if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
             $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;
@@ -724,9 +753,9 @@ class Study extends Controller
     }
     
     public function schedule_days( Request $request ){
-        $year = $request->input('year');
+        //$year = $request->input('year');
         $day = $request->input('day');
-        $semester = $request->input('semester');
+        //$semester = $request->input('semester');
         $voidRooms = $request->input('voidRooms');
         
         if($voidRooms){
@@ -734,7 +763,8 @@ class Study extends Controller
         }else{
             $voidRooms = false;
         }
-        
+        $year = null;
+        $semester = null;
         if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
             $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;

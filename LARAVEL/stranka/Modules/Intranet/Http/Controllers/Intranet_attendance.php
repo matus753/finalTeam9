@@ -54,7 +54,8 @@ class Intranet_attendance extends Controller
         }
 
         if(has_permission('hr')){
-            $staff = DB::table('staff')->where('activated', 1)->get();
+            $staff = DB::table('staff')->where('activated', 1)->orderBy('surname')->get();
+            $other_staff = null;
         }else{   
             $s_id = get_user_id();
             if($s_id){
@@ -62,6 +63,7 @@ class Intranet_attendance extends Controller
             }else{
                 return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
             }
+            $other_staff = DB::table('staff')->where('s_id','!=' ,$s_id)->get();
         }
 
         $absence = DB::table('typ_nepritomnosti')->get();
@@ -97,7 +99,8 @@ class Intranet_attendance extends Controller
             'staff'         => $staff,
             'absence'       => $absence,
             'curr_year'     => $year,
-            'years'         => $tmp
+            'years'         => $tmp,
+            'other_staff'   => $other_staff
         ];
 
         return view('intranet::attendance/attendance', $data);
@@ -117,9 +120,9 @@ class Intranet_attendance extends Controller
         }
 
         if($type == 'teacher'){
-            $staff = $staff = DB::table('staff')->where('activated', 1)->where('staffRole', '!=', 'doktorand')->get();
+            $staff = $staff = DB::table('staff')->where('activated', 1)->where('staffRole', '!=', 'doktorand')->orderBy('surname')->get();
         }elseif($type == 'doktorand'){
-            $staff = $staff = DB::table('staff')->where('activated', 1)->where('staffRole', 'doktorand')->get();
+            $staff = $staff = DB::table('staff')->where('activated', 1)->where('staffRole', 'doktorand')->orderBy('surname')->get();
         }else{
             return response()->json(['error' => 'Failed'], 400);
         }

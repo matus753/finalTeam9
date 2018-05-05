@@ -17,24 +17,28 @@
                 <div class="pull-left">
                     <a href="{{ url('/documents-admin') }}" class="btn btn-primary btn-back"> Späť </a>
                 </div>
-                <h2>Dokument {{ $document->name_sk }}</h2>
+                <h2>{{ $document->name_sk }}</h2>
             </div>
         </div>
+        @if(isset($document->text_sk) && !empty($document->text_sk))
         <hr class="col-md-10 col-md-offset-1">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 {!! $document->text_sk !!}<br>
             </div>
         </div>
-        <hr class="col-md-10 col-md-offset-1">
-        <h2>Subory</h2>
-        @foreach($files as $f)
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{{ get_documents_file($category_hash->hash_name, $document->hash_name, $f->file_hash) }}" target="_blank" >{{ $f->file_name }}</a>
+        @endif
+        @if(count($files) > 0)
+            <hr class="col-md-10 col-md-offset-1">
+            <h2>Subory</h2>
+            @foreach($files as $f)
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{ get_documents_file($category_hash->hash_name, $document->hash_name, $f->file_hash) }}" target="_blank" >{{ $f->file_name }}</a>
+                </div>
             </div>
-        </div>
-        @endforeach
+            @endforeach
+        @endif
     </div>
 </div>
 @stop
