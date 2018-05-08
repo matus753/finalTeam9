@@ -104,3 +104,21 @@
 .full-w{
     width: 100%;
 }
+
+.schedules-btn {
+    width: 150px;
+}
+
+.schedules-btn>span {
+    margin-left: 20px !important;
+}
+
+.schedules-form {
+    margin: 0 !important;
+    margin-top: 30px !important;
+}
+
+#schedule_table {
+    margin-top: 50px;
+}
+

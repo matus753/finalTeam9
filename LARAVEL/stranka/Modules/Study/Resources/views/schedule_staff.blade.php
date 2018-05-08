@@ -8,24 +8,22 @@
 @stop
 @section('content')
 
+<section class="banner" style="background-image: url('{{ URL::asset('images/banners/banner_study4.jpeg') }}')">
+    <h1>@lang('study::study.Schedules')</h1>
+</section>
 <div class="container">
     <div class="row">
         <div class="intra-div">
-            <h2>ÚAMT Rozvrhy</h2>
-        </div>
-    </div>
-    <div class="row">
-        <hr>
-        <div class="intra-div">
             <div class="btn-group">
                 <div class="dropdown pull-left" style="margin-right: 1em;">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Rozvrhy<span class="caret"></span></button>
+                    <h3>@lang('study::study.schedule_filter')</h3>
+                    <button class="btn btn-primary dropdown-toggle schedules-btn" type="button" data-toggle="dropdown">@lang('study::study.Schedules')<span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/schedule-subject') }}">Rozvrhy predmetov</a></li>
-                        <li><a href="{{ url('/schedule-staff') }}">Rozrvhy učiteľov</a></li>
-                        <li><a href="{{ url('/schedule-rooms') }}">Rozvrhy miestností</a></li>
-                        <li><a href="{{ url('/schedule-days') }}">Rozvrhy dňa v týždni</a></li>
-                        <li><a href="{{ url('/schedule-departments') }}">Rozvrhy oddelení</a></li>
+                        <li><a href="{{ url('/schedule-subject') }}">@lang('study::study.schedule_subject')</a></li>
+                        <li><a href="{{ url('/schedule-staff') }}">@lang('study::study.schedule_staff')</a></li>
+                        <li><a href="{{ url('/schedule-rooms') }}">@lang('study::study.schedule_rooms')</a></li>
+                        <li><a href="{{ url('/schedule-days') }}">@lang('study::study.schedule_days')</a></li>
+                        <li><a href="{{ url('/schedule-departments') }}">@lang('study::study.schedule_departments')</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,7 +33,7 @@
         <br>
         <div class="intra-div">
             <form method="GET" action="{{ url('/schedule-staff') }}">
-                <div class="form-group">
+                <div class="form-group schedules-form">
                     <label for="select">Zamestnanci</label>
                     <select class="form-control selectpicker" data-live-search="true" multiple id="select" name="staff[]">
                         @foreach ($all_staff as $s) 
@@ -43,7 +41,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group schedules-form">
                     <button type="submit" class="btn btn-primary">Zobraz</button>
                     <div class="checkbox" style="display:inline-block; padding-left: 0.5em;">
                         <label><input type="checkbox" name="voidDays" @if($all_days) {{ 'checked' }} @endif>Zobraz prázdne dni</label>

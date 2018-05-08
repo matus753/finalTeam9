@@ -141,4 +141,11 @@ return [
     'no_data' => 'Žiadne dáta nie sú k dizpocícii.',
     'SubjectShortcut' => 'Skratka predmetu',
     'SubjectTitle' => 'Názov predmetu',
+    'Schedules' => 'Rozvrhy',
+    'schedule_subject' => 'Rozvrhy predmetov',
+    'schedule_staff' => 'Rozrvhy učiteľov',
+    'schedule_rooms' => 'Rozvrhy miestností',
+    'schedule_days' => 'Rozvrhy dňa v týždni',
+    'schedule_departments' => 'Rozvrhy oddelení', 
+    'schedule_filter' => 'Filter pre rozvrhy:',
 ];

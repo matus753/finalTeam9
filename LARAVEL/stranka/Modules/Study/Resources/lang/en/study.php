@@ -143,4 +143,11 @@ return [
     'no_data' => 'No data available.',
     'SubjectShortcut' => 'Shortcut',
     'SubjectTitle' => 'Title',
+    'Schedules' => 'Schedules',
+    'schedule_subject' => 'Schedules - subjects',
+    'schedule_staff' => 'Schedule - staff',
+    'schedule_rooms' => 'Schedule - rooms',
+    'schedule_days' => 'Schedule - days',
+    'schedule_departments' => 'Schedule - departments',
+    'schedule_filter' => 'Filter:',
 ];
