@@ -284,9 +284,16 @@ footer.nb-footer a:hover{
     min-height: 71vh;
 }
 
+.dropdown-menu.submenuItem {
+    left: 100% !important;
+}
+
 @media screen and (max-width: 767px) {
     .general-content {
         min-height: 50vh;
+    }
+    .carousel-indicators {
+        z-index: 9 !important;
     }
 }
 
