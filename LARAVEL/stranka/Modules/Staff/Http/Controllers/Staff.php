@@ -35,14 +35,11 @@ class Staff extends Controller
 			}
 		}
 
-
-        // odstranit stplec v databaze ze ci to aj tak pojde
-
         $data= [
 			'title' => $module_name,
 			'staff' => $staff_db
 		];
-		//debug($data, true);
+
         return view('staff::staff', $data);
     }
 
@@ -138,7 +135,7 @@ class Staff extends Controller
 	
 	public function ajax_get_pubs( Request $request){
 		$ais_id = $request->input('ais_id');
-		$urltopost = "http://is.stuba.sk/lide/clovek.pl";
+		$urltopost = "https://is.stuba.sk/lide/clovek.pl";
 		$datatopost = [
 			"lang" => 'sk',
 			"zalozka" => '5',
@@ -163,7 +160,7 @@ class Staff extends Controller
 		$doc->loadHTML($returndata);
 		$xPath = new \DOMXPath($doc);
 		$tablePublikacia = $xPath->query('//html/body/div/div/div/table[3]/tbody/tr');
-		//??
+		
 		$monografie = [];
 		$clanky = [];
 		$prispevky = [];

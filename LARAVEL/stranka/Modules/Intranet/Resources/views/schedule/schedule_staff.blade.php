@@ -29,13 +29,10 @@
                         <li><a href="{{ url('/schedule-admin-rooms') }}">Rozvrhy miestností</a></li>
                         <li><a href="{{ url('/schedule-admin-days') }}">Rozvrhy dňa v týždni</a></li>
                         <li><a href="{{ url('/schedule-admin-departments') }}">Rozvrhy oddelení</a></li>
-                        @if(has_permission('admin'))
-                        <li><a href="#">Skontrolovať rozvrhy</a></li>
-                        @endif
                     </ul>
                 </div>
             </div>
-            @if(has_permission('admin'))
+            @if(has_permission('schedule'))
             <div class="btn-group">
                 <div class="dropdown pull-left" style="margin-right: 1em;">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Administrácia<span class="caret"></span></button>
@@ -116,13 +113,28 @@
                             <tr>
                                 <td style="width: 5%;">{{ $key }}</td>
                                 @for($i =0; $i < 15; $i++)
-                                <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
+                                    <td colspan="@if(is_array($sd[$i+7]) && !isset($sd[$i+8]) && empty($sd[$i+8]) ) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7]) ) @if(count($sd[$i+7]['abb']) > 1 || (isset($sd[$i+8]) && !empty($sd[$i+8])) || (isset($sd[$i+6]) && !empty($sd[$i+6])) ) {{ $override_color }} @else {{ $sd[$i+7]['color'] }} @endif  @endif">
                                     @if(is_array($sd[$i+7]))
-                                        <p>{{ $sd[$i+7]['abb'] }}</p>
-                                        <p>{{ $sd[$i+7]['room'] }}</p>
+                                        <p>
+                                            @foreach($sd[$i+7]['room'] as $key => $r)
+                                            <small>{{ $r }}</small> @if(count($sd[$i+7]['room']) - 1 > $key){{ "," }}@endif
+                                            @endforeach
+                                        <p>
+                                        <p>
+                                            @foreach($sd[$i+7]['abb'] as $key => $t)
+                                            <small>{{ $t }}</small> @if(count($sd[$i+7]['abb']) - 1 > $key){{ "," }}@endif
+                                            @endforeach
+                                        <p>
+                                        <p>
+                                            @foreach($sd[$i+7]['teachers'] as $key => $t)
+                                            <small>{{ $t }}</small> @if(count($sd[$i+7]['teachers']) - 1 > $key){{ "," }}@endif
+                                            @endforeach
+                                        <p>
+                                        @if(!isset($sd[$i+8]) && empty($sd[$i+8]))
                                         @php
                                             $i += ($sd[$i+7]['duration'] - 1);
                                         @endphp
+                                        @endif
                                     @endif 
                                 </td>
                                 @endfor
@@ -133,14 +145,14 @@
                 </div>
             </div>
         </div>
+       
         <div class="row">
             <div class="col-md-12">
-                @foreach($subject_assignment as $sub)
+                @foreach($subject_assignment as $key => $sub)
                     @foreach($sub as $ss)
                         @foreach($all_staff as $as)
-                            @if($ss->s_id == $as->s_id)
-                            <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss->title }}</small></h4>
-                            
+                            @if($key == $as->s_id)
+                            <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss }}</small></h4>
                             @endif
                         @endforeach
                     @endforeach

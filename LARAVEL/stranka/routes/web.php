@@ -192,6 +192,8 @@ Route::post('/documents-admin-edit-category-item-action/{id}', '\Modules\Intrane
 Route::get('/documents-admin-delete-category/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_category_action');
 Route::get('//documents-admin-delete-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_action');
 Route::get('/delete-file-in-item/{id}', '\Modules\Intranet\Http\Controllers\Intranet_documents@documents_delete_single_file_action');
+Route::post('/file_name_update', '\Modules\Intranet\Http\Controllers\Intranet_documents@file_name_update');
+
 
 /* Intranet Subjects OK */
 Route::get('/subjects-admin', '\Modules\Intranet\Http\Controllers\Intranet_subjects@subjects_all');

@@ -67,6 +67,12 @@
                             formData.append("category", "{{ $category->hash_name }}");
                             formData.append("save_to", "{{ $hash_id }}");
                     });
+                },
+                success: function(data, response){
+                    $('#added_files').append('<div class="col-md-12"><div class="col-md-10">'+
+                    '<input type="text" id="file_name-'+response['file']+'" name="file_name" class="form-control" value="'+response['name']+'" /></div>'+
+                    '<div class="col-md-1"><button type="button" onclick="update_file_name('+response['file']+')" class="btn btn-success btn-block"><span class="fa fa-check"></span></button></div>'+
+                    '<div class="col-md-1"><a href="javascript:void(0)" onclick="confirmation_redirect("Potvrdenie","Naozaj chcete zmazať tento záznam? ", "{{ url("/staff-admin-delete/") }}'+response['file']+'" )" class="btn btn-danger btn-block" ><span class="fa fa-trash-o "></span></a></div></div>');
                 }
 			}
 		);
@@ -88,6 +94,24 @@
 
     });    
 
+    function update_file_name(file){
+        var data = {
+            file: file,
+            file_name : $('#file_name-'+file).val()
+        }
+        $.ajax({
+            url: "{{ url('/file_name_update') }}",
+            data : data,
+            type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        }).done(function(msg){
+            myAlert('success', msg['error']);
+        });
+    }
+
+
     function limitText(field, maxChar){
         var ref = $(field),
             val = ref.val();
@@ -99,6 +123,9 @@
     }
 
 </script>
+<div id="alert-div">
+
+</div>
 <div id="emPAGEcontent" class="container">
     <div class="intra-div">
         <div class="row">
@@ -149,10 +176,17 @@
     <div class="row text-center lastButton">
         <p>Priložené súbory</p>
         @foreach($files as $f)
-        <div class="row">
-            <div class="col-md-12" style="background-color: lightgrey">
-                <a href="{{ get_documents_file($category->hash_name, $hash_id, $f->file_hash) }}" class="pull-left">{{ $f->file_name }}</a>
-                <a href="{{ url('/delete-file-in-item/'.$f->df_id) }}" class="btn btn-danger pull-right">DELETE</a>
+        <div class="row" id="added_files">
+            <div class="col-md-12">
+                <div class="col-md-10">
+                    <input type="text" id="file_name-{{ $f->df_id }}" name="file_name" style="display:inline-block;" class="form-control" value="{{ $f->file_name }}" />
+                </div>
+                <div class="col-md-1">
+                    <button onclick="update_file_name({{ $f->df_id }})" class="btn btn-success btn-block"><span class="fa fa-check"></span></button>
+                </div>
+                <div class="col-md-1">
+                    <a href="{{ url('/delete-file-in-item/'.$f->df_id) }}" class="btn btn-danger btn-block"><span class="fa fa-trash-o"></span></a>
+                </div>
             </div>
         </div>
         @endforeach

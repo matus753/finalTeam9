@@ -108,7 +108,7 @@ function check(){
                             @if($n->editor_content_sk)
                                 <a class="btn btn-sm btn-default ib-button" href="{{ url('/news/content/'.$n->n_id) }}"><i class="fa fa-fw fa-eye"></i> @lang("news::news.more")</a>
                             @endif
-                            <button class="btn btn-sm btn-primary {{ $today > $n->date_expiration ? 'expired_b' : '' }} ib-button"><i class="fa fa-fw fa-shopping-cart"></i> @lang("news::news.created"): {{ format_time($n->date_created) }}</button>
+                            <button class="btn btn-sm btn-primary {{ $today > $n->date_expiration ? 'expired_b' : '' }} ib-button"> @lang("news::news.created"): {{ format_time($n->date_created) }}</button>
                         </div>
                     </div>
                 </div>

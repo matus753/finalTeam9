@@ -25,52 +25,42 @@
                 @endif
             </div>
         </div>
-
+        @if(count($staff2all) > 0)
         <div class="sectContent row">
             <div id="about_div_1" class="col-md-6">
                 <p class="sectText2 bold">@lang('about::aboutUs.deputy1')</p>
             </div>
             <div id="about_div_2" class="col-md-6">
-                @if(count($staff2all) == 0)
-                    <p>-</p>
-                @else
-                    @foreach ($staff2all as $staff2)
-                        <p class="sectText2">@if(strcmp($staff2->title1, '' > 1)){{$staff2->title1}}@endif {{$staff2->name}} {{$staff2->surname}}@if(strcmp($staff2->title2, '' > 1)), @endif{{$staff2->title2}}</p>
-                    @endforeach
-                @endif
+                @foreach ($staff2all as $staff2)
+                    <p class="sectText2">@if(strcmp($staff2->title1, '' > 1)){{$staff2->title1}}@endif {{$staff2->name}} {{$staff2->surname}}@if(strcmp($staff2->title2, '' > 1)), @endif{{$staff2->title2}}</p>
+                @endforeach
             </div>
         </div>
-
+        @endif
+        @if(count($staff3all) > 0)
         <div class="sectContent row">
             <div id="about_div_1" class="col-md-6">
                 <p class="sectText2 bold">@lang('about::aboutUs.deputy2')</p>
             </div>
             <div id="about_div_2" class="col-md-6">
-                @if(count($staff3all) == 0)
-                    <p>-</p>
-                @else
-                    @foreach ($staff3all as $staff3)
-                        <p class="sectText2">@if(strcmp($staff3->title1, '' > 1)){{$staff3->title1}}@endif {{$staff3->name}} {{$staff3->surname}}@if(strcmp($staff3->title2, '' > 1)), @endif{{$staff3->title2}}</p>
-                    @endforeach
-                @endif
+                @foreach ($staff3all as $staff3)
+                    <p class="sectText2">@if(strcmp($staff3->title1, '' > 1)){{$staff3->title1}}@endif {{$staff3->name}} {{$staff3->surname}}@if(strcmp($staff3->title2, '' > 1)), @endif{{$staff3->title2}}</p>
+                @endforeach
             </div>
         </div>
-
+        @endif
+        @if(count($staff4all) > 0)
         <div class="sectContent row">
             <div id="about_div_1" class="col-md-6">
                 <p class="sectText2 bold">@lang('about::aboutUs.deputy3')</p>
             </div>
             <div id="about_div_2" class="col-md-6">
-                @if(count($staff4all) == 0)
-                    <p>-</p>
-                @else
-                    @foreach ($staff4all as $staff4)
-                        <p class="sectText2">@if(strcmp($staff4->title1, '' > 1)){{$staff4->title1}}@endif {{$staff4->name}} {{$staff4->surname}}@if(strcmp($staff4->title2, '' > 1)), @endif{{$staff4->title2}}</p>
-                    @endforeach
-                @endif
+                @foreach ($staff4all as $staff4)
+                    <p class="sectText2">@if(strcmp($staff4->title1, '' > 1)){{$staff4->title1}}@endif {{$staff4->name}} {{$staff4->surname}}@if(strcmp($staff4->title2, '' > 1)), @endif{{$staff4->title2}}</p>
+                @endforeach
             </div>
         </div>
-
+        @endif
     </div>
 </div>
 

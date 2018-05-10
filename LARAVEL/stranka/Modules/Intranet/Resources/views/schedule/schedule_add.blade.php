@@ -3,10 +3,12 @@
 @section('additional_headers_admin')
 <link href="{{ URL::asset('css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
-
+<script src="{{ URL::asset('js/additional_js.js') }}" ></script>
 @stop
 @section('content_admin')
+<div id="alert-div">
 
+</div>
 <div class="container">
     <div class="row">
         <div class="intra-div">
@@ -78,7 +80,18 @@
     <br>
     <div class="row">
         <div class="col-md-12">
-            <button id="add" class="btn btn-success pull-right">Ulož</button>
+            <div class="col-md-11">
+                <div class="form-group">
+                    <select class="form-control" id="teacher" name="teacher" tabindex="2">
+                        @foreach($staff as $s)
+                            <option value="{{ $s->s_id }}">{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button id="add" class="btn btn-success">Ulož</button>
+            </div>
         </div>
     </div>
     <hr>
@@ -91,16 +104,18 @@
                 @else
                     <table class="table table-striped table-bordered">
                     <tr>
-                        <th>Miestnosť</th>
-                        <th>Zmena miestnosti</th>
+                        <th style="max-width: 5em;">Miestnosť</th>
+                        <th style="max-width: 7em;">Zmena miestnosti</th>
                         <th>Deň</th>
                         <th>Zmena dňa</th>
-                        <th>Začiatok výučby</th>
+                        <th style="max-width: 7em;">Začiatok výučby</th>
                         <th>Zmena času</th>
+                        <th>Vyučujúci</th>
+                        <th>Zmena vyučujúceho</th>
                         <th></th>
                     </tr>
                     @foreach($prednasky as $p)
-                    <tr id="{{ $p->l_id }}">
+                    <tr id="{{ $p->l_id }}" name="prednaska">
                         <td>{{ $p->room->room }}</td>
                         <td>
                             <select name="new_room" id="new_room" class="form-control">
@@ -113,7 +128,7 @@
                         <td>
                             <select class="form-control" name="new_day" id="new_day">
                                 @foreach($day_names as $key => $dn)
-                                    <option value="{{ $key }}">{{ $dn }}</option>
+                                    <option value="{{ $key }}" @if($key == $p->day) {{ 'selected' }} @endif>{{ $dn }}</option>
                                 @endforeach
                             </select>
                         </td>
@@ -123,6 +138,14 @@
                                 @for($i = 0; $i < 15; $i++)
                                     <option value="{{ $i+7 }}" @if($p->start_time == ($i+7)) {{ 'selected' }} @endif >{{ $i+7 }}:00</option>
                                 @endfor
+                            </select>
+                        </td>
+                        <td>{{ $p->teacher->title1 }}&nbsp;{{ $p->teacher->name }}&nbsp;{{ $p->teacher->surname }}&nbsp;{{ $p->teacher->title2 }}</td>
+                        <td>
+                            <select class="form-control" name="new_teacher" id="new_teacher">
+                                @foreach($staff as $s)
+                                    <option value="{{ $s->s_id }}" @if($p->teacher->s_id == $s->s_id) {{ 'selected' }} @endif >{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                                @endforeach
                             </select>
                         </td>
                         <td>
@@ -143,49 +166,61 @@
                 @if(count($cvicenia) == 0)
                     <p>Žiadne dáta</p>
                 @else
-                    <table class="table table-striped table-bordered">
-                    <tr>
-                        <th>Miestnosť</th>
-                        <th>Zmena miestnosti</th>
-                        <th>Deň</th>
-                        <th>Zmena dňa</th>
-                        <th>Začiatok výučby</th>
-                        <th>Zmena času</th>
-                        <th></th>
-                    </tr>
-                    @foreach($cvicenia as $c)
-                    <tr id="{{ $c->l_id }}">
-                        <td>{{ $c->room->room }}</td>
-                        <td>
-                            <select name="new_room" id="" class="form-control">
-                                @foreach($rooms as $r)
-                                    <option value="{{ $r->sr_id }}" @if($c->room_id == $r->sr_id) {{ 'selected' }} @endif>{{ $r->room }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>{{ $day_names[$c->day]  }}</td>
-                        <td>
-                            <select class="form-control" name="new_day" id="new_day">
-                                @foreach($day_names as $key => $dn)
-                                    <option value="{{ $key }}">{{ $dn }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>{{ $c->start_time }}:00</td>
-                        <td>
-                            <select class="form-control" name="new_start_time" id="new_start_time">
-                                @for($i = 0; $i < 15; $i++)
-                                    <option value="{{ $i+7 }}" @if($c->start_time == ($i+7)) {{ 'selected' }} @endif>{{ $i+7 }}:00</option>
-                                @endfor
-                            </select>
-                        </td>
-                        <td>
-                            <button onclick="update_lecture({{ $c->l_id }})" class="btn btn-success"><span class="fa fa-check"></span></button>
-                            <button onclick="delete_lecture({{ $c->l_id }})" class="btn btn-danger"><span class="fa fa-trash-o"></span></button>
-                        </td>
-                    </tr>
-                    @endforeach
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                        <tr>
+                            <th style="max-width: 5em;">Miestnosť</th>
+                            <th style="max-width: 7em;">Zmena miestnosti</th>
+                            <th>Deň</th>
+                            <th>Zmena dňa</th>
+                            <th style="max-width: 7em;">Začiatok výučby</th>
+                            <th>Zmena času</th>
+                            <th>Vyučujúci</th>
+                            <th>Zmena vyučujúceho</th>
+                            <th></th>
+                        </tr>
+                        @foreach($cvicenia as $c)
+                        <tr id="{{ $c->l_id }}" name="cvicenie">
+                            <td>{{ $c->room->room }}</td>
+                            <td>
+                                <select name="new_room" id="new_room" class="form-control">
+                                    @foreach($rooms as $r)
+                                        <option value="{{ $r->sr_id }}" @if($c->room_id == $r->sr_id) {{ 'selected' }} @endif>{{ $r->room }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>{{ $day_names[$c->day]  }}</td>
+                            <td>
+                                <select class="form-control" name="new_day" id="new_day">
+                                    @foreach($day_names as $key => $dn)
+                                        <option value="{{ $key }}" @if($key == $c->day) {{ 'selected' }} @endif>{{ $dn }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>{{ $c->start_time }}:00</td>
+                            <td>
+                                <select class="form-control" name="new_start_time" id="new_start_time">
+                                    @for($i = 0; $i < 15; $i++)
+                                        <option value="{{ $i+7 }}" @if($c->start_time == ($i+7)) {{ 'selected' }} @endif>{{ $i+7 }}:00</option>
+                                    @endfor
+                                </select>
+                            </td>
+                            <td>{{ $c->teacher->title1 }}&nbsp;{{ $c->teacher->name }}&nbsp;{{ $c->teacher->surname }}&nbsp;{{ $c->teacher->title2 }}</td>
+                            <td>
+                                <select class="form-control" name="new_teacher" id="new_teacher">
+                                    @foreach($staff as $s)
+                                        <option value="{{ $s->s_id }}" @if($c->teacher->s_id == $s->s_id) {{ 'selected' }} @endif >{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <button onclick="update_lecture({{ $c->l_id }})" class="btn btn-success"><span class="fa fa-check"></span></button>
+                                <button onclick="delete_lecture({{ $c->l_id }})" class="btn btn-danger"><span class="fa fa-trash-o"></span></button>
+                            </td>
+                        </tr>
+                        @endforeach
+                        </table>
+                    </div>
                 @endif
             </div>
         </div>
@@ -212,14 +247,23 @@
                     </thead>
                     <tbody>
                         @foreach($schedule_data as $key => $sd)
-                        <tr>
+                        <tr>S
                             <td style="width: 5%;">{{ $key }}</td>
                             @for($i =0; $i < 15; $i++)
-                            <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
+                            <td colspan="@if(is_array($sd[$i+7]) ) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
                                 @if(is_array($sd[$i+7]))
-                                    {{ $sd[$i+7]['room'] }}
+                                    <p>
+                                    @foreach($sd[$i+7]['room'] as $key => $r)
+                                    <small>{{ $r }}</small> @if(count($sd[$i+7]['room']) - 1 > $key){{ "," }}@endif
+                                    @endforeach
+                                    <p>
+                                
+                                    <p>
+                                    @foreach($sd[$i+7]['teachers'] as $key => $t)
+                                    <small>{{ $t }}</small> @if(count($sd[$i+7]['teachers']) - 1 > $key){{ "," }}@endif
+                                    @endforeach
+                                    <p>
                                     @php
-                                     
                                         $i += ($sd[$i+7]['duration'] - 1);
                                     @endphp
                                 @endif 
@@ -248,7 +292,8 @@
             'duration_c' : '{{ $subject->duration_c }}',
             'duration_p' : '{{ $subject->duration_p }}',
             'day' : $('#day').val(),
-            'year' : "{{ $active_year->sy_id }}"
+            'year' : "{{ $active_year->sy_id }}",
+            'staff' : $('#teacher').val()
         };
 
         $.ajax({
@@ -258,6 +303,8 @@
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         }).done(function(data){
             location.reload();
+        }).fail(function(xhr, msg, response){
+            myAlert('error', response);
         });
 
     });
@@ -265,14 +312,15 @@
     function update_lecture(e){
         var data = {
             'item' : e,
-            'room' : $('tr#'+e+' td #new_room').val(),
-            'start_time': $('tr#'+e+' td #new_start_time').val(),
-            'type' : $('#type').val(),
+            'room' : $('table').find('tr#'+e+' td select#new_room').val(),
+            'start_time': $('table').find('tr#'+e+' td select#new_start_time').val(),
+            'type' : $('table').find('tr#'+e).attr('name'),
             'duration_c' : '{{ $subject->duration_c }}',
             'duration_p' : '{{ $subject->duration_p }}',
-            'day' : $('tr#'+e+' td #new_day').val(),
+            'day' : $('table').find('tr#'+e+' td select#new_day').val(),
+            'teacher' : $('table').find('tr#'+e+' td select#new_teacher').val(),
         };
-        
+        console.log(data);
         $.ajax({
             url : "{{ url('/schedule-admin-update-action') }}",
             type: "POST",
@@ -280,6 +328,8 @@
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         }).done(function(){
             location.reload();
+        }).fail(function(xhr, msg, response){
+            myAlert('error', response);
         });
 
     }

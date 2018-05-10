@@ -55,6 +55,9 @@ class Intranet_photos extends Controller
 
         $title_sk = $request->input('title_sk');
         $title_en = $request->input('title_en');
+        $date = $request->input('date');
+
+        $date = (!$date) ? time() : strtotime($date);
 
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 128){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Title SK bad format - empty string or max 128 characters']);
@@ -70,7 +73,7 @@ class Intranet_photos extends Controller
             'title_SK' => $title_sk,
             'title_EN' => $title_en,
             'folder' => $hash_name,
-            'date' => time(),
+            'date' => $date,
         ]; 
         
         $res = DB::table('photo_gallery')->insertGetId($data);
@@ -222,6 +225,9 @@ class Intranet_photos extends Controller
         
         $title_sk = $request->input('title_sk');
         $title_en = $request->input('title_en');
+        $date = $request->input('date');
+
+        $date = (!$date) ? time() : strtotime($date);
 
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 128){
             return redirect('/photos-admin')->with('err_code', ['type' => 'error', 'msg' => 'Title SK bad format - empty string or max 128 characters']);
@@ -233,7 +239,8 @@ class Intranet_photos extends Controller
 
         $data = [
             'title_SK' => $title_sk,
-            'title_EN' => $title_en
+            'title_EN' => $title_en,
+            'date' => $date
         ];
        
         $res = (bool)DB::table('photo_gallery')->where('pg_id', $pg_id)->update($data);

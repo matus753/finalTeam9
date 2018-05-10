@@ -62,7 +62,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_category(){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -74,12 +74,13 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_category_action( Request $request ){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
         $title_sk = $request->input('title_sk');
-
+        $category_text = $request->input('cat_text');
+        
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 64){
             return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
         }
@@ -90,6 +91,7 @@ class Intranet_documents extends Controller
         $data = [
             'hash_name' => $hash_id,
             'name_sk' => $title_sk,
+            'category_text' => $category_text
         ];
         
         $res = DB::table('documents_categories')->insertGetId($data);
@@ -101,7 +103,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_item($dc_id = 0){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -129,7 +131,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_add_item_action( Request $request ){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -179,7 +181,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_image_upload( Request $request, Response $response ){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -224,7 +226,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_file_upload(Request $request, Response $response){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -249,6 +251,7 @@ class Intranet_documents extends Controller
 
             if($valid){
                 if(documents_create_folder($category, $hash_id) && $file){
+                    $name = $file->getClientOriginalName();
                     $data = [
                         'hash_id'   => $hash_id,
                         'file_hash' => $file->hashName(),
@@ -256,8 +259,8 @@ class Intranet_documents extends Controller
                     ];
                     DB::table('deletor')->insert(['type' => 'documents', 'path' => $category.'/'.$hash_id]);
                     $file->store('/public/documents/'.$category.'/'.$hash_id);   
-                    DB::table('documents_files')->insert($data);
-                    return response()->json(['error' => 'Success'], 200);
+                    $file_id = DB::table('documents_files')->insertGetId($data);
+                    return response()->json(['error' => 'Success' , 'file' => $file_id, 'name' => $name], 200);
                 }
                 else{
                     return response()->json(['error' => 'Bad request'], 400);
@@ -270,12 +273,35 @@ class Intranet_documents extends Controller
 
     }
 
+    public function file_name_update(Request $request){
+        if(!has_permission('editor')){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
+        }
+
+        $f_id = $request->input('file');
+        if(!is_numeric($f_id)){
+            return response()->json(['error' => 'Bad request'], 400);
+        }
+
+        $file_name = $request->input('file_name');
+        if(!is_string($file_name) || strlen($file_name) < 1 || strlen($file_name) > 256){
+            return response()->json(['error' => 'Bad request'], 400);
+        } 
+
+        $data = [
+            'file_name' => $file_name
+        ];
+        
+        DB::table('documents_files')->where('df_id', $f_id)->update($data);
+        return response()->json(['error' => 'Aktualizované'], 200);
+    }
+
     ///////////////////////////////////////////////////////////////
     //////////////////////// EDIT /////////////////////////////////
     ///////////////////////////////////////////////////////////////
 
     public function documents_edit_category( $dc_id = 0 ){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -297,7 +323,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_edit_category_action( $dc_id = 0, Request $request ){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -306,13 +332,15 @@ class Intranet_documents extends Controller
         }
 
         $title_sk = $request->input('title_sk');
-           
+        $category_text = $request->input('cat_text');
+
         if(!is_string($title_sk) || strlen($title_sk) < 1 || strlen($title_sk) > 64){
             return redirect('/documents-admin')->with('err_code', ['type' => 'warning', 'msg' => 'Title max 64 characters!']);
         }
 
         $data = [
-            'name_sk' => $title_sk
+            'name_sk' => $title_sk,
+            'category_text' => $category_text
         ];
         
         $res = DB::table('documents_categories')->where('dc_id', $dc_id)->update($data);
@@ -325,7 +353,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_edit_category_item($d_id = 0){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -359,7 +387,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_edit_category_item_action($d_id = 0, Request $request){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -417,7 +445,7 @@ class Intranet_documents extends Controller
 
 
     public function documents_delete_category_action( $dc_id = 0 ){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -449,7 +477,7 @@ class Intranet_documents extends Controller
                 rmdir($path_tmp2);
             }
         }
-
+        
         if(is_dir($path)){
             rmdir($path);
         }
@@ -462,7 +490,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_delete_single_action($d_id = 0){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -498,7 +526,7 @@ class Intranet_documents extends Controller
     }
 
     public function documents_delete_single_file_action($df_id = 0){
-        if(!has_permission('hr')){
+        if(!has_permission('editor')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
         }
 
@@ -536,15 +564,17 @@ class Intranet_documents extends Controller
         session()->put('cat_tab', $dc_id);
 
         $docs = DB::table('documents')->where('dc_id', $dc_id)->get();
+        $cat_text = DB::table('documents_categories')->where('dc_id', $dc_id)->first()->category_text;
         if(!$docs){
             return response()->json(['error' => 'Bad request'], 400);
         }
 
         $data = [ 
             'docs' => $docs,
-            'tab'  => $dc_id
+            'cat_text' => $cat_text,
+            'tab' => $dc_id
         ];  
-        //debug($data);
+      
         return response()->json($data);
     }
     

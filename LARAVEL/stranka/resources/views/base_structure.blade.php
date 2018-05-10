@@ -168,6 +168,7 @@
                         <h2 class="title">Social</h2>
                         <p> <i class="fa fa-facebook-square" aria-hidden="true"></i> <a target="_blank" href="https://www.facebook.com/UAMTFEISTU">Facebook</a></p>
                         <p> <i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/channel/UCo3WP2kC0AVpQMIiJR79TdA">YouTube</a></p>
+                        <p> <i class="fa fa-flickr" aria-hidden="true"></i> <a target="_blank" href="https://www.flickr.com/photos/130306119@N06/albums">Flickr</a></p>
                     </div>
                 </div>
 

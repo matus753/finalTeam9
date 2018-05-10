@@ -125,7 +125,7 @@
                         <label for="img">Nový obrazok:</label>
                         <input type="file" class="form-control" id="img" name="img" placeholder="profile img" />
                     </div>
-                    @if(has_permission('admin'))
+                    @if(has_permission('admin') && !has_at_least_permission(['hr', 'editor', 'reporter', 'events', 'projects', 'staff', 'schedule']))
                     <div class="form-group">
                         <label for="perms">Oprávnenia:</label>
                         <div id="perms">
@@ -136,15 +136,6 @@
                             @endforeach
                         </div>
                     </div>
-
-                    <div class="form-group">
-                            <label for="subjects_staff">Predmety k vyučujúcemu:</label>
-                            <select class="form-control selectpicker" data-size="5" data-live-search="true" multiple id="subjects_staff" name="subjects_staff[]" tabindex="2">  
-                                @foreach($subjects as $s)
-                                    <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" @foreach($selected_subs as $ss) @if($s->sub_id == $ss) {{ 'selected' }} @endif @endforeach >{{ $s->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
                     @endif
                 </div>
             </div>

@@ -31,7 +31,7 @@
                     </ul>
                 </div>
             </div>
-            @if(has_permission('admin'))
+            @if(has_permission('schedule'))
             <div class="btn-group">
                 <div class="dropdown pull-left" style="margin-right: 1em;">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Administrácia<span class="caret"></span></button>

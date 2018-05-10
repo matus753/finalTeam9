@@ -35,7 +35,7 @@
             <form method="GET" action="{{ url('/schedule-staff') }}">
                 <div class="form-group schedules-form">
                     <label for="select">Zamestnanci</label>
-                    <select class="form-control selectpicker" data-live-search="true" multiple id="select" name="staff[]">
+                    <select class="form-control selectpicker" data-live-search="true" data-size="5" multiple id="select" name="staff[]">
                         @foreach ($all_staff as $s) 
                             <option value="{{ $s->s_id }}" data-tokens="{{ $s->title1 }} {{ $s->name }} {{ $s->surname }} {{ $s->title2 }}" @if(count($selected_staff) > 0) @foreach($selected_staff as $ss ) @if($s->s_id == $ss) {{ 'selected' }} @endif @endforeach @endif>{{ $s->title1 }}&nbsp;{{ $s->name }}&nbsp;{{ $s->surname }}&nbsp;{{ $s->title2 }}</option>
                         @endforeach
@@ -69,14 +69,28 @@
                             <tr>
                                 <td style="width: 5%;">{{ $key }}</td>
                                 @for($i =0; $i < 15; $i++)
-                                <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
+                                    <td colspan="@if(is_array($sd[$i+7]) && !isset($sd[$i+8]) && empty($sd[$i+8]) ) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7]) ) @if(count($sd[$i+7]['abb']) > 1 || (isset($sd[$i+8]) && !empty($sd[$i+8])) || (isset($sd[$i+6]) && !empty($sd[$i+6])) ) {{ $override_color }} @else {{ $sd[$i+7]['color'] }} @endif  @endif">
                                     @if(is_array($sd[$i+7]))
-                                        <p>{{ $sd[$i+7]['abb'] }}</p>
-                                        <p>{{ $sd[$i+7]['room'] }}</p>
+                                        <p>
+                                            @foreach($sd[$i+7]['room'] as $key => $r)
+                                            <small>{{ $r }}</small> @if(count($sd[$i+7]['room']) - 1 > $key){{ "," }}@endif
+                                            @endforeach
+                                        <p>
+                                        <p>
+                                            @foreach($sd[$i+7]['abb'] as $key => $t)
+                                            <small>{{ $t }}</small> @if(count($sd[$i+7]['abb']) - 1 > $key){{ "," }}@endif
+                                            @endforeach
+                                        <p>
+                                        <p>
+                                            @foreach($sd[$i+7]['teachers'] as $key => $t)
+                                            <small>{{ $t }}</small> @if(count($sd[$i+7]['teachers']) - 1 > $key){{ "," }}@endif
+                                            @endforeach
+                                        <p>
+                                        @if(!isset($sd[$i+8]) && empty($sd[$i+8]))
                                         @php
-                                            
                                             $i += ($sd[$i+7]['duration'] - 1);
                                         @endphp
+                                        @endif
                                     @endif 
                                 </td>
                                 @endfor
@@ -87,22 +101,21 @@
                 </div>
             </div>
         </div>
+       
         <div class="row">
-                <div class="col-md-12">
-                    @foreach($subject_assignment as $sub)
-                        @foreach($sub as $ss)
-                            @foreach($all_staff as $as)
-                                @if($ss->s_id == $as->s_id)
-                                <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss->title }}</small></h4>
-                                
-                                @endif
-                            @endforeach
+            <div class="col-md-12">
+                @foreach($subject_assignment as $key => $sub)
+                    @foreach($sub as $ss)
+                        @foreach($all_staff as $as)
+                            @if($key == $as->s_id)
+                            <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss }}</small></h4>
+                            @endif
                         @endforeach
                     @endforeach
-                </div>
+                @endforeach
             </div>
+        </div>
         @endif
-
 
     </div>
 </div>

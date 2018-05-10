@@ -63,7 +63,7 @@ class Intranet_attendance extends Controller
             }else{
                 return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Operation not permitted!']);
             }
-            $other_staff = DB::table('staff')->where('s_id','!=' ,$s_id)->get();
+            $other_staff = DB::table('staff')->where('s_id','!=' ,$s_id)->orderBy('surname')->get();
         }
 
         $absence = DB::table('typ_nepritomnosti')->get();
@@ -90,6 +90,24 @@ class Intranet_attendance extends Controller
             }
             $tmp2['skratky'] = $skratky;
             $s->att = $tmp2;
+        }
+        if(!has_permission('hr')){
+            foreach($other_staff as $s){
+                $tmp2 = [];
+                $skratky = [];
+
+                foreach($staff_attendance as $sa){
+                    if($s->s_id == $sa->id_zamestnanca){
+                        for($i = 1; $i < $n_curr_month_days+1; $i++){
+                            if($sa->den == $i){
+                                $skratky[$i] = strtolower($sa->skratka);
+                            }
+                        }
+                    }
+                }
+                $tmp2['skratky'] = $skratky;
+                $s->att = $tmp2;
+            }
         }
         
         $data = [ 

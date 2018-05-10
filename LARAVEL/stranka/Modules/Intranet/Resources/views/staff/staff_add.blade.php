@@ -12,9 +12,6 @@
 @stop
 
 @section('content_admin')
-<script>
-    $('.selectpicker').selectpicker();
-</script>
 <div class="container">
 	<div class="staff-intra"> 
         <div class="row">    
@@ -103,24 +100,16 @@
                         <label for="img">Profilový obrázok:</label>
                         <input type="file" class="form-control" id="img" name="img" placeholder="profile img" />
                     </div>
-                    @if(has_permission('admin'))
+                    @if(has_permission('admin') && !has_at_least_permission(['hr', 'editor', 'reporter', 'events', 'projects', 'staff', 'schedule']))
                     <div class="form-group">
                         <label for="perms">Oprávnenia:</label>
                         <div id="perms">
                             @foreach($permission_roles as $key => $pr)
                                 <div class="perms"><input type="checkbox" name="perm[]" value="{{ $key }}" />
-                                        {{ $pr }}
-                                    </div>
+                                    {{ $pr }}
+                                </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subjects_staff">Predmety k vyučujúcemu:</label>
-                        <select class="form-control selectpicker" data-size="5" data-width="auto" data-live-search="true" multiple id="subjects_staff" name="subjects_staff[]" tabindex="2">  
-                            @foreach($subjects as $s)
-                                <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" >{{ $s->title }}</option>
-                            @endforeach
-                        </select>
                     </div>
                     @endif
                 </div>

@@ -279,6 +279,31 @@ function has_permission($perm){
 	return false;
 }
 
+function has_at_least_permission($perm = []){
+	if(is_array($perm) && count($perm) > 0){
+		if(isLogged()){
+			$user = session()->get('user');
+
+			if(!is_array($user['role'])){
+				return false;
+			}
+
+			foreach($perm as $p){
+				if(in_array($p, $user['role'])){
+					return true;
+				}
+			}
+
+			return false;
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+	return false;
+}
+
 function isLogged(){
 	if(session()->has('user')){
 		$user = session()->get('user');
@@ -401,7 +426,8 @@ function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
 
 		if($lang_db == "SK"){
 			if(!empty($_title_sk) && !empty($_content_sk)){
-				$mail->addAddress($email, $email);
+				$mail->addAddress($email);
+				$mail->AddCC($email);
 				$mail->isHTML(true);
 				$mail->Subject = $_title_sk;
 				$mail->Body    = $_content_sk;
@@ -410,7 +436,8 @@ function sendNews($_title_sk, $_content_sk, $_title_en, $_content_en){
 		}
 		if($lang_db == "EN"){
 			if(!empty($_title_en) && !empty($_content_en)){
-				$mail->addAddress($email, $email);
+				$mail->addAddress($email);
+				$mail->AddCC($email);
 				$mail->isHTML(true);
 				$mail->Subject = $_title_en;
 				$mail->Body    = $_content_en;

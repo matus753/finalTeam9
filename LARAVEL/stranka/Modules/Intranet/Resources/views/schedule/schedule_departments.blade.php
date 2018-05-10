@@ -28,13 +28,10 @@
                         <li><a href="{{ url('/schedule-admin-rooms') }}">Rozvrhy miestností</a></li>
                         <li><a href="{{ url('/schedule-admin-days') }}">Rozvrhy dňa v týždni</a></li>
                         <li><a href="{{ url('/schedule-admin-departments') }}">Rozvrhy oddelení</a></li>
-                        @if(has_permission('admin'))
-                        <li><a href="#">Skontrolovať rozvrhy</a></li>
-                        @endif
                     </ul>
                 </div>
             </div>
-            @if(has_permission('admin'))
+            @if(has_permission('schedule'))
             <div class="btn-group">
                 <div class="dropdown pull-left" style="margin-right: 1em;">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Administrácia<span class="caret"></span></button>

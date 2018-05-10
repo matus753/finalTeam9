@@ -90,7 +90,7 @@ class Study extends Controller
 
     public function getThesisAnot(Request $request){
         $url = $request->input('urlka');
-        $annotationURL = 'http://is.stuba.sk'.$url;
+        $annotationURL = 'https://is.stuba.sk'.$url;
 
         $ch = curl_init($annotationURL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -110,7 +110,7 @@ class Study extends Controller
         $id = $request->input('id');
         $lang = $request->input('lang');
 
-        $urltopost = "http://is.stuba.sk/pracoviste/prehled_temat.pl";
+        $urltopost = "https://is.stuba.sk/pracoviste/prehled_temat.pl";
         $datatopost = array (
             "lang" => $lang,
             "filtr_typtemata2" => $id,
@@ -418,19 +418,22 @@ class Study extends Controller
         return view('study::schedule_subject', $data);
     }
 
-    public function schedule_staff( Request $request ){     
-        //$year = $request->input('year');
-        $selected_staff = $request->input('staff');
-        //$semester = $request->input('semester');
-        $all_days = $request->input('voidDays');
+    public function schedule_staff( Request $request ){
+        if(!isLogged()){
+            return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
+        }
         
+        $year = $request->input('year');
+        $selected_staff = $request->input('staff');
+        $semester = $request->input('semester');
+        $all_days = $request->input('voidDays');
+       
         if($all_days){
             $all_days = true;
         }else{
             $all_days = false;
         }
-        $year = null;
-        $semester = null;
+        
         if($year && is_string($year) && strlen($year) > 0 && is_numeric($semester) ){
             $year = DB::table('schedule_season')->where('year', $year)->first();
             $semester = $semester;
@@ -445,27 +448,29 @@ class Study extends Controller
                 $semester = $year->semester;
             }
         }
-
+        
         $selected_staff = !$selected_staff ? [] : $selected_staff;
         if($selected_staff && is_array($selected_staff) && count($selected_staff) > 0){
-            $staff = DB::table('staff')->whereIn('s_id', $selected_staff)->where('activated', 1)->first();
+            $staff = DB::table('staff')->whereIn('s_id', $selected_staff)->where('activated', 1)->get();
         }else{
             $staff = null;
         }
-        
+       
         $day_names = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok'];
         $schedule_data = [];
 
         if($staff){
-            $my_subjects_ids = DB::table('subjects')
-                                ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                ->whereIn('subjects_staff_rel.s_id', $selected_staff)
+            $my_subjects_ids = DB::table('lectures')
+                                ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                ->whereIn('lectures.s_id', $selected_staff)
                                 ->where('subjects.semester', $semester)
-                                ->pluck('subjects_staff_rel.sub_id');
-            
+                                ->distinct()
+                                ->pluck('subjects.sub_id');
+            //debug($my_subjects_ids, true);
             foreach($day_names as $key => $dn){
                 $day_data = [];
                 $my_schedule = DB::table('lectures')->whereIn('sub_id', $my_subjects_ids)->where('day', $key)->where('year', $year->sy_id)->get();
+                //debug($my_schedule, true);
                 if(count($my_schedule)){
                     for($i = 0; $i < 15; $i++){
                         foreach($my_schedule as $m){
@@ -473,18 +478,62 @@ class Study extends Controller
                                 if($m->type == 'prednaska'){
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
-                                        'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'abb' => DB::table('lectures')
+                                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                                    //->where('subjects.sub_id', $m->sub_id)
+                                                    ->where('day' , $key)
+                                                    ->where('type', 'prednaska')
+                                                    ->distinct()
+                                                    ->pluck('abbrev')->toArray(),
+                                        //'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'room' => DB::table('lectures')
+                                                    ->join('schedule_rooms', 'schedule_rooms.sr_id', '=', 'lectures.room_id')
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'prednaska')
+                                                    ->distinct()
+                                                    ->pluck('room')->toArray(),
                                         'color' => config('schedule_admin.prednaska_color'),
-                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
+                                        'teachers' => DB::table('lectures')
+                                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                                    //->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'prednaska')
+                                                    ->pluck('surname')->toArray()
 
                                     ];
                                 }else{
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
-                                        'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'room' => DB::table('lectures')
+                                                    ->join('schedule_rooms', 'schedule_rooms.sr_id', '=', 'lectures.room_id')
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'cvicenie')
+                                                    ->distinct()
+                                                    ->pluck('room')->toArray(),
+                                        'abb' => DB::table('lectures')
+                                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                                    //->where('subjects.sub_id', $m->sub_id)
+                                                    ->where('type', 'cvicenie')
+                                                    ->where('day' , $key)
+                                                    ->distinct()
+                                                    ->pluck('abbrev')->toArray(),
                                         'color' => config('schedule_admin.cvicenie_color'),
-                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
-
+                                        'teachers' => DB::table('lectures')
+                                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                                    ->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'cvicenie')
+                                                    ->pluck('surname')->toArray()
                                     ];
                                 }
                             
@@ -505,14 +554,18 @@ class Study extends Controller
                 }
             }
         }
-
+  
         $subject_assignment = [];
         foreach($selected_staff as $ss){
-            $subject_assignment[] = DB::table('subjects_staff_rel')
-                                    ->join('subjects', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                    ->where('subjects_staff_rel.s_id', $ss)
-                                    ->get();
+            $subject_assignment[$ss] = DB::table('lectures')
+                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                    ->where('lectures.s_id', $ss)
+                                    ->where('subjects.semester', $semester)
+                                    ->distinct()
+                                    ->pluck('subjects.title')->toArray();
         }
+
         
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
 
@@ -531,7 +584,8 @@ class Study extends Controller
             'day_names' => $day_names,
             'semester' => $semester,
             'selected_staff' => $selected_staff,
-            'subject_assignment' => $subject_assignment
+            'subject_assignment' => $subject_assignment,
+            'override_color' => config('schedule_admin.override_color'),
         ];
         //debug($data, true);
         return view('study::schedule_staff', $data);

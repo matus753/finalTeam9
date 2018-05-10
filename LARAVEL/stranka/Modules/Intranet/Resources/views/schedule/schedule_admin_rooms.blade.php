@@ -50,7 +50,7 @@
                         @foreach($rooms as $r)
                             <tr>
                                 <td>{{ $r->room }}</td>
-                                <td><input type="text" class="form-control" placeholder="Nový názov" id="edit_room"  /></td>
+                                <td><input type="text" class="form-control" placeholder="Nový názov" id="edit_room-{{ $r->sr_id }}"  /></td>
                                 <td>
                                     <button class="btn btn-success" onclick="edit_room({{ $r->sr_id }})" ><span class="fa fa-check"></span></button>
                                     <a href="javascript:void(0)" onclick="confirmation_redirect('Potvrdenie','Naozaj chcete zmazať tento záznam? {{ $r->room }}', '{{ url('/schedule-admin-delete-room-action/'.$r->sr_id) }}' )" class="btn btn-danger" ><span class="fa fa-trash-o"></span></a>
@@ -68,7 +68,7 @@
     function edit_room(e){
         var data = {
             'id' : e,
-            'room' : $('#edit_room').val()
+            'room' : $('#edit_room-'+e).val()
         }
 
         $.ajax({

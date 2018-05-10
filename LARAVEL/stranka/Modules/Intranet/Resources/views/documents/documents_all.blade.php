@@ -40,6 +40,7 @@
                 @endforeach
             </ul>
             <div id="add_item"></div> 
+            <div id="cat_text"></div>
         </div>
     </div>
     <div class="row">
@@ -77,6 +78,9 @@
                 $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success full-w">Edit kategórie</a></div>');
             }
             @endif
+            if(data['cat_text'] != null){
+                $('#cat_text').empty().append('<p>'+data['cat_text']+'</p>');
+            }
             if(data['docs'] != null){
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
@@ -113,10 +117,13 @@
                 $('#add_item').append('<div class="col-md-4"><a href="{{ url("/documents-admin-edit-category") }}/'+data['tab']+'" class="btn btn-success full-w">Edit kategórie</a></div>');
             }
             @endif
+            $('#cat_text').empty();
+            if(data['cat_text'] != null){
+                $('#cat_text').append('<p>'+data['cat_text']+'</p>');
+            }
             if(data['docs'] != null){
                 $('#items').empty();
                 for(let i = 0; i < data['docs'].length; i++){
-                    let first_p = data['docs'][i]['text_sk'];
                     $('#items').append('<tr>'+
                         '<td class=""><a style="padding-left: 20px;" href={{ url("/documents-admin-show") }}/'+data['docs'][i].d_id+'>'+data['docs'][i].name_sk+'</a><p style="padding-left: 20px;">'+data['docs'][i].preview_sk+'</p></td>'+
                         @if(has_permission('hr'))

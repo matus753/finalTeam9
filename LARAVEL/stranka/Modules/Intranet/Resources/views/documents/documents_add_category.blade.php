@@ -24,6 +24,10 @@
                         <label for="title_sk">Slovenský nadpis:</label>
                         <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="* Slovenský nadpis" required />
                     </div>
+                    <div class="form-group">
+                        <label for="cat_text">Text pre kategóriu dokumentov:</label>
+                        <textarea class="form-control" id="cat_text" name="cat_text" rows="10"></textarea>
+                    </div>
                     <input type="submit" class="btn btn-success pull-right" value="Pridaj" />
                 </div>
             </div>

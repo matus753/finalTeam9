@@ -24,15 +24,31 @@
             <br>
             <form action="{{ url('/photos-admin-add-action') }}" method="post">
                 {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="title_sk">* Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="title_sk">* Slovenský nadpis:</label>
+                                <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="title_en">* Anglický nadpis:</label>
+                                <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date">Dátum:</label>
+                                <input type="date" class="form-control" id="date" name="date"/>
+                            </div>               
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_en">* Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" required />
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
+                    </div>
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
             </form>
 		</div>
 	</div>

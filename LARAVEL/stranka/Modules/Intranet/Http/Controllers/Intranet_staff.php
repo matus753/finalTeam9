@@ -259,24 +259,6 @@ class Intranet_staff extends Controller
                 DB::table('staff_function')->where('id_staff', $s_id)->delete();
                 //return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
             }
-            
-            $subjects_staff = $request->input('subjects_staff');
-            //debug($subjects_staff, true);
-            if($request->filled('subjects_staff')){
-                if(!is_array($subjects_staff)){
-                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-                }
-
-                foreach($subjects_staff as $ss){
-                    $res = DB::table('subjects_staff_rel')->insertGetId(['sub_id' => $ss , 's_id' => $s_id]);
-                    if(!$res){
-                        return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-                    }
-                }
-
-            }
-        }
-        if($res){
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
         }
         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
@@ -553,24 +535,6 @@ class Intranet_staff extends Controller
             'web' => $url,
             'is_id' => $is_id
         ];
-        //debug($data, true);
-
-        $subjects_staff = $request->input('subjects_staff');
-        if($request->filled('subjects_staff')){
-            if(!is_array($subjects_staff)){
-                return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-            }
-
-            $check = DB::table('subjects_staff_rel')->whereIn('sub_id', $subjects_staff)->delete();
-
-            foreach($subjects_staff as $ss){
-                $res = DB::table('subjects_staff_rel')->insertGetId(['sub_id' => $ss , 's_id' => $s_id]);
-                if(!$res){
-                    return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
-                }
-            }
-
-        }
 
         $res = DB::table('staff')->where('s_id', $s_id)->update($data);
         

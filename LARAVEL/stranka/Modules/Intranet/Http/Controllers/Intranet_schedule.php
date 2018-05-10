@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
+
 class Intranet_schedule extends Controller
 {
     private $module_name;
@@ -158,15 +159,17 @@ class Intranet_schedule extends Controller
         $schedule_data = [];
 
         if($staff){
-            $my_subjects_ids = DB::table('subjects')
-                                ->join('subjects_staff_rel', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                ->whereIn('subjects_staff_rel.s_id', $selected_staff)
+            $my_subjects_ids = DB::table('lectures')
+                                ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                ->whereIn('lectures.s_id', $selected_staff)
                                 ->where('subjects.semester', $semester)
-                                ->pluck('subjects_staff_rel.sub_id');
-            
+                                ->distinct()
+                                ->pluck('subjects.sub_id');
+            //debug($my_subjects_ids, true);
             foreach($day_names as $key => $dn){
                 $day_data = [];
                 $my_schedule = DB::table('lectures')->whereIn('sub_id', $my_subjects_ids)->where('day', $key)->where('year', $year->sy_id)->get();
+                //debug($my_schedule, true);
                 if(count($my_schedule)){
                     for($i = 0; $i < 15; $i++){
                         foreach($my_schedule as $m){
@@ -174,17 +177,62 @@ class Intranet_schedule extends Controller
                                 if($m->type == 'prednaska'){
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_p,
-                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
-                                        'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
-                                        'color' => config('schedule_admin.prednaska_color')
+                                        'abb' => DB::table('lectures')
+                                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                                    //->where('subjects.sub_id', $m->sub_id)
+                                                    ->where('day' , $key)
+                                                    ->where('type', 'prednaska')
+                                                    ->distinct()
+                                                    ->pluck('abbrev')->toArray(),
+                                        //'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
+                                        'room' => DB::table('lectures')
+                                                    ->join('schedule_rooms', 'schedule_rooms.sr_id', '=', 'lectures.room_id')
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'prednaska')
+                                                    ->distinct()
+                                                    ->pluck('room')->toArray(),
+                                        'color' => config('schedule_admin.prednaska_color'),
+                                        'teachers' => DB::table('lectures')
+                                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                                    //->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'prednaska')
+                                                    ->pluck('surname')->toArray()
 
                                     ];
                                 }else{
                                     $day_data[$i+7] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->duration_c,
-                                        'room' => DB::table('schedule_rooms')->where('sr_id', $m->room_id)->first()->room,
-                                        'abb' => DB::table('subjects')->where('sub_id', $m->sub_id)->first()->abbrev,
-                                        'color' => config('schedule_admin.cvicenie_color')
+                                        'room' => DB::table('lectures')
+                                                    ->join('schedule_rooms', 'schedule_rooms.sr_id', '=', 'lectures.room_id')
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'cvicenie')
+                                                    ->distinct()
+                                                    ->pluck('room')->toArray(),
+                                        'abb' => DB::table('lectures')
+                                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                                    //->where('subjects.sub_id', $m->sub_id)
+                                                    ->where('type', 'cvicenie')
+                                                    ->where('day' , $key)
+                                                    ->distinct()
+                                                    ->pluck('abbrev')->toArray(),
+                                        'color' => config('schedule_admin.cvicenie_color'),
+                                        'teachers' => DB::table('lectures')
+                                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                                    ->where('sub_id', $m->sub_id)
+                                                    ->where('day', $key)
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('start_time', $m->start_time)
+                                                    ->where('type', 'cvicenie')
+                                                    ->pluck('surname')->toArray()
                                     ];
                                 }
                             
@@ -205,16 +253,18 @@ class Intranet_schedule extends Controller
                 }
             }
         }
-
+  
         $subject_assignment = [];
         foreach($selected_staff as $ss){
-            $subject_assignment[] = DB::table('subjects_staff_rel')
-                                    ->join('subjects', 'subjects.sub_id', '=', 'subjects_staff_rel.sub_id')
-                                    ->where('subjects_staff_rel.s_id', $ss)
-                                    ->get();
+            $subject_assignment[$ss] = DB::table('lectures')
+                                    ->join('subjects', 'subjects.sub_id', '=', 'lectures.sub_id')
+                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                    ->where('lectures.s_id', $ss)
+                                    ->where('subjects.semester', $semester)
+                                    ->distinct()
+                                    ->pluck('subjects.title')->toArray();
         }
 
-       
         
         $seasons = DB::table('schedule_season')->groupBy('semester')->get();
 
@@ -233,7 +283,8 @@ class Intranet_schedule extends Controller
             'day_names' => $day_names,
             'semester' => $semester,
             'selected_staff' => $selected_staff,
-            'subject_assignment' => $subject_assignment
+            'subject_assignment' => $subject_assignment,
+            'override_color' => config('schedule_admin.override_color'),
         ];
         //debug($data, true);
         return view('intranet::schedule/schedule_staff', $data);
@@ -579,27 +630,28 @@ class Intranet_schedule extends Controller
         $subjects_with_schedule = DB::table('lectures')
                                         ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
                                         ->where('semester', $active_year->semester)
-                                        ->orWhere('semester', 2)
+                                        ->orderBy('subjects.title')
                                         ->groupBy('subjects.sub_id')
                                         ->get();
 
         $subjects_with_schedule_ids = DB::table('lectures')
                                         ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
                                         ->where('semester', $active_year->semester)
-                                        ->orWhere('semester', 2)
                                         ->groupBy('subjects.sub_id')
+                                        ->orderBy('subjects.title')
                                         ->pluck('lectures.sub_id')->toArray();
 
         $subjects_with_schedule = (!$subjects_with_schedule) ? [] : $subjects_with_schedule;
 
-        $subjects_without_schedule = DB::table('subjects')->whereNotIn('sub_id',$subjects_with_schedule_ids)->get();  
+        $subjects_without_schedule = DB::table('subjects')
+                                        ->whereNotIn('sub_id',$subjects_with_schedule_ids)
+                                        ->where('semester', $active_year->semester)
+                                        ->orderBy('subjects.title')
+                                        ->get();  
 
         if(count($subjects_without_schedule) == 0){
-            $subjects_without_schedule = DB::table('subjects')->where('semester', $active_year->semester)->orWhere('semester', '2')->get();
+            $subjects_without_schedule = DB::table('subjects')->where('semester', $active_year->semester)->orderBy('subjects.title')->get();
         }
-
-        
-        
 
         $data = [
             'title' => $this->module_name, 
@@ -607,9 +659,9 @@ class Intranet_schedule extends Controller
             'subjects_without_schedule' => $subjects_without_schedule,
             'active_year' => $active_year,
         ];
+        
         return view('intranet::schedule/schedule_add_choose_sub', $data);
     }
-
 
     /*
         pridanie prednasok / cvik
@@ -630,16 +682,19 @@ class Intranet_schedule extends Controller
         $active_year = DB::table('schedule_season')->where('active', 1)->first();
         $rooms = DB::table('schedule_rooms')->get();
 
-        $prednasky = DB::table('lectures')->where('sub_id', $sub_id)->where('type', 'prednaska')->orderBy('start_time')->get();
+        $prednasky = DB::table('lectures')->where('sub_id', $sub_id)->where('type', 'prednaska')->orderBy('day')->orderBy('start_time')->get();
         if($prednasky){
             foreach($prednasky as $p){
                 $p->room = DB::table('schedule_rooms')->where('sr_id', $p->room_id)->first();
+                $p->teacher = DB::table('staff')->where('s_id', $p->s_id)->first();
             }
         }
-        $cvicenia = DB::table('lectures')->where('sub_id', $sub_id)->where('type', 'cvicenie')->get();
+
+        $cvicenia = DB::table('lectures')->where('sub_id', $sub_id)->where('type', 'cvicenie')->orderBy('day')->orderBy('start_time')->get();
         if($cvicenia){
             foreach($cvicenia as $c){
                 $c->room = DB::table('schedule_rooms')->where('sr_id', $c->room_id)->first();
+                $c->teacher = DB::table('staff')->where('s_id', $c->s_id)->first();
             }
         }
 
@@ -648,29 +703,60 @@ class Intranet_schedule extends Controller
        
         foreach($day_names as $key => $dn){
             $day_data = [];
-            $tmp = DB::table('lectures')->where('sub_id', $sub_id)->where('day', $key)->select('start_time', 'room_id', 'type')->get();
+            $tmp = DB::table('lectures')->where('sub_id', $sub_id)->where('day', $key)->get();
             for($i = 0; $i < 15; $i++){
                 if(count($tmp) == 0){
                     $day_data[$i+7] = null;
                 }
                 foreach($tmp as $t){
-
                     if($t->start_time == ($i+7)){
                         if($t->type == 'prednaska'){
                             $day_data[$i+7] = [
                                 'duration' => DB::table('subjects')->where('sub_id', $sub_id)->first()->duration_p,
-                                'room' => DB::table('schedule_rooms')->where('sr_id', $t->room_id)->first()->room,
-                                'color' => config('schedule_admin.prednaska_color')
+                                'room' => DB::table('lectures')
+                                                    ->join('schedule_rooms', 'schedule_rooms.sr_id', '=', 'lectures.room_id')
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('sub_id', $sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('start_time', $t->start_time)
+                                                    ->where('type', 'prednaska')
+                                                    ->distinct()
+                                                    ->pluck('room')->toArray(),
 
+                                'color' => config('schedule_admin.prednaska_color'),
+                                'teachers' => DB::table('lectures')
+                                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                                    ->where('sub_id', $sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('room_id', $t->room_id)
+                                                    ->where('start_time', $t->start_time)
+                                                    ->where('type', 'prednaska')
+                                                    ->pluck('surname')->toArray()
                             ];
                         }else{
                             $day_data[$i+7] = [
                                 'duration' => DB::table('subjects')->where('sub_id', $sub_id)->first()->duration_c,
-                                'room' => DB::table('schedule_rooms')->where('sr_id', $t->room_id)->first()->room,
-                                'color' => config('schedule_admin.cvicenie_color')
+                                'room' => DB::table('lectures')
+                                                    ->join('schedule_rooms', 'schedule_rooms.sr_id', '=', 'lectures.room_id')
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('sub_id', $sub_id)
+                                                    ->where('day', $key)
+                                                    ->where('start_time', $t->start_time)
+                                                    ->where('type', 'cvicenie')
+                                                    ->distinct()
+                                                    ->pluck('room')->toArray(),
+
+                                'color' => config('schedule_admin.cvicenie_color'),
+                                'teachers' => DB::table('lectures')
+                                                    ->join('staff', 'staff.s_id', '=', 'lectures.s_id')
+                                                    ->where('sub_id', $sub_id)
+                                                    ->where('day', $key)
+                                                    //->where('room_id', $t->room_id)
+                                                    ->where('start_time', $t->start_time)
+                                                    ->where('type', 'cvicenie')
+                                                    ->pluck('surname')->toArray()
                             ];
                         }
-                       
                         break;
                     }else{
                         $day_data[$i+7] = null;
@@ -680,6 +766,8 @@ class Intranet_schedule extends Controller
             $schedule_data[$dn] = $day_data;
         }
  
+        $staff = DB::table('staff')->where('activated', 1)->orderBy('surname')->get();
+
         $prednasky = (!$prednasky) ? [] : $prednasky;
         $cvicenia = (!$cvicenia) ? [] : $cvicenia;
 
@@ -691,9 +779,10 @@ class Intranet_schedule extends Controller
             'prednasky' => $prednasky,
             'cvicenia' => $cvicenia,
             'day_names' => $day_names,
-            'schedule_data' => $schedule_data
+            'schedule_data' => $schedule_data,
+            'staff' => $staff
         ];
-
+        //debug($data,true);
         return view('intranet::schedule/schedule_add', $data);
     }
 
@@ -705,6 +794,7 @@ class Intranet_schedule extends Controller
         if(!has_permission('schedule')){
             return redirect('/')->with('err_code', ['type' => 'error', 'msg' => 'Access denied!']);
         }
+        
         $type = $request->input('type');
         $start_time = $request->input('start_time');
         $room_id = $request->input('room');
@@ -713,10 +803,11 @@ class Intranet_schedule extends Controller
         $duration_c = $request->input('duration_c');
         $day = $request->input('day');
         $year = $request->input('year');
+        $staff = $request->input('staff');
 
         if(!is_numeric($sub_id) || !is_numeric($room_id) || !is_numeric($start_time) || 
             !is_string($type) || strlen($type) < 1 || strlen($type) > 16 || !is_numeric($duration_c) || $duration_c < 1 ||
-            !is_numeric($duration_p) || $duration_p < 1 || !is_numeric($day) || !is_numeric($year)){
+            !is_numeric($duration_p) || $duration_p < 1 || !is_numeric($day) || !is_numeric($year) || !is_numeric($staff)){
             return response()->json(['error' => 'Input error'], 400);
         }
 
@@ -726,28 +817,94 @@ class Intranet_schedule extends Controller
             'start_time' => $start_time,
             'type' => $type,
             'day' => $day,
-            'year' => $year
+            'year' => $year,
+            's_id' => $staff
         ];
       
+        // existuje ta ista polozka ?
         $check = DB::table('lectures')
                             ->where('day', $day)
                             ->where('sub_id', $sub_id)
                             ->where('room_id', $room_id)
                             ->where('start_time', $start_time)
                             ->where('type', $type)
-                            ->where('day', $day)
+                            ->where('s_id', $staff)
                             ->first();
 
         if($check){
             return response()->json(['error' => 'Item already exists'], 400);
         }
 
+       
+        // ma cas ucitel vzhladom na predmety ? 
+        $check_freetime = DB::table('lectures')
+                            ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
+                            ->where('day', $day)
+                            ->where('s_id', $staff)
+                            ->get();
+        
+   
+        foreach($check_freetime as $f){
+            if( $f->start_time < $start_time ){
+                if($f->type == 'prednaska'){
+                    if($f->start_time + $f->duration_p > $start_time){
+                        return response()->json(['error' => 'User has not free time in selected time!'], 400);
+                    }
+                }else{
+                    if($f->start_time + $f->duration_c > $start_time){
+                        return response()->json(['error' => 'User has not free time in selected time!'], 400);
+                    }
+                }
+            }elseif($f->start_time == $start_time){
+                return response()->json(['error' => 'User has not free time in selected time!'], 400);
+            }else{
+                if($type == 'prednaska'){
+                    if( $start_time + $duration_p > $f->start_time){
+                        return response()->json(['error' => 'User has not free time in selected time!'], 400);
+                    }
+                }else{
+                    
+                    if( $start_time + $duration_c > $f->start_time){
+                        return response()->json(['error' => 'User has not free time in selected time!'], 400);
+                    }
+                }
+            }
+        }       
+
+        // ma cas ucitel vzhladom na konzultacie ? 
+        $users_cons = DB::table('consultations')
+                            ->where('day', $day)
+                            ->where('staff_id', $staff)
+                            ->get();
+
+        foreach($users_cons as $f){
+            if($f->start_time < $start_time){
+                if( $f->end_time > $start_time){
+                    return response()->json(['error' => 'User has consultation in selected time!'], 400);
+                }
+            }elseif($f->start_time == $start_time){
+                return response()->json(['error' => 'User has consultation in selected time!'], 400);
+            }else{
+                if($type == "prednaska"){
+                    if( $f->start_time < $start_time + $duration_p){
+                        return response()->json(['error' => 'User has consultation in selected time!'], 400);
+                    }
+                }else{
+                    if( $f->start_time < $start_time + $duration_c){
+                        return response()->json(['error' => 'User has consultation in selected time!'], 400);
+                    }
+                }
+            }
+        }
+
+        // kontrola volnej miestnosti
         $full_room = DB::table('lectures')
                             ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
                             ->where('room_id', $room_id)
                             ->where('day', $day)
+                            //->where('s_id', $staff)
                             ->get();
-
+                                
         foreach($full_room as $f){
             if( $f->start_time < $start_time ){
                 if($f->type == 'prednaska'){
@@ -760,7 +917,9 @@ class Intranet_schedule extends Controller
                     }
                 }
             }elseif($f->start_time == $start_time){
-                return response()->json(['error' => 'Room is not empty at selected time!'], 400);
+                if($f->sub_id != $sub_id){
+                    return response()->json(['error' => 'Room is not empty at selected time!'], 400);
+                }
             }else{
                 if($type == 'prednaska'){
                     if( $start_time + $duration_p > $f->start_time){
@@ -775,15 +934,12 @@ class Intranet_schedule extends Controller
             }
         }
 
-
         $item = DB::table('lectures')->insertGetId($data);
         if($item > 0){
             return response()->json(['error' => 'Successfuly added', 'data' => $data], 200);
         }else{
             return response()->json(['error' => 'Insert error'], 400);
         }
-        
-
     }
 
     public function schedule_update_action(Request $request){
@@ -797,11 +953,11 @@ class Intranet_schedule extends Controller
         $duration_c = $request->input('duration_c');
         $day = $request->input('day');
         $type = $request->input('type');
-       
+        $staff = $request->input('teacher');
 
         if(!is_numeric($item) || !is_numeric($room_id) || !is_numeric($start_time) || 
             !is_string($type) || strlen($type) < 1 || strlen($type) > 16 || !is_numeric($duration_c) || $duration_c < 1 ||
-            !is_numeric($duration_p) || $duration_p < 1 || !is_numeric($day)){
+            !is_numeric($duration_p) || $duration_p < 1 || !is_numeric($day) || !is_numeric($staff)){
             return response()->json(['error' => 'Input error'], 400);
         }
 
@@ -812,40 +968,125 @@ class Intranet_schedule extends Controller
                         ->where('start_time', $start_time)
                         ->where('type', $type)
                         ->where('day', $day)
+                        ->where('s_id', $staff)
                         ->first();
         if($check){
             return response()->json(['error' => 'Item already exists'], 400);
         }
 
         $tmp = DB::table('lectures')->where('l_id', $item)->first();
-        DB::table('lectures')->where('l_id', $item)->delete();
 
-        $full_room = DB::table('lectures')->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')->where('room_id', $room_id)->get();
+        $users_cons = DB::table('consultations')
+                            ->where('day', $day)
+                            ->where('staff_id', $staff)
+                            ->get();
+        
         $success = true;
-        foreach($full_room as $f){
-            if( $f->start_time < $start_time ){
-                if($f->type == 'prednaska'){
-                    if($f->start_time + $f->duration_p > $start_time){
-                        $success = false;
-                    }
-                }else{
-                    if($f->start_time + $f->duration_c > $start_time){
-                        $success = false;
-                    }
+        foreach($users_cons as $f){
+            if($f->start_time < $start_time){
+                if( $f->end_time > $start_time){
+                    $success = false;
                 }
             }elseif($f->start_time == $start_time){
                 $success = false;
             }else{
-                if($type == 'prednaska'){
-                    if( $start_time + $duration_p > $f->start_time){
+                if($type == "prednaska"){
+                    if( $f->start_time < $start_time + $duration_p){
                         $success = false;
                     }
                 }else{
-                    if( $start_time + $duration_c > $f->start_time){
+                    if( $f->start_time < $start_time + $duration_c){
                         $success = false;
                     }
                 }
             }
+        }
+
+        if($success == true){
+            // ma cas ucitel vzhladom na predmety ? 
+            $check_freetime = DB::table('lectures')
+                                ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
+                                ->where('day', $day)
+                                ->where('s_id', $staff)
+                                ->get();
+            
+            
+            foreach($check_freetime as $f){
+                if( $f->start_time < $start_time ){
+                    if($f->type == 'prednaska'){
+                        if($f->start_time + $f->duration_p > $start_time){
+                            $success = false;
+                        }
+                    }else{
+                        if($f->start_time + $f->duration_c > $start_time){
+                            $success = false;
+                        }
+                    }
+                }elseif($f->start_time == $start_time){
+                    if($f->sub_id != $tmp->sub_id && $f->room_id == $room_id){
+                        $success = false;
+                    }
+                }else{
+                    if($type == 'prednaska'){
+                        if( $start_time + $duration_p > $f->start_time){
+                            $success = false;
+                        }
+                    }else{
+                        
+                        if( $start_time + $duration_c > $f->start_time){
+                            $success = false;
+                        }
+                    }
+                }
+            }       
+        }else{
+            return response()->json(['error' => 'User has consultation at selected time!'], 400);
+        }
+
+
+        if($success == true){
+
+            $full_room = DB::table('lectures')
+                                ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
+                                ->where('room_id', $room_id)
+                                ->where('day', $day)
+                                ->where('s_id', $staff)
+                                ->get();
+
+            /*$full_room = DB::table('lectures')
+                                ->join('subjects', 'lectures.sub_id', '=', 'subjects.sub_id')
+                                ->where('room_id', $room_id)->get();*/
+            
+            
+            foreach($full_room as $f){
+                if( $f->start_time < $start_time ){
+                    if($f->type == 'prednaska'){
+                        if($f->start_time + $f->duration_p > $start_time){
+                            $success = false;
+                        }
+                    }else{
+                        if($f->start_time + $f->duration_c > $start_time){
+                            $success = false;
+                        }
+                    }
+                }elseif($f->start_time == $start_time){
+                    if($f->sub_id != $sub_id){
+                        $success = false;
+                    }
+                }else{
+                    if($type == 'prednaska'){
+                        if( $start_time + $duration_p > $f->start_time){
+                            $success = false;
+                        }
+                    }else{
+                        if( $start_time + $duration_c > $f->start_time){
+                            $success = false;
+                        }
+                    }
+                }
+            }
+        }else{
+            return response()->json(['error' => 'User already has lecture at selected time!'], 400);
         }
 
         if($success == false){
@@ -854,8 +1095,11 @@ class Intranet_schedule extends Controller
                 'room_id' => $tmp->room_id,
                 'start_time' => $tmp->start_time,
                 'type' => $tmp->type,
-                'day' => $tmp->day
+                'day' => $tmp->day,
+                's_id' => $tmp->day,
+                'year' => $tmp->year
             ];
+            DB::table('lectures')->where('l_id', $item)->delete();
             $item = DB::table('lectures')->insertGetId($data);
             return response()->json(['error' => 'Room is not empty at selected time!'], 400);
         }else{
@@ -864,8 +1108,11 @@ class Intranet_schedule extends Controller
                 'room_id' => $room_id,
                 'start_time' => $start_time,
                 'type' => $type,
-                'day' => $day
+                'day' => $day,
+                's_id' => $staff,
+                'year' => $tmp->year
             ];
+            DB::table('lectures')->where('l_id', $item)->delete();
             $item = DB::table('lectures')->insertGetId($data);
             return response()->json(['error' => 'Successfuly updated', 'data' => $data], 200);
         }
@@ -1313,4 +1560,3 @@ class Intranet_schedule extends Controller
     }
 
 }
-

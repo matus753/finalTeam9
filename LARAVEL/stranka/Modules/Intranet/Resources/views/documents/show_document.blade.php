@@ -21,7 +21,6 @@
             </div>
         </div>
         @if(isset($document->text_sk) && !empty($document->text_sk))
-        <hr class="col-md-10 col-md-offset-1">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 {!! $document->text_sk !!}<br>
@@ -29,12 +28,10 @@
         </div>
         @endif
         @if(count($files) > 0)
-            <hr class="col-md-10 col-md-offset-1">
-            <h2>Subory</h2>
             @foreach($files as $f)
             <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ get_documents_file($category_hash->hash_name, $document->hash_name, $f->file_hash) }}" target="_blank" >{{ $f->file_name }}</a>
+                    <div class="col-md-10 col-md-offset-1">
+                    <span class="fa fa-download"></span>&nbsp;<a href="{{ get_documents_file($category_hash->hash_name, $document->hash_name, $f->file_hash) }}" target="_blank" >{{ $f->file_name }}</a>
                 </div>
             </div>
             @endforeach

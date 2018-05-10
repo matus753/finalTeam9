@@ -31,17 +31,35 @@
             <br>
             <form action="{{ url('/photos-admin-edit-action/'.$gallery->pg_id) }}" method="post">
                 {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="title_sk">Slovenský nadpis:</label>
-                    <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $gallery->title_SK }}" required />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="title_sk">* Slovenský nadpis:</label>
+                            <input type="text" class="form-control" id="title_sk" name="title_sk" placeholder="Slovenský nadpis" value="{{ $gallery->title_SK }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="title_en">* Anglický nadpis:</label>
+                                <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $gallery->title_EN }}" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date">Dátum:</label>
+                                <input type="date" class="form-control" id="date" value="{{ format_time($gallery->date, true) }}" name="date"/>
+                            </div>               
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="title_en">Anglický nadpis:</label>
-                    <input type="text" class="form-control" id="title_en" name="title_en" placeholder="Anglický nadpis" value="{{ $gallery->title_EN }}" required />
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
+                    </div>
                 </div>
-                <input type="submit" class="btn btn-success pull-right" value="Uložiť" />
             </form>
-            <a href="{{ url('/photos-admin-upload/'.$gallery->pg_id) }}" class="btn btn-primary">Pridaj fotky</a>
+            <br>
+            <a href="{{ url('/photos-admin-upload/'.$gallery->pg_id) }}" class="btn btn-primary pull-right">Pridaj fotky</a>
+            <br>
             @foreach($photos as $key=>$p)
                 @if($key % 4 == 0)
                     <div class="row" style="margin-top: 25px; margin-bottom: 25px">

@@ -7,7 +7,7 @@
 <link href="{{ URL::asset('css/additional_style.css') }}" rel="stylesheet">
 
 <script src="{{ URL::asset('js/datatables.min.js') }}"></script>
-
+<script src="{{ URL::asset('js/additional_js.js') }}"></script>
 <script src="{{ URL::asset('plugins/summernote/dist/summernote.js') }}"></script>
 <link href="{{ URL::asset('plugins/summernote/dist/summernote.css') }}" rel="stylesheet">
 <script src="{{ URL::asset('plugins/dropzone/dropzone.js') }}"></script>
@@ -67,6 +67,11 @@
                             formData.append("category", "{{ $category->hash_name }}");
                             formData.append("save_to", "{{ $hash_id }}");
                     });
+                },
+                success: function(data, response){
+                    $('#added_files').append('<p><input type="text" id="file_name-'+response['file']+'" name="file_name" style="width:93%; display:inline-block;" class="form-control" value="'+response['name']+'" >'+
+                    '<button type="button" onclick="update_file_name('+response['file']+')" class="btn btn-success"><span class="fa fa-check"></span></button>'+
+                    '<a href="javascript:void(0)" onclick="confirmation_redirect("Potvrdenie","Naozaj chcete zmazať tento záznam? ", "{{ url("/staff-admin-delete/") }}'+response['file']+'" )" class="btn btn-danger btn" ><span class="fa fa-trash-o "></span></a></p>');
                 }
 			}
 		);
@@ -86,6 +91,23 @@
 
     });    
 
+    function update_file_name(file){
+        var data = {
+            file: file,
+            file_name : $('#file_name-'+file).val()
+        }
+        $.ajax({
+            url: "{{ url('/file_name_update') }}",
+            data : data,
+            type: "post",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        }).done(function(msg){
+            myAlert('success', msg['error']);
+        });
+    }
+
     function limitText(field, maxChar){
         var ref = $(field),
             val = ref.val();
@@ -97,6 +119,9 @@
     }
 
 </script>
+<div id="alert-div">
+
+</div>
 <div id="emPAGEcontent" class="container">
     <div class="intra-div">
         <div class="row">
@@ -144,6 +169,13 @@
             
         </div>
     </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="added_files">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 @stop

@@ -67,7 +67,8 @@ class Research extends Controller
 			'vega' => $projects_db_vega,
 			'apvv' => $projects_db_apvv,
 			'other' => $projects_db_other
-		];
+        ];
+        
         return view('research::projects', $data);
     }
 
