@@ -151,7 +151,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-info-single">
-                        <h2 class="title">STU</h2>
+                        <h2 class="title"><a target="_blank" href="https://www.stuba.sk/"> STU </a></h2>
                         <p> <i class="fa fa-info-circle" aria-hidden="true"></i> <a target="_blank" href="http://is.stuba.sk"> AIS STU </a> </p>
                         <p> <i class="fa fa-envelope" aria-hidden="true"></i> <a target="_blank" href="https://webmail.stuba.sk">@lang('footer.email')</a> </p>
                         <p> <i class="fa fa-database" aria-hidden="true"></i> <a target="_blank" href="https://kis.cvt.stuba.sk/i3/epcareports/epcarep.csp?ictx=stu&language=1">@lang('footer.evidence')</a> </p>
@@ -160,7 +160,7 @@
 
                 <div class="col-md-3 col-sm-6">
                     <div class="footer-info-single">
-                        <h2 class="title">FEI</h2>
+                        <h2 class="title"><a target="_blank" href="https://www.fei.stuba.sk/"> FEI </a></h2>
                         <p> <i class="fa fa-cutlery" aria-hidden="true"></i> <a target="_blank" href="https://www.jedalen.stuba.sk/WebKredit">@lang('footer.canteen')</a></p>
                         <p> <i class="fa fa-calendar" aria-hidden="true"></i> <a target="_blank" href="http://aladin.elf.stuba.sk/rozvrh">@lang('footer.timetable')</a> </p>
                         <p> <i class="fa fa-cube" aria-hidden="true"></i> <a target="_blank" href="http://elearn.elf.stuba.sk/moodle">Moodle FEI</a> </p>
