@@ -32,7 +32,7 @@
                     <address>
                         <h4>Katarína Kermietová</h4>
                         <h5>@lang('contact::contact.room') D116</h5>
-                        <h5>@lang('contact::contact.secretariat'): +421 (2) 60 291 598</h5>
+                        <h5>+421 (2) 60 291 598</h5>
                     </address>
                 </fieldset>
             </div>

@@ -17,8 +17,8 @@ return [
     'depOIKR' => 'Oddelenie informačných, komunikačných a riadiacich systémov (OIKR)',
     'depOEMP' => 'Oddelenie elektroniky, mikropočítačov a PLC systémov (OEMP)',
     'depOEAP' => 'Oddelenie E-mobility, automatizácie a pohonov (OEAP)',
-    'depHead' => 'Vedúci',
-    'depHead2' => 'Zástupca',
+    'depHead' => 'Vedúci oddelenia',
+    'depHead2' => 'Zástupca vedúceho oddelenia',
     'later' => 'Informácie budú dodané neskôr.',
 
     'oamm1' => 'Oddelenie v rámci pedagogiky zabezpečuje v bakalárskom stupni ŠP výučbu predmetov s hlavným dôrazom na mechaniku a mechatronické prvky. V inžinierskom stupni ŠP zabezpečuje výučbu predmetov s dôrazom na simuláciu a modelovanie mechanických a mechatronických systémov tak z pohľadu mechaniky a dynamiky, ako aj z pohľadu multifyzikálneho previazania jednotlivých fyzikálnych domén.',

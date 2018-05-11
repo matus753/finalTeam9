@@ -8,7 +8,7 @@ return [
     'life' => 'Institute life',
     'all' => 'All',
     'created' => 'Created',
-    'expired' => 'Expired',
+    'expired' => 'view older news',
     'more' => 'Read more...',
     'no_news' => 'No news',
     'enter_mail' => 'Enter your email address to subscribe to our newsletter',

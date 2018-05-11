@@ -63,8 +63,8 @@ function check(){
 		
 		<div id="no_print_div1" class="col-md-6">
             <form class="form-inline pull-right" method="GET" action="{{ url('/news') }}" >
-                <div class="form-group">
-                    <label for="type_sel">Type:</label>
+                <div class="form-group" style="margin-right: 50px">
+                    <label for="type_sel">@lang("news::news.type"):</label>
                     <select class="form-control" id="type_sel" name="type" onchange="this.form.submit()">
                         <option value="0" @if($type == 0) {{ 'selected' }} @endif>@lang("news::news.prop")</option>
                         <option value="1" @if($type == 1) {{ 'selected' }} @endif>@lang("news::news.notice")</option>
@@ -87,10 +87,10 @@ function check(){
             @foreach($news as $n)
                 <div class="row carousel-row img-rounded {{ $today > $n->date_expiration ? 'expired' : '' }}">
                     <div class="col-md-12">
-                        <div class="col-md-2">
-                                <img class="img-responsive" src="{{ get_news_image($n->hash_id, $n->image_hash_name) }}" alt="Image" >
+                        <div class="col-md-3">
+                                <img class="img-responsive news-image" src="{{ get_news_image($n->hash_id, $n->image_hash_name) }}" alt="Image" >
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <div id="carousel-1" class="carousel " data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="item active">
@@ -98,15 +98,19 @@ function check(){
                                 </div>
                             </div>
                             <div class="">
-                                <h4>{{ $n->title_sk }}</h4>
+                                @if($n->editor_content_sk)
+                                    <a  href="{{ url('/news/content/'.$n->n_id) }}"><strong><h4>{{ $n->title_sk }}</h4></strong></a>
+                                @else
+                                    <strong><h4>{{ $n->title_sk }}</h4></strong>
+                                @endif
                                 <p>
                                     {{ $n->preview_sk }}
                                 </p>
                             </div>
                         </div>
-                        <div class="col-md-2" style="margin-top: 60px; margin-bottom: 10px;">
+                        <div class="col-md-2" style="margin-top: 30px; margin-bottom: 30px;">
                             @if($n->editor_content_sk)
-                                <a class="btn btn-sm btn-default ib-button" href="{{ url('/news/content/'.$n->n_id) }}"><i class="fa fa-fw fa-eye"></i> @lang("news::news.more")</a>
+                                <a class="btn btn-sm btn-default ib-button" href="{{ url('/news/content/'.$n->n_id) }}" style="margin-bottom: 10px"><i class="fa fa-fw fa-eye"></i> @lang("news::news.more")</a>
                             @endif
                             <button class="btn btn-sm btn-primary {{ $today > $n->date_expiration ? 'expired_b' : '' }} ib-button"> @lang("news::news.created"): {{ format_time($n->date_created) }}</button>
                         </div>
@@ -160,6 +164,7 @@ function check(){
             $('#response').empty().append('<p>'+JSON.parse(data)+'</p>');
             setTimeout(function(){
                 $('#newsletter').modal('toggle');
+                $('#response').html('');
             }, 1500);
         }).fail(function(data){
             $('#response').empty().append('<p>'+JSON.parse(data)+'</p>');

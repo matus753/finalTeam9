@@ -185,3 +185,14 @@ img.hover-shadow {
 .edit-image {
     height: 180px;
 }
+
+#response{
+    margin-top: 10px;
+}
+
+.news-image{
+    margin : 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-height: 185px;
+}

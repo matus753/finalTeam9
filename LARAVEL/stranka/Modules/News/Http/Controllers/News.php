@@ -112,15 +112,10 @@ class News extends Controller
 		$email = $request->input('mail');
 		$lang = $request->input('lang');
 		$sub = $request->input('toggle');
-		
-		if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			return json_encode('Bad email');
-		}
-		
+
 		if(!is_numeric($sub) && ($sub != 1 || $sub != 0)){
 			return json_encode('Internal error');
 		}
-		
 
 		$data = [
 			'email' => $email,
@@ -128,7 +123,12 @@ class News extends Controller
 		];
 		
 		if($sub){
-			if(DB::table('newsletter')->where('email', $email)->first()){
+
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return json_encode('Bad email');
+            }
+
+            if(DB::table('newsletter')->where('email', $email)->first()){
 				DB::table('newsletter')->where('email', $email)->update($data);
 				return json_encode('You are already subscriber. Data updated.');
 			}else{

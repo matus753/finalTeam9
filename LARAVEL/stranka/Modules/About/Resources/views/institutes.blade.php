@@ -28,10 +28,10 @@
         <div id="dep_OAMM" class="institute">
             <h4 class="ustavTitle">@lang('about::aboutUs.depOAMM')</h4>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($vOAMM) == 0)
                         <p>-</p>
                     @else
@@ -42,10 +42,10 @@
                 </div>
             </div>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead2')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($vOAMM) == 0)
                         <p>-</p>
                     @else
@@ -65,10 +65,10 @@
         <div id="dep_OIKR" class="institute">
             <h4 class="ustavTitle" id="secH32">@lang('about::aboutUs.depOIKR')</h4>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($vOIKR) == 0)
                         <p>-</p>
                     @else
@@ -79,10 +79,10 @@
                 </div>
             </div>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead2')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($zOIKR) == 0)
                         <p>-</p>
                     @else
@@ -115,10 +115,10 @@
         <div id="dep_OEMP" class="institute">
             <h4 class="ustavTitle" >@lang('about::aboutUs.depOEMP')</h4>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($vOEMP) == 0)
                         <p>-</p>
                     @else
@@ -129,10 +129,10 @@
                 </div>
             </div>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead2')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($zOEMP) == 0)
                         <p>-</p>
                     @else
@@ -160,10 +160,10 @@
         <div id="dep_OEAP" class="institute">
             <h4 class="ustavTitle" >@lang('about::aboutUs.depOEAP')</h4>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($vOEAP) == 0)
                         <p>-</p>
                     @else
@@ -174,10 +174,10 @@
                 </div>
             </div>
             <div class="sectContent row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <p class="bold">@lang('about::aboutUs.depHead2')</p>
                 </div>
-                <div  class="col-md-10">
+                <div  class="col-md-9">
                     @if(count($zOEAP) == 0)
                         <p>-</p>
                     @else

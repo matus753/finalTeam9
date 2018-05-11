@@ -8,7 +8,7 @@ return [
     'life' => 'Zo života ústavu',
     'all' => 'Všetky',
     'created' => 'Vytvorené',
-    'expired' => 'Expirované',
+    'expired' => 'zobraziť staršie novinky',
     'more' => 'Zobraziť viac...',
     'no_news' => 'Žiadne aktuality',
     'enter_mail' => 'Zadajte svoju emailovú adresu a prihláste sa na odoberanie noviniek',
