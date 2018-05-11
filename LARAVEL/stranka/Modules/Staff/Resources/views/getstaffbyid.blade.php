@@ -71,7 +71,7 @@ function showPubs(){
 							<hr>
 							<div class="staff-profile__description">
 								<p><span>@lang('staff::staff.room'): </span> {{ $ais->room }}</p>
-								<p><span>@lang('staff::staff.phone'): </span> +421 60291 {{ $ais->phone }}</p>
+								<p><span>@lang('staff::staff.phone'): </span> +421 (2) 60 291 {{ $ais->phone }}</p>
 								<p><span>@lang('staff::staff.department'): </span> {{ $ais->department }}</p>
 								@if( count($ais->function) > 0 )
 									<p><span>@lang('staff::staff.function'): </span>

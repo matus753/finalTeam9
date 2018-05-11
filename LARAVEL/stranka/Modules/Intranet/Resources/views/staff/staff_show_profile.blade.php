@@ -32,7 +32,7 @@
 							<hr>
 							<div class="staff-profile__description">
 								<p><span>@lang('staff::staff.room'): </span>{{ $ais->room }}</p>
-								<p><span>@lang('staff::staff.phone'): </span>+421 60291 {{ $ais->phone }}</p>
+								<p><span>@lang('staff::staff.phone'): </span>+421 (2) 60 291 {{ $ais->phone }}</p>
 								<p><span>@lang('staff::staff.department'): </span>{{ $ais->department }}</p>
 								@if( is_object($ais->function) ) 
 									<p><span>@lang('staff::staff.function'):</span>

@@ -120,7 +120,7 @@ $(document).ready(function() {
 						<tr class="staff__table-title">
 							<th>@lang('staff::staff.name')</th>
 							<th>@lang('staff::staff.room')</th>
-							<th>@lang('staff::staff.phone') +421&nbsp;60291&nbsp;xxx</th>
+							<th>@lang('staff::staff.phone') +421&nbsp;(2)&nbsp;60&nbsp;291&nbsp;xxx</th>
 							<th>@lang('staff::staff.department')</th>
 							<th>@lang('staff::staff.role')</th>
 							<th>@lang('staff::staff.function')</th>
@@ -129,7 +129,7 @@ $(document).ready(function() {
 					<tbody>
 						@foreach($staff as $s)
 						<tr class="staff__table-row" data-href="{{ url('/staff') }}/{{ $s->s_id }}">
-							<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;<span aria-hidden="true" class="hidden" >{{ $s->surname }}</span> {{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2) ,{{ $s->title2 }} @endif</td>
+							<td><i class="fa fa-search-plus" ></i>&nbsp;&nbsp;&nbsp;<span aria-hidden="true" class="hidden" >{{ $s->surname }}</span> {{ $s->title1 }} {{ $s->name }} {{ $s->surname }} @if($s->title2), {{ $s->title2 }} @endif</td>
 							<td>{{ $s->room }}</td>
 							<td>{{ $s->phone }}</td>
 							<td>{{ $s->department }}</td>

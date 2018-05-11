@@ -20,7 +20,7 @@ return [
 	'news_section_preview' => 'Čo sa chystá a čo sa niekedy chystalo na našom ústave nájdete na podstránke Aktuality.',
 	
 	'photo_gallery' => 'Fotogaléria',
-	'photo_gallery_section_preview' => 'Fotografie a videá z našich akcií Vám priblížia život na našej fakulte o čosi bližšie.',
+	'photo_gallery_section_preview' => 'Fotografie a videá z našich akcií vám priblížia život na našom ústave o čosi bližšie.',
 	'videos' => 'Videá',
 	
 	'offering' => 'PONÚKAME',

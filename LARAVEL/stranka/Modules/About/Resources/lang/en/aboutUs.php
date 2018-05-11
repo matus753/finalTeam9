@@ -42,5 +42,5 @@ return [
     'depOEMP_li4' => 'in-car communication systems (LIN, CAN, FlexRay, MOST,…), industrial communication systems (Profibus, Profinet, EtherCat,…), wireless communication systems (including GPS and Galileo) for networking components of mechatronic and automatic control systems',
     'depOEMP_li5' => 'electrical design software EPLAN (CAE system for mechatronic and industrial systems) including functional safety, spark safety and reliability. Design of electronic devices and automotive electronic systems',
     'depOEMP_li6' => 'digital control methods and algorithms and their implementation on microcomputer systems',
-    'depOEMP_li7' => 'DEMP is seat of a Texas Instrument European Customer Training Centre.'
+    'depOEMP_li7' => 'DEMP is seat of a Texas Instruments European Customer Training Centre.'
 ];

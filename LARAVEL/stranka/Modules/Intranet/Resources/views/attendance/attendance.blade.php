@@ -63,7 +63,7 @@ tbody tr:hover{
 					<span class="caret"></span></button>
 					<ul class="dropdown-menu" style="padding: 0;">
 					  	<li><a onclick="teachers()">Vyučujúci</a></li>
-					  	<li><a onclick="doktorands()">Doktoranti</a></li>
+					  	<li><a onclick="doktorands()">Doktorandi</a></li>
 					</ul>
 					<i id="loading" class="fa fa-spinner fa-pulse fa-fw waitIcon" style="visibility: hidden;"></i>
 				</div>

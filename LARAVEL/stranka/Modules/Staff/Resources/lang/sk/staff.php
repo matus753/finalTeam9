@@ -37,7 +37,7 @@ return [
 	'riaditel' => 'riaditeľ ustavu',
 	
 	'teacher' => 'Učiteľ',
-	'doktorand' => 'Doktorant',
+	'doktorand' => 'Doktorand',
 	'researcher' => 'Výskumník',
 
 	'show_publications' => 'Zobraziť publikácie',

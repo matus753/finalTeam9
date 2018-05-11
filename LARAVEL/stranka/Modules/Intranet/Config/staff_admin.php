@@ -20,7 +20,7 @@ return [
     ],
 
     'rolesSK' => [
-        'doktorand' => 'doktorant',
+        'doktorand' => 'doktorand',
         'researcher' => 'výskumník',
         'teacher' => 'učiteľ',
     ],
