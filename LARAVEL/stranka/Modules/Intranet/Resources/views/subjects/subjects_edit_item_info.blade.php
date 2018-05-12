@@ -32,8 +32,9 @@
                 <div class="pull-left">
                     <a href="{{ url('/subjects-admin') }}" class="btn btn-primary btn-back"> Späť </a>
                 </div>
+                <br><br><br>
                 <div class="text-center">
-                    <h2>Editacia informácií o predmete {{ $subject->title }}</h2>
+                    <h2>Editácia informácií o predmete {{ $subject->title }}</h2>
                 </div>
             </div>
         </div>
