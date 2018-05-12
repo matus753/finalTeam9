@@ -135,7 +135,7 @@
                         </ul>
                     </li>
                     @if(isLogged())
-                        <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
+                        <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>
                     @else
                         <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>
                     @endif

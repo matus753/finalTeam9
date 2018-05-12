@@ -69,7 +69,7 @@
                     @if(has_permission('reporter')) <li><a href="{{ url('/media-admin') }}" class="navbarItem">@lang('menu.media')</a></li> @endif
                     @if(has_permission('reporter')) <li><a href="{{ url('/videos-admin') }}" class="navbarItem">@lang('menu.videos')</a></li> @endif
                     @if(has_permission('reporter')) <li><a href="{{ url('/photos-admin') }}" class="navbarItem">@lang('menu.photos')</a></li> @endif
-                    <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-power-off" ></span ></a></li>
+                    <li><a href ="{{ url('/login') }}" class="navbarItem" ><span class="fa fa-user" ></span ></a></li>
 				</ul>
             </div>
         </div>
