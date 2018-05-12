@@ -35,6 +35,6 @@ return [
 	'interesting_projects_text' => 'Náš ústav spolupracuje s množstvom firiem a je zapojený do niekoľkých domácich či medzinárodných projektov.',
 
     '' => '',
-    'calendar' => 'Ústavný kalendár akcií',
+    'calendar' => 'Kalendár',
     'go_to_page' => 'Prejdite na stránku ',
 ];

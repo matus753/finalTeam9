@@ -51,6 +51,8 @@ $(document).ready(function() {
 			var dep = 3;
 			this.api().columns().every( function (i) {
 				if(i == roles){
+					$('#staff_length').parent().removeClass('col-sm-6').addClass('col-md-3');
+					$('#staff_filter').parent().removeClass('col-sm-6').addClass('pull-right col-md-9');
 					var filterbox = $('<label><div id="filterbox" style="margin: 0.5em 20px 0.5em 0.5em"></div></label>').prependTo($('#staff_filter'));
 					$('<label>@lang("staff::staff.role")</label>').prependTo($('#staff_filter'));
 					var column = this;

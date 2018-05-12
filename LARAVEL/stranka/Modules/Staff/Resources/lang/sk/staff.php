@@ -38,7 +38,8 @@ return [
 	
 	'teacher' => 'Učiteľ',
 	'doktorand' => 'Doktorand',
-	'researcher' => 'Výskumník',
+	'researcher' => 'Výskumný pracovník',
+	'administrative' => 'Administrtívny pracovník',
 
 	'show_publications' => 'Zobraziť publikácie',
 	'tbl-title' => 'Názov publikácie',

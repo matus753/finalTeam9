@@ -12,6 +12,9 @@
 @stop
 
 @section('content_admin')
+<script>
+    $('.selectpicker').selectpicker();
+</script>
 <div class="container">
 	<div class="staff-intra"> 
         <div class="row">    
@@ -109,6 +112,18 @@
                                     {{ $pr }}
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+                    @endif
+                    @if(has_permission('admin'))
+                    <div class="form-group">
+                        <label for="perms">Predmet(y) vyučujúceho:</label>
+                        <div id="perms">
+                            <select name="subjects[]" class="form-control selectpicker" data-size="8" multiple data-live-search="true">
+                                @foreach($subjects as $s)
+                                    <option value="{{ $s->sub_id }}" data-tokens="{{ $s->abbrev }} {{ $s->title }}" >{{ $s->title }}</option> 
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     @endif

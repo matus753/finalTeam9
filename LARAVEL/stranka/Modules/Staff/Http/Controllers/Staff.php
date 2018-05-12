@@ -23,6 +23,9 @@ class Staff extends Controller
 		foreach($staff_db as $s){
             $s->function = $this->getFunctions($s->s_id);
 			if($s->staffRole != null){
+				if($s->staffRole == "administrative"){
+					$s->staffRole = trans('staff::staff.administrative');
+				}
 				if($s->staffRole == "teacher"){
 					$s->staffRole = trans('staff::staff.teacher');
 				}

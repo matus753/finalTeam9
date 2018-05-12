@@ -36,7 +36,7 @@ return [
 
     '' => '',
     'go_to_page' => 'Go to page ',
-    'calendar' => 'Institute events calendar',
+    'calendar' => 'Calendar',
 
 
 ];

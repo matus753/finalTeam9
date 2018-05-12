@@ -39,6 +39,7 @@ return [
 	'teacher' => 'Teacher',
 	'doktorand' => 'PhD student',
 	'researcher' => 'Researcher',
+	'administrative' => 'Administrative worker',
 
     'show_publications' => 'Show publications',
     'tbl-title' => 'Title',

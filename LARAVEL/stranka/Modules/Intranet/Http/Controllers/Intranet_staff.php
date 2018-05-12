@@ -241,7 +241,6 @@ class Intranet_staff extends Controller
         
         if($res){
             if($func && is_array($func) && count($func) > 0) {
-                
                 foreach($func as $f){
                     if(in_array($f,$db_func)){
                         $resFunc = (bool)DB::table('staff_function')->insert(['id_staff' => $s_id, 'id_func' => $f]);
@@ -254,10 +253,21 @@ class Intranet_staff extends Controller
                         return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
                     }
                 }
-            } else{
-                //debug('lala', true);
+            } else {
                 DB::table('staff_function')->where('id_staff', $s_id)->delete();
-                //return redirect('/staff-admin')->with('err_code', ['type' => 'error', 'msg' => 'DB error!']);
+            }
+
+            $user_subjects = $request->input('subjects');
+            if($user_subjects && is_array($user_subjects) && count($user_subjects) > 0 ){
+                $data_subjects = [];
+                foreach($user_subjects as $us){
+                    $data_subjects[] = [ 
+                        'sub_id' => $us,
+                        's_id' => $s_id 
+                    ];
+                }
+
+                DB::table('subjects_staff_rel')->insert($data_subjects);
             }
             return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item added successfuly!']);
         }
@@ -351,7 +361,7 @@ class Intranet_staff extends Controller
             'subjects' => $all_subs,
             'selected_subs' => $subjects_staff
         ];
-    
+       
         return view('intranet::staff/staff_edit', $data);
     }
 
@@ -537,6 +547,22 @@ class Intranet_staff extends Controller
         ];
 
         $res = DB::table('staff')->where('s_id', $s_id)->update($data);
+        $user_subjects = $request->input('subjects');
+        if($user_subjects && is_array($user_subjects) && count($user_subjects) > 0 ){
+            DB::table('subjects_staff_rel')->where('s_id', $s_id)->delete();
+            $data_subjects = [];
+            foreach($user_subjects as $us){
+                $data_subjects[] = [ 
+                    'sub_id' => $us,
+                    's_id' => $s_id 
+                ];
+            }
+
+            DB::table('subjects_staff_rel')->insert($data_subjects);
+        }else{
+            DB::table('subjects_staff_rel')->where('s_id', $s_id)->delete();
+        }
+
         
         return redirect('/staff-admin')->with('err_code', ['type' => 'success', 'msg' => 'Item updated successfuly!']);
 
