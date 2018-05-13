@@ -81,50 +81,35 @@ function check(){
 		</div>
 	</div>
 
-    <div class="row" style="margin-bottom: 50px;">
         @if($news)
-            {!! $news->appends(Request::input())->render() !!}
-            @foreach($news as $n)
-                <div class="row carousel-row img-rounded {{ $today > $n->date_expiration ? 'expired' : '' }}">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                                <img class="img-responsive news-image" src="{{ get_news_image($n->hash_id, $n->image_hash_name) }}" alt="Image" >
-                        </div>
-                        <div class="col-md-7">
-                            <div id="carousel-1" class="carousel " data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                    </div>
+            <div class="row">
+                {!! $news->appends(Request::input())->render() !!}
+            </div>
+            <div class="row" style="margin-bottom: 50px;">
+                @foreach($news as $n)
+                    <div class="col-sm-4 news-item col-padd {{ $today > $n->date_expiration ? 'expired' : '' }}"> 
+                        <a href="{{ url('/news/content/'.$n->n_id) }}" class="news-item-link">
+                            <div class="news-item-img-wrapper">
+                                <div class="news-item-image" style="background-image: url('{{ get_news_image($n->hash_id, $n->image_hash_name) }}')"></div>
                                 </div>
-                            </div>
-                            <div class="">
-                                @if($n->editor_content_sk)
-                                    <a  href="{{ url('/news/content/'.$n->n_id) }}"><strong><h4>{{ $n->title_sk }}</h4></strong></a>
-                                @else
-                                    <strong><h4>{{ $n->title_sk }}</h4></strong>
-                                @endif
-                                <p>
-                                    {{ $n->preview_sk }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-md-2" style="margin-top: 30px; margin-bottom: 30px;">
-                            @if($n->editor_content_sk)
-                                <a class="btn btn-sm btn-default ib-button" href="{{ url('/news/content/'.$n->n_id) }}" style="margin-bottom: 10px"><i class="fa fa-fw fa-eye"></i> @lang("news::news.more")</a>
-                            @endif
-                            <button class="btn btn-sm btn-primary {{ $today > $n->date_expiration ? 'expired_b' : '' }} ib-button"> @lang("news::news.created"): {{ format_time($n->date_created) }}</button>
-                        </div>
+                            <div class="news-item-text">
+                                <h3>{{ $n->title_sk }}</h3>
+                                <p class="date">@lang("news::news.created"): {{ format_time($n->date_created) }}</p>
+                                <p class="text">{{ $n->preview_sk }}</p>
+                                <p class="link">@lang("news::news.more")</p>
+                            </div> 
+                        </a>
                     </div>
-                </div>
-            @endforeach
-            {!! $news->appends(Request::input())->render() !!}
+                @endforeach
+            </div>
+            <div class="row">
+                {!! $news->appends(Request::input())->render() !!}
+            </div>
         @else
             <div class="text-center">
                 <h3>@lang("news::news.no_news")</h3>
             </div>
         @endif
-    </div>
-
 </div>
 
 <div id="newsletter" class="modal fade" role="dialog">
