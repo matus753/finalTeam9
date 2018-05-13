@@ -238,7 +238,7 @@
 }
 
 .news-item-text .link {
-    color: rgba(10, 97, 188) !important;
+    color: rgb(10, 97, 188) !important;
     font-size: 14px;
     text-decoration: underline;
     transition: .3s ease color;
@@ -273,4 +273,5 @@
 @media (min-width: 768px) {
 .news-item {
     height: 590px;
+}
 }
