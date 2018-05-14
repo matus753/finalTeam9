@@ -66,7 +66,7 @@ function showPubs(){
 						<div class="col-sm-offset-2 col-sm-8">
 						@endif					
 							<a href="{{ url('/staff') }}" class="staff-profile__back"><i class="fa fa-arrow-left"></i>@lang('staff::staff.back')</a>
-							<h2>{{ $ais->title1 }} {{ $ais->name }} <b>{{ $ais->surname }}</b>, {{ $ais->title2 }}</h2>
+							<h2>{{ $ais->title1 }} {{ $ais->name }} <b>{{ $ais->surname }}</b>@if($ais->title2), {{ $ais->title2 }} @endif</h2>
 							<span class="staff-profile__role">{{ $ais->staffRole }}</span>
 							<hr>
 							<div class="staff-profile__description">
