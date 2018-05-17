@@ -4,6 +4,7 @@ return [
     'projectNumber' => 'Číslo projektu',
     'projectTitle' => 'Názov projektu',
     'projectDuration' => 'Doba riešenia',
+    'projectDurationSpecific' => 'Presnejšia doba riešenia',
     'projectCoordinator' => 'Zodpovedný riešiteľ',
     'projectType' => 'Typ projektu',
     'projectPartners' => 'Partneri',

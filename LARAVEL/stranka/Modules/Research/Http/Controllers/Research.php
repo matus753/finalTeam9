@@ -86,31 +86,50 @@ class Research extends Controller
             $tmp["index"] = $key;
             if(count($duration) == 1){
                 if (is_numeric($duration[0])){
-                    $tmp["date"] = "12.12.".$duration[0];
+                    $tmp["date"] = "31.12.".$duration[0];
+                    $value->year1 = $duration[0];
                 } else{
                     $duration[0] = str_replace(' ', '', $duration[0]);
                     $tmp["date"] = $duration[0];
+                    $duration = explode(".", $duration[0]);
+                    $value->year1 = $duration[count($duration)-1];
                 }
             } else {
+                //odkedy
+                if (is_numeric($duration[0])){
+                    $value->year1 = $duration[0];
+                } else{
+                    $duration[0] = str_replace(' ', '', $duration[0]);
+                    $durationExploded = explode(".", $duration[0]);
+                    $value->year1 = $durationExploded[count($durationExploded)-1];
+                }
+
                 if (is_numeric($duration[1])){
-                    $tmp["date"] = "12.12.".$duration[1];
+                    $tmp["date"] = "31.12.".$duration[1];
+                    if($value->year1 !== $duration[1]){
+                        $value->year2 = $duration[1];
+                    }
                 } else{
                     $duration[1] = str_replace(' ', '', $duration[1]);
                     $tmp["date"] = $duration[1];
+                    $durationExploded = explode(".", $duration[1]);
+                    if($value->year1 !== $durationExploded[count($durationExploded)-1]) {
+                        $value->year2 = $durationExploded[count($durationExploded) - 1];
+                    }
                 }
+
             }
             array_push($map, $tmp);
         }
 
         usort($map, function($a, $b) {
-            return strtotime($a["date"]) - strtotime($b["date"]);
+            return strtotime($a['date']) - strtotime($b['date']);
         });
 
         $newArr = array();
         for ($i = count($map)-1; $i > -1; $i--){
             array_push($newArr, $arr[$map[$i]["index"]]);
         }
-
 
         return $newArr;
     }

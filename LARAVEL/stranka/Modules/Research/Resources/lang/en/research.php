@@ -4,6 +4,7 @@ return [
     'projectNumber' => 'Project number',
     'projectTitle' => 'Project title',
     'projectDuration' => 'Duration',
+    'projectDurationSpecific' => 'More precise duration',
     'projectCoordinator' => 'Coordinator',
     'projectType' => 'Project type',
     'projectPartners' => 'Partners',
