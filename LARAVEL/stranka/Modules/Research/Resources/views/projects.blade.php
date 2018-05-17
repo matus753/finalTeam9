@@ -38,12 +38,21 @@
                                         <td class="column2"><span class="projectTitle sub{{$i->pr_id}}"> {{ $i->titleEN }}</span>
                                             @endif
                                             </td>
-                                        <td class="column3">{{ $i->duration }}</td>
+                                        <td class="column3">
+                                            {{ $i->year1 }}
+                                            @if(!empty($i->year2))
+                                                - {{$i->year2}}
+                                                @endif
+                                        </td>
                                         <td class="column4">{{ $i->coordinator }}</td>
                                 </tr>
                                 <tr class="toggleText"><td style="padding: 0;" colspan="4">
                                         <p id="nothing{{$i->pr_id}}" class="nothing">false</p>
                                         <div class=" projectInfo collapse" id="project{{$i->pr_id}}">
+                                            @if(strpos($i->duration, '.') !== false)
+                                                <p class="projectSubtitle">@lang('research::research.projectDurationSpecific')</p>
+                                                <p class="projectText">{{$i->duration}}</p>
+                                            @endif
                                             @if($i->partners)
                                                 <p class="projectSubtitle">@lang('research::research.projectPartners')</p>
                                                 <p class="projectText">{{$i->partners}}</p>
@@ -95,12 +104,21 @@
                                         <td class="column2"><span class="projectTitle sub{{$k->pr_id}}"> {{ $k->titleEN }}</span>
                                             @endif
                                         </td>
-                                        <td class="column3">{{ $k->duration }}</td>
+                                        <td class="column3">
+                                            {{ $k->year1 }}
+                                            @if(!empty($k->year2))
+                                                - {{$k->year2}}
+                                            @endif
+                                        </td>
                                         <td class="column4">{{ $k->coordinator }}</td>
                                 </tr>
                                 <tr class="toggleText"><td style="padding: 0;" colspan="4">
                                         <div class=" projectInfo collapse" id="project{{$k->pr_id}}">
                                             <p id="nothing{{$k->pr_id}}" class="nothing">false</p>
+                                            @if(strpos($k->duration, '.') !== false)
+                                                <p class="projectSubtitle">@lang('research::research.projectDurationSpecific')</p>
+                                                <p class="projectText">{{$k->duration}}</p>
+                                            @endif
                                             @if($k->partners)
                                                 <p class="projectSubtitle">@lang('research::research.projectPartners')</p>
                                                 <p class="projectText">{{$k->partners}}</p>
@@ -151,12 +169,21 @@
                                         <td class="column2"><span class="projectTitle sub{{$v->pr_id}}"> {{ $v->titleEN }}</span>
                                             @endif
                                         </td>
-                                        <td class="column3">{{ $v->duration }}</td>
+                                        <td class="column3">
+                                            {{ $v->year1 }}
+                                            @if(!empty($v->year2))
+                                                - {{$v->year2}}
+                                            @endif
+                                        </td>
                                         <td class="column4">{{ $v->coordinator }}</td>
                                 </tr>
                                 <tr class="toggleText"><td style="padding: 0;" colspan="4">
                                         <div class=" projectInfo collapse" id="project{{$v->pr_id}}">
                                             <p id="nothing{{$v->pr_id}}" class="nothing">false</p>
+                                            @if(strpos($v->duration, '.') !== false)
+                                                <p class="projectSubtitle">@lang('research::research.projectDurationSpecific')</p>
+                                                <p class="projectText">{{$v->duration}}</p>
+                                            @endif
                                             @if($v->partners)
                                                 <p class="projectSubtitle">@lang('research::research.projectPartners')</p>
                                                 <p class="projectText">{{$v->partners}}</p>
@@ -207,12 +234,21 @@
                                         <td class="column2"><span class="projectTitle sub{{$a->pr_id}}"> {{ $a->titleEN }}</span>
                                             @endif
                                         </td>
-                                        <td class="column3">{{ $a->duration }}</td>
+                                        <td class="column3">
+                                            {{ $a->year1 }}
+                                            @if(!empty($a->year2))
+                                                - {{$a->year2}}
+                                            @endif
+                                        </td>
                                         <td class="column4">{{ $a->coordinator }}</td>
                                 </tr>
                                 <tr class="toggleText"><td style="padding: 0;" colspan="4">
                                         <p id="nothing{{$a->pr_id}}" class="nothing">false</p>
                                         <div class=" projectInfo collapse" id="project{{$a->pr_id}}">
+                                            @if(strpos($a->duration, '.') !== false)
+                                                <p class="projectSubtitle">@lang('research::research.projectDurationSpecific')</p>
+                                                <p class="projectText">{{$a->duration}}</p>
+                                            @endif
                                             @if($a->partners)
                                                 <p class="projectSubtitle">@lang('research::research.projectPartners')</p>
                                                 <p class="projectText">{{$a->partners}}</p>
@@ -264,12 +300,21 @@
                                         <td class="column2"><span class="projectTitle sub{{$o->pr_id}}"> {{ $o->titleEN }}</span>
                                             @endif
                                         </td>
-                                        <td class="column3">{{ $o->duration }}</td>
+                                        <td class="column3">
+                                            {{ $o->year1 }}
+                                            @if(!empty($o->year2))
+                                                - {{$o->year2}}
+                                            @endif
+                                        </td>
                                         <td class="column4">{{ $o->coordinator }}</td>
                                 </tr>
                                 <tr class="toggleText"><td style="padding: 0;" colspan="4">
+                                        <p id="nothing{{$o->pr_id}}" class="nothing">false</p>
                                         <div class=" projectInfo collapse" id="project{{$o->pr_id}}">
-                                            <p id="nothing{{$o->pr_id}}" class="nothing">false</p>
+                                            @if(strpos($o->duration, '.') !== false)
+                                                <p class="projectSubtitle">@lang('research::research.projectDurationSpecific')</p>
+                                                <p class="projectText">{{$o->duration}}</p>
+                                            @endif
                                             @if($o->partners)
                                                 <p class="projectSubtitle">@lang('research::research.projectPartners')</p>
                                                 <p class="projectText">{{$o->partners}}</p>
