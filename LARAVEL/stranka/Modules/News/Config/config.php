@@ -2,5 +2,5 @@
 
 return [
     'name' => 'News',
-    'items_per_page' => 5,
+    'items_per_page' => 6,
 ];
