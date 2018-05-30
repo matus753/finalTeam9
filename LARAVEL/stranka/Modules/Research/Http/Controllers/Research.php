@@ -21,11 +21,11 @@ class Research extends Controller
 		$projects_db = DB::table('project')->get();
 		// pre medzinarodne pouzivat International type
 		if($activation){
-			$projects_db_international = DB::table('project')->where('projectType', config('research.db_otherInternational') )->where('activated', 1)->get();
-			$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->where('activated', 1)->get();
-			$projects_db_vega = DB::table('project')->where('projectType', config('research.db_vega') )->where('activated', 1)->get();
-			$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->where('activated', 1)->get();
-			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->where('activated', 1)->get();
+			$projects_db_international = DB::table('project')->where('projectType', config('research.db_otherInternational') )->where('activated', 1)->orderBy('number', 'desc')->get();
+			$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->where('activated', 1)->orderBy('number', 'desc')->get();
+			$projects_db_vega = DB::table('project')->where('projectType', config('research.db_vega') )->where('activated', 1)->orderBy('number', 'desc')->get();
+			$projects_db_apvv = DB::table('project')->where('projectType', config('research.db_apvv') )->where('activated', 1)->orderBy('number', 'desc')->get();
+			$projects_db_other = DB::table('project')->where('projectType',config('research.db_other') )->where('activated', 1)->orderBy('number', 'desc')->get();
 		}else{
 			$projects_db_international = DB::table('project')->where('projectType', config('research.db_international') )->get();
 			$projects_db_kega = DB::table('project')->where('projectType', config('research.db_kega') )->get();
