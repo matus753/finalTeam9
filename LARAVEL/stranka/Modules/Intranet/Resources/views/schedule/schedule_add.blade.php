@@ -247,7 +247,7 @@
                     </thead>
                     <tbody>
                         @foreach($schedule_data as $key => $sd)
-                        <tr>S
+                        <tr>
                             <td style="width: 5%;">{{ $key }}</td>
                             @for($i =0; $i < 15; $i++)
                             <td colspan="@if(is_array($sd[$i+7]) ) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
@@ -320,7 +320,7 @@
             'day' : $('table').find('tr#'+e+' td select#new_day').val(),
             'teacher' : $('table').find('tr#'+e+' td select#new_teacher').val(),
         };
-        console.log(data);
+        
         $.ajax({
             url : "{{ url('/schedule-admin-update-action') }}",
             type: "POST",

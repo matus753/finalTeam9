@@ -93,83 +93,54 @@
                 </div>
             </form>
         </div>
-        @if(count($schedule_data))
-        <div class="row" id="schedule_table">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-stripped table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="width: 5%;"></th>
-                                @for($i = 0; $i < 15; $i++)
-                                    <th class="text-center" style="width: 5%;">
-                                        {{ $i+7 }}
-                                    </th>
-                                @endfor
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($schedule_data as $key => $sd)
-                            <tr>
-                                <td style="width: 5%;">{{ $key }}</td>
+    </div>
+    @if(count($schedule_data))
+    <div class="row" id="schedule_table">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-stripped table-bordered" >
+                    <thead>
+                        <tr>
+                            <th style="width: 5%; border: 1px solid #101010;"></th>
+                            @for($i = 0; $i < 15; $i++)
+                                <th class="text-center" style="width: 5%; border: 1px solid #101010;">
+                                    {{ $i+7 }}
+                                </th>
+                            @endfor
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($schedule_data as $key => $sd)
+                        <tr>
+                            <td rowspan="{{ count($sd) }}" style="width: 5%; border: 1px solid #101010;">{{ $key }}</td>
+                            @foreach($sd as $day)
                                 @for($i =0; $i < 15; $i++)
-                                    <td colspan="@if(is_array($sd[$i+7]) && !isset($sd[$i+8]) && empty($sd[$i+8]) ) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7]) ) @if(count($sd[$i+7]['abb']) > 1 || (isset($sd[$i+8]) && !empty($sd[$i+8])) || (isset($sd[$i+6]) && !empty($sd[$i+6])) ) {{ $override_color }} @else {{ $sd[$i+7]['color'] }} @endif  @endif">
-                                    @if(is_array($sd[$i+7]))
-                                        <p>
-                                            @foreach($sd[$i+7]['room'] as $key => $r)
-                                            <small>{{ $r }}</small> @if(count($sd[$i+7]['room']) - 1 > $key){{ "," }}@endif
-                                            @endforeach
-                                        <p>
-                                        <p>
-                                            @foreach($sd[$i+7]['abb'] as $key => $t)
-                                            <small>{{ $t }}</small> @if(count($sd[$i+7]['abb']) - 1 > $key){{ "," }}@endif
-                                            @endforeach
-                                        <p>
-                                        <p>
-                                            @foreach($sd[$i+7]['teachers'] as $key => $t)
-                                            <small>{{ $t }}</small> @if(count($sd[$i+7]['teachers']) - 1 > $key){{ "," }}@endif
-                                            @endforeach
-                                        <p>
-                                        @if(!isset($sd[$i+8]) && empty($sd[$i+8]))
-                                        @php
-                                            $i += ($sd[$i+7]['duration'] - 1);
-                                        @endphp
-                                        @endif
-                                    @endif 
-                                </td>
+                                    <td colspan="@if(isset($day[$i+7])) {{ $day[$i+7]['duration'] }} @endif" style="border: 1px solid #101010; @if(isset($day[$i+7])) {{ $clrs[$day[$i+7]['abb']] }} @endif">       
+                                        @if(isset($day[$i+7]))
+                                            <p><strong>{{ $day[$i+7]['title'] }}</strong></p>
+                                            <p>{{ $day[$i+7]['staff']->title1 }}&nbsp;{{ $day[$i+7]['staff']->name }}&nbsp;{{ $day[$i+7]['staff']->surname }}&nbsp;{{ $day[$i+7]['staff']->title2 }}</p>
+                                            <p>{{ $day[$i+7]['room']->room }}</p>
+                                            @php
+                                                $i += ($day[$i+7]['duration'] - 1);
+                                            @endphp
+                                            @endif
+                                    </td>
+                                    
                                 @endfor
                             </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-       
-        <div class="row">
-            <div class="col-md-12">
-                @foreach($subject_assignment as $key => $sub)
-                    @foreach($sub as $ss)
-                        @foreach($all_staff as $as)
-                            @if($key == $as->s_id)
-                            <h4>{{ $as->title1 }}&nbsp;{{ $as->name }}&nbsp;{{ $as->surname }}&nbsp;{{ $as->title2 }} <small>{{ $ss }}</small></h4>
-                            @endif
                         @endforeach
-                    @endforeach
-                @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-        @endif
-
-
     </div>
+    @endif
 </div>
 <script>
     $(document).ready(function(){
         $('#schedule_table').fadeIn("slow");
         $('.selectpicker').selectpicker();
     });
-    
-
 </script>
 @stop
