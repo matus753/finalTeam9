@@ -359,34 +359,38 @@ class Study extends Controller
             foreach($day_names as $key => $dn){
                 $day_data = [];
                 $tmp = DB::table('lectures')->where('sub_id', $subject->sub_id)->where('day', $key)->where('year', $year->sy_id)->select('start_time', 'room_id', 'type')->get();
+                
                 if(count($tmp) > 0){
-                    for($i = 0; $i < 15; $i++){
-                        foreach($tmp as $t){
+                    foreach($tmp as $t){
+                        for($i = 0; $i < 15; $i++){
                             if($t->start_time == ($i+7)){
                                 if($t->type == 'prednaska'){
-                                    $day_data[$i+7] = [
+                                    
+                                    $day_data[$i+7][] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $subject->sub_id)->first()->duration_p,
                                         'room' => DB::table('schedule_rooms')->where('sr_id', $t->room_id)->first()->room,
                                         'color' => config('schedule_admin.prednaska_color')
 
                                     ];
                                 }else{
-                                    $day_data[$i+7] = [
+                                    $day_data[$i+7][] = [
                                         'duration' => DB::table('subjects')->where('sub_id', $subject->sub_id)->first()->duration_c,
                                         'room' => DB::table('schedule_rooms')->where('sr_id', $t->room_id)->first()->room,
                                         'color' => config('schedule_admin.cvicenie_color')
                                     ];
                                 }
-                            
+                                
                                 break;
                             }else{
-                                $day_data[$i+7] = null;
+                                if(!isset($day_data[$i+7])){
+                                    $day_data[$i+7] = null;
+                                }
                             }
                         }
                     }
                     $schedule_data[$dn] = $day_data;
                 }
-
+                
                 if($all_days && !isset($schedule_data[$dn]) ){
                     for($i = 0; $i < 15; $i++){
                         $day_data[$i+7] = null;
@@ -414,7 +418,7 @@ class Study extends Controller
             'day_names' => $day_names,
             'semester' => $semester
         ];
-        //debug($data, true);
+        
         return view('study::schedule_subject', $data);
     }
 
@@ -484,6 +488,7 @@ class Study extends Controller
                                     'duration' => $sub->duration_p,
                                     'staff' => DB::table('staff')->select('name','surname','title1','title2')->where('s_id', $ms->s_id)->get()[0],
                                     'room' => DB::table('schedule_rooms')->select('room')->where('sr_id', $ms->room_id)->get()[0],
+                                    'cvicenie' => false
                                 ];
                             }else{
                                 $data_days[$dn][$row_cnt][$i+7] = [
@@ -492,6 +497,7 @@ class Study extends Controller
                                     'duration' => $sub->duration_c,
                                     'staff' => DB::table('staff')->select('name','surname','title1','title2')->where('s_id', $ms->s_id)->get()[0],
                                     'room' => DB::table('schedule_rooms')->select('room')->where('sr_id', $ms->room_id)->get()[0],
+                                    'cvicenie' => true
                                 ];
                             }
                             for($j = 0; $j < 15; $j++){
@@ -855,11 +861,11 @@ class Study extends Controller
         return view('study::schedule_days', $data);
     }
 
-    private function random_color_part() {
-        return str_pad( dechex( mt_rand( 127, 255 ) ), 2, '0', STR_PAD_LEFT);
+    private function random_color_part($down, $up) {
+        return str_pad( dechex( mt_rand( $down, $up ) ), 2, '0', STR_PAD_LEFT);
     }
     
     function random_color() {
-        return '#' . $this->random_color_part() . $this->random_color_part() . $this->random_color_part();
+        return '#' . $this->random_color_part(96, 127) . $this->random_color_part(96, 127) . $this->random_color_part(127, 192);
     }
 }

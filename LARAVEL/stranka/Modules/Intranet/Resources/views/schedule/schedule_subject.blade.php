@@ -92,45 +92,49 @@
                 </div>
             </form>
         </div>
-        @if(count($schedule_data))
-        <div class="row" id="schedule_table">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-stripped table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="width: 5%;"></th>
-                                @for($i = 0; $i < 15; $i++)
-                                    <th class="text-center" style="width: 5%;">
-                                        {{ $i+7 }}
-                                    </th>
-                                @endfor
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($schedule_data as $key => $sd)
-                            <tr>
-                                <td style="width: 5%;">{{ $key }}</td>
-                                @for($i =0; $i < 15; $i++)
-                                <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
-                                    @if(is_array($sd[$i+7]))
-                                        {{ $sd[$i+7]['room'] }}
-                                        @php
-                                            
-                                            $i += ($sd[$i+7]['duration'] - 1);
-                                        @endphp
-                                    @endif 
-                                </td>
-                                @endfor
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+    </div>
+    @if(count($schedule_data))
+    <div class="row" id="schedule_table">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-stripped table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;"></th>
+                            @for($i = 0; $i < 15; $i++)
+                                <th class="text-center" style="width: 5%;">
+                                    {{ $i+7 }}
+                                </th>
+                            @endfor
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($schedule_data as $key => $sd)
+                        <tr>
+                            <td style="width: 5%;">{{ $key }}</td>
+                            @for($i =0; $i < 15; $i++)
+                                @if(isset($sd[$i+7]))
+                                    <td colspan="@if(isset($sd[$i+7][0])) {{ $sd[$i+7][0]['duration'] }} @endif" class="text-center" style="width: 5%; background-color:@if(isset($sd[$i+7][0])) {{ $sd[$i+7][0]['color'] }} @endif">
+                                        @foreach($sd[$i+7] as $d)                      
+                                            <p>{{ $d['room'] }}</p> 
+                                        @endforeach
+                                    </td>
+                                    @php           
+                                        $i += ($d['duration'] - 1);
+                                    @endphp
+                                @else
+                                    <td></td>
+                                @endif
+                            @endfor
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-        @endif
     </div>
+    @endif
+    
 </div>
 <script>
     $(document).ready(function(){

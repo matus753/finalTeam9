@@ -67,17 +67,20 @@
                         <tbody>
                             @foreach($schedule_data as $key => $sd)
                             <tr>
-                                <td style="width: 5%;">{{ $key }}</td>
+                                <td style="width: 5%; vertical-align: middle;">{{ $key }}</td>
                                 @for($i =0; $i < 15; $i++)
-                                <td colspan="@if(is_array($sd[$i+7])) {{ $sd[$i+7]['duration'] }} @endif" class="text-center" style="width: 5%;background-color:@if(is_array($sd[$i+7])) {{ $sd[$i+7]['color'] }} @endif">
-                                    @if(is_array($sd[$i+7]))
-                                        {{ $sd[$i+7]['room'] }}
-                                        @php
-                                            
-                                            $i += ($sd[$i+7]['duration'] - 1);
+                                    @if(isset($sd[$i+7]))
+                                        <td colspan="@if(isset($sd[$i+7][0])) {{ $sd[$i+7][0]['duration'] }} @endif" class="text-center" style="vertical-align: middle; width: 5%; background-color:@if(isset($sd[$i+7][0])) {{ $sd[$i+7][0]['color'] }} @endif">
+                                        @foreach($sd[$i+7] as $d)
+                                            <p>{{ $d['room'] }}</p> 
+                                        @endforeach
+                                         </td>
+                                        @php        
+                                            $i += ($d['duration'] - 1);
                                         @endphp
-                                    @endif 
-                                </td>
+                                    @else
+                                       <td></td>
+                                    @endif
                                 @endfor
                             </tr>
                             @endforeach
@@ -93,6 +96,5 @@
     $(document).ready(function(){
         $('#schedule_table').fadeIn("slow");
     });
-
 </script>
 @stop

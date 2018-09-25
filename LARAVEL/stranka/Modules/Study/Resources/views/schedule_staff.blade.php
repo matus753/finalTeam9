@@ -71,7 +71,7 @@
                             <td rowspan="{{ count($sd) }}" style="width: 5%; border: 1px solid #101010;  vertical-align: middle;">{{ $key }}</td>
                             @foreach($sd as $day)
                                 @for($i =0; $i < 15; $i++)
-                                    <td colspan="@if(isset($day[$i+7])) {{ $day[$i+7]['duration'] }} @endif" style="border: 1px solid #101010; @if(isset($day[$i+7])) {{ $clrs[$day[$i+7]['abb']] }} @endif">       
+                                    <td colspan="@if(isset($day[$i+7])) {{ $day[$i+7]['duration'] }} @endif" style="border: 1px solid #101010; @if(isset($day[$i+7])) {{ $clrs[$day[$i+7]['abb']] }} @endif; @if($day[$i+7]['cvicenie'] == 1) {{ 'filter: brightness(180%)' }} @endif;">       
                                     @if(isset($day[$i+7]))
                                         <p><strong>{{ $day[$i+7]['title'] }}</strong></p>
                                         <p>{{ $day[$i+7]['staff']->title1 }}&nbsp;{{ $day[$i+7]['staff']->name }}&nbsp;{{ $day[$i+7]['staff']->surname }}&nbsp;{{ $day[$i+7]['staff']->title2 }}</p>
