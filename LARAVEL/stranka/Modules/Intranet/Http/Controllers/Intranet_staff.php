@@ -497,7 +497,8 @@ class Intranet_staff extends Controller
             $photo = $img->hashName();
             $img->store('/public/staff/');
         }else{
-            $photo = DB::table('staff')->select('photo')->where('s_id', $s_id)->first()->photo;
+            //$photo = DB::table('staff')->select('photo')->where('s_id', $s_id)->first()->photo;
+            $photo = null;
         }
         
         $db_func = DB::table('functions')->pluck('f_id')->toArray();
